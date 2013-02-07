@@ -1,0 +1,6 @@
+# Pretty Permalinks
+Options +FollowSymLinks -MultiViews
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !index
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ dropplets/index.php?filename=$1 [L]

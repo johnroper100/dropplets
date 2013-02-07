@@ -1,0 +1,36 @@
+{
+    "site": {
+        "title":"Dropplets",
+        "meta_description":"Maecenas faucibus mollis interdum.",
+        "url":"http://localhost/dropplets",
+        "author": {
+            "name":"Your Name",
+            "email":"hi@dropplets.com",
+            "twitter":"dropplets"
+        },
+        "intro": {
+            "intro_title":"Hello, Welcome to Dropplets.",
+            "intro_text":"Donec id elit non mi porta gravida at eget metus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Curabitur blandit tempus porttitor. Donec id elit non mi porta gravida at eget metus. Cras mattis consectetur purus sit amet fermentum. Vestibulum id ligula porta felis euismod semper. Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nulla vitae elit libero, a pharetra augue."
+        },
+        "error": {
+            "error_title":"Sorry, But That&#8217;s Not Here",
+            "error_text":"Really sorry, but what you&#8217;re looking for isn&#8217;t here. Click the button below to find something else that might interest you."
+        },
+        "date_format":"F jS, Y"
+    },
+    "feeds": {
+        "language":"en-us",
+        "max_items":10
+    },
+    "dropplets": {
+        "directory_of_posts":"../articles/",
+        "directory_of_post_thumbnails":"articles/",
+        "post_file_extension":".txt",
+        "404_template_file":"./templates/404.php",
+        "index_template_file":"./templates/index.php",
+        "intro_template_file":"./templates/intro.php",
+        "post_template_file":"./templates/post.php",
+        "posts_template_file":"./templates/posts.php",
+        "display_errors":true
+    }
+}

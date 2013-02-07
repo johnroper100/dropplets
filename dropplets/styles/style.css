@@ -1,0 +1,232 @@
+
+/* Normalization
+*********************************************************************************************/
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}table{border-collapse:collapse;border-spacing:0;}
+
+/* Setup
+*********************************************************************************************/
+
+body {
+	background: #ffffff;
+	font-family: 'Merriweather', serif;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 26px;
+	color: #303030;
+}
+
+/* Typography
+*********************************************************************************************/
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+	color: #303030;
+	margin-bottom: 8px;
+	max-width: 90%;
+}
+
+h1, h2 { 
+    font-size: 24px;
+    line-height: 39px;
+}
+
+h3, h4 { 
+    font-size: 16px;
+    line-height: 26px;
+}
+
+p {
+    margin: 0 0 20px;
+    max-width: 85%;
+}
+
+em { 
+    font-style: italic; 
+}
+
+strong { 
+    font-weight: bold; 
+}
+
+a { 
+    color: #303030;
+    text-decoration: none;
+    -moz-transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
+}
+
+a:hover, a:focus { 
+    color: #000000;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Articles
+*********************************************************************************************/
+
+article {
+    width: 100%;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+article:last-child,
+article.single {
+    border-bottom: 0;
+}
+
+article {
+    padding: 60px 0;
+}
+
+.article ul:nth-child(2) {
+    display: none;
+}
+
+.article p a {
+    border-bottom: 1px dotted #cccccc;
+}
+
+/* Buttons
+*********************************************************************************************/
+
+.button {
+    background-color: #fbfbfb;
+    border: 1px solid #ebebeb;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    line-height: 23px;
+    font-weight: 400;
+    border-radius: 20px;
+    color: #9b9b9b;
+    float: left;
+    margin: 0 0 10px 0;
+    padding: 8px 20px;
+    
+}
+
+.button.small {
+    padding: 0px 12px 1px;
+    float: right;
+    margin: 5px 0 3px 0;
+}
+
+.button:hover {
+    color: #9b9b9b;
+    text-shadow: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+ul.actions li {
+    width: 100%;
+    float: left;
+    margin-top: 3px;
+}
+
+
+/* Meta
+*********************************************************************************************/
+
+.meta {
+    color: #848484;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    line-height: 23px;
+    text-align: right;
+}
+
+.meta ul {
+    width: 100%;
+    float: right;
+}
+
+.meta a {
+    color: #848484;
+}
+
+.meta a:hover {
+    color: #303030;
+}
+
+.thumbnail {
+    background-color: #fbfbfb;
+    border: 1px solid #ebebeb;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+    float: right;
+    margin-bottom: 10px;
+}
+
+.thumbnail img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+
+/* L
+*********************************************************************************************/
+
+@media (max-width: 820px) {
+    
+    /* Setup
+    *****************************************************************************************/
+    
+    body {
+    	font-size: 14px;
+    	line-height: 23px;
+    }
+    
+    /* Typography
+    *****************************************************************************************/
+    
+    h1, h2 { 
+        font-size: 18px;
+        line-height: 29px;
+    }
+    
+    h3, h4 { 
+        font-size: 14px;
+        line-height: 23px;
+    }
+    
+    p {
+        max-width: 100%;
+    }
+    
+}
+
+/* M
+*********************************************************************************************/
+
+@media (max-width: 640px) {
+
+    /* Meta
+    *****************************************************************************************/
+    
+    .meta {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+    
+    .meta ul,
+    .thumbnail {
+        float: left;
+    }
+    
+}
+
+/* XS
+*********************************************************************************************/
+
+@media (max-width: 400px) {
+    
+    /* Articles
+    *****************************************************************************************/
+    
+    article {
+        padding: 40px 0;
+    }
+    
+    
+}
