@@ -24,13 +24,7 @@
     },
     "dropplets": {
         "directory_of_posts":"../articles/",
-        "directory_of_post_thumbnails":"articles/",
         "post_file_extension":".txt",
-        "404_template_file":"./templates/404.php",
-        "index_template_file":"./templates/index.php",
-        "intro_template_file":"./templates/intro.php",
-        "post_template_file":"./templates/post.php",
-        "posts_template_file":"./templates/posts.php",
         "display_errors":true
     }
 }

@@ -9,7 +9,18 @@ $site = $config->site;
 $dropplets = $config->dropplets;
 $feeds = $config->feeds;
 $intro = $config->site->intro;
+$date_format = $site->date_format;
 $error = $config->site->error;
+
+/*-----------------------------------------------------------------------------------*/
+/* Template Files
+/*-----------------------------------------------------------------------------------*/
+
+$index_file = './templates/index.php';
+$intro_file = './templates/intro.php';
+$post_file = './templates/post.php';
+$posts_file = './templates/posts.php';
+$not_found_file = './templates/404.php';
 
 /*-----------------------------------------------------------------------------------*/
 /* Let's Get Started
@@ -50,10 +61,7 @@ if ($filename==NULL) {
             
             // The published ISO date.
             $published_iso_date = $post['time'];
-            
-            // The date format.
-            $date_format = $site->date_format;
-            
+                        
             // The published date.
             $published_date = date_format(date_create($published_iso_date), $date_format);
             
@@ -67,27 +75,33 @@ if ($filename==NULL) {
             $post_link = str_replace($dropplets->post_file_extension, '', $post['fname']);
             
             // The post thumbnail.
-            $post_thumbnail = $site->url.'/'.$dropplets->directory_of_post_thumbnails.str_replace($dropplets->post_file_extension, '', $post['fname']).".jpg";
+            $post_thumbnail = $site->url.'/'.str_replace(array($dropplets->post_file_extension, '../'), "", $dropplets->directory_of_posts.$post['fname']).".jpg";
             
             // Grab the site intro template file.
-            include_once $dropplets->intro_template_file;
+            include_once $intro_file;
             
             // Grab the milti-post template file.
-            include $dropplets->posts_template_file;   
+            include $posts_file;   
         }
         echo Markdown($content);
         $content = ob_get_contents();
         ob_end_clean();
     } else {
         ob_start();
-        $post = Markdown(file_get_contents($dropplets->{'404_template_file'}));
-        include $dropplets->post_template_file;
+        
+        // The site title
+        $site_title = $error->error_title;
+        
+        // Get the 404 page template.
+        $post = Markdown(file_get_contents($not_found_file));
+        
+        include $post_file;
         $content = ob_get_contents();
         ob_end_clean();
     }
     
     // Get the index template file.
-    include_once $dropplets->index_template_file;
+    include_once $index_file;
 } 
 
 /*-----------------------------------------------------------------------------------*/
@@ -142,8 +156,11 @@ else {
     // If there's no file for the selected permalink, grab the 404 page template.
     if (!file_exists($filename)) {
     
+        // The site title
+        $site_title = $error->error_title;
+    
         // Get the 404 page template.
-        include $dropplets->{'404_template_file'};
+        include $not_found_file;
     
     // If there is a file for the selected permalink, display the post.  
     } else {
@@ -159,10 +176,7 @@ else {
         
         // The published date.
         $published_iso_date = str_replace("-", "", $fcontents[1]);
-        
-        // The date format.
-        $date_format = $site->date_format;
-        
+                
         // The published date.
         $published_date = date_format(date_create($published_iso_date), $date_format);
         
@@ -179,13 +193,13 @@ else {
         $post = Markdown(join('', $fcontents));
         
         // Get the post template file.
-        include $dropplets->post_template_file;
+        include $post_file;
     }
     $content = ob_get_contents();
     ob_end_clean();
     
     // Get the index template file.
-    include_once $dropplets->index_template_file;
+    include_once $index_file;
 }
 
 /*-----------------------------------------------------------------------------------*/
