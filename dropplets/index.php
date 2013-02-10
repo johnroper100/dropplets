@@ -76,13 +76,13 @@ if ($filename==NULL) {
             include $dropplets->posts_template_file;   
         }
         echo Markdown($content);
-        $body = ob_get_contents();
+        $content = ob_get_contents();
         ob_end_clean();
     } else {
         ob_start();
         $post = Markdown(file_get_contents($dropplets->{'404_template_file'}));
         include $dropplets->post_template_file;
-        $body = ob_get_contents();
+        $content = ob_get_contents();
         ob_end_clean();
     }
     
@@ -170,7 +170,7 @@ else {
         $post_category = str_replace("-", "", $fcontents[2]);
         
         // The post link.
-        $post_link = $site->url.str_replace(array($dropplets->post_file_extension, '../'), "", $filename);
+        $post_link = $site->url.'/'.str_replace(array($dropplets->post_file_extension, $dropplets->directory_of_posts), "", $filename);
         
         // The post thumbnail.
         $post_thumbnail = $site->url.'/'.str_replace(array($dropplets->post_file_extension, '../'), "", $filename).".jpg";
@@ -181,7 +181,7 @@ else {
         // Get the post template file.
         include $dropplets->post_template_file;
     }
-    $body = ob_get_contents();
+    $content = ob_get_contents();
     ob_end_clean();
     
     // Get the index template file.

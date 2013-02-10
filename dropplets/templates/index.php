@@ -20,7 +20,7 @@
     </head>
     
     <body>
-        <?php echo $body ?>
+        <?php echo $content ?>
         
         <script type="text/javascript">
           var _gauges = _gauges || [];
