@@ -1,2 +1,4 @@
 
 *.espressostorage
+*.esproj
+.DS_Store

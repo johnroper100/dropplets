@@ -36,9 +36,21 @@ h3, h4 {
     line-height: 26px;
 }
 
-p {
+p, ul, ol {
     margin: 0 0 20px;
     max-width: 85%;
+}
+
+ul, ol {
+    margin-left: 40px;
+}
+
+ul li {
+    list-style: disc;
+}
+
+ol li {
+    list-style: decimal;
 }
 
 em { 
@@ -116,12 +128,16 @@ article {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
 }
 
+ul.actions {
+    margin: 0;
+}
+
 ul.actions li {
     width: 100%;
     float: left;
     margin-top: 3px;
+    list-style: none;
 }
-
 
 /* Meta
 *********************************************************************************************/
@@ -137,6 +153,11 @@ ul.actions li {
 .meta ul {
     width: 100%;
     float: right;
+    margin: 0;
+}
+
+.meta ul li {
+    list-style: none;
 }
 
 .meta a {
