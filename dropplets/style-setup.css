@@ -79,14 +79,14 @@ button {
     z-index: 1;
     margin: 0;
     padding: 0;
-    transition-duration: .2s;
-    -moz-transition-duration: .2s;
-    -webkit-transition-duration: .2s;
+    transition-duration: .1s;
+    -moz-transition-duration: .1s;
+    -webkit-transition-duration: .1s;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
 button:hover {
-    opacity: 0.8;
+    background-size: 100px;
 }
 
 input[type="text"],
