@@ -34,5 +34,5 @@ Your posts should be formatted as follows:
 
     Your post text goes here
 
-## To Do
-There is SO MUCH that needs to be done, so please be kind :)
+## Important Note
+Please note that this is very much a work in progress. Also, I'm not a developer, so there are most likely many ways this could be improved. There is SO MUCH that needs to be done, so please be kind :) 
