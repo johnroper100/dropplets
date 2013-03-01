@@ -12,7 +12,7 @@ body {
 	font-family: 'Merriweather', serif;
 	font-weight: 300;
 	font-size: 16px;
-	line-height: 26px;
+	line-height: 25px;
 	color: #303030;
 }
 
@@ -20,9 +20,9 @@ body {
 *********************************************************************************************/
 
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 700;
+    font-weight: 600;
 	color: #303030;
-	margin-bottom: 8px;
+	margin-bottom: 5px;
 	max-width: 90%;
 }
 
@@ -70,7 +70,6 @@ a {
 
 a:hover, a:focus { 
     color: #000000;
-    text-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 /* Articles
@@ -177,6 +176,15 @@ ul.actions li {
     padding: 5px;
     float: right;
     margin-bottom: 10px;
+    -moz-transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
+}
+
+.thumbnail:hover {
+    width: 100px;
+    height: 100px;
+    padding: 8px;
+    margin-right: -20px;
 }
 
 .thumbnail img {
