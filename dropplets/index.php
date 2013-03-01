@@ -24,9 +24,9 @@ $error_text = 'Really sorry, but what you&#8217;re looking for isn&#8217;t here.
 /* Post Configuration
 /*-----------------------------------------------------------------------------------*/
 
-$directory = "../posts/";
+$directory = '../posts/';
 
-if (glob($directory . "*.txt") != false)
+if (glob($directory . '*.txt') != false)
 {
     $posts_dir = '../posts/';
 } else {
@@ -60,7 +60,7 @@ include_once './plugins/markdown.php';
 // Reading file names.
 if (empty($_GET['filename'])) {
     $filename = NULL;
-} else if($_GET['filename'] == 'rss' || $_GET['filename'] == "atom") {
+} else if($_GET['filename'] == 'rss' || $_GET['filename'] == 'atom') {
     $filename = $_GET['filename'];
 } else {
     $filename = POSTS_DIR . $_GET['filename'] . FILE_EXT;
@@ -74,7 +74,7 @@ if ($filename==NULL) {
     $posts = get_all_posts();
     if($posts) {
         ob_start();
-        $content = "";
+        $content = '';
         foreach($posts as $post) {
         
             // The site title
@@ -98,8 +98,14 @@ if ($filename==NULL) {
             // The post link.
             $post_link = str_replace(FILE_EXT, '', $post['fname']);
             
-            // The post thumbnail.
-            $post_thumbnail = $site_url.'/'.str_replace(array(FILE_EXT, '../'), "", POSTS_DIR.$post['fname']).".jpg";
+            // The post image.
+            $image = str_replace(array(FILE_EXT), '', POSTS_DIR.$post['fname']).'.jpg';
+            
+            if (file_exists($image)) {
+                $post_image = $site_url.'/'.str_replace(array(FILE_EXT, '../'), '', POSTS_DIR.$post['fname']).'.jpg';
+            } else {
+                $post_image = $site_url.'/dropplets/images/logo.png';
+            }
             
             // Grab the site intro template file.
             include_once $intro_file;
@@ -132,18 +138,18 @@ if ($filename==NULL) {
 /* RSS Feed
 /*-----------------------------------------------------------------------------------*/
 
-else if ($filename == "rss" || $filename == "atom") {
-    ($filename=="rss") ? $feed = new FeedWriter(RSS2) : $feed = new FeedWriter(ATOM);
+else if ($filename == 'rss' || $filename == 'atom') {
+    ($filename=='rss') ? $feed = new FeedWriter(RSS2) : $feed = new FeedWriter(ATOM);
 
     $feed->setTitle($title);
     $feed->setLink($site_url);
 
-    if($filename=="rss") {
+    if($filename=='rss') {
         $feed->setDescription($site->meta_description);
         $feed->setChannelElement('language', $language);
         $feed->setChannelElement('pubDate', date(DATE_RSS, time()));
     } else {
-        $feed->setChannelElement('author', $author." - " . $email);
+        $feed->setChannelElement('author', $author.' - ' . $email);
         $feed->setChannelElement('updated', date(DATE_RSS, time()));
     }
 
@@ -155,12 +161,12 @@ else if ($filename == "rss" || $filename == "atom") {
             if($c<$feed_max_items) {
                 $item = $feed->createNewItem();
                 $item->setTitle($post['title']);
-                $item->setLink(rtrim($site_url, '/').'/'.str_replace(FILE_EXT, "", $post['fname']));
+                $item->setLink(rtrim($site_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 $item->setDate($post['time']);
                 $item->setDescription(Markdown(file_get_contents(rtrim(POSTS_DIR, '/').'/'.$post['fname'])));
-                if($filename=="rss") {
-                    $item->addElement('author', $author." - " . $email);
-                    $item->addElement('guid', rtrim($site_url, '/').'/'.str_replace(FILE_EXT, "", $post['fname']));
+                if($filename=='rss') {
+                    $item->addElement('author', $author.' - ' . $email);
+                    $item->addElement('guid', rtrim($site_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 }
                 $feed->addItem($item);
                 $c++;
@@ -193,25 +199,34 @@ else {
         $fcontents = file($filename);
         
         // The site title
-        $site_title = str_replace("# ", "", $fcontents[0]);
+        $site_title = str_replace('# ', '', $fcontents[0]);
         
         // The post title.
-        $post_title = str_replace("# ", "", $fcontents[0]);
+        $post_title = str_replace('# ', '', $fcontents[0]);
         
         // The published date.
-        $published_iso_date = str_replace("-", "", $fcontents[1]);
+        $published_iso_date = str_replace('-', '', $fcontents[1]);
                 
         // The published date.
         $published_date = date_format(date_create($published_iso_date), $date_format);
         
         // The post category.
-        $post_category = str_replace("-", "", $fcontents[2]);
+        $post_category = str_replace('-', '', $fcontents[2]);
         
         // The post link.
-        $post_link = $site_url.'/'.str_replace(array(FILE_EXT, POSTS_DIR), "", $filename);
+        $post_link = $site_url.'/'.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
         
         // The post thumbnail.
-        $post_thumbnail = $site_url.'/'.str_replace(array(FILE_EXT, '../'), "", $filename).".jpg";
+        
+        
+        // The post image.
+        $image = str_replace(array(FILE_EXT), '', $filename).'.jpg';
+        
+        if (file_exists($image)) {
+            $post_image = $site_url.'/'.str_replace(array(FILE_EXT, '../'), '', $filename).'.jpg';
+        } else {
+            $post_image = $site_url.'/dropplets/images/logo.png';
+        }
         
         // The post.
         $post = Markdown(join('', $fcontents));
@@ -240,7 +255,7 @@ $params   = $_SERVER['QUERY_STRING'];
  
 $currentUrl = $protocol . '://' . $host . $script . '?' . $params;
  
-$url = str_replace("/dropplets/index.php?filename=", "", $currentUrl);
+$url = str_replace('/dropplets/index.php?filename=', '', $currentUrl);
 
 ?>
 
@@ -329,18 +344,18 @@ function get_all_posts() {
                 $fcontents = file(POSTS_DIR.$entry);
                 
                 // The post title.
-                $title = str_replace("# ", "", $fcontents[0]);
+                $title = str_replace('# ', '', $fcontents[0]);
                                 
                 // The published date.
-                $time = str_replace("-", "", $fcontents[1]);
+                $time = str_replace('-', '', $fcontents[1]);
                 
                 // The post category.
-                $category = str_replace("-", "", $fcontents[2]);
+                $category = str_replace('-', '', $fcontents[2]);
                 
                 // The post intro.
                 $intro = $fcontents[4];
                 
-                $files[] = array("time" => $time, "fname" => $entry, "title" => $title, "category" => $category, "intro" => $intro);
+                $files[] = array('time' => $time, 'fname' => $entry, 'title' => $title, 'category' => $category, 'intro' => $intro);
                 $filetimes[] = $time;
                 $titles[] = $title;
                 $categories[] = $category;
