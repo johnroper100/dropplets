@@ -2,7 +2,7 @@
     <div class="row">
         <div class="one-quarter meta">
             <div class="thumbnail">
-                <img src="<?php echo $site_url ?>/dropplets/styles/images/404.jpg" alt="four-oh-four" />
+                <img src="<?php echo $site_url ?>/template/images/404.jpg" alt="four-oh-four" />
             </div>
         </div>
         
