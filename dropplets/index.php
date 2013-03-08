@@ -14,6 +14,7 @@ $display_errors = true;
 
 include('./config.php');
 
+// A few definitions.
 $language = 'en-us';
 $feed_max_items = '10';
 $date_format = 'F jS, Y';
@@ -183,6 +184,12 @@ else if ($filename == 'rss' || $filename == 'atom') {
 else {
     ob_start();
     
+    // The post file.
+    $fcontents = file($filename);
+    
+    // The cached file.
+    $cachefile = str_replace(array(FILE_EXT), '', $filename).'.html';
+    
     // If there's no file for the selected permalink, grab the 404 page template.
     if (!file_exists($filename)) {
     
@@ -192,12 +199,18 @@ else {
         // Get the 404 page template.
         include $not_found_file;
     
-    // If there is a file for the selected permalink, display the post.  
+    // If there is a cached file for the selected permalink, display the cached post.  
+    } else if (file_exists($cachefile)) {
+    
+        // The site title
+        $site_title = str_replace('# ', '', $fcontents[0]);
+        
+        // Get the cached post.
+        include $cachefile;
+    
+    // If there is a file for the selected permalink, display and cache the post.
     } else {
     
-        // The post file.
-        $fcontents = file($filename);
-        
         // The site title
         $site_title = str_replace('# ', '', $fcontents[0]);
         
@@ -216,9 +229,6 @@ else {
         // The post link.
         $post_link = $site_url.'/'.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
         
-        // The post thumbnail.
-        
-        
         // The post image.
         $image = str_replace(array(FILE_EXT), '', $filename).'.jpg';
         
@@ -233,6 +243,11 @@ else {
         
         // Get the post template file.
         include $post_file;
+        
+        // Cache the post
+        $fp = fopen($cachefile, 'w'); 
+        fwrite($fp, ob_get_contents()); 
+        fclose($fp);
     }
     $content = ob_get_contents();
     ob_end_clean();
@@ -247,15 +262,13 @@ else {
 
 } else { 
 
-$protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') 
-                === FALSE ? 'http' : 'https';
-$host     = $_SERVER['HTTP_HOST'];
-$script   = $_SERVER['SCRIPT_NAME'];
-$params   = $_SERVER['QUERY_STRING'];
- 
-$currentUrl = $protocol . '://' . $host . $script . '?' . $params;
- 
-$url = str_replace('/dropplets/index.php?filename=', '', $currentUrl);
+// Fetch the current url.
+$protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
+$host = $_SERVER['HTTP_HOST'];
+$script = $_SERVER['SCRIPT_NAME'];
+$params = $_SERVER['QUERY_STRING'];
+$current_url = $protocol . '://' . $host . $script . '?' . $params;
+$url = str_replace('/dropplets/index.php?filename=', '', $current_url);
 
 ?>
 
