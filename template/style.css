@@ -10,35 +10,42 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 body {
 	background: #ffffff;
 	font-family: 'Merriweather', serif;
-	font-weight: 300;
+	font-weight: 400;
 	font-size: 16px;
-	line-height: 25px;
-	color: #303030;
+	line-height: 27px;
+	color: #404040;
+	text-rendering: optimizeLegibility;
 }
 
 /* Typography
 *********************************************************************************************/
 
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 600;
+    font-weight: 700;
 	color: #303030;
 	margin-bottom: 5px;
 	max-width: 90%;
 }
 
-h1, h2 { 
+h1, h2, h3, h4 { 
     font-size: 24px;
     line-height: 39px;
 }
 
 h3, h4 { 
-    font-size: 16px;
-    line-height: 26px;
+    margin-top: 20px;
 }
 
 p, ul, ol {
     margin: 0 0 20px;
-    max-width: 85%;
+}
+
+p {
+    margin: 0;
+}
+
+p + p {
+    text-indent: 40px;
 }
 
 ul, ol {
@@ -72,12 +79,13 @@ a:hover, a:focus {
     color: #000000;
 }
 
-/* Articles
+/* Posts
 *********************************************************************************************/
 
 article {
     width: 100%;
     border-bottom: 1px solid #f1f1f1;
+    padding: 60px 0;
 }
 
 article:last-child,
@@ -85,16 +93,18 @@ article.single {
     border-bottom: 0;
 }
 
-article {
-    padding: 60px 0;
-}
-
-.article ul:nth-child(2) {
+.post ul:nth-child(2) {
     display: none;
 }
 
-.article p a {
-    border-bottom: 1px dotted #cccccc;
+.post p a {
+    border-bottom: 1px solid #ebebeb;
+}
+
+.post p, 
+.post ul, 
+.post ol {
+    max-width: 85%;
 }
 
 /* Buttons
@@ -105,13 +115,13 @@ article {
     border: 1px solid #ebebeb;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 14px;
-    line-height: 23px;
-    font-weight: 400;
-    border-radius: 20px;
+    line-height: 24px;
+    font-weight: 300;
+    border-radius: 40px;
     color: #9b9b9b;
     float: left;
     margin: 0 0 10px 0;
-    padding: 8px 20px;
+    padding: 8px 20px 9px;
     
 }
 
@@ -128,7 +138,9 @@ article {
 }
 
 ul.actions {
-    margin: 0;
+    width: 100%;
+    float: left;
+    margin: 24px 0 0;
 }
 
 ul.actions li {
@@ -142,25 +154,57 @@ ul.actions li {
 *********************************************************************************************/
 
 .meta {
-    color: #848484;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 14px;
-    line-height: 23px;
+    line-height: 19px;
+    font-weight: 300;
+    color: #b3b3b1;
     text-align: right;
 }
 
 .meta ul {
+    border-right: 1px solid #ebebeb;
     width: 100%;
     float: right;
-    margin: 0;
+    margin-right: 14px;
+    padding: 20px 0 26px;
+    position: relative;
 }
 
 .meta ul li {
     list-style: none;
 }
 
+.meta ul li span {
+    color: #ebebeb;
+}
+
+.meta ul li:after { 
+    color: #ebebeb;
+    content: " -";
+}
+
+.meta ul li:last-child { 
+    border-radius: 50%;
+    background-color: #fbfbfb;
+    border: 1px solid #ebebeb;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: -6px;
+    bottom: -6px;
+}
+
+.meta ul li:last-child:after { 
+    content:"";
+}
+
+.meta ul li:first-child { 
+    font-weight: 400;
+}
+
 .meta a {
-    color: #848484;
+    color: #b3b3b1;
 }
 
 .meta a:hover {
@@ -175,22 +219,40 @@ ul.actions li {
     height: 60px;
     padding: 5px;
     float: right;
-    margin-bottom: 10px;
-    -moz-transition-duration: 0.1s;
-    -webkit-transition-duration: 0.1s;
-}
-
-.thumbnail:hover {
-    width: 100px;
-    height: 100px;
-    padding: 8px;
-    margin-right: -20px;
+    margin-right: -21px;
+    -moz-transition-duration: 0.05s;
+    -webkit-transition-duration: 0.05s;
 }
 
 .thumbnail img {
     border-radius: 50%;
     width: 100%;
     height: 100%;
+}
+
+/* XL
+*********************************************************************************************/
+
+@media (max-width: 980px) {
+
+    /* Buttons
+    *****************************************************************************************/
+    
+    .button {
+        font-size: 12px;
+        line-height: 17px;
+        padding: 8px 20px 9px;
+        
+    }
+    
+    /* Meta
+    *****************************************************************************************/
+    
+    .meta {
+        font-size: 12px;
+        line-height: 17px;
+    }
+    
 }
 
 /* L
@@ -234,13 +296,16 @@ ul.actions li {
     *****************************************************************************************/
     
     .meta {
-        text-align: left;
-        margin-bottom: 20px;
+        display: none;
     }
     
-    .meta ul,
-    .thumbnail {
-        float: left;
+    /* Posts
+    *****************************************************************************************/
+    
+    .post p, 
+    .post ul, 
+    .post ol {
+        max-width: 100%;
     }
     
 }
