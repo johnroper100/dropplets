@@ -37,7 +37,7 @@ Your posts **MUST** be formatted as follows:
     Your post text starts here.
 
 ## Important Note
-Please note that this is very much a work in progress, so use at your own risk. Also, I'm not a developer, so there are most likely many ways this could be improved. There is SO MUCH that needs to be done, so please be kind :) 
+When it comes to development, I know just enough to hack my way around and make things work which means there are most likely many many ways this could be improved by an actual developer. So, if you know what you're doing, please do help me improve this concept via GitHub. Either way, this is very much a work in progress, so use at your own risk. 
 
 ## License
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
