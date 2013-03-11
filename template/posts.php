@@ -16,7 +16,7 @@
         <div class="three-quarters post">
             <h2><a href="<?php echo $post_link; ?>"><?php echo $post_title; ?></a></h2>
             
-            <p><?php echo $post_intro; ?></p>
+            <?php echo $post_intro; ?>
             
             <ul class="actions">
                 <li><a class="button" href="<?php echo $post_link; ?>">Continue Reading</a></li>

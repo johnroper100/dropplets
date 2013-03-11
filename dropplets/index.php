@@ -114,8 +114,9 @@ if ($filename==NULL) {
             // Grab the milti-post template file.
             include $posts_file;   
         }
-        echo Markdown($content);
+        echo $content;
         $content = ob_get_contents();
+
         ob_end_clean();
     } else {
         ob_start();
@@ -366,7 +367,7 @@ function get_all_posts() {
                 $category = str_replace('-', '', $fcontents[2]);
                 
                 // The post intro.
-                $intro = $fcontents[4];
+                $intro = Markdown($fcontents[4]);
                 
                 $files[] = array('time' => $time, 'fname' => $entry, 'title' => $title, 'category' => $category, 'intro' => $intro);
                 $filetimes[] = $time;
