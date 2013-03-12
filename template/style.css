@@ -79,6 +79,14 @@ a:hover, a:focus {
     color: #000000;
 }
 
+code, pre {
+    font-family: 'Source Sans Pro', monospace;
+    text-rendering: optimizeLegibility;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    margin: 0 0.1em;
+}
+
 /* Posts
 *********************************************************************************************/
 
