@@ -620,6 +620,7 @@ class Markdown_Parser {
 		"encodeAmpsAndAngles" =>  40,
 
 		"doItalicsAndBold"    =>  50,
+		"doEmDash"			  =>  55,
 		"doHardBreaks"        =>  60,
 		);
 
@@ -1415,6 +1416,10 @@ class Markdown_Parser {
 		return $text;
 	}
 
+	function doEmDash($text) {
+		$text = str_replace('--','&mdash;',$text);
+		return $text;
+	}
 
 	function doAutoLinks($text) {
 		$text = preg_replace_callback('{<((https?|ftp|dict):[^\'">\s]+)>}i', 
