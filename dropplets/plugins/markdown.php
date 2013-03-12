@@ -1423,11 +1423,11 @@ class Markdown_Parser {
 	}
 
 	function doQuotes($text) {
-		$text = str_replace('\' ','&rsquo;',$text);
+		$text = str_replace('\' ','&rsquo; ',$text);
 		$text = str_replace('\'','&rsquo;',$text);
-		$text = str_replace(' \'', '&lsquo;',$text);
-		$text = str_replace(' "', '&ldquo;', $text);
-		$text = str_replace('" ', '&rdquo;', $text);
+		$text = str_replace(' \'', ' &lsquo;',$text);
+		$text = str_replace(' "', ' &ldquo;', $text);
+		$text = str_replace('" ', '&rdquo; ', $text);
 		return $text;
 	}
 
