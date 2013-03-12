@@ -621,6 +621,7 @@ class Markdown_Parser {
 
 		"doItalicsAndBold"    =>  50,
 		"doEmDash"			  =>  55,
+		"doQuotes"			  =>  56,
 		"doHardBreaks"        =>  60,
 		);
 
@@ -1418,6 +1419,15 @@ class Markdown_Parser {
 
 	function doEmDash($text) {
 		$text = str_replace('--','&mdash;',$text);
+		return $text;
+	}
+
+	function doQuotes($text) {
+		$text = str_replace('\' ','&rsquo; ',$text);
+		$text = str_replace('\'','&rsquo;',$text);
+		$text = str_replace(' \'', ' &lsquo;',$text);
+		$text = str_replace(' "', ' &ldquo;', $text);
+		$text = str_replace('" ', '&rdquo; ', $text);
 		return $text;
 	}
 
