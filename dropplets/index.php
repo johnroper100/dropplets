@@ -42,6 +42,7 @@ define('FILE_EXT', '.txt');
 /*-----------------------------------------------------------------------------------*/
 
 $template_dir = '../template/';
+$stylesheet_dir = $site_url . '/template/';
 $custom_dir = $template_dir . 'custom/';
 
 // define the default locations of the template files
@@ -71,6 +72,7 @@ if ( check_custom() ) { // check if a custom template exists
     if ( in_array($custom_dir . 'posts.php', $custom_glob) ) {
         $posts_file = $custom_dir . 'posts.php';
     }
+    $stylesheet_dir = $site_url . '/template/custom/';
 }
 
 /*-----------------------------------------------------------------------------------*/
