@@ -1,0 +1,4 @@
+*.espressostorage
+*.esproj
+.DS_Store
+dropplets/config.php
