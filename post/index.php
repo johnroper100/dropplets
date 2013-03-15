@@ -2,7 +2,8 @@
 
 // User Credentials
 include('../dropplets/config.php');
-
+include('../dropplets/user.class.php');
+$user = new User();
 // User Machine
 if (isset($_GET['action'])) {
         $action = $_GET['action'];
@@ -10,35 +11,34 @@ if (isset($_GET['action'])) {
 
             // Session Authentication
             case 'login':
-                if ((isset($_POST['password']))
-                && ($_POST['password']===$password))
-                {
-                    $_SESSION['user']=true;
-                    
+                if (isset($_POST['password'])){
+                    $user->log_in($_POST['password']);
+
                     // Redirect
-                    header('Location: ' . '../post/'); 
-                } else {
-                    $login_error = "<strong>Whoops!</strong> Something went wrong, please try again.";
+                    header('Location: ' . '../post/');
+                    exit;
                 }
+
+                $login_error = "<strong>Whoops!</strong> Something went wrong, please try again.";
             break;
-                
-            // End Session    
+
+            // End Session
             case 'logout':
-                session_unset();
-                session_destroy();
-                
+                $user->log_out();
+
                 // Redirect
                 header('Location: ' . '../post/');
-            break;            
-                
+                exit;
+            break;
+
     }
 }
 
 /*-----------------------------------------------------------------------------------*/
 /* If Logged Out, Get the Login Panel
 /*-----------------------------------------------------------------------------------*/
-    
-if (!isset($_SESSION['user'])) {
+
+if (!$user->is_logged_in()) {
 
 ?>
 <!DOCTYPE html>
@@ -48,28 +48,28 @@ if (!isset($_SESSION['user'])) {
         <title>Login to Publish</title>
         <link rel="stylesheet" href="style.css" />
     </head>
-    
+
     <body>
 		<form method="POST" action="?action=login">
             <?php if(isset($login_error)): ?>
             <p class="error"><?php echo $login_error; ?></p>
             <?php endif; ?>
-    
+
             <input type="password" name="password" id="password">
 		</form>
-		
+
 		<a class="home" href="../"></a>
     </body>
 </html>
-<?php 
+<?php
 
-} else { 
+} else {
 
 /*-----------------------------------------------------------------------------------*/
 /* Else, If Logged In, Get The Admin Panels
 /*-----------------------------------------------------------------------------------*/
 
-?> 
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -77,15 +77,15 @@ if (!isset($_SESSION['user'])) {
         <title>Dropp to Publish</title>
         <link rel="stylesheet" href="style.css" />
     </head>
-    
+
     <body class="dropp">
 		<div id="dropbox">
 		</div>
-		
+
 		<a class="logout" href="?action=logout"></a>
-		
+
 		<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
         <script src="script.js"></script>
     </body>
 </html>
-<?php } ?> 
+<?php } ?>
