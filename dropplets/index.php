@@ -41,11 +41,39 @@ define('FILE_EXT', '.txt');
 /* Template Files
 /*-----------------------------------------------------------------------------------*/
 
-$index_file = '../template/index.php';
-$intro_file = '../template/intro.php';
-$post_file = '../template/post.php';
-$posts_file = '../template/posts.php';
-$not_found_file = '../template/404.php';
+$template_dir = '../template/';
+$stylesheet_dir = $site_url . '/template/';
+$custom_dir = $template_dir . 'custom/';
+
+// define the default locations of the template files
+$index_file = $template_dir . 'index.php';
+$intro_file = $template_dir . 'intro.php';
+$post_file = $template_dir . 'post.php';
+$posts_file = $template_dir . 'posts.php';
+$not_found_file = $template_dir . '404.php';
+
+if ( check_custom() ) { // check if a custom template exists
+
+    $custom_glob = glob($custom_dir . '*');
+
+    // if a custom template exists, look for versions of the template files and use the ones from custom
+    if ( in_array($custom_dir . '404.php', $custom_glob) ) {
+        $not_found_file = $custom_dir . '404.php';
+    }
+    if ( in_array($custom_dir . 'index.php', $custom_glob) ) {
+        $index_file = $custom_dir . 'index.php';
+    }
+    if ( in_array($custom_dir . 'intro.php', $custom_glob) ) {
+        $intro_file = $custom_dir . 'intro.php';
+    }
+    if ( in_array($custom_dir . 'post.php', $custom_glob) ) {
+        $post_file = $custom_dir . 'post.php';
+    }
+    if ( in_array($custom_dir . 'posts.php', $custom_glob) ) {
+        $posts_file = $custom_dir . 'posts.php';
+    }
+    $stylesheet_dir = $site_url . '/template/custom/';
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Let's Get Started
@@ -382,4 +410,20 @@ function get_all_posts() {
     } else {
         return false;
     }
+}
+
+/**
+ * check custom
+ * @author Chris Reynolds
+ * @return true/false
+ * defines whether a custom template exists by checkging for the presence of a style.css in the /custom folder
+ */
+function check_custom() {
+    $custom_template = glob('../template/custom/style.css');
+    if ( is_array($custom_template) ) {
+        $custom_template_exists = true;
+    } else {
+        $custom_template_exists = false;
+    }
+    return $custom_template_exists;
 }
