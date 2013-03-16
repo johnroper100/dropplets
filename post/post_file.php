@@ -1,6 +1,5 @@
 <?php
 
-$demo_mode = false;
 $upload_dir = '../posts/';
 $allowed_ext = array('jpg','txt');
 
@@ -15,22 +14,12 @@ if(array_key_exists('file',$_FILES) && $_FILES['file']['error'] == 0 ){
 	if(!in_array(get_extension($file['name']),$allowed_ext)){
 		exit_status('Only '.implode(',',$allowed_ext).' files are allowed!');
 	}	
-
-	if($demo_mode){
-		
-		// File uploads are ignored. We only log them.
-		$line = implode('		', array( date('r'), $_SERVER['REMOTE_ADDR'], $file['size'], $file['name']));
-		file_put_contents('log.txt', $line.PHP_EOL, FILE_APPEND);
-		
-		exit_status('Uploads are ignored in demo mode.');
-	}
 	
 	// Move the uploaded file from the temporary directory to the uploads folder:
 	if(move_uploaded_file($file['tmp_name'], $upload_dir.$file['name'])){
 		exit_status('File was uploaded successfuly!');
 	}
 }
-
 exit_status('Something went wrong with your upload!');
 
 // Helper functions
