@@ -10,7 +10,7 @@
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <link rel="stylesheet" href="<?php echo $site_url ?>/template/style.css">
+        <link rel="stylesheet" href="<?php echo $stylesheet_dir ?>style.css">
         <link rel="stylesheet" href="<?php echo $site_url ?>/template/subdiv.css">
         
         <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,700' rel='stylesheet' type='text/css'>
