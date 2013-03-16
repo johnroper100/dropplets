@@ -52,7 +52,7 @@ $post_file = $template_dir . 'post.php';
 $posts_file = $template_dir . 'posts.php';
 $not_found_file = $template_dir . '404.php';
 
-if ( check_custom() ) { // check if a custom template exists
+if (file_exists($custom_dir . 'style.css')) {
 
     $custom_glob = glob($custom_dir . '*');
 
@@ -410,20 +410,4 @@ function get_all_posts() {
     } else {
         return false;
     }
-}
-
-/**
- * check custom
- * @author Chris Reynolds
- * @return true/false
- * defines whether a custom template exists by checkging for the presence of a style.css in the /custom folder
- */
-function check_custom() {
-    $custom_template = glob('../template/custom/style.css');
-    if ( is_array($custom_template) ) {
-        $custom_template_exists = true;
-    } else {
-        $custom_template_exists = false;
-    }
-    return $custom_template_exists;
 }
