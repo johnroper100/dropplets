@@ -85,6 +85,20 @@ input:focus {
     outline: none;
 }
 
+.error { 
+	padding: 10px 0 10px 0;
+	padding-left: 20px;
+	border-radius: 3px;
+	padding-right: 0px;
+	margin: 0;
+	background-color: #f00;
+	color: #fff;
+	font-weight: 600;
+	font-size: 15px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
 /* Logout
 *********************************************************************************************/
 
