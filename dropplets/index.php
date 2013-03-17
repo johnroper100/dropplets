@@ -3,10 +3,10 @@
 if (file_exists('./config.php')) {
 
 /*-----------------------------------------------------------------------------------*/
-/* Debug Mode
+/* Debug Mode - Set to true if you want to print errors to the page
 /*-----------------------------------------------------------------------------------*/
 
-$display_errors = true;
+$display_errors = false;
 
 /*-----------------------------------------------------------------------------------*/
 /* Configuration & Options
