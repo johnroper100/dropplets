@@ -10,15 +10,14 @@ if (isset($_GET['action'])) {
 
             // Session Authentication
             case 'login':
-                if ((isset($_POST['password']))
-                && ($_POST['password']===$password))
+                if ((isset($_POST['username']) && isset($_POST['password'])) && ($_POST['username']===$username) && ($_POST['password']===$password))
                 {
                     $_SESSION['user']=true;
                     
                     // Redirect
                     header('Location: ' . '../post/'); 
                 } else {
-                    $login_error = "";
+                    $login_error = "<strong>Whoops!</strong> Something went wrong, please try again.";
                 }
             break;
                 
@@ -54,9 +53,11 @@ if (!isset($_SESSION['user'])) {
             <?php if(isset($login_error)): ?>
             <p class="error"><?php echo $login_error; ?></p>
             <?php endif; ?>
-    
-            <input type="password" name="password" id="password">
-		</form>
+            
+            <input type="text" name="username" id="username" placeholder="Username">
+            <input type="password" name="password" id="password" placeholder="Password">
+            <input type="submit" value="Log in">
+        </form>
 		
 		<a class="home" href="../"></a>
     </body>

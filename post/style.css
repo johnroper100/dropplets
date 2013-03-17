@@ -73,12 +73,20 @@ form {
 
 input {
     border: none;
-    border-bottom: 1px solid #333333;
-    width: 600px;
-    height: 130px;
-    font-size: 100px;
+    clear: both;
+    display: block;
+    width: 80%;
+    padding: 7px;
+    padding-left: 15px;
+    padding-top: 10px;
+    font-size: 26px;
+    -webkit-font-smoothing: antialiased;
+    border: 0;
+    font-weight: 400;
     color: #333333;
-    text-align: center;
+    text-align:center;
+    margin-top: 25px;
+    margin-bottom: 20px;
 }
 
 input:focus {
