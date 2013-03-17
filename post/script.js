@@ -1,5 +1,4 @@
 
-
 /* Filedrop
 *********************************************************************************************/
 
@@ -23,7 +22,7 @@ $(function(){
 		
 		uploadFinished:function(i,file,response){
 			$.data(file).addClass('done');
-			// response is the JSON object that post_file.php returns
+			setInterval("location.reload()", 3500);
 		},
 		
     	error: function(err, file) {
@@ -54,8 +53,7 @@ $(function(){
 	
 	var template = '<div class="loader">'+
 						'<div class="progress"></div>'+
-					'</div>'; 
-	
+				   '</div>'; 
 	
 	function createImage(file){
 

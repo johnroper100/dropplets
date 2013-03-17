@@ -2,8 +2,4 @@
 - 2020/02/02
 - Posting
 
-That was pretty easy right? Dropplets is all installed and ready to go. Life is good when there's no confusing databases or admins to worry about. Now all you have to do is publish your first post. To do that, just follow these instructions (click "Continue Reading" below). Or, if you already know how to use Dropplets, just publish your first post to delete this message.
-
-1. Write a post and find a good featured image that goes with it. If you're looking for a good Markdown editor, we recommend Byword which is available in the Mac App store.
-2. Open "http://yoursite.com/post/", then enter your password in the field provided.
-3. Drag and drop your post (e.g. "your-post.txt") and your featured image (e.g. "your-post.jpg") to the drop zone (anywhere on the screen).
+That was pretty easy right? Dropplets is all installed and ready to go. Life is good when there's no confusing databases or admins to worry about. Now all you have to do is publish your first post. To do that, just follow [these instructions](https://github.com/circa75/dropplets/blob/master/README.md). Or, if you already know how to use Dropplets, just publish your first post to delete this message.

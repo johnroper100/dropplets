@@ -32,12 +32,26 @@ body.dropp {
 	-webkit-transition-duration: 2s;
 }
 
+#dropbox .loader.done {
+    background: url('images/check.png') center center no-repeat;
+    background-size: 60px;
+    transition-delay: 1.5s;
+    -moz-transition-delay: 1.5s;
+    -webkit-transition-delay: 1.5s;
+    opacity: 0.5;
+}
+
 #dropbox .loader:nth-child(1) .progress {
 	background-color: rgba(224, 227, 233, .5);
 }
 
 #dropbox .loader:nth-child(2) .progress {
 	background-color: rgba(235, 238, 241, .5);
+}
+
+#dropbox .loader.done:nth-child(1) .progress,
+#dropbox .loader.done:nth-child(2) .progress {
+    background: none;
 }
 
 #dropbox .loader.done .progress {
@@ -71,6 +85,20 @@ input:focus {
     outline: none;
 }
 
+.error { 
+    background: url('images/error.png') 0 0 no-repeat;
+    background-size: 100px;
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -50px;
+	opacity: 0.8;
+	transition: visibility 0s 2s, opacity 2s linear;
+}
+
 /* Logout
 *********************************************************************************************/
 
@@ -95,6 +123,17 @@ input:focus {
     transition-duration: .5s;
     -moz-transition-duration: .5s;
     -webkit-transition-duration: .5s;
+}
+
+.logout {
+    background-size: 40px;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+}
+
+.home {
+    top: 20px;
 }
 
 .logout:hover,

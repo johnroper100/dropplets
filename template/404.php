@@ -6,7 +6,7 @@
             </div>
         </div>
         
-        <div class="three-quarters article">
+        <div class="three-quarters post">
             <h1><?php echo $error_title ?></h1>
             <p><?php echo $error_text ?></p>
                                 

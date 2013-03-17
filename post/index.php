@@ -18,7 +18,7 @@ if (isset($_GET['action'])) {
                     // Redirect
                     header('Location: ' . '../post/'); 
                 } else {
-                    $login_error = "<strong>Whoops!</strong> Something went wrong, please try again.";
+                    $login_error = "";
                 }
             break;
                 
@@ -66,7 +66,7 @@ if (!isset($_SESSION['user'])) {
 } else { 
 
 /*-----------------------------------------------------------------------------------*/
-/* Else, If Logged In, Get The Admin Panels
+/* Else, If Logged In, Get The Post Panels
 /*-----------------------------------------------------------------------------------*/
 
 ?> 
@@ -83,6 +83,7 @@ if (!isset($_SESSION['user'])) {
 		</div>
 		
 		<a class="logout" href="?action=logout"></a>
+		<a class="home" href="../"></a>
 		
 		<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
         <script src="script.js"></script>
