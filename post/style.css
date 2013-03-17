@@ -86,17 +86,17 @@ input:focus {
 }
 
 .error { 
-	padding: 10px 0 10px 0;
-	padding-left: 20px;
-	border-radius: 3px;
-	padding-right: 0px;
-	margin: 0;
-	background-color: #f00;
-	color: #fff;
-	font-weight: 600;
-	font-size: 15px;
-	margin-bottom: 5px;
-	margin-top: 5px;
+    background: url('images/error.png') 0 0 no-repeat;
+    background-size: 100px;
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -50px;
+	opacity: 0.8;
+	transition: visibility 0s 2s, opacity 2s linear;
 }
 
 /* Logout

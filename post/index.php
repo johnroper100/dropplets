@@ -18,7 +18,7 @@ if (isset($_GET['action'])) {
                     // Redirect
                     header('Location: ' . '../post/'); 
                 } else {
-                    $login_error = "<strong>Whoops!</strong> Something went wrong, please try again.";
+                    $login_error = "";
                 }
             break;
                 
