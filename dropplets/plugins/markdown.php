@@ -1432,8 +1432,7 @@ class Markdown_Parser {
 	}
 
 	function doStrikethroughs($text) {
-		$text = str_replace( ' ~~', ' <del>', $text );
-		$text = str_replace( '~~ ', '</del> ', $text );
+		$text = preg_replace(  '#~~(.+?)(?:~~)#is', '<del>$1</del>', $text );
 		return $text;
 	}
 
