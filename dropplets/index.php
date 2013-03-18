@@ -354,6 +354,12 @@ $url = str_replace('/dropplets/index.php?filename=', '', $current_url);
     		    </div> 
 		    </fieldset>
 		    
+            <fieldset>
+                <div>
+                    <input type="text" name="username" id="username" required placeholder="Enter a Username">
+                </div>
+            </fieldset>
+            
 		    <fieldset>
     		    <div class="input">
     		        <input type="password" name="password" id="password" required placeholder="Enter a Password">

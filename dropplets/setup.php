@@ -15,6 +15,7 @@ if($_POST['submit'] == "submit")
     $meta_description = addslashes($_POST['meta_description']);
     $intro_title = addslashes($_POST['intro_title']);
     $intro_text = addslashes($_POST['intro_text']);
+    $username = $_POST['username'];
     $password = $_POST['password'];
     
     // Output Stuff
@@ -27,6 +28,7 @@ if($_POST['submit'] == "submit")
     $config[] = "\$meta_description = '$meta_description';";
     $config[] = "\$intro_title = '$intro_title';";
     $config[] = "\$intro_text = '$intro_text';";
+    $config[] = "\$username = '$username';";
     $config[] = "\$password = '$password';";
     
     // Put Stuff
