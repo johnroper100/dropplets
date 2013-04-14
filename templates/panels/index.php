@@ -20,5 +20,7 @@
     
     <body>
         <?php echo $content ?>
+        
+        <?php echo stripslashes($tracking_code) ?>
     </body>
 </html>

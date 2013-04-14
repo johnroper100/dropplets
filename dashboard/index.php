@@ -190,6 +190,10 @@ if (!isset($_SESSION['user'])) {
 		    	    <div class="input">
 		    	        <input type="password" name="password" id="password" required value="<?php echo $password ?>">
 		    	    </div>
+		    	    
+		    	    <div class="input">
+		    	        <textarea name="tracking_code" id="tracking_code" rows="12"><?php echo stripslashes($tracking_code) ?></textarea>
+		    	    </div> 
 		        </fieldset>
 		        
 		        <button type="submit" name="submit" value="submit"></button>
