@@ -1,0 +1,397 @@
+
+/* Normalization
+*********************************************************************************************/
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}table{border-collapse:collapse;border-spacing:0;}
+
+/* Setup
+*********************************************************************************************/
+
+body {
+    background-color: #ffffff;
+    color: #788fa7;
+    text-align: center;
+    padding-bottom: 60px;
+    font: 18px/26px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+body.dashboard {
+    overflow: hidden;
+}
+
+/* Typography
+*********************************************************************************************/
+
+a {
+    color: #788fa7;
+}
+
+a.back {
+    font-size: 14px;
+}
+
+.error {
+    background-color: rgba(255, 75, 0, 0.1);
+    color: rgba(255, 75, 0, 0.6);
+    font-size: 14px;
+    width: 200px;
+    margin-top: -20px;
+    margin-bottom: 38px;
+    padding: 4px 0;
+    border-radius: 4px;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: normal;
+    margin: 0 0 20px;
+}
+
+p {
+    width: 600px;
+    margin: 0px auto;
+    margin-bottom: 50px;
+}
+
+/* Admin Panels
+*********************************************************************************************/
+
+.panel {
+    background: #ffffff;
+    width: 100%;
+    height: 100%;
+    margin-bottom: -110px;
+    position: absolute;
+    bottom: -2000px;
+    z-index: 20000;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.panel button {
+    bottom: -140px;
+}
+
+.panel fieldset.last {
+    margin-bottom: 250px;
+}
+
+.settings-close,
+.templates-close {
+    background: url('images/close.png') 0 0 no-repeat;
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    margin-left: -15px;
+    opacity: 0.5;
+    transition-duration: .5s;
+}
+
+.settings-close:hover,
+.templates-close:hover {
+    opacity: 0.8;
+}
+
+/* Miscellaneous
+*********************************************************************************************/
+
+img {
+    width: 200px;
+    margin: 50px 0;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Form Styles
+*********************************************************************************************/
+
+form,
+fieldset {
+    width: 100%;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+fieldset {
+    border: none;
+    padding: 60px 0 40px;
+    background-color: rgba(235, 238, 241, 0.15);
+    border-top: 1px solid;
+    border-color: rgba(219, 224, 230, 0.3);
+    z-index: 2;
+}
+
+fieldset:nth-child(2) {
+    background-color: rgba(235, 238, 241, 0.25);
+    border-color: rgba(219, 224, 230, 0.5);  
+}
+
+fieldset:nth-child(3) {
+    background-color: rgba(235, 238, 241, 0.35);
+    border-color: rgba(219, 224, 230, 0.7);
+}
+
+fieldset:nth-child(4) {
+    background-color: rgba(235, 238, 241, 0.45);
+    border-color: rgba(219, 224, 230, 0.9);
+    margin-bottom: 140px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    border-radius: 4px;
+    border: 1px solid #cdd5dd;
+    font: 14px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #777777;
+    text-align: center;
+    width: 400px;
+    display: block;
+    margin: 0px auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    outline: none;
+    transition-duration: .2s;
+    background-color: #ffffff;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    border: 1px solid #5b87a1;
+    color: #444444;
+    box-shadow: 0 0 15px rgba(212, 225, 232, 0.5);
+}
+
+textarea { 
+    line-height: 18px;
+}
+
+label,
+legend {
+    display: block;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+button {
+    background: #cdd5dd url('images/check.png') center center no-repeat;
+    background-size: 80px;
+    border: none;
+    color: #5f7790;
+    cursor: pointer;
+    width: 100%;
+    height: 140px;
+    position: fixed;
+    display: block;
+    bottom: 0;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    transition-duration: .1s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+button:hover {
+    background-size: 100px;
+}
+
+/* Dropbox
+*********************************************************************************************/
+
+#dropbox {
+    background: url('images/mask.png') top left no-repeat;
+    background-size: 350px;
+    position: absolute;
+    z-index: 20000;
+    width: 350px;
+    height: 350px;
+    top: 50%;
+    left: 50%;
+    margin-left: -175px;
+    margin-top: -175px;
+}
+
+.loader {
+	position: absolute;
+	z-index: 10000;
+	width: 350px;
+	height: 350px;
+	top: 50%;
+	left: 50%;
+	margin-left: -175px;
+	margin-top: -175px;
+}
+
+.loader .progress {
+    background-color: #cdd5dd;
+	width: 0;
+	height: 100%;
+	transition-duration: 2s;
+	-moz-transition-duration: 2s;
+	-webkit-transition-duration: 2s;
+}
+
+.loader.done {
+    background: url('images/done.png') center center no-repeat;
+    background-size: 60px;
+    transition-delay: 1.5s;
+    -moz-transition-delay: 1.5s;
+    -webkit-transition-delay: 1.5s;
+    opacity: 0.5;
+}
+
+.loader.done:nth-child(1) .progress,
+.loader.done:nth-child(2) .progress {
+    background: none;
+}
+
+.loader.done .progress {
+	width:100% !important;
+}
+
+/* Navigation
+*********************************************************************************************/
+
+.home {
+    background: url('images/home.png') 0 0 no-repeat;
+}
+
+.logout {
+    background: url('images/logout.png') 0 0 no-repeat;
+}
+
+.settings {
+    background: url('images/settings.png') 0 0 no-repeat;
+}
+
+.templates {
+    background: url('images/templates.png') 0 0 no-repeat;
+}
+
+.home,
+.logout,
+.settings,
+.templates {
+    background-size: 60px;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 50%;
+    opacity: 0.5;
+    transition-duration: .5s;
+}
+
+.logout,
+.settings,
+.templates {
+    background-size: 40px;
+    width: 40px;
+    height: 40px;
+}
+
+.home {
+    top: 20px;
+    margin-left: -30px;
+}
+
+.settings,
+.templates {
+    top: 35px;
+}
+
+.settings {
+    margin-left: -75px;
+}
+
+.templates {
+    margin-left: 35px;
+}
+
+.logout {
+    bottom: 20px;
+    margin-left: -20px;
+}
+
+.home:hover,
+.logout:hover,
+.settings:hover,
+.templates:hover {
+    opacity: 0.8;
+}
+
+/* Template Carousel
+*********************************************************************************************/
+
+#templates {
+    background-color: rgba(235, 238, 241, 0.25);
+}
+
+#templates ul {
+	margin: 10px 0 0 0;
+	padding: 0;
+	list-style: none;
+	display: block;
+	width: 100%;
+	height: 550px;
+	overflow: hidden;
+}
+
+#templates li {
+	text-align: center;
+	width: 100%;
+	height: 550px;
+	padding: 0;
+	display: block;
+	float: left;
+	overflow: hidden;
+}
+
+#templates li img {
+    width: 700px;
+    border-radius: 6px;
+    box-shadow: 0px 0 3px rgba(0, 0, 0, 0.25);
+}
+
+#arrows {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    margin-top: -160px;
+}
+
+.prev,
+.next {
+    
+    width: 60px;
+    height: 60px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.prev {
+    background: url('images/arrow-previous.png') 0 0 no-repeat;
+    background-size: 60px;
+	float: left;
+	margin-left: 20px;
+}
+
+.next {
+    background: url('images/arrow-next.png') 0 0 no-repeat;
+    background-size: 60px;
+	float: right;
+	margin-right: 20px;
+}
+
+.prev:hover,
+.next:hover {
+    opacity: 0.8;
+}

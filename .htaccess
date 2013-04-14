@@ -1,5 +1,5 @@
 # Pretty Permalinks
-RewriteRule ^(post)($|/) - [L]
+RewriteRule ^(dashboard)($|/) - [L]
 RewriteRule ^(images)($|/) - [L]
 Options +FollowSymLinks -MultiViews
 RewriteEngine on

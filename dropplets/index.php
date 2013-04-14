@@ -1,6 +1,6 @@
 <?php
 
-if (file_exists('./config.php')) {
+if (file_exists('./config/config-settings.php')) {
 
 /*-----------------------------------------------------------------------------------*/
 /* Debug Mode
@@ -9,10 +9,17 @@ if (file_exists('./config.php')) {
 $display_errors = false;
 
 /*-----------------------------------------------------------------------------------*/
+/* Post Cache ('on' or 'off')
+/*-----------------------------------------------------------------------------------*/
+
+$post_cache = 'off';
+
+/*-----------------------------------------------------------------------------------*/
 /* Configuration & Options
 /*-----------------------------------------------------------------------------------*/
 
-include('./config.php');
+include('./config/config-settings.php');
+include('./config/config-template.php');
 
 // A few definitions.
 $language = 'en-us';
@@ -25,9 +32,9 @@ $error_text = 'Really sorry, but what you&#8217;re looking for isn&#8217;t here.
 /* Post Configuration
 /*-----------------------------------------------------------------------------------*/
 
-$directory = '../posts/';
+$post_directory = '../posts/';
 
-if (glob($directory . '*.txt') != false)
+if (glob($post_directory . '*.md') != false)
 {
     $posts_dir = '../posts/';
 } else {
@@ -35,15 +42,14 @@ if (glob($directory . '*.txt') != false)
 }
 
 define('POSTS_DIR', $posts_dir);
-define('FILE_EXT', '.txt');
+define('FILE_EXT', '.md');
 
 /*-----------------------------------------------------------------------------------*/
 /* Template Files
 /*-----------------------------------------------------------------------------------*/
 
-$template_dir = '../template/';
-$stylesheet_dir = $site_url . '/template/';
-$custom_dir = $template_dir . 'custom/';
+$template_dir = '../templates/' . $template . '/';
+$template_dir_url = $blog_url . '/templates/' . $template . '/';
 
 // define the default locations of the template files
 $index_file = $template_dir . 'index.php';
@@ -51,29 +57,6 @@ $intro_file = $template_dir . 'intro.php';
 $post_file = $template_dir . 'post.php';
 $posts_file = $template_dir . 'posts.php';
 $not_found_file = $template_dir . '404.php';
-
-if (file_exists($custom_dir . 'style.css')) {
-
-    $custom_glob = glob($custom_dir . '*');
-
-    // if a custom template exists, look for versions of the template files and use the ones from custom
-    if ( in_array($custom_dir . '404.php', $custom_glob) ) {
-        $not_found_file = $custom_dir . '404.php';
-    }
-    if ( in_array($custom_dir . 'index.php', $custom_glob) ) {
-        $index_file = $custom_dir . 'index.php';
-    }
-    if ( in_array($custom_dir . 'intro.php', $custom_glob) ) {
-        $intro_file = $custom_dir . 'intro.php';
-    }
-    if ( in_array($custom_dir . 'post.php', $custom_glob) ) {
-        $post_file = $custom_dir . 'post.php';
-    }
-    if ( in_array($custom_dir . 'posts.php', $custom_glob) ) {
-        $posts_file = $custom_dir . 'posts.php';
-    }
-    $stylesheet_dir = $site_url . '/template/custom/';
-}
 
 /*-----------------------------------------------------------------------------------*/
 /* Let's Get Started
@@ -96,7 +79,7 @@ if (empty($_GET['filename'])) {
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* The Home Page
+/* The Home Page (All Posts)
 /*-----------------------------------------------------------------------------------*/
 
 if ($filename==NULL) {
@@ -107,10 +90,16 @@ if ($filename==NULL) {
         foreach($posts as $post) {
         
             // The site title
-            $site_title = $title;
+            $site_title = $blog_title;
             
             // The post title.
             $post_title = $post['title'];
+            
+            // The post author.
+            $post_author = $post['post_author'];
+            
+            // The post author twitter id.
+            $post_author_twitter = $post['post_author_twitter'];
             
             // The published ISO date.
             $published_iso_date = $post['time'];
@@ -120,6 +109,9 @@ if ($filename==NULL) {
             
             // The post category.
             $post_category = $post['category'];
+            
+            // The post category.
+            $post_status = $post['post_status'];
             
             // The post intro.
             $post_intro = $post['intro'];
@@ -131,16 +123,16 @@ if ($filename==NULL) {
             $image = str_replace(array(FILE_EXT), '', POSTS_DIR.$post['fname']).'.jpg';
             
             if (file_exists($image)) {
-                $post_image = $site_url.'/'.str_replace(array(FILE_EXT, '../'), '', POSTS_DIR.$post['fname']).'.jpg';
+                $post_image = $blog_url.'/'.str_replace(array(FILE_EXT, '../'), '', POSTS_DIR.$post['fname']).'.jpg';
             } else {
-                $post_image = $site_url.'/dropplets/images/logo.png';
+                $post_image = 'https://api.twitter.com/1/users/profile_image?screen_name='.$post_author_twitter.'&size=bigger';
             }
             
             // Grab the site intro template file.
             include_once $intro_file;
             
             // Grab the milti-post template file.
-            include $posts_file;   
+            include $posts_file;
         }
         echo $content;
         $content = ob_get_contents();
@@ -172,14 +164,14 @@ else if ($filename == 'rss' || $filename == 'atom') {
     ($filename=='rss') ? $feed = new FeedWriter(RSS2) : $feed = new FeedWriter(ATOM);
 
     $feed->setTitle($title);
-    $feed->setLink($site_url);
+    $feed->setLink($blog_url);
 
     if($filename=='rss') {
         $feed->setDescription($site->meta_description);
         $feed->setChannelElement('language', $language);
         $feed->setChannelElement('pubDate', date(DATE_RSS, time()));
     } else {
-        $feed->setChannelElement('author', $author.' - ' . $email);
+        $feed->setChannelElement('author', $blog_title.' - ' . $blog_email);
         $feed->setChannelElement('updated', date(DATE_RSS, time()));
     }
 
@@ -191,12 +183,12 @@ else if ($filename == 'rss' || $filename == 'atom') {
             if($c<$feed_max_items) {
                 $item = $feed->createNewItem();
                 $item->setTitle($post['title']);
-                $item->setLink(rtrim($site_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
+                $item->setLink(rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 $item->setDate($post['time']);
                 $item->setDescription(Markdown(file_get_contents(rtrim(POSTS_DIR, '/').'/'.$post['fname'])));
                 if($filename=='rss') {
-                    $item->addElement('author', $author.' - ' . $email);
-                    $item->addElement('guid', rtrim($site_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
+                    $item->addElement('author', $blog_title.' - ' . $blog_email);
+                    $item->addElement('guid', rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 }
                 $feed->addItem($item);
                 $c++;
@@ -246,25 +238,31 @@ else {
         // The post title.
         $post_title = str_replace('# ', '', $fcontents[0]);
         
+        // The post author.
+        $post_author = str_replace('-', '', $fcontents[1]);
+        
+        // The post author Twitter account.
+        $post_author_twitter = str_replace('- ', '', $fcontents[2]);
+        
         // The published date.
-        $published_iso_date = str_replace('-', '', $fcontents[1]);
+        $published_iso_date = str_replace('-', '', $fcontents[3]);
                 
         // The published date.
         $published_date = date_format(date_create($published_iso_date), $date_format);
         
         // The post category.
-        $post_category = str_replace('-', '', $fcontents[2]);
+        $post_category = str_replace('-', '', $fcontents[4]);
         
         // The post link.
-        $post_link = $site_url.'/'.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
+        $post_link = $blog_url.'/'.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
         
         // The post image.
         $image = str_replace(array(FILE_EXT), '', $filename).'.jpg';
         
         if (file_exists($image)) {
-            $post_image = $site_url.'/'.str_replace(array(FILE_EXT, '../'), '', $filename).'.jpg';
+            $post_image = $blog_url.'/'.str_replace(array(FILE_EXT, '../'), '', $filename).'.jpg';
         } else {
-            $post_image = $site_url.'/dropplets/images/logo.png';
+            $post_image = 'https://api.twitter.com/1/users/profile_image?screen_name='.$post_author_twitter.'&size=bigger';
         }
         
         // The post.
@@ -273,10 +271,14 @@ else {
         // Get the post template file.
         include $post_file;
         
-        // Cache the post
-        $fp = fopen($cachefile, 'w'); 
-        fwrite($fp, ob_get_contents()); 
-        fclose($fp);
+        // Cache the post on if caching is turned on.
+        if ($post_cache != 'off')
+        {
+            $fp = fopen($cachefile, 'w'); 
+            fwrite($fp, ob_get_contents()); 
+            fclose($fp);
+        }
+        
     }
     $content = ob_get_contents();
     ob_end_clean();
@@ -290,82 +292,10 @@ else {
 /*-----------------------------------------------------------------------------------*/
 
 } else { 
-
-// Fetch the current url.
-$protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
-$host = $_SERVER['HTTP_HOST'];
-$script = $_SERVER['SCRIPT_NAME'];
-$params = $_SERVER['QUERY_STRING'];
-$current_url = $protocol . '://' . $host . $script . '?' . $params;
-$url = str_replace('/dropplets/index.php?filename=', '', $current_url);
-
-?>
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Let's Get Started</title>
-        <link rel="stylesheet" href="./dropplets/style-setup.css" />
-    </head>
     
-    <body>
-        <img src="./dropplets/images/logo.png" alt="Dropplets" />
-        
-        <h1>Let's Get Started</h1>
-        <p>With Dropplets, there's no admin, no database, just simple blogging goodness. To get started, enter your site information below (all fields are required) and then click the check mark at the bottom. That's all there's to it :)</p>
-        
-		<form method="POST" action="./dropplets/setup.php">
-		    <fieldset>
-		        <div class="input">
-		            <input type="text" name="author" id="author" required placeholder="Your Name">
-		        </div> 
-		        
-		        <div class="input">
-		            <input type="text" name="email" id="email" required placeholder="Your Email Address">
-		        </div> 
-		        
-		        <div class="input">
-		            <input type="text" name="twitter" id="twitter" required placeholder="Your Twitter ID (e.g. &quot;dropplets&quot;)">
-		        </div> 
-		    </fieldset>
-		    
-		    <fieldset>
-    		    <div class="input hidden">
-    		        <input type="text" name="site_url" id="site_url" required readonly value="<?php echo($url) ?>">
-    		    </div>
-    		    
-    		    <div class="input">
-    		        <input type="text" name="title" id="title" required placeholder="Your Site Title">
-    		    </div>
-    		    
-    		    <div class="input">
-    		        <textarea name="meta_description" id="meta_description" rows="6" required placeholder="Add your site description here. This should be a short sentance that describes what your blog is going to be about."></textarea>
-    		    </div> 
-		    </fieldset>
-		    
-		    <fieldset>
-    		    <div class="input">
-    		        <input type="text" name="intro_title" id="intro_title" required placeholder="Your Intro Title">
-    		    </div> 
-    		    
-    		    <div class="input">
-    		        <textarea name="intro_text" id="intro_text" rows="12" required placeholder="Add your intro text here. The &quot;intro&quot; displayed at the top of the home page of your blog and is generally intended to introduce who you are to your readers, kind of like an &quot;about&quot; page."></textarea>
-    		    </div> 
-		    </fieldset>
-		    
-		    <fieldset>
-    		    <div class="input">
-    		        <input type="password" name="password" id="password" required placeholder="Enter a Password">
-    		    </div>
-		    </fieldset>
-		    
-		    <button type="submit" name="submit" value="submit" class="btn btn-info"></button>
-		</form>
-    </body>
-</html>
+    include('./settings.php'); 
 
-<?php }
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Get All Posts Function (Used For the Home Page Above)
@@ -386,21 +316,33 @@ function get_all_posts() {
                 $fcontents = file(POSTS_DIR.$entry);
                 
                 // The post title.
-                $title = str_replace('# ', '', $fcontents[0]);
+                $title = Markdown($fcontents[0]);
+                
+                // The post author.
+                $post_author = str_replace('-', '', $fcontents[1]);
+                
+                // The post author Twitter account.
+                $post_author_twitter = str_replace('- ', '', $fcontents[2]);
                                 
                 // The published date.
-                $time = str_replace('-', '', $fcontents[1]);
+                $time = str_replace('-', '', $fcontents[3]);
                 
                 // The post category.
-                $category = str_replace('-', '', $fcontents[2]);
+                $category = str_replace('-', '', $fcontents[4]);
+                
+                // The post status.
+                $post_status = str_replace('- ', '', $fcontents[5]);
                 
                 // The post intro.
-                $intro = Markdown($fcontents[4]);
+                $intro = Markdown($fcontents[7]);
                 
-                $files[] = array('time' => $time, 'fname' => $entry, 'title' => $title, 'category' => $category, 'intro' => $intro);
+                $files[] = array('fname' => $entry, 'title' => $title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'time' => $time, 'category' => $category, 'post_status' => $post_status, 'intro' => $intro);
                 $filetimes[] = $time;
                 $titles[] = $title;
+                $post_authors[] = $post_author;
+                $post_authors_twitter[] = $post_author_twitter;
                 $categories[] = $category;
+                $post_statuses[] = $post_status;
                 $introductions[] = $intro;
             }
         }
