@@ -2,3 +2,4 @@
 *.esproj
 .DS_Store
 dropplets/config.php
+dropplets/config/config-settings.php
