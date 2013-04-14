@@ -10,10 +10,10 @@ if($_POST['submit'] == "submit")
     $blog_email = $_POST['blog_email'];
     $blog_twitter = $_POST['blog_twitter'];
     $blog_url = $_POST['blog_url'];
-    $blog_title = addslashes($_POST['blog_title']);
-    $meta_description = addslashes($_POST['meta_description']);
-    $intro_title = addslashes($_POST['intro_title']);
-    $intro_text = addslashes($_POST['intro_text']);
+    $blog_title = htmlspecialchars($_POST['blog_title']);
+    $meta_description = htmlspecialchars($_POST['meta_description']);
+    $intro_title = htmlspecialchars($_POST['intro_title']);
+    $intro_text = htmlspecialchars($_POST['intro_text']);
     $password = $_POST['password'];
     
     // Output Stuff
