@@ -37,7 +37,7 @@ Your posts (markdown files) **MUST** be formatted as follows:
     - Twitter Handle (e.g. "dropplets")
     - 2020/02/02
     - Post Category
-    - Post Status (e.g. "published")
+    - Post Status (e.g. "published" or "draft")
 
     Your post text starts here.
     
