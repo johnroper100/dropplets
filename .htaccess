@@ -6,3 +6,6 @@ RewriteEngine on
 RewriteCond %{REQUEST_URI} !index
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ dropplets/index.php?filename=$1 [L]
+
+# Disable Magic Quotes
+php_flag magic_quotes_gpc Off
