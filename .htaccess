@@ -9,3 +9,4 @@ RewriteRule ^(.*)$ dropplets/index.php?filename=$1 [L]
 
 # Disable Magic Quotes
 php_flag magic_quotes_gpc Off
+php_value magic_quotes_gpc Off
