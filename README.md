@@ -42,7 +42,7 @@ Your posts (markdown files) **MUST** be formatted as follows:
     Your post text starts here.
     
 ## About the Dashboard
-The Dashboard can be used to publish new posts, edit existing posts, change your blog settings or change your template. To access the Dropplets dashboard, load "http://yoursite.com/dasboard/", obviously changing "yoursite.com" to your websites URL.
+The Dashboard can be used to publish new posts, edit existing posts, change your blog settings or change your template. To access the Dropplets dashboard, load "http://yoursite.com/dashboard/", obviously changing "yoursite.com" to your websites URL.
 
 ## Publishing Posts
 Publishing posts is really easy to do within the Dashboard:
