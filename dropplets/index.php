@@ -163,11 +163,11 @@ if ($filename==NULL) {
 else if ($filename == 'rss' || $filename == 'atom') {
     ($filename=='rss') ? $feed = new FeedWriter(RSS2) : $feed = new FeedWriter(ATOM);
 
-    $feed->setTitle($title);
+    $feed->setTitle($blog_title);
     $feed->setLink($blog_url);
 
     if($filename=='rss') {
-        $feed->setDescription($site->meta_description);
+        $feed->setDescription($meta_description);
         $feed->setChannelElement('language', $language);
         $feed->setChannelElement('pubDate', date(DATE_RSS, time()));
     } else {
@@ -182,10 +182,18 @@ else if ($filename == 'rss' || $filename == 'atom') {
         foreach($posts as $post) {
             if($c<$feed_max_items) {
                 $item = $feed->createNewItem();
-                $item->setTitle($post['title']);
+                
+                // Quick & dirty hack to remove HTML 
+                $item->setTitle(substr($post['title'], 4, -6));
                 $item->setLink(rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 $item->setDate($post['time']);
-                $item->setDescription(Markdown(file_get_contents(rtrim(POSTS_DIR, '/').'/'.$post['fname'])));
+
+				// Another quick & dirty hack to remove the metadata from the RSS feed.
+				$remove_metadata_from = file(rtrim(POSTS_DIR, '/').'/'.$post['fname']);
+				unset($remove_metadata_from[0], $remove_metadata_from[1], $remove_metadata_from[2], $remove_metadata_from[3], $remove_metadata_from[4], $remove_metadata_from[5]);
+				$remove_metadata_from = array_values($remove_metadata_from);
+
+                $item->setDescription(Markdown(implode($remove_metadata_from)));
                 if($filename=='rss') {
                     $item->addElement('author', $blog_title.' - ' . $blog_email);
                     $item->addElement('guid', rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
