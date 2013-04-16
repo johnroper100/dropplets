@@ -3,7 +3,7 @@
         <h2><?php echo $blog_title ?></h2>
         <p><?php echo $intro_text ?></p>
     
-        <ul>
+        <ul class="actions">
             <li>
                 <a class="big charcoal left button" href="mailto:<?php echo $blog_email ?>?subject=Hello"><?php echo $blog_email ?></a>
                 <a class="big gray button right" href="http://twitter.com/<?php echo $blog_twitter ?>">&#64;<?php echo $blog_twitter ?></a>
