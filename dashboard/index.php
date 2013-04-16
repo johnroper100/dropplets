@@ -154,10 +154,12 @@ if (!isset($_SESSION['user'])) {
 		    <form method="POST" action="../dropplets/config/submit-settings.php">
 		        <fieldset>
 		            <div class="input">
+		                <label>Blog Email</label>
 		                <input type="text" name="blog_email" id="blog_email" required value="<?php echo $blog_email ?>">
 		            </div> 
 		            
 		            <div class="input">
+		                <label>Blog Twitter ID</label>
 		                <input type="text" name="blog_twitter" id="blog_twitter" required value="<?php echo $blog_twitter ?>">
 		            </div> 
 		        </fieldset>
@@ -168,30 +170,36 @@ if (!isset($_SESSION['user'])) {
 		            </div>
 		            
 		    	    <div class="input">
+		    	        <label>Blog Title</label>
 		    	        <input type="text" name="blog_title" id="blog_title" required value="<?php echo $blog_title ?>">
 		    	    </div>
 		    	    
 		    	    <div class="input">
+		    	        <label>Blog Description</label>
 		    	        <textarea name="meta_description" id="meta_description" rows="6" required><?php echo $meta_description ?></textarea>
 		    	    </div> 
 		        </fieldset>
 		        
 		        <fieldset>
 		    	    <div class="input">
+		    	        <label>Intro Title</label>
 		    	        <input type="text" name="intro_title" id="intro_title" required value="<?php echo $intro_title ?>">
 		    	    </div> 
 		    	    
 		    	    <div class="input">
+		    	        <label>Intro Text</label>
 		    	        <textarea name="intro_text" id="intro_text" rows="12" required><?php echo $intro_text ?></textarea>
 		    	    </div> 
 		        </fieldset>
 		        
 		        <fieldset class="last">
 		    	    <div class="input">
+		    	        <label>Password</label>
 		    	        <input type="password" name="password" id="password" required value="<?php echo $password ?>">
 		    	    </div>
 		    	    
 		    	    <div class="input">
+		    	        <label>Tracking Code</label>
 		    	        <textarea name="tracking_code" id="tracking_code" rows="12"><?php echo stripslashes($tracking_code) ?></textarea>
 		    	    </div> 
 		        </fieldset>

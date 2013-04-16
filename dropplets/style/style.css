@@ -178,8 +178,8 @@ textarea {
 label,
 legend {
     display: block;
-    font-weight: bold;
-    font-size: 13px;
+    font-size: 16px;
+    margin: 0 0 8px;
 }
 
 button {
