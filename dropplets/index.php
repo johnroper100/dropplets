@@ -163,11 +163,11 @@ if ($filename==NULL) {
 else if ($filename == 'rss' || $filename == 'atom') {
     ($filename=='rss') ? $feed = new FeedWriter(RSS2) : $feed = new FeedWriter(ATOM);
 
-    $feed->setTitle($title);
+    $feed->setTitle($blog_title);
     $feed->setLink($blog_url);
 
     if($filename=='rss') {
-        $feed->setDescription($site->meta_description);
+        $feed->setDescription($meta_description);
         $feed->setChannelElement('language', $language);
         $feed->setChannelElement('pubDate', date(DATE_RSS, time()));
     } else {
