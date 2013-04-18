@@ -24,7 +24,7 @@
     <meta name="twitter:title" content="<?php echo $site_title ?>">
     <meta name="twitter:description" content="<?php echo $meta_description ?>">
     <meta name="twitter:image" content="https://api.twitter.com/1/users/profile_image?screen_name=<?php echo $blog_twitter ?>&size=bigger">
-    <meta name="twitter:domain" content="http://bckmn.com">
+    <meta name="twitter:domain" content="<?php echo $author_url ?>">
     </head>
     
     <body>

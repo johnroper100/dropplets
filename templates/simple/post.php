@@ -5,7 +5,7 @@
     <meta name="twitter:title" content="<?php echo $post_title ?>">
     <meta name="twitter:description" content="<?php echo $post_intro ?>">
     <meta name="twitter:image" content="<?php echo $post_feat_image ?>">
-    <meta name="twitter:domain" content="http://bckmn.com">
+    <meta name="twitter:domain" content="<?php echo $author_url ?>">
     
 <div style="margin-right:auto;margin-left:auto;max-width:100%;text-align:center;">
     <img src="<?php echo $post_feat_image ?>" alt="<?php echo $post_title ?>" style="max-width:100%;height:auto;"/>
