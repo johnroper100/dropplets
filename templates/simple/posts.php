@@ -2,11 +2,11 @@
     <div class="row">
         <div class="one-quarter meta">
             <div class="thumbnail">
-                <img src="<?php echo $post_image ?>" alt="<?php echo $post_title ?>" />
+                <a href="<?php echo $post_link ?>"><img src="<?php echo $post_image ?>" alt="<?php echo $post_title ?>" /></a>
             </div>
             
             <ul>
-                <li>Written by <?php echo $post_author ?></li>
+                <li>By <?php echo $post_author ?></li>
                 <li><?php echo $published_date ?></li>
                 <li>About <?php echo $post_category ?></li>
                 <li></li>

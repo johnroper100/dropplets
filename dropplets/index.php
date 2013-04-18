@@ -253,6 +253,9 @@ else {
         // The post category.
         $post_category = str_replace('-', '', $fcontents[4]);
         
+        // The post intro.
+        $post_intro = Markdown($fcontents[7]);
+
         // The post link.
         $post_link = $blog_url.'/'.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
         
@@ -261,8 +264,10 @@ else {
         
         if (file_exists($image)) {
             $post_image = $blog_url.'/'.str_replace(array(FILE_EXT, '../'), '', $filename).'.jpg';
+            $post_feat_image = $blog_url.'/'.str_replace(array(FILE_EXT, '../'), '', $filename).'.jpg';
         } else {
             $post_image = 'https://api.twitter.com/1/users/profile_image?screen_name='.$post_author_twitter.'&size=bigger';
+            $post_feat_image = $blog_url.'/dropplets/style/images/favicon.png';
         }
         
         // The post.

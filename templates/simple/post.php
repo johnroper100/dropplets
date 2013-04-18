@@ -1,3 +1,15 @@
+<meta name="twitter:creator" content="@<?php echo $blog_twitter ?>">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@<?php echo $blog_twitter ?>">
+	  <meta name="twitter:url" content="<?php echo $post_link ?>">
+    <meta name="twitter:title" content="<?php echo $post_title ?>">
+    <meta name="twitter:description" content="<?php echo $post_intro ?>">
+    <meta name="twitter:image" content="<?php echo $post_feat_image ?>">
+    <meta name="twitter:domain" content="http://bckmn.com">
+    
+<div style="margin-right:auto;margin-left:auto;max-width:100%;text-align:center;">
+    <img src="<?php echo $post_feat_image ?>" alt="<?php echo $post_title ?>" style="max-width:100%;height:auto;"/>
+</div>
 <article class="single">
     <div class="row">
         <div class="one-quarter meta">
@@ -6,7 +18,7 @@
             </div>
             
             <ul>
-                <li>Written by <?php echo $post_author ?></li>
+                <li>By <?php echo $post_author ?></li>
                 <li><?php echo $published_date ?></li>
                 <li>About <?php echo $post_category ?></li>
                 <li></li>

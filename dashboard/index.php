@@ -162,6 +162,10 @@ if (!isset($_SESSION['user'])) {
 		                <label>Blog Twitter ID</label>
 		                <input type="text" name="blog_twitter" id="blog_twitter" required value="<?php echo $blog_twitter ?>">
 		            </div> 
+
+                    <div class="input">
+                        <input type="text" name="author_url" id="author_url" required placeholder="Your Author Profile URL/Website">
+                    </div> 
 		        </fieldset>
 		        
 		        <fieldset>

@@ -2,11 +2,11 @@
     <div class="row">
         <div class="one-quarter meta">
             <div class="thumbnail">
-                <img src="https://api.twitter.com/1/users/profile_image?screen_name=<?php echo $blog_twitter ?>&size=bigger" alt="profile" />
+                <a href="<?php echo $author_url ?>"><img src="https://api.twitter.com/1/users/profile_image?screen_name=<?php echo $blog_twitter ?>&size=bigger" alt="profile" /></a>
             </div>
             
             <ul>
-                <li><?php echo $blog_title ?></li>
+                <li><a href="<?php echo $author_url ?>"><?php echo $blog_title ?></a></li>
                 <li><a href="mailto:<?php echo $blog_email ?>?subject=Hello"><?php echo $blog_email ?></a></li>
                 <li><a href="http://twitter.com/<?php echo $blog_twitter ?>">&#64;<?php echo $blog_twitter ?></a></li>
                 <li></li>

@@ -17,6 +17,14 @@
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
         
         <link rel="shortcut icon" href="./dropplets/style/images/favicon.png">
+        <meta name="twitter:creator" content="@<?php echo $blog_twitter ?>">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@<?php echo $blog_twitter ?>">
+	  <meta name="twitter:url" content="<?php echo $blog_url ?>">
+    <meta name="twitter:title" content="<?php echo $site_title ?>">
+    <meta name="twitter:description" content="<?php echo $meta_description ?>">
+    <meta name="twitter:image" content="https://api.twitter.com/1/users/profile_image?screen_name=<?php echo $blog_twitter ?>&size=bigger">
+    <meta name="twitter:domain" content="http://bckmn.com">
     </head>
     
     <body>

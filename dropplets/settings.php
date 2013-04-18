@@ -34,6 +34,10 @@ $url = str_replace('/dropplets/index.php?filename=', '', $current_url);
 		        <div class="input">
 		            <input type="text" name="blog_twitter" id="blog_twitter" required placeholder="The Twitter ID for Your Blog (e.g. &quot;dropplets&quot;)">
 		        </div> 
+
+                                <div class="input">
+                                    <input type="text" name="author_url" id="author_url" required placeholder="Your Author Profile URL/Website">
+                                </div> 
 		    </fieldset>
 		    
 		    <fieldset>
