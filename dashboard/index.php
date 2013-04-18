@@ -14,7 +14,7 @@ if (isset($_GET['action'])) {
             // Session Authentication
             case 'login':
                 if ((isset($_POST['password']))
-                && ($_POST['password']===$password))
+                && (sha1($_POST['password'])===$password))
                 {
                     $_SESSION['user']=true;
                     
