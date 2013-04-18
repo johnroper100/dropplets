@@ -10,6 +10,9 @@
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
+        <link rel="alternate" type="application/rss+xml" title="Subscribe using RSS" href="/rss" />
+        <link rel="alternate" type="application/atom+xml" title="Subscribe using Atom" href="/atom" />
+        
         <link rel="stylesheet" href="<?php echo $template_dir_url ?>style.css">
         <link rel="stylesheet" href="<?php echo $template_dir_url ?>subdiv.css">
         
