@@ -188,16 +188,17 @@ else if ($filename == 'rss' || $filename == 'atom') {
                 $item->setLink(rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 $item->setDate($post['time']);
 
-				// Another quick & dirty hack to remove the metadata from the RSS feed.
 				$remove_metadata_from = file(rtrim(POSTS_DIR, '/').'/'.$post['fname']);
+                if($filename=='rss') {
+                    $item->addElement('author', str_replace('-', '', $remove_metadata_from[1]).' - ' . $blog_email);
+                    $item->addElement('guid', rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
+                }
+				// Another quick & dirty hack to remove the metadata from the RSS feed.
 				unset($remove_metadata_from[0], $remove_metadata_from[1], $remove_metadata_from[2], $remove_metadata_from[3], $remove_metadata_from[4], $remove_metadata_from[5]);
 				$remove_metadata_from = array_values($remove_metadata_from);
 
                 $item->setDescription(Markdown(implode($remove_metadata_from)));
-                if($filename=='rss') {
-                    $item->addElement('author', $blog_title.' - ' . $blog_email);
-                    $item->addElement('guid', rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
-                }
+
                 $feed->addItem($item);
                 $c++;
             }
