@@ -166,6 +166,10 @@ if (!isset($_SESSION['user'])) {
                     <div class="input">
                         <input type="text" name="author_url" id="author_url" required placeholder="Your Author Profile URL/Website">
                     </div> 
+
+                    <div class="input">
+                        <input type="text" name="author_google" id="author_google" required placeholder="Your Google+ Profile URL for Authorship Markup">
+                    </div> 
 		        </fieldset>
 		        
 		        <fieldset>

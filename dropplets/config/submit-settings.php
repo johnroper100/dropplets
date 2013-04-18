@@ -10,6 +10,7 @@ if($_POST['submit'] == "submit")
     $blog_email = $_POST['blog_email'];
     $blog_twitter = $_POST['blog_twitter'];
     $author_url = $_POST['author_url'];
+    $author_google = $_POST['author_google'];
     $blog_url = $_POST['blog_url'];
     $blog_title = htmlspecialchars($_POST['blog_title']);
     $meta_description = htmlspecialchars($_POST['meta_description']);
@@ -23,6 +24,7 @@ if($_POST['submit'] == "submit")
     $config[] = "\$blog_email = '$blog_email';";
     $config[] = "\$blog_twitter = '$blog_twitter';";
     $config[] = "\$author_url = '$author_url';";
+    $config[] = "\$author_google = '$author_google';";
     $config[] = "\$blog_url = '$blog_url';";
     $config[] = "\$blog_title = \"$blog_title\";";
     $config[] = "\$meta_description = \"$meta_description\";";
