@@ -46,7 +46,7 @@ $url = str_replace('/dropplets/index.php?filename=', '', $current_url);
     		    </div>
     		    
     		    <div class="input">
-    		        <textarea name="meta_description" id="meta_description" rows="6" required placeholder="Add your site description here... just a short sentance that describes what your blog is going to be about."></textarea>
+    		        <textarea name="meta_description" id="meta_description" rows="6" required placeholder="Add your site description here... just a short sentence that describes what your blog is going to be about."></textarea>
     		    </div> 
 		    </fieldset>
 		    
