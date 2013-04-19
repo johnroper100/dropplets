@@ -1,7 +1,7 @@
 Dropplets
 =========
 
-> Version 1.0
+> Version 1.0.2
 
 A minimalist markdown blogging platform that just works.
 
