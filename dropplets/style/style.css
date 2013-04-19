@@ -129,7 +129,7 @@ fieldset {
 
 fieldset:nth-child(2) {
     background-color: rgba(235, 238, 241, 0.25);
-    border-color: rgba(219, 224, 230, 0.5);  
+    border-color: rgba(219, 224, 230, 0.5);
 }
 
 fieldset:nth-child(3) {
@@ -171,8 +171,13 @@ textarea:focus {
     box-shadow: 0 0 15px rgba(212, 225, 232, 0.5);
 }
 
-textarea { 
+textarea {
     line-height: 18px;
+}
+
+#tracking_code {
+    font-family: monospace;
+    text-align: left;
 }
 
 label,
@@ -370,7 +375,7 @@ button:hover {
 
 .prev,
 .next {
-    
+
     width: 60px;
     height: 60px;
     opacity: 0.5;
