@@ -63,10 +63,6 @@ $url = str_replace('/dropplets/index.php?filename=', '', $current_url);
 		    <fieldset>
     		    <div class="input">
     		        <input type="password" name="password" id="password" required placeholder="Enter a Password">
-    		    </div>
-    		    
-    		    <div class="input">
-    		        <textarea name="tracking_code" id="tracking_code" rows="12" placeholder="If you're using Google Analytics or some other analytics solution, paste your tracking code here (optional)."></textarea>
     		    </div> 
 		    </fieldset>
 		    

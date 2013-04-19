@@ -15,7 +15,8 @@ if($_POST['submit'] == "submit")
     $intro_title = htmlspecialchars($_POST['intro_title']);
     $intro_text = htmlspecialchars($_POST['intro_text']);
     $password = $_POST['password'];
-    $tracking_code = addslashes($_POST['tracking_code']);
+    $header_inject = addslashes($_POST['header_inject']);
+    $footer_inject = addslashes($_POST['footer_inject']);
 
     // Output Stuff
     $config[] = "<?php";
@@ -27,7 +28,8 @@ if($_POST['submit'] == "submit")
     $config[] = "\$intro_title = \"$intro_title\";";
     $config[] = "\$intro_text = \"$intro_text\";";
     $config[] = "\$password = '$password';";
-    $config[] = "\$tracking_code = '$tracking_code';";
+    $config[] = "\$header_inject = '$header_inject';";
+    $config[] = "\$footer_inject = '$footer_inject';";
 
     // Put Stuff
     file_put_contents("../../dropplets/config/config-settings.php", implode("\n", $config));

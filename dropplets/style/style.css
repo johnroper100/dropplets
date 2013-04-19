@@ -143,6 +143,13 @@ fieldset:nth-child(4) {
     margin-bottom: 140px;
 }
 
+fieldset:nth-child(5) {
+    background-color: rgba(235, 238, 241, 0.55);
+    border-color: rgba(219, 224, 230, 1.1);
+    margin-top: -140px;
+    margin-bottom: 140px;
+}
+
 input[type="text"],
 input[type="password"],
 input[type="email"],
@@ -175,7 +182,7 @@ textarea {
     line-height: 18px;
 }
 
-#tracking_code {
+.code {
     font-family: monospace;
     text-align: left;
 }

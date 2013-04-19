@@ -192,16 +192,23 @@ if (!isset($_SESSION['user'])) {
 		    	    </div> 
 		        </fieldset>
 		        
-		        <fieldset class="last">
+		        <fieldset>
 		    	    <div class="input">
 		    	        <label>Password</label>
 		    	        <input type="password" name="password" id="password" required value="<?php echo $password ?>">
 		    	    </div>
-		    	    
-		    	    <div class="input">
-		    	        <label>Tracking Code</label>
-		    	        <textarea name="tracking_code" id="tracking_code" rows="12"><?php echo stripslashes($tracking_code) ?></textarea>
-		    	    </div> 
+		        </fieldset>
+		        
+		        <fieldset class="last">
+		            <div class="input">
+		                <label>Header Injection (e.g. Custom Styles)</label>
+		                <textarea class="code" name="header_inject" id="header_inject" rows="12"></textarea>
+		            </div>
+		            
+		            <div class="input">
+		                <label>Footer Injection (e.g. Tracking Code)</label>
+		                <textarea class="code" name="footer_inject" id="footer_inject" rows="12"></textarea>
+		            </div> 
 		        </fieldset>
 		        
 		        <button type="submit" name="submit" value="submit"></button>

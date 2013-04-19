@@ -20,13 +20,15 @@
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
         
         <link rel="shortcut icon" href="./dropplets/style/images/favicon.png">
+        
+        <?php echo stripslashes($header_inject) ?>
     </head>
     
     <body>
         <?php echo $content ?>
-        
-        <?php echo stripslashes($tracking_code) ?>
-        
+    
         <a class="powered-by" href="http://dropplets.com" target="_blank"><img src="./dropplets/style/images/powered-by.png" />Powered by Dropplets</a>
+
+        <?php echo stripslashes($footer_inject) ?>
     </body>
 </html>
