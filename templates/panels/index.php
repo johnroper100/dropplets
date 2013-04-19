@@ -25,5 +25,7 @@
         <?php echo $content ?>
         
         <?php echo stripslashes($tracking_code) ?>
+        
+        <a class="powered-by" href="http://dropplets.com" target="_blank"><img src="./dropplets/style/images/powered-by.png" />Powered by Dropplets</a>
     </body>
 </html>
