@@ -14,7 +14,7 @@ if($_POST['submit'] == "submit")
     $meta_description = htmlspecialchars($_POST['meta_description']);
     $intro_title = htmlspecialchars($_POST['intro_title']);
     $intro_text = htmlspecialchars($_POST['intro_text']);
-    $password = $_POST['password'];
+    $password = sha1($_POST['password']);
     $header_inject = addslashes($_POST['header_inject']);
     $footer_inject = addslashes($_POST['footer_inject']);
 
