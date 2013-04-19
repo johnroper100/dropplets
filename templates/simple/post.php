@@ -17,6 +17,9 @@
 <article class="single" itemscope itemtype="http://schema.org/BlogPosting">
     <meta itemprop="url" content="<?php echo $post_link ?>">
     <meta itemprop="headline" content="<?php echo $post_title ?>">
+    <meta itemprop="author" content="<?php echo $post_author ?>">
+    <meta itemprop="articleSection" content="<?php echo $post_category ?>">
+    <meta itemprop="articleBody" content="<?php echo htmlspecialchars($post) ?>">
     <div class="row">
         <div class="one-quarter meta">
             <div class="thumbnail">
@@ -24,15 +27,15 @@
             </div>
             
             <ul>
-                <li>By <span itemprop="author"><?php echo $post_author ?></span></li>
+                <li>By <?php echo $post_author ?></li>
                 <li itemprop="datePublished"><?php echo $published_date ?></li>
-                <li>About <span itemprop="articleSection"><?php echo $post_category ?></span></li>
+                <li>About <?php echo $post_category ?></li>
                 <li></li>
             </ul>
         </div>
         
         <div class="three-quarters post">
-            <span itemprop="articleBody"><?php echo $post ?></span>
+            <?php echo $post ?>
                                 
             <ul class="actions">
                 <li><a class="button" href="https://twitter.com/intent/tweet?screen_name=<?php echo $post_author_twitter ?>&text=Re:%20<?php echo $post_link ?>%20" data-dnt="true">Comment on Twitter</a></li>

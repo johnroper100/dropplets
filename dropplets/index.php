@@ -254,7 +254,7 @@ else {
         $post_category = str_replace('-', '', $fcontents[4]);
         
         // The post intro.
-        $post_intro = Markdown($fcontents[7]);
+        $post_intro = htmlspecialchars($fcontents[7]);
 
         // The post link.
         $post_link = $blog_url.'/'.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
