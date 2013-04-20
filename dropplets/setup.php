@@ -3,10 +3,8 @@
 // Fetch the current url.
 $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
 $host = $_SERVER['HTTP_HOST'];
-$script = $_SERVER['SCRIPT_NAME'];
-$params = $_SERVER['QUERY_STRING'];
-$current_url = $protocol . '://' . $host . $script . '?' . $params;
-$url = str_replace('/index.php?filename=', '', $current_url);
+$dir = basename($_SERVER['REQUEST_URI']);
+$url = $protocol . '://' . $host . '/' . $dir;
 
 ?>
 
