@@ -194,8 +194,8 @@ if (!isset($_SESSION['user'])) {
 		        
 		        <fieldset>
 		    	    <div class="input">
-		    	        <label>Password</label>
-		    	        <input type="password" name="password" id="password">
+		    	        <label>Change Password</label>
+		    	        <input type="password" name="password" id="password" value="">
 		    	    </div>
 		        </fieldset>
 		        
