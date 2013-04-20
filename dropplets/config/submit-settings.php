@@ -65,7 +65,7 @@ if ($_POST['submit'] == "submit")
     }
 
     // Redirect
-    header('Location: ' . '../../');
+    header('Location: ' . $blog_url);
 }
 
 ?>
