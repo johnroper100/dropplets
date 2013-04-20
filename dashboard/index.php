@@ -195,7 +195,7 @@ if (!isset($_SESSION['user'])) {
 		        <fieldset>
 		    	    <div class="input">
 		    	        <label>Password</label>
-		    	        <input type="password" name="password" id="password" required value="<?php echo $password ?>">
+		    	        <input type="password" name="password" id="password">
 		    	    </div>
 		        </fieldset>
 		        
