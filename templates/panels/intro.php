@@ -1,7 +1,7 @@
 <article id="intro">
     <div class="inside">
         <h2><?php echo $blog_title ?></h2>
-        <p><?php echo $intro_text ?></p>
+        <p><?php echo stripslashes($intro_text) ?></p>
     
         <ul class="actions">
             <li>

@@ -28,6 +28,13 @@ $date_format = 'F jS, Y';
 $error_title = 'Sorry, But That&#8217;s Not Here';
 $error_text = 'Really sorry, but what you&#8217;re looking for isn&#8217;t here. Click the button below to find something else that might interest you.';
 
+if ($promote == 'yes')
+{
+    $powered_by = '<a class="powered-by" href="http://dropplets.com" target="_blank"><img src="./dropplets/style/images/powered-by.png" />Powered by Dropplets</a>';
+} else {
+    $powered_by = '';
+}
+
 /*-----------------------------------------------------------------------------------*/
 /* Post Configuration
 /*-----------------------------------------------------------------------------------*/

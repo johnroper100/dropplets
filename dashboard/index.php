@@ -201,7 +201,15 @@ if (!isset($_SESSION['user'])) {
 		    	    <div class="input">
 		    	        <label>Tracking Code</label>
 		    	        <textarea name="tracking_code" id="tracking_code" rows="12"><?php echo stripslashes($tracking_code) ?></textarea>
-		    	    </div> 
+		    	    </div>
+
+              <div class="input">
+                  <label>Promote Dropplets?</label>
+                  <select name="promote_dropplets" id="promote_dropplets">
+                    <option value="no" <?php if ($promote == 'no') echo 'selected' ?>>Nah. Not right now.</option>
+                    <option value="yes" <?php if ($promote == 'yes') echo 'selected' ?>>Yup!</option>
+                  </select>
+              </div>
 		        </fieldset>
 		        
 		        <button type="submit" name="submit" value="submit"></button>

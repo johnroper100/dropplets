@@ -24,6 +24,8 @@
     <body>
         <?php echo $content ?>
         
+        <?php echo $powered_by ?>
+
         <?php echo stripslashes($tracking_code) ?>
     </body>
 </html>

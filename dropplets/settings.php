@@ -67,12 +67,16 @@ $url = str_replace('/dropplets/index.php?filename=', '', $current_url);
     		    
     		    <div class="input">
     		        <textarea name="tracking_code" id="tracking_code" rows="12" placeholder="If you're using Google Analytics or some other analytics solution, paste your tracking code here (optional)."></textarea>
-    		    </div> 
+    		    </div>
+
+            
 		    </fieldset>
 		    
 		    <fieldset class="hidden">
 		        <div class="input">
 		            <input type="text" name="template" id="template" required value="simple">
+                <!-- Feel free to delete. Opinion (@bishless) - setting 'Promote Dropplets' value to 0 at the start because first-time users shouldn't be asked... not until they've used it a while and revisit settings. -->
+                <input type="hidden" name="promote_dropplets" id="promote_dropplets" value="no">
 		        </div>
 		    </fieldset>
 		    

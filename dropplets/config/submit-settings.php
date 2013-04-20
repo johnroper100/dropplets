@@ -15,6 +15,7 @@ if($_POST['submit'] == "submit")
     $intro_title = htmlspecialchars($_POST['intro_title']);
     $intro_text = htmlspecialchars($_POST['intro_text']);
     $password = $_POST['password'];
+    $promote = stripslashes($_POST['promote_dropplets']);
     $tracking_code = addslashes($_POST['tracking_code']);
 
     // Output Stuff
@@ -27,6 +28,7 @@ if($_POST['submit'] == "submit")
     $config[] = "\$intro_title = \"$intro_title\";";
     $config[] = "\$intro_text = \"$intro_text\";";
     $config[] = "\$password = '$password';";
+    $config[] = "\$promote = '$promote';";
     $config[] = "\$tracking_code = '$tracking_code';";
 
     // Put Stuff
