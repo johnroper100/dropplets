@@ -6,7 +6,7 @@ $host = $_SERVER['HTTP_HOST'];
 $script = $_SERVER['SCRIPT_NAME'];
 $params = $_SERVER['QUERY_STRING'];
 $current_url = $protocol . '://' . $host . $script . '?' . $params;
-$url = str_replace('/dropplets/index.php?filename=', '', $current_url);
+$url = str_replace('/index.php?', '', $current_url);
 
 ?>
 

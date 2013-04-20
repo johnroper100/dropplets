@@ -1,7 +1,7 @@
 Dropplets
 =========
 
-> Version 1.0.2
+> Version 1.0.3
 
 A minimalist markdown blogging platform that just works.
 
@@ -18,8 +18,6 @@ Dropplets is compatible with most server configurations and can be accomplished 
 1. Download the latest version here on [GitHub](https://github.com/circa75/dropplets/archive/master.zip) and then extract the downloaded zip file.
 3. Upload the entire contents of the extracted zip file to your web server wherever you want Dropplets to be installed. 
 4. Pull up your site in any modern web browser and follow the installation prompts. For instance, if you uploaded Dropplets to **yoursite.com**, load **yoursite.com** in your browser to finish the installation.
-
-**IMPORTANT NOTE:** If you're not brought to the installation screen after this process, you probably didn't upload the **.htaccess** file in the root Dropplets directory. These files are usually hidden by default in most file browsers and ftp clients, so you might have to show hidden files in order to see it. We plan on improving this process in the future.
 
 ## Writing Your First Post
 With Dropplets, you write your posts offline in any Markdown compatible application then upload your completed post within the Dropplets dashboard (explained below). Please note that all posts must be composed in markdown format and saved with the **.md** file extension. For instance, if your post title is **My First Blog Post**, your post file should look like this:

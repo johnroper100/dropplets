@@ -1,12 +1,12 @@
 <?php
 
 /*-----------------------------------------------------------------------------------*/
-/* Save Submitted Content
+/* Save Submitted Settings
 /*-----------------------------------------------------------------------------------*/
 
 if($_POST['submit'] == "submit")
 {
-    // Get Stuff
+    // Get submitted setup values.
     $blog_email = $_POST['blog_email'];
     $blog_twitter = $_POST['blog_twitter'];
     $blog_url = $_POST['blog_url'];
@@ -18,7 +18,7 @@ if($_POST['submit'] == "submit")
     $header_inject = addslashes($_POST['header_inject']);
     $footer_inject = addslashes($_POST['footer_inject']);
 
-    // Output Stuff
+    // Output submitted setup values.
     $config[] = "<?php";
     $config[] = "\$blog_email = '$blog_email';";
     $config[] = "\$blog_twitter = '$blog_twitter';";
@@ -30,9 +30,27 @@ if($_POST['submit'] == "submit")
     $config[] = "\$password = '$password';";
     $config[] = "\$header_inject = '$header_inject';";
     $config[] = "\$footer_inject = '$footer_inject';";
-
-    // Put Stuff
+    
+    // Create the settings file.
     file_put_contents("../../dropplets/config/config-settings.php", implode("\n", $config));
+    
+    // Generate the "htaccess" file on initial setup only.
+    if (!file_exists('../../.htaccess')) {
+    
+        // Parameters for the htaccess file.
+        $htaccess[] = "# Pretty Permalinks";
+        $htaccess[] = "RewriteRule ^(dashboard)($|/) - [L]";
+        $htaccess[] = "RewriteRule ^(images)($|/) - [L]";
+        $htaccess[] = "Options +FollowSymLinks -MultiViews";
+        $htaccess[] = "RewriteEngine on";
+        $htaccess[] = "RewriteCond %{REQUEST_URI} !index";
+        $htaccess[] = "RewriteCond %{REQUEST_FILENAME} !-f";
+        $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [L]";
+    
+        // Generate the htaccess file.
+        file_put_contents("../../.htaccess", implode("\n", $htaccess));
+        
+    }
 
     // Redirect
     header('Location: ' . '../../');
