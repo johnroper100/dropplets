@@ -2,4 +2,5 @@
 *.esproj
 *.pxm
 .DS_Store
+.htaccess
 dropplets/config/config-settings.php
