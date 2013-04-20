@@ -22,7 +22,7 @@ Dropplets is compatible with most server configurations and can be accomplished 
 **IMPORTANT NOTE:** If you're not brought to the installation screen after this process, you probably didn't upload the **.htaccess** file in the root Dropplets directory. These files are usually hidden by default in most file browsers and ftp clients, so you might have to show hidden files in order to see it. We plan on improving this process in the future.
 
 ## Writing Your First Post
-With Dropplets, you write your posts offline in any Markdown compatible application then upload your completed post within the Dropplets dashboard (explained below). Please note that all posts must be composed in markdown format and saved with the "***.md**" file extension. For instance, if your post title is "**My First Blog Post**", your post file should look like this:
+With Dropplets, you write your posts offline in any Markdown compatible application then upload your completed post within the Dropplets dashboard (explained below). Please note that all posts must be composed in markdown format and saved with the "**.md**" file extension. For instance, if your post title is "**My First Blog Post**", your post file should look like this:
 
 - my-first-blog-post.md
 
