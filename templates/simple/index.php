@@ -19,7 +19,7 @@
         <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
         
-        <link rel="shortcut icon" href="./dropplets/style/images/favicon.png">
+        <link rel="shortcut icon" href="<?php echo $blog_url ?>/dropplets/style/images/favicon.png">
         
         <?php echo stripslashes($header_inject) ?>
     </head>
@@ -27,7 +27,7 @@
     <body>
         <?php echo $content ?>
     
-        <a class="powered-by" href="http://dropplets.com" target="_blank"><img src="./dropplets/style/images/powered-by.png" />Powered by Dropplets</a>
+        <?php echo $powered_by ?>
 
         <?php echo stripslashes($footer_inject) ?>
     </body>
