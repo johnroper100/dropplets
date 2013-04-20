@@ -17,7 +17,7 @@ Dropplets is compatible with most server configurations and can be accomplished 
 
 1. Download the latest version here on [GitHub](https://github.com/circa75/dropplets/archive/master.zip) and then extract the downloaded zip file.
 3. Upload the entire contents of the extracted zip file to your web server wherever you want Dropplets to be installed. 
-4. Pull up your site in any modern web browser and follow the installation prompts. For instance, if you uploaded Dropplets to **yoursite.com/blog/**, load **yoursite.com/blog/** in your browser.
+4. Pull up your site in any modern web browser and follow the installation prompts. For instance, if you uploaded Dropplets to **yoursite.com**, load **yoursite.com** in your browser to finish the installation.
 
 **IMPORTANT NOTE:** If you're not brought to the installation screen after this process, you probably didn't upload the **.htaccess** file in the root Dropplets directory. These files are usually hidden by default in most file browsers and ftp clients, so you might have to show hidden files in order to see it. We plan on improving this process in the future.
 
@@ -30,7 +30,7 @@ Some templates include the ability to add a post image or thumbnail along with y
 
 - my-first-blog-post.jpg
 
-Post file names are used to structure "permalinks". So, a post file saved as "my-first-blog-post.md" will result in **yoursite.com/my-first-blog-post** as the post permalink.
+Post file names are used to structure post permalinks on your blog. So, a post file saved as **my-first-blog-post.md** will result in **yoursite.com/my-first-blog-post** as the post permalink.
 
 All posts for Dropplets **MUST** be composed using the following format:
 
@@ -44,7 +44,7 @@ All posts for Dropplets **MUST** be composed using the following format:
     Your post text starts here.
     
 ## About the Dashboard
-The Dropplets Dashboard can be used to publish new posts, edit existing posts, change your blog settings or change your template. To access the Dropplets dashboard, load **http://yoursite.com/dashboard/**, obviously changing **yoursite.com** to your own website URL.
+The Dropplets Dashboard can be used to publish new posts, edit existing posts, change your blog settings or change your template. To access the Dropplets dashboard, load **yoursite.com/dashboard/**, obviously changing **yoursite.com** to your own website URL.
 
 ## Publishing Posts
 Publishing posts is really easy to do within the Dropplets Dashboard:
