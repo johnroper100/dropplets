@@ -35,7 +35,7 @@ if($_POST['submit'] == "submit")
     file_put_contents("../../dropplets/config/config-settings.php", implode("\n", $config));
 
     // Redirect
-    header('Location: ' . '../../');
+    header('Location: ' . $blog_url);
 }
 
 ?>
