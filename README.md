@@ -13,28 +13,30 @@ Markdown is a text formatting syntax inspired on plain text email. It is extreme
 If you're looking for an awesome Markdown editor, Byword (http://bywordapp.com/) is a great solution for the Mac. They also have an awesome syntax guide which can be found Here (http://bywordapp.com/markdown/syntax.html).
 
 ## Installation
-Installing Dropplets is pretty easy. Just follow the few steps below.
+Dropplets is compatible with most server configurations and can be accomplished typically in under a minute using the few step-by-step instructions below:
 
-1. Download the latest version here on GitHub.
-2. Extract the zip file.
-3. Drag and drop everything to your server wherever you want it to be installed. 
-4. Pull up your target site in a web browser and follow the prompts.
+1. Download the latest version here on [GitHub](https://github.com/circa75/dropplets/archive/master.zip) and then extract the downloaded zip file.
+3. Upload the entire contents of the extracted zip file to your web server wherever you want Dropplets to be installed. 
+4. Pull up your site in any modern web browser and follow the installation prompts. For instance, if you uploaded Dropplets to "yoursite.com/blog/", load "yoursite.com/blog/" in your browser.
 
-**IMPORTANT NOTE:** If you're not brought to the installation screen after this process, you probably didn't get the **.htaccess** file in the root Dropplets directory. These files are usually hidden by default, so you might have to show hidden files to see it.
+**IMPORTANT NOTE:** If you're not brought to the installation screen after this process, you probably didn't upload the **.htaccess** file in the root Dropplets directory. These files are usually hidden by default in most file browsers and ftp clients, so you might have to show hidden files in order to see it. We plan on improving this process in the future.
 
-## Post Formatting
-Posts must currently be composed in markdown format, saved as a "*.md". You may include a matching featured image (optional). Here's an example of good post file naming:
+## Writing Your First Post
+With Dropplets, you write your posts offline in any Markdown compatible application then upload your completed post within the Dropplets dashboard (explained below). Please note that all posts must be composed in markdown format and saved with the "***.md**" file extension. For instance, if your post title is "**My First Blog Post**", your post file should look like this:
 
-- your-post-title.md
-- your-post-title.jpg
+- my-first-blog-post.md
 
-Post file names are used to structure permalinks. So, a post file saved as "your-post-title.txt" will result in "http://yoursite.com/your-post-title".
+Some templates include the ability to add a post image or thumbnail along with your post in which should match your post file name like this:
 
-Your posts (markdown files) **MUST** be formatted as follows:
+- my-first-blog-post.jpg
+
+Post file names are used to structure "permalinks". So, a post file saved as "my-first-blog-post.md" will result in "http://yoursite.com/my-first-blog-post" as the post permalink.
+
+All posts for Dropplets **MUST** be composed using the following format:
 
     # Your Post Title
-    - Post Author
-    - Twitter Handle (e.g. "dropplets")
+    - Post Author Name (e.g. "Dropplets")
+    - Post Author Twitter Handle (e.g. "dropplets")
     - 2020/02/02
     - Post Category
     - Post Status (e.g. "published" or "draft")
@@ -42,13 +44,16 @@ Your posts (markdown files) **MUST** be formatted as follows:
     Your post text starts here.
     
 ## About the Dashboard
-The Dashboard can be used to publish new posts, edit existing posts, change your blog settings or change your template. To access the Dropplets dashboard, load "http://yoursite.com/dashboard/", obviously changing "yoursite.com" to your websites URL.
+The Dropplets Dashboard can be used to publish new posts, edit existing posts, change your blog settings or change your template. To access the Dropplets dashboard, load "http://yoursite.com/dashboard/", obviously changing "yoursite.com" to your own website URL.
 
 ## Publishing Posts
-Publishing posts is really easy to do within the Dashboard:
+Publishing posts is really easy to do within the Dropplets Dashboard:
 
-1. Login to your Dropplets Dashboard.
-2. Drag and drop your post file into the big "drop" zone within the center of your dashboard.
+1. Login to your Dropplets Dashboard (e.g. "http://yoursite.com/dashboard/").
+2. Drag and drop your post file into the "drop" zone (the droplet) within the center of your dashboard.
+
+## Editing Existing Posts
+Editing existing posts that have been uploaded and published to Dropplets is really easy to do. Simply re-upload your edited post file within the Dropplets Dashboard using the steps above. Doing this will automatically overwrite the existing post.
 
 ## License
 Copyright (c) 2013 Circa75 Media, LLC
