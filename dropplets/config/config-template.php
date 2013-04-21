@@ -1,2 +1,2 @@
 <?php
-$template = 'panels';
+$template = 'simple';
