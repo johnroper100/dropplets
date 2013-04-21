@@ -1,4 +1,21 @@
-<?php session_start();
+<?php 
+
+/*-----------------------------------------------------------------------------------*/
+/* If This is a Fresh Install
+/*-----------------------------------------------------------------------------------*/
+
+if (!file_exists('./dropplets/config/config-settings.php')) {
+
+    // Redirect back to the install
+    header('Location: ' . '../');
+
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* Otherwise, Let's Begin
+/*-----------------------------------------------------------------------------------*/
+
+session_start();
 
 include('../dropplets/config/config-settings.php');
 include('../dropplets/config/config-template.php');
