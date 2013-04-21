@@ -1,5 +1,8 @@
 <?php
 
+// Get existing config.
+include('config-settings.php');
+
 $upload_dir = '../posts/';
 $allowed_ext = array('jpg','md');
 
@@ -34,7 +37,7 @@ function get_extension($file_name){
 	return strtolower($ext);
 }
 
-// Redirect
-header('Location: ' . '../../');
+// Redirect to the set blog url.
+header('Location: ' . $blog_url);
 
 ?>

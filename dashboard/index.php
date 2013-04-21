@@ -19,7 +19,7 @@ if (isset($_GET['action'])) {
                     $_SESSION['user']=true;
                     
                     // Redirect
-                    header('Location: ' . '../dashboard/'); 
+                    header('Location: ' . $blog_url . '/dashboard/');
                 } else {
                     $login_error = "Nope, Try Again!";
                 }
@@ -31,7 +31,7 @@ if (isset($_GET['action'])) {
                 session_destroy();
                 
                 // Redirect
-                header('Location: ' . '../dashboard/');
+                header('Location: ' . $blog_url . '/dashboard/');
             break;            
                 
     }
