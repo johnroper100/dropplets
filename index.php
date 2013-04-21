@@ -153,6 +153,14 @@ if ($filename==NULL) {
         $get_page_meta[] = '<meta name="twitter:image:src" content="' . $blog_image . '">';
         $get_page_meta[] = '<meta name="twitter:domain" content="' . $blog_url . '">';
         
+        // Get the Open Graph tags.
+        $get_page_meta[] = '<meta property="og:type" content="website">';
+        $get_page_meta[] = '<meta property="og:title" content="' . $blog_title . '">';
+        $get_page_meta[] = '<meta property="og:site_name" content="' . $blog_twitter . '">';
+        $get_page_meta[] = '<meta property="og:url" content="' .$blog_url . '">';
+        $get_page_meta[] = '<meta property="og:description" content="' . $meta_description . '">';
+        $get_page_meta[] = '<meta property="og:image" content="' . $blog_image . '">';
+        
         // Get all page meta.
         $page_meta = implode("\n", $get_page_meta);
 
@@ -308,6 +316,14 @@ else {
         $get_page_meta[] = '<meta name="twitter:creator" content="' . $post_author_twitter . '">';
         $get_page_meta[] = '<meta name="twitter:image:src" content="' . $post_image . '">';
         $get_page_meta[] = '<meta name="twitter:domain" content="' . $post_link . '">';
+        
+        // Get the Open Graph tags.
+        $get_page_meta[] = '<meta property="og:type" content="article">';
+        $get_page_meta[] = '<meta property="og:title" content="' . $page_title . '">';
+        $get_page_meta[] = '<meta property="og:site_name" content="' . $blog_twitter . '">';
+        $get_page_meta[] = '<meta property="og:url" content="' . $post_link . '">';
+        $get_page_meta[] = '<meta property="og:description" content="' . $post_intro . '">';
+        $get_page_meta[] = '<meta property="og:image" content="' . $post_image . '">';
         
         // Generate all page meta.
         $page_meta = implode("\n", $get_page_meta);
