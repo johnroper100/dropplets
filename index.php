@@ -156,7 +156,7 @@ if ($filename==NULL) {
         // Get the Open Graph tags.
         $get_page_meta[] = '<meta property="og:type" content="website">';
         $get_page_meta[] = '<meta property="og:title" content="' . $blog_title . '">';
-        $get_page_meta[] = '<meta property="og:site_name" content="' . $blog_twitter . '">';
+        $get_page_meta[] = '<meta property="og:site_name" content="' . $blog_title . '">';
         $get_page_meta[] = '<meta property="og:url" content="' .$blog_url . '">';
         $get_page_meta[] = '<meta property="og:description" content="' . $meta_description . '">';
         $get_page_meta[] = '<meta property="og:image" content="' . $blog_image . '">';
@@ -320,7 +320,7 @@ else {
         // Get the Open Graph tags.
         $get_page_meta[] = '<meta property="og:type" content="article">';
         $get_page_meta[] = '<meta property="og:title" content="' . $page_title . '">';
-        $get_page_meta[] = '<meta property="og:site_name" content="' . $blog_twitter . '">';
+        $get_page_meta[] = '<meta property="og:site_name" content="' . $page_title . '">';
         $get_page_meta[] = '<meta property="og:url" content="' . $post_link . '">';
         $get_page_meta[] = '<meta property="og:description" content="' . $post_intro . '">';
         $get_page_meta[] = '<meta property="og:image" content="' . $post_image . '">';
