@@ -47,16 +47,19 @@ if (isset($_GET['action'])) {
             case 'forgot':
                 $verification_file = "./verify.php";
 
-                if(!isset($_GET["verify"]) || !file_exists($verification_file)) {
+                if(!isset($_GET["verify"])) {
 
                     $code = sha1(time());
-                    file_put_contents($verification_file, "<?php\n\$verification_code = \"" . $code . "\";");
+
+                    $verify_file_contents[] = "<?php";
+                    $verify_file_contents[] = "\$verification_code = \"" . $code . "\";";
+                    file_put_contents($verification_file, implode("\n", $verify_file_contents));
 
                     $recovery_url = sprintf("%s/dashboard/index.php?action=forgot&verify=%s,", $blog_url, $code);
                     $message = sprintf("To reset your password go to: %s", $recovery_url);
 
                     $headers[] = "From: " . $blog_email;
-                    $headers[] ="Reply-To: " . $blog_email;
+                    $headers[] = "Reply-To: " . $blog_email;
                     $headers[] = "X-Mailer: PHP/" . phpversion();
 
                     mail($blog_email, $blog_title . " - Recover your Dropplets Password", $message, implode("\r\n", $headers));
@@ -75,7 +78,6 @@ if (isset($_GET['action'])) {
 
                 }
 
-                //$login_error = "You have been emailed with details on how to reset your password.";
             break;
     }
 }
