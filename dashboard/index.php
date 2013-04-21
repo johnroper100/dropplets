@@ -44,6 +44,41 @@ if (isset($_GET['action'])) {
                 header('Location: ' . '../dashboard/');
             break;            
                 
+            case 'forgot':
+                $verification_file = "./verify.php";
+
+                if(!isset($_GET["verify"]) || !file_exists($verification_file))
+                {
+                    $code = sha1(time());
+                    file_put_contents($verification_file, "<?php\n\$verification_code = \"" . $code . "\";");
+
+                    $recovery_url = sprintf("%s/dashboard/index.php?action=forgot&verify=%s,", $blog_url, $code);
+                    $message = sprintf("To reset your password go to: %s", $recovery_url);
+
+                    $headers = "From: " . $blog_email . "\r\n" .
+                               "Reply-To: " . $blog_email . "\r\n" .
+                               "X-Mailer: PHP/" . phpversion();
+
+                    mail($blog_email, $blog_title . " - Recover your Dropplets Password", $message, $headers);
+                    $login_error = "Details on how to recover your account have been sent to your email.";
+                }
+                else
+                {
+                    include($verification_file);
+
+                    if($_GET["verify"] == $verification_code)
+                    {
+                        $_SESSION["user"] = true;
+                        unlink($verification_file);
+                    }
+                    else
+                    {
+                       $login_error = "That's not the correct recovery code!"; 
+                    }
+                }
+
+                //$login_error = "You have been emailed with details on how to reset your password.";
+            break;
     }
 }
 
@@ -122,6 +157,7 @@ if (!isset($_SESSION['user'])) {
             <button type="submit" name="submit" value="submit"></button>
 		</form>
 		
+        <p><a class="back" href="?action=forgot">I've forgotten my password!</a></p>
 		<p><a class="back" href="<?php echo $blog_url; ?>">Back to <?php echo $blog_title; ?></a></p>
     </body>
 </html>
