@@ -1,2 +1,2 @@
 <?php
-$template = 'simple';
+$template = "simple";
