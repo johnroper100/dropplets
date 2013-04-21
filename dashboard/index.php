@@ -1,29 +1,12 @@
-<?php 
+<?php session_start();
 
-/*-----------------------------------------------------------------------------------*/
-/* If This is a Fresh Install
-/*-----------------------------------------------------------------------------------*/
-
-if (!file_exists('./dropplets/config/config-settings.php')) {
-
-    // Redirect back to the install
-    header('Location: ' . '../');
-
-}
-
-/*-----------------------------------------------------------------------------------*/
-/* Otherwise, Let's Begin
-/*-----------------------------------------------------------------------------------*/
-
-session_start();
-
-$settings_file = "../dropplets/config/config-settings.php";
-$template_file = "../dropplets/config/config-template.php";
+$settings_file = '../dropplets/config/config-settings.php';
+$template_file = '../dropplets/config/config-template.php';
 
 if(file_exists($settings_file)) {
     include($settings_file);
 } else {
-    header("Location: ../");
+    header('Location: ../');
 }
 
 if(file_exists($template_file)) {
@@ -46,9 +29,9 @@ if (isset($_GET['action'])) {
                     $_SESSION['user']=true;
                     
                     // Redirect
-                    header('Location: ' . $blog_url . '/dashboard/');
+                    header('Location: ' . '../dashboard/'); 
                 } else {
-                    $login_error = "Nope, Try Again!";
+                    $login_error = 'Nope, Try Again!';
                 }
             break;
                 
@@ -58,7 +41,7 @@ if (isset($_GET['action'])) {
                 session_destroy();
                 
                 // Redirect
-                header('Location: ' . $blog_url . '/dashboard/');
+                header('Location: ' . '../dashboard/');
             break;            
                 
     }
@@ -265,24 +248,24 @@ if (!isset($_SESSION['user'])) {
                 
                 // Templates
                 var active = 0; 
-                var list = $('ul');
+                var list = $("ul");
                 
-                list.children('li').eq('0').siblings().hide(); 
+                list.children("li").eq("0").siblings().hide(); 
                 
-                $('.next').bind('click', function() {
-                    active = active == list.children('li').length-1 ? 0 : active + 1;
+                $(".next").bind("click", function() {
+                    active = active == list.children("li").length-1 ? 0 : active + 1;
                 });
                 
-                $('.prev').bind('click', function() {
-                    active = active == 0 ? list.children('li').length-1 : active - 1;
+                $(".prev").bind("click", function() {
+                    active = active == 0 ? list.children("li").length-1 : active - 1;
                 });
                 
                 
                 var getActive = function() {
-                    return list.children('li').eq(active);
+                    return list.children("li").eq(active);
                 };
                 
-                $('.prev,.next').bind('click', function() {
+                $(".prev,.next").bind("click", function() {
                     getActive().show().siblings().hide();
                 });
                 
