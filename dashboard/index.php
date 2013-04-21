@@ -1,7 +1,17 @@
 <?php session_start();
 
-include('../dropplets/config/config-settings.php');
-include('../dropplets/config/config-template.php');
+$settings_file = "../dropplets/config/config-settings.php";
+$template_file = "../dropplets/config/config-template.php";
+
+if(file_exists($settings_file)) {
+    include($settings_file);
+} else {
+    header("Location: ../");
+}
+
+if(file_exists($template_file)) {
+    include($template_file);    
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* User Machine
@@ -155,46 +165,46 @@ if (!isset($_SESSION['user'])) {
 		        <fieldset>
 		            <div class="input">
 		                <label>Blog Email</label>
-		                <input type="text" name="blog_email" id="blog_email" required value="<?php echo $blog_email ?>">
+		                <input type="text" name="blog_email" id="blog_email" required value="<?php echo $blog_email; ?>">
 		            </div> 
 		            
 		            <div class="input">
 		                <label>Blog Twitter ID</label>
-		                <input type="text" name="blog_twitter" id="blog_twitter" required value="<?php echo $blog_twitter ?>">
+		                <input type="text" name="blog_twitter" id="blog_twitter" required value="<?php echo $blog_twitter; ?>">
 		            </div> 
 		        </fieldset>
 		        
 		        <fieldset>
 		            <div class="input hidden">
-		                <input type="text" name="blog_url" id="blog_url" required readonly value="<?php echo $blog_url ?>">
+		                <input type="text" name="blog_url" id="blog_url" required readonly value="<?php echo $blog_url; ?>">
 		            </div>
 		            
 		    	    <div class="input">
 		    	        <label>Blog Title</label>
-		    	        <input type="text" name="blog_title" id="blog_title" required value="<?php echo $blog_title ?>">
+		    	        <input type="text" name="blog_title" id="blog_title" required value="<?php echo $blog_title; ?>">
 		    	    </div>
 		    	    
 		    	    <div class="input">
 		    	        <label>Blog Description</label>
-		    	        <textarea name="meta_description" id="meta_description" rows="6" required><?php echo $meta_description ?></textarea>
+		    	        <textarea name="meta_description" id="meta_description" rows="6" required><?php echo $meta_description; ?></textarea>
 		    	    </div> 
 		        </fieldset>
 		        
 		        <fieldset>
 		    	    <div class="input">
 		    	        <label>Intro Title</label>
-		    	        <input type="text" name="intro_title" id="intro_title" required value="<?php echo $intro_title ?>">
+		    	        <input type="text" name="intro_title" id="intro_title" required value="<?php echo $intro_title; ?>">
 		    	    </div> 
 		    	    
 		    	    <div class="input">
 		    	        <label>Intro Text</label>
-		    	        <textarea name="intro_text" id="intro_text" rows="12" required><?php echo $intro_text ?></textarea>
+		    	        <textarea name="intro_text" id="intro_text" rows="12" required><?php echo $intro_text; ?></textarea>
 		    	    </div> 
 		        </fieldset>
 		        
 		        <fieldset>
 		    	    <div class="input">
-		    	        <label>Change Password</label>
+		    	        <label>Password</label>
 		    	        <input type="password" name="password" id="password" value="">
 		    	    </div>
 		        </fieldset>
