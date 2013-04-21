@@ -89,38 +89,35 @@ if ($filename==NULL) {
         ob_start();
         $content = '';
         foreach($posts as $post) {
-        
-            // The site title
-            $site_title = $blog_title;
             
-            // The post title.
-            $post_title = $post['title'];
+            // Get the post title.
+            $post_title = $post['post_title'];
             
-            // The post author.
+            // Get the post author.
             $post_author = $post['post_author'];
             
-            // The post author twitter id.
+            // Get the post author twitter id.
             $post_author_twitter = $post['post_author_twitter'];
             
-            // The published ISO date.
-            $published_iso_date = $post['time'];
+            // Get the published ISO date.
+            $published_iso_date = $post['post_date'];
                         
-            // The published date.
+            // Generate the published date.
             $published_date = date_format(date_create($published_iso_date), $date_format);
             
-            // The post category.
-            $post_category = $post['category'];
+            // Get the post category.
+            $post_category = $post['post_category'];
             
-            // The post category.
+            // Get the post status.
             $post_status = $post['post_status'];
             
-            // The post intro.
-            $post_intro = $post['intro'];
+            // Get the post intro.
+            $post_intro = $post['post_intro'];
             
-            // The post link.
+            // Get the post link.
             $post_link = str_replace(FILE_EXT, '', $post['fname']);
             
-            // The post image.
+            // Get the post image url.
             $image = str_replace(array(FILE_EXT), '', POSTS_DIR.$post['fname']).'.jpg';
             
             if (file_exists($image)) {
@@ -129,21 +126,42 @@ if ($filename==NULL) {
                 $post_image = 'https://api.twitter.com/1/users/profile_image?screen_name='.$post_author_twitter.'&size=bigger';
             }
             
-            // Grab the site intro template file.
+            // Get the site intro template file.
             include_once $intro_file;
             
-            // Grab the milti-post template file.
+            // Get the milti-post template file.
             include $posts_file;
         }
         echo $content;
         $content = ob_get_contents();
+        
+        // Get the site title
+        $page_title = $blog_title;
+        
+        $blog_image = 'https://api.twitter.com/1/users/profile_image?screen_name='.$blog_twitter.'&size=bigger';
+        
+        // Get the page description and author meta.
+        $get_page_meta[] = '<meta name="description" content="' . $meta_description . '">';
+        $get_page_meta[] = '<meta name="author" content="' . $blog_title . '">';
+        
+        // Get the Twitter card.
+        $get_page_meta[] = '<meta name="twitter:card" content="summary">';
+        $get_page_meta[] = '<meta name="twitter:site" content="' . $blog_twitter . '">';
+        $get_page_meta[] = '<meta name="twitter:title" content="' . $blog_title . '">';
+        $get_page_meta[] = '<meta name="twitter:description" content="' . $meta_description . '">';
+        $get_page_meta[] = '<meta name="twitter:creator" content="' . $blog_twitter . '">';
+        $get_page_meta[] = '<meta name="twitter:image:src" content="' . $blog_image . '">';
+        $get_page_meta[] = '<meta name="twitter:domain" content="' . $blog_url . '">';
+        
+        // Get all page meta.
+        $page_meta = implode("\n", $get_page_meta);
 
         ob_end_clean();
     } else {
         ob_start();
         
         // The site title
-        $site_title = $error_title;
+        $page_title = $error_title;
         
         // Get the 404 page template.
         $post = Markdown(file_get_contents($not_found_file));
@@ -215,17 +233,17 @@ else if ($filename == 'rss' || $filename == 'atom') {
 else {
     ob_start();
     
-    // The post file.
+    // Define the post file.
     $fcontents = file($filename);
     
-    // The cached file.
+    // Define the cached file.
     $cachefile = str_replace(array(FILE_EXT), '', $filename).'.html';
     
     // If there's no file for the selected permalink, grab the 404 page template.
     if (!file_exists($filename)) {
     
-        // The site title
-        $site_title = $error_title;
+        // Define the site title.
+        $page_title = $error_title;
     
         // Get the 404 page template.
         include $not_found_file;
@@ -233,40 +251,40 @@ else {
     // If there is a cached file for the selected permalink, display the cached post.  
     } else if (file_exists($cachefile)) {
     
-        // The site title
-        $site_title = str_replace('# ', '', $fcontents[0]);
+        // Define site title
+        $page_title = str_replace('# ', '', $fcontents[0]);
         
         // Get the cached post.
         include $cachefile;
     
     // If there is a file for the selected permalink, display and cache the post.
     } else {
-    
-        // The site title
-        $site_title = str_replace('# ', '', $fcontents[0]);
         
-        // The post title.
+        // Get the post title.
         $post_title = str_replace('# ', '', $fcontents[0]);
         
-        // The post author.
+        // Get the post title.
+        $post_intro = htmlspecialchars($fcontents[7]);
+        
+        // Get the post author.
         $post_author = str_replace('-', '', $fcontents[1]);
         
-        // The post author Twitter account.
+        // Get the post author Twitter ID.
         $post_author_twitter = str_replace('- ', '', $fcontents[2]);
         
-        // The published date.
+        // Get the published date.
         $published_iso_date = str_replace('-', '', $fcontents[3]);
                 
-        // The published date.
+        // Generate the published date.
         $published_date = date_format(date_create($published_iso_date), $date_format);
         
-        // The post category.
+        // Get the post category.
         $post_category = str_replace('-', '', $fcontents[4]);
         
-        // The post link.
+        // Get the post link.
         $post_link = $blog_url.'/'.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
         
-        // The post image.
+        // Get the post image url.
         $image = str_replace(array(FILE_EXT), '', $filename).'.jpg';
         
         if (file_exists($image)) {
@@ -275,7 +293,26 @@ else {
             $post_image = 'https://api.twitter.com/1/users/profile_image?screen_name='.$post_author_twitter.'&size=bigger';
         }
         
-        // The post.
+        // Get the site title.
+        $page_title = str_replace('# ', '', $fcontents[0]);
+        
+        // Generate the page description and author meta.
+        $get_page_meta[] = '<meta name="description" content="' . $post_intro . '">';
+        $get_page_meta[] = '<meta name="author" content="' . $post_author . '">';
+        
+        // Generate the Twitter card.
+        $get_page_meta[] = '<meta name="twitter:card" content="summary">';
+        $get_page_meta[] = '<meta name="twitter:site" content="' . $blog_twitter . '">';
+        $get_page_meta[] = '<meta name="twitter:title" content="' . $page_title . '">';
+        $get_page_meta[] = '<meta name="twitter:description" content="' . $post_intro  . '">';
+        $get_page_meta[] = '<meta name="twitter:creator" content="' . $post_author_twitter . '">';
+        $get_page_meta[] = '<meta name="twitter:image:src" content="' . $post_image . '">';
+        $get_page_meta[] = '<meta name="twitter:domain" content="' . $post_link . '">';
+        
+        // Generate all page meta.
+        $page_meta = implode("\n", $get_page_meta);
+        
+        // Generate the post.
         $post = Markdown(join('', $fcontents));
         
         // Get the post template file.
@@ -395,41 +432,42 @@ function get_all_posts() {
         while (false !== ($entry = readdir($handle))) {
             if(substr(strrchr($entry,'.'),1)==ltrim(FILE_EXT, '.')) {
                 
-                // The post file.
+                // Define the post file.
                 $fcontents = file(POSTS_DIR.$entry);
                 
-                // The post title.
-                $title = Markdown($fcontents[0]);
+                // Define the post title.
+                $post_title = Markdown($fcontents[0]);
                 
-                // The post author.
+                // Define the post author.
                 $post_author = str_replace('-', '', $fcontents[1]);
                 
-                // The post author Twitter account.
+                // Define the post author Twitter account.
                 $post_author_twitter = str_replace('- ', '', $fcontents[2]);
                                 
-                // The published date.
-                $time = str_replace('-', '', $fcontents[3]);
+                // Define the published date.
+                $post_date = str_replace('-', '', $fcontents[3]);
                 
-                // The post category.
-                $category = str_replace('-', '', $fcontents[4]);
+                // Define the post category.
+                $post_category = str_replace('-', '', $fcontents[4]);
                 
-                // The post status.
+                // Define the post status.
                 $post_status = str_replace('- ', '', $fcontents[5]);
                 
-                // The post intro.
-                $intro = Markdown($fcontents[7]);
+                // Define the post intro.
+                $post_intro = Markdown($fcontents[7]);
                 
-                $files[] = array('fname' => $entry, 'title' => $title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'time' => $time, 'category' => $category, 'post_status' => $post_status, 'intro' => $intro);
-                $filetimes[] = $time;
-                $titles[] = $title;
+                // Pull everything together for the loop.
+                $files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_category' => $post_category, 'post_status' => $post_status, 'post_intro' => $post_intro);
+                $post_dates[] = $post_date;
+                $post_titles[] = $post_title;
                 $post_authors[] = $post_author;
                 $post_authors_twitter[] = $post_author_twitter;
-                $categories[] = $category;
+                $post_categories[] = $post_category;
                 $post_statuses[] = $post_status;
-                $introductions[] = $intro;
+                $post_intros[] = $post_intro;
             }
         }
-        array_multisort($filetimes, SORT_DESC, $files);
+        array_multisort($post_dates, SORT_DESC, $files);
         return $files;
         
     } else {

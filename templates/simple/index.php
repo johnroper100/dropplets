@@ -3,10 +3,9 @@
     <head>
         <meta charset="utf-8">
         
-        <title><?php echo $site_title ?></title>
+        <title><?php echo $page_title ?></title>
         
-        <meta name="description" content="<?php echo $meta_description ?>">
-        <meta name="author" content="<?php echo $author ?>">
+        <?php echo $page_meta ?>
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
