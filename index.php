@@ -34,6 +34,7 @@ $powered_by = '<a class="powered-by" href="http://dropplets.com" target="_blank"
 /*-----------------------------------------------------------------------------------*/
 
 $post_directory = './posts/';
+$cache_directory = './posts/cache/';
 
 if (glob($post_directory . '*.md') != false)
 {
@@ -44,6 +45,16 @@ if (glob($post_directory . '*.md') != false)
 
 define('POSTS_DIR', $posts_dir);
 define('FILE_EXT', '.md');
+
+/*-----------------------------------------------------------------------------------*/
+/* Cache Configuration
+/*-----------------------------------------------------------------------------------*/
+
+define('CACHE_DIR', $cache_directory);
+
+if (!file_exists(CACHE_DIR) && $post_cache != 'off') {
+	mkdir(CACHE_DIR,0755,TRUE);
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Template Files
@@ -243,9 +254,10 @@ else {
     
     // Define the post file.
     $fcontents = file($filename);
-    
+    $slug_array = explode("/", $filename);
+    $slug = str_replace(array(FILE_EXT), '', $slug_array[2]);
     // Define the cached file.
-    $cachefile = str_replace(array(FILE_EXT), '', $filename).'.html';
+    $cachefile = CACHE_DIR.$slug.'.html';
     
     // If there's no file for the selected permalink, grab the 404 page template.
     if (!file_exists($filename)) {
