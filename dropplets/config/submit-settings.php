@@ -16,25 +16,25 @@ function settings_format($name, $value) {
 /* Save Submitted Settings
 /*-----------------------------------------------------------------------------------*/
 
-if ($_POST['submit'] == "submit")
+if ($_POST["submit"] == "submit")
 {
     // Get submitted setup values.
-    $blog_email = $_POST['blog_email'];
-    $blog_twitter = $_POST['blog_twitter'];
-    $blog_url = $_POST['blog_url'];
-    $blog_title = htmlspecialchars($_POST['blog_title']);
-    $meta_description = htmlspecialchars($_POST['meta_description']);
-    $intro_title = htmlspecialchars($_POST['intro_title']);
-    $intro_text = htmlspecialchars($_POST['intro_text']);
+    $blog_email = $_POST["blog_email"];
+    $blog_twitter = $_POST["blog_twitter"];
+    $blog_url = $_POST["blog_url"];
+    $blog_title = htmlspecialchars($_POST["blog_title"]);
+    $meta_description = htmlspecialchars($_POST["meta_description"]);
+    $intro_title = htmlspecialchars($_POST["intro_title"]);
+    $intro_text = htmlspecialchars($_POST["intro_text"]);
 
     // There must always be a $password, but it can be changed optionally in the
     // settings, so you might not always get it in $_POST.
-    if (!isset($password) || !empty($_POST['password'])) {
-        $password = sha1($_POST['password']);
+    if (!isset($password) || !empty($_POST["password"])) {
+        $password = sha1($_POST["password"]);
     }
 
-    $header_inject = addslashes($_POST['header_inject']);
-    $footer_inject = addslashes($_POST['footer_inject']);
+    $header_inject = addslashes($_POST["header_inject"]);
+    $footer_inject = addslashes($_POST["footer_inject"]);
 
     // Output submitted setup values.
     $config[] = "<?php";
@@ -71,7 +71,7 @@ if ($_POST['submit'] == "submit")
     }
 
     // Redirect
-    header('Location: ' . $blog_url);
+    header("Location: " . $blog_url);
 }
 
 ?>
