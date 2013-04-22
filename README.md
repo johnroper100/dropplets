@@ -1,7 +1,7 @@
 Dropplets
 =========
 
-> [v1.0.5](#changelog)
+> [v1.0.5](#version-105)
 
 Dropplets is a minimalist **Markdown** blogging platform focused on delivering just what you need in a blogging solution, but absolutely nothing you don't. Dropplets installs in under a minute (no database
 
