@@ -8,23 +8,23 @@
 *********************************************************************************************/
 
 $(function(){
-	
+
 	var dropbox = $('#dropbox'),
 		message = $('.message', dropbox);
-	
+
 	dropbox.filedrop({
 		// The name of the $_FILES entry:
 		paramname:'file',
-		
+
 		maxfiles: 2,
     	maxfilesize: 2,
 		url: 'publish.php',
-		
+
 		uploadFinished:function(i,file,response){
 			$.data(file).addClass('done');
 			setInterval("location.reload()", 3500);
 		},
-		
+
     	error: function(err, file) {
 			switch(err) {
 				case 'BrowserNotSupported':
@@ -40,34 +40,34 @@ $(function(){
 					break;
 			}
 		},
-		
+
 		uploadStarted:function(i, file, len){
 			createImage(file);
 		},
-		
+
 		progressUpdated: function(i, file, progress) {
 			$.data(file).find('.progress').width(progress);
 		}
-    	 
+
 	});
-	
+
 	var template = '<div class="loader">'+
 						'<div class="progress"></div>'+
-				   '</div>'; 
-	
+				   '</div>';
+
 	function createImage(file){
 
 		var loader = $(template);
-			
+
 		var reader = new FileReader();
-		
+
 		// Reading the file as a DataURL. When finished,
 		// this will trigger the onload function above:
 		reader.readAsDataURL(file);
-		
+
 		message.hide();
 		loader.appendTo('#loader');
-		
+
 		// Associating a loader container
 		// with the file, using jQuery's $.data():
 		$.data(file,loader);
