@@ -1,36 +1,34 @@
 Dropplets
 =========
 
-> Version 1.0.4
+> [v1.0.5](#version-105)
 
-A minimalist markdown blogging platform that just works.
+Dropplets is a minimalist **Markdown** blogging platform focused on delivering just what you need in a blogging solution, but absolutely nothing you don't. Dropplets installs in under a minute (no database
 
 ## What's Markdown?
 Markdown is a text formatting syntax inspired on plain text email. It is extremely simple, memorizable and visually lightweight on artifacts so as not to hinder reading.
 
-> The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it’s been marked up with tags or formatting instructions.
+> The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it's been marked up with tags or formatting instructions.
 
-If you're looking for an awesome Markdown editor, Byword (http://bywordapp.com/) is a great solution for the Mac. They also have an awesome syntax guide which can be found Here (http://bywordapp.com/markdown/syntax.html).
+## Getting Started
+- [Installation](#installation)
+- [Writing Posts](#writing-posts)
+- [Publishing Posts](#publishing-posts)
+- [Editing Posts](#editing-posts)
+- [Changing Settings](#changing-settings)
+- [Changing Templates](#changing-templates)
+- [Changelog](#changelog)
+- [License](#license)
 
 ## Installation
-Dropplets is compatible with most server configurations and can be accomplished typically in under a minute using the few step-by-step instructions below:
+Dropplets is compatible with most server configurations and can be typically installed in under a minute using the few step-by-step instructions below:
 
 1. Download the latest version here on [GitHub](https://github.com/circa75/dropplets/archive/master.zip) and then extract the downloaded zip file.
 3. Upload the entire contents of the extracted zip file to your web server wherever you want Dropplets to be installed. 
 4. Pull up your site in any modern web browser and follow the installation prompts. For instance, if you uploaded Dropplets to **yoursite.com**, load **yoursite.com** in your browser to finish the installation.
 
-## Writing Your First Post
-With Dropplets, you write your posts offline in any Markdown compatible application then upload your completed post within the Dropplets dashboard (explained below). Please note that all posts must be composed in markdown format and saved with the **.md** file extension. For instance, if your post title is **My First Blog Post**, your post file should look like this:
-
-- my-first-blog-post.md
-
-Some templates include the ability to add a post image or thumbnail along with your post in which should match your post file name like this:
-
-- my-first-blog-post.jpg
-
-Post file names are used to structure post permalinks on your blog. So, a post file saved as **my-first-blog-post.md** will result in **yoursite.com/my-first-blog-post** as the post permalink.
-
-All posts for Dropplets **MUST** be composed using the following format:
+## Writing Posts
+With Dropplets, you write your posts offline (using the text or Markdown editor of your choice) in Markdown format. Here's a handy [syntax guide](https://github.com/circa75/dropplets/wiki/Markdown-Syntax-Guide) if you need a little help with your Markdown skills. All posts for Dropplets **MUST** be composed using the following format:
 
     # Your Post Title
     - Post Author Name (e.g. "Dropplets")
@@ -39,19 +37,42 @@ All posts for Dropplets **MUST** be composed using the following format:
     - Post Category
     - Post Status (e.g. "published" or "draft")
 
-    Your post text starts here.
+    Your post text starts here. 
     
-## About the Dashboard
-The Dropplets Dashboard can be used to publish new posts, edit existing posts, change your blog settings or change your template. To access the Dropplets dashboard, load **yoursite.com/dashboard/**, obviously changing **yoursite.com** to your own website URL.
+All posts must also be saved with the **.md** file extension. For instance, if your post title is **My First Blog Post**, your post file should look like this:
+
+    my-first-blog-post.md
+
+Some templates include the ability to add a post image or thumbnail along with your post in which should match your post file name like this:
+
+    my-first-blog-post.jpg
+
+Post file names are used to structure post permalinks on your blog. So, a post file saved as **my-first-blog-post.md** will result in **yoursite.com/my-first-blog-post** as the post permalink.
 
 ## Publishing Posts
-Publishing posts is really easy to do within the Dropplets Dashboard:
+After you've finished writing your post offline, you can then publish your post within the Dropplets Dashboard using these few steps:
 
-1. Login to your Dropplets Dashboard (e.g. **yoursite.com/dashboard/**).
-2. Drag and drop your post file into the "drop" zone (the droplet) within the center of your dashboard.
+1. Login to your Dropplets Dashboard (e.g. **yoursite.com/dashboard/**) using the password you created during the installation and setup process.
+2. Drag and drop your post file onto the ***droplet*** in the center of your dashboard.
 
-## Editing Existing Posts
-Editing existing posts that have been uploaded and published to Dropplets is really easy to do. Simply re-upload your edited post file within the Dropplets Dashboard using the steps above. Doing this will automatically overwrite the existing post.
+## Editing Posts
+Simply re-upload your edited post file within the Dropplets Dashboard using the steps above. Doing this will automatically overwrite the existing post and publish your new edits. To delete a post, change the **Post Status** at the top of your post file to **draft**.
+
+## Changing Settings
+To change your blog settings, login to your Dropplets Dashboard (e.g. **yoursite.com/dashboard/**) using the password you created during the installation and setup process and then click the settings icon to the left of the home icon. This will load the settings panel where you will be able to change all of your blog settings including your password.
+
+## Changing Templates
+To change your blog template, login to your Dropplets Dashboard (e.g. **yoursite.com/dashboard/**) using the password you created during the installation and setup process and then click the templates icon to the right of the home icon. This will load the templates panel where you will be able to browse and change your blog template.
+
+## Changelog
+
+### Version 1.0.5
+- **NEW**: Open Graph and Twitter Card meta tag support.
+- **REVISED**: Improved post cache.
+- **REVISED**: Generate .htaccess on install.
+- **REVISED**: Added SHA1 password hashing.
+- **FIXED**: Header redirects for saving settings, publishing posts and changing templates.
+- **FIXED**: Dashboard shouldn't be accessible prior to installation.
 
 ## License
 Copyright (c) 2013 Circa75 Media, LLC

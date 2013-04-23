@@ -34,6 +34,7 @@ $powered_by = '<a class="powered-by" href="http://dropplets.com" target="_blank"
 /*-----------------------------------------------------------------------------------*/
 
 $post_directory = './posts/';
+$cache_directory = './posts/cache/';
 
 if (glob($post_directory . '*.md') != false)
 {
@@ -44,6 +45,16 @@ if (glob($post_directory . '*.md') != false)
 
 define('POSTS_DIR', $posts_dir);
 define('FILE_EXT', '.md');
+
+/*-----------------------------------------------------------------------------------*/
+/* Cache Configuration
+/*-----------------------------------------------------------------------------------*/
+
+define('CACHE_DIR', $cache_directory);
+
+if (!file_exists(CACHE_DIR) && $post_cache != 'off') {
+	mkdir(CACHE_DIR,0755,TRUE);
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Template Files
@@ -153,6 +164,14 @@ if ($filename==NULL) {
         $get_page_meta[] = '<meta name="twitter:image:src" content="' . $blog_image . '">';
         $get_page_meta[] = '<meta name="twitter:domain" content="' . $blog_url . '">';
         
+        // Get the Open Graph tags.
+        $get_page_meta[] = '<meta property="og:type" content="website">';
+        $get_page_meta[] = '<meta property="og:title" content="' . $blog_title . '">';
+        $get_page_meta[] = '<meta property="og:site_name" content="' . $blog_title . '">';
+        $get_page_meta[] = '<meta property="og:url" content="' .$blog_url . '">';
+        $get_page_meta[] = '<meta property="og:description" content="' . $meta_description . '">';
+        $get_page_meta[] = '<meta property="og:image" content="' . $blog_image . '">';
+        
         // Get all page meta.
         $page_meta = implode("\n", $get_page_meta);
 
@@ -235,9 +254,10 @@ else {
     
     // Define the post file.
     $fcontents = file($filename);
-    
+    $slug_array = explode("/", $filename);
+    $slug = str_replace(array(FILE_EXT), '', $slug_array[2]);
     // Define the cached file.
-    $cachefile = str_replace(array(FILE_EXT), '', $filename).'.html';
+    $cachefile = CACHE_DIR.$slug.'.html';
     
     // If there's no file for the selected permalink, grab the 404 page template.
     if (!file_exists($filename)) {
@@ -308,6 +328,14 @@ else {
         $get_page_meta[] = '<meta name="twitter:creator" content="' . $post_author_twitter . '">';
         $get_page_meta[] = '<meta name="twitter:image:src" content="' . $post_image . '">';
         $get_page_meta[] = '<meta name="twitter:domain" content="' . $post_link . '">';
+        
+        // Get the Open Graph tags.
+        $get_page_meta[] = '<meta property="og:type" content="article">';
+        $get_page_meta[] = '<meta property="og:title" content="' . $page_title . '">';
+        $get_page_meta[] = '<meta property="og:site_name" content="' . $page_title . '">';
+        $get_page_meta[] = '<meta property="og:url" content="' . $post_link . '">';
+        $get_page_meta[] = '<meta property="og:description" content="' . $post_intro . '">';
+        $get_page_meta[] = '<meta property="og:image" content="' . $post_image . '">';
         
         // Generate all page meta.
         $page_meta = implode("\n", $get_page_meta);

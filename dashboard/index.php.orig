@@ -42,6 +42,7 @@ if (isset($_GET['action'])) {
 
                 // Redirect
                 header('Location: ' . '../dashboard/');
+<<<<<<< HEAD
             break;            
                 
             case 'forgot':
@@ -79,6 +80,10 @@ if (isset($_GET['action'])) {
                 }
 
             break;
+=======
+            break;
+
+>>>>>>> upstream/master
     }
 }
 
