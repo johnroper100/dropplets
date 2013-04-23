@@ -49,7 +49,7 @@ if (isset($_GET['action'])) {
 
                 if(!isset($_GET["verify"])) {
 
-                    $code = sha1(time());
+                    $code = sha1(md5(rand()));
 
                     $verify_file_contents[] = "<?php";
                     $verify_file_contents[] = "\$verification_code = \"" . $code . "\";";
