@@ -11,13 +11,13 @@ if(strtolower($_SERVER['REQUEST_METHOD']) != 'post'){
 }
 
 if(array_key_exists('file',$_FILES) && $_FILES['file']['error'] == 0 ){
-	
+
 	$file = $_FILES['file'];
 
 	if(!in_array(get_extension($file['name']),$allowed_ext)){
 		exit_status('Only '.implode(',',$allowed_ext).' files are allowed!');
-	}	
-	
+	}
+
 	// Move the uploaded file from the temporary directory to the uploads folder:
 	if(move_uploaded_file($file['tmp_name'], $upload_dir.$file['name'])){
 		exit_status('File was uploaded successfuly!');
