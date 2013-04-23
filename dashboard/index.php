@@ -156,12 +156,7 @@ if (!isset($_SESSION['user'])) {
 
             <button type="submit" name="submit" value="submit"></button>
 		</form>
-<<<<<<< HEAD
-		
         <p><a class="back" href="?action=forgot">I've forgotten my password!</a></p>
-=======
-
->>>>>>> upstream/master
 		<p><a class="back" href="<?php echo $blog_url; ?>">Back to <?php echo $blog_title; ?></a></p>
     </body>
 </html>
