@@ -1,9 +1,9 @@
 Dropplets
 =========
 
-> [v1.0.5](#version-105)
+> [v1.0.6](#version-106)
 
-Dropplets is a minimalist **Markdown** blogging platform focused on delivering just what you need in a blogging solution, but absolutely nothing you don't. Dropplets installs in under a minute (no database
+Dropplets is a minimalist **Markdown** blogging platform focused on delivering just what you need in a blogging solution, but absolutely nothing you don't. When it comes to basic blogging, all you really want to do is write & publish which is where Dropplets excels. It's databaseless, so it installs on any server in just about 30 seconds. 
 
 ## What's Markdown?
 Markdown is a text formatting syntax inspired on plain text email. It is extremely simple, memorizable and visually lightweight on artifacts so as not to hinder reading.
@@ -65,6 +65,9 @@ To change your blog settings, login to your Dropplets Dashboard (e.g. **yoursite
 To change your blog template, login to your Dropplets Dashboard (e.g. **yoursite.com/dashboard/**) using the password you created during the installation and setup process and then click the templates icon to the right of the home icon. This will load the templates panel where you will be able to browse and change your blog template.
 
 ## Changelog
+
+### Version 1.0.6
+- **NEW**: Password recovery integration.
 
 ### Version 1.0.5
 - **NEW**: Open Graph and Twitter Card meta tag support.
