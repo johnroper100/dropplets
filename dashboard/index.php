@@ -31,7 +31,7 @@ if (isset($_GET['action'])) {
                     // Redirect
                     header('Location: ' . '../dashboard/');
                 } else {
-                    $login_error = 'Nope, Try Again!';
+                    $login_error = 'Nope, try again!';
                 }
             break;
 
@@ -63,7 +63,7 @@ if (isset($_GET['action'])) {
                     $headers[] = "X-Mailer: PHP/" . phpversion();
 
                     mail($blog_email, $blog_title . " - Recover your Dropplets Password", $message, implode("\r\n", $headers));
-                    $login_error = "Details on how to recover your account have been sent to your email.";
+                    $login_error = "Details on how to recover your password have been sent to your email.";
 
                 } else {
 
@@ -156,8 +156,7 @@ if (!isset($_SESSION['user'])) {
 
             <button type="submit" name="submit" value="submit"></button>
 		</form>
-        <p><a class="back" href="?action=forgot">I've forgotten my password!</a></p>
-		<p><a class="back" href="<?php echo $blog_url; ?>">Back to <?php echo $blog_title; ?></a></p>
+        <p><a class="back" href="?action=forgot">Forget your password?</a> - <a class="back" href="<?php echo $blog_url; ?>">Back to "<?php echo $blog_title; ?>"</a></p>
     </body>
 </html>
 <?php
