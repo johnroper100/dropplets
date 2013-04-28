@@ -33,7 +33,7 @@ With Dropplets, you write your posts offline (using the text or Markdown editor 
     # Your Post Title
     - Post Author Name (e.g. "Dropplets")
     - Post Author Twitter Handle (e.g. "dropplets")
-    - 2020/02/02
+    - 2020/02/31
     - Post Category
     - Post Status (e.g. "published" or "draft")
 
