@@ -33,8 +33,21 @@ if ($_POST["submit"] == "submit")
         $password = sha1($_POST["password"]);
     }
 
-    $header_inject = addslashes($_POST["header_inject"]);
-    $footer_inject = addslashes($_POST["footer_inject"]);
+    if(!isset($header_inject)) {
+        $header_inject = "";        
+    }
+
+    if(isset($_POST["header_inject"])) {
+        $header_inject = addslashes($_POST["header_inject"]);
+    }
+
+    if(!isset($header_inject)) {
+        $footer_inject = "";
+    }
+    
+    if(isset($_POST["footer_inject"])) {
+        $footer_inject = addslashes($_POST["footer_inject"]);
+    }
 
     // Output submitted setup values.
     $config[] = "<?php";
