@@ -78,8 +78,9 @@ $not_found_file = $template_dir . '404.php';
 ini_set('display_errors', $display_errors);
 
 // Get required plugins.
-include_once './dropplets/plugins/feedwriter.php';
-include_once './dropplets/plugins/markdown.php';
+foreach(glob('./dropplets/plugins/' . '*.php') as $plugin){
+    include_once $plugin;
+}
 
 // Reading file names.
 if (empty($_GET['filename'])) {
