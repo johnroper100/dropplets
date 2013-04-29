@@ -41,7 +41,7 @@ if ($_POST["submit"] == "submit")
         $header_inject = addslashes($_POST["header_inject"]);
     }
 
-    if(!isset($header_inject)) {
+    if(!isset($footer_inject)) {
         $footer_inject = "";
     }
     
