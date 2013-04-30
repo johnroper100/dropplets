@@ -96,12 +96,23 @@ if (empty($_GET['filename'])) {
 /*-----------------------------------------------------------------------------------*/
 
 if ($filename==NULL) {
+   //Index page cache file name, will be used if index_cache = "on"
+   $cachefile = CACHE_DIR . "index" . '.html';
+    //If cache file exists, serve it directly wihout getting all psots    
+    if (file_exists($cachefile) && $post_cache != 'off') {
+    
+        // Define site title
+        $page_title = str_replace('# ', '', $fcontents[0]);
+        
+        // Get the cached post.
+        include $cachefile;
+        exit;
+    // If there is a file for the selected permalink, display and cache the post.
+    } 
     
     $posts = get_all_posts();
 
     if($posts) {
-        //Index page cache file name, will be used if index_cache = "on"
-        $cachefile = CACHE_DIR . "index" . '.html';
         ob_start();
         $content = '';
         foreach($posts as $post) {
@@ -194,20 +205,19 @@ if ($filename==NULL) {
         $content = ob_get_contents();
         ob_end_clean();
     }
-    ob_start();
-    // Get the index template file.
-    include_once $index_file;
-    //Now that we have the whole index page generated, put it in cache folder
-    if ($index_cache != 'off')
+        ob_start();
+        // Get the index template file.
+        include_once $index_file;
+        //Now that we have the whole index page generated, put it in cache folder
+        if ($index_cache != 'off')
         {
             $fp = fopen($cachefile, 'w');
             fwrite($fp, ob_get_contents());
             fclose($fp);
         }
+    }
 
-} 
-
-/*-----------------------------------------------------------------------------------*/
+    /*-----------------------------------------------------------------------------------*/
 /* RSS Feed
 /*-----------------------------------------------------------------------------------*/
 
