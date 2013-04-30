@@ -14,9 +14,6 @@
 
         <link rel="stylesheet" href="<?php echo $template_dir_url ?>style.css">
 
-        <link rel="alternate" type="application/rss+xml" title="Subscribe using RSS" href="/rss" />
-        <link rel="alternate" type="application/atom+xml" title="Subscribe using Atom" href="/atom" />
-
         <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Cabin+Condensed:400,500' rel='stylesheet' type='text/css'>
 
