@@ -316,7 +316,7 @@ else {
         
         // Get the cached post.
         include $cachefile;
-    
+        exit;
     // If there is a file for the selected permalink, display and cache the post.
     } else {
         
@@ -399,7 +399,6 @@ else {
            fclose($fp);
         }
       }
-
 }
 
 /*-----------------------------------------------------------------------------------*/
