@@ -12,7 +12,7 @@ $display_errors = false;
 /* Post Cache ('on' or 'off')
 /*-----------------------------------------------------------------------------------*/
 
-$post_cache = 'off';
+$post_cache = 'on';
 $index_cache = 'on';
 /*-----------------------------------------------------------------------------------*/
 /* Configuration & Options
@@ -96,6 +96,7 @@ if (empty($_GET['filename'])) {
 /*-----------------------------------------------------------------------------------*/
 
 if ($filename==NULL) {
+    
     $posts = get_all_posts();
 
     if($posts) {
@@ -193,7 +194,7 @@ if ($filename==NULL) {
         $content = ob_get_contents();
         ob_end_clean();
     }
-    
+    ob_start();
     // Get the index template file.
     include_once $index_file;
     //Now that we have the whole index page generated, put it in cache folder
