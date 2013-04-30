@@ -13,7 +13,7 @@ $display_errors = false;
 /*-----------------------------------------------------------------------------------*/
 
 $post_cache = 'off';
-
+$index_cache = 'on';
 /*-----------------------------------------------------------------------------------*/
 /* Configuration & Options
 /*-----------------------------------------------------------------------------------*/
@@ -97,7 +97,10 @@ if (empty($_GET['filename'])) {
 
 if ($filename==NULL) {
     $posts = get_all_posts();
+
     if($posts) {
+        //Index page cache file name, will be used if index_cache = "on"
+        $cachefile = CACHE_DIR . "index" . '.html';
         ob_start();
         $content = '';
         foreach($posts as $post) {
@@ -193,6 +196,14 @@ if ($filename==NULL) {
     
     // Get the index template file.
     include_once $index_file;
+    //Now that we have the whole index page generated, put it in cache folder
+    if ($index_cache != 'off')
+        {
+            $fp = fopen($cachefile, 'w');
+            fwrite($fp, ob_get_contents());
+            fclose($fp);
+        }
+
 } 
 
 /*-----------------------------------------------------------------------------------*/
@@ -256,7 +267,8 @@ else {
     // Define the post file.
     $fcontents = file($filename);
     $slug_array = explode("/", $filename);
-    $slug = str_replace(array(FILE_EXT), '', $slug_array[2]);
+    //Changed 3->2, because it return empty string when set to 2
+    $slug = str_replace(array(FILE_EXT), '', $slug_array[3]);
     // Define the cached file.
     $cachefile = CACHE_DIR.$slug.'.html';
     
@@ -346,21 +358,19 @@ else {
         
         // Get the post template file.
         include $post_file;
-        
+
+        $content = ob_get_contents();
+        ob_end_clean();
+        // Get the index template file.
+        include_once $index_file;
         // Cache the post on if caching is turned on.
         if ($post_cache != 'off')
         {
-            $fp = fopen($cachefile, 'w'); 
-            fwrite($fp, ob_get_contents()); 
-            fclose($fp);
+           $fp = fopen($cachefile, 'w');
+           fwrite($fp, ob_get_contents());
+           fclose($fp);
         }
-        
-    }
-    $content = ob_get_contents();
-    ob_end_clean();
-    
-    // Get the index template file.
-    include_once $index_file;
+      }
 }
 
 /*-----------------------------------------------------------------------------------*/
