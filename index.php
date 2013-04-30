@@ -372,8 +372,9 @@ else {
     // Fetch the current url.
     $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
     $host = $_SERVER['HTTP_HOST'];
-    $dir = basename($_SERVER['REQUEST_URI']);
-    $url = $protocol . '://' . $host . '/' . $dir;
+   //Now it should work with subdirectories localhost/example/site/here #Issue #88
+    $dir      = dirname($_SERVER['REQUEST_URI']) . '/' . basename($_SERVER['REQUEST_URI']);
+    $url      = $protocol . '://' . $host . $dir;
     
     ?>
     
