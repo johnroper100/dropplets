@@ -275,13 +275,29 @@ else {
     
     // If there's no file for the selected permalink, grab the 404 page template.
     if (!file_exists($filename)) {
-    
+     //Change the cache file to 404 page
+        $cachefile = CACHE_DIR.'404.html';
         // Define the site title.
         $page_title = $error_title;
     
         // Get the 404 page template.
         include $not_found_file;
-    
+        //Get the contents
+        $content = ob_get_contents();
+        //Flush the buffer so that we dont get the page 2x times
+        ob_end_clean();
+        //Start new buffer
+        ob_start(); 
+	// Get the index template file.
+      include_once $index_file;
+      // Cache the post on if caching is turned on.
+      if ($post_cache != 'off')
+        {
+           $fp = fopen($cachefile, 'w');
+           fwrite($fp, ob_get_contents());
+           fclose($fp);
+        }
+
     // If there is a cached file for the selected permalink, display the cached post.  
     } else if (file_exists($cachefile)) {
     
@@ -362,6 +378,7 @@ else {
 
         $content = ob_get_contents();
         ob_end_clean();
+        ob_start();
         // Get the index template file.
         include_once $index_file;
         // Cache the post on if caching is turned on.
@@ -372,6 +389,7 @@ else {
            fclose($fp);
         }
       }
+
 }
 
 /*-----------------------------------------------------------------------------------*/
