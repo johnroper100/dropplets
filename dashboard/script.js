@@ -17,7 +17,7 @@ $(function(){
 		paramname:'file',
 
 		maxfiles: 2,
-    	maxfilesize: 2,
+    	maxfilesize: 5,
 		url: 'publish.php',
 
 		uploadFinished:function(i,file,response){
