@@ -6,7 +6,7 @@
         <ul class="actions">
             <li>
                 <a class="big charcoal left button" href="mailto:<?php echo $blog_email ?>?subject=Hello"><?php echo $blog_email ?></a>
-                <a class="big gray button right" href="http://twitter.com/<?php echo $blog_twitter ?>">&#64;<?php echo $blog_twitter ?></a>
+                <a class="big gray button right" href="//twitter.com/<?php echo $blog_twitter ?>">&#64;<?php echo $blog_twitter ?></a>
             </li>
         </ul>
 
