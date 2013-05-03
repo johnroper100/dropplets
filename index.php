@@ -223,7 +223,7 @@ else if ($filename == 'rss' || $filename == 'atom') {
                 $item = $feed->createNewItem();
                 
                 // Quick & dirty hack to remove HTML 
-                $item->setTitle(substr($post['title'], 4, -6));
+                $item->setTitle(substr($post['post_title'], 4, -6));
                 $item->setLink(rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 $item->setDate($post['time']);
 
