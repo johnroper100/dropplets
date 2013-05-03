@@ -1,7 +1,7 @@
 <?php
 
 // Get existing config.
-include('config-settings.php');
+include('../dropplets/config/config-settings.php');
 
 $upload_dir = '../posts/';
 $allowed_ext = array('jpg','md');
