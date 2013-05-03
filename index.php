@@ -225,7 +225,7 @@ else if ($filename == 'rss' || $filename == 'atom') {
                 // Quick & dirty hack to remove HTML 
                 $item->setTitle(substr($post['post_title'], 4, -6));
                 $item->setLink(rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
-                $item->setDate($post['time']);
+                $item->setDate($post['post_date']);
 
 				$remove_metadata_from = file(rtrim(POSTS_DIR, '/').'/'.$post['fname']);
                 if($filename=='rss') {
