@@ -114,8 +114,7 @@ article .inside {
     max-width: 60%;
 }
 
-article .inside,
-article .inside ul  {
+article .inside {
     float: left;
 }
 
