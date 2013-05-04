@@ -15,8 +15,8 @@ function settings_format($name, $value) {
 /*-----------------------------------------------------------------------------------*/
 /* Save Submitted Settings
 /*-----------------------------------------------------------------------------------*/
-
-if ($_POST["submit"] == "submit")
+//Should allow this only on first install or after the user is authenticated
+if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SESSION['user'])))
 {
     // Get submitted setup values.
     $blog_email = $_POST["blog_email"];
