@@ -12,8 +12,9 @@ $display_errors = false;
 /* Post Cache ('on' or 'off')
 /*-----------------------------------------------------------------------------------*/
 
-$post_cache = 'on';
-$index_cache = 'on';
+$post_cache = 'off';
+$index_cache = 'off';
+
 /*-----------------------------------------------------------------------------------*/
 /* Configuration & Options
 /*-----------------------------------------------------------------------------------*/
@@ -214,7 +215,7 @@ if ($filename==NULL) {
         }
     }
 
-    /*-----------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------*/
 /* RSS Feed
 /*-----------------------------------------------------------------------------------*/
 
@@ -275,34 +276,43 @@ else {
     // Define the post file.
     $fcontents = file($filename);
     $slug_array = explode("/", $filename);
+    
     //Changed 3->2, because it return empty string when set to 2
     $slug = str_replace(array(FILE_EXT), '', $slug_array[3]);
+    
     // Define the cached file.
     $cachefile = CACHE_DIR.$slug.'.html';
     
     // If there's no file for the selected permalink, grab the 404 page template.
     if (!file_exists($filename)) {
-     //Change the cache file to 404 page
+    
+        //Change the cache file to 404 page
         $cachefile = CACHE_DIR.'404.html';
+        
         // Define the site title.
         $page_title = $error_title;
     
         // Get the 404 page template.
         include $not_found_file;
+        
         //Get the contents
         $content = ob_get_contents();
+        
         //Flush the buffer so that we dont get the page 2x times
         ob_end_clean();
+        
         //Start new buffer
         ob_start(); 
-	// Get the index template file.
-      include_once $index_file;
-      // Cache the post on if caching is turned on.
-      if ($post_cache != 'off')
+        
+	    // Get the index template file.
+        include_once $index_file;
+        
+        // Cache the post on if caching is turned on.
+        if ($post_cache != 'off')
         {
-           $fp = fopen($cachefile, 'w');
-           fwrite($fp, ob_get_contents());
-           fclose($fp);
+            $fp = fopen($cachefile, 'w');
+            fwrite($fp, ob_get_contents());
+            fclose($fp);
         }
 
     // If there is a cached file for the selected permalink, display the cached post.  
@@ -313,7 +323,9 @@ else {
         
         // Get the cached post.
         include $cachefile;
+        
         exit;
+        
     // If there is a file for the selected permalink, display and cache the post.
     } else {
         
@@ -386,16 +398,18 @@ else {
         $content = ob_get_contents();
         ob_end_clean();
         ob_start();
+        
         // Get the index template file.
         include_once $index_file;
+        
         // Cache the post on if caching is turned on.
         if ($post_cache != 'off')
         {
-           $fp = fopen($cachefile, 'w');
-           fwrite($fp, ob_get_contents());
-           fclose($fp);
+            $fp = fopen($cachefile, 'w');
+            fwrite($fp, ob_get_contents());
+            fclose($fp);
         }
-      }
+    }
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -407,7 +421,8 @@ else {
     // Fetch the current url.
     $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
     $host = $_SERVER['HTTP_HOST'];
-   //Now it should work with subdirectories localhost/example/site/here #Issue #88
+    
+    // Subdirectory support.
     $dir      = dirname($_SERVER['REQUEST_URI']) . '/' . basename($_SERVER['REQUEST_URI']);
     $url      = $protocol . '://' . $host . $dir;
     
