@@ -98,12 +98,9 @@ if (empty($_GET['filename'])) {
 if ($filename==NULL) {
    //Index page cache file name, will be used if index_cache = "on"
    $cachefile = CACHE_DIR . "index" . '.html';
-    //If cache file exists, serve it directly wihout getting all psots    
-    if (file_exists($cachefile) && $post_cache != 'off') {
+    //If index cache file exists, serve it directly wihout getting all posts    
+    if (file_exists($cachefile) && $index_cache != 'off') {
     
-        // Define site title
-        $page_title = str_replace('# ', '', $fcontents[0]);
-        
         // Get the cached post.
         include $cachefile;
         exit;
