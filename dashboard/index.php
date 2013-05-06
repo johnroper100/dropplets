@@ -277,12 +277,12 @@ if (!isset($_SESSION['user']))
                     <fieldset class="last">
                         <div class="input">
                             <label>Header Injection (e.g. Custom Styles)</label>
-                            <textarea class="code" name="header_inject" id="header_inject" rows="12"></textarea>
+                            <textarea class="code" name="header_inject" id="header_inject" rows="12"><?php echo $header_inject; ?></textarea>
                         </div>
 
                         <div class="input">
                             <label>Footer Injection (e.g. Tracking Code)</label>
-                            <textarea class="code" name="footer_inject" id="footer_inject" rows="12"></textarea>
+                            <textarea class="code" name="footer_inject" id="footer_inject" rows="12"><?php echo $footer_inject; ?></textarea>
                         </div>
                     </fieldset>
 
