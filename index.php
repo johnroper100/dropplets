@@ -276,10 +276,10 @@ else {
     // Define the post file.
     $fcontents = file($filename);
     $slug_array = explode("/", $filename);
-    
-    //Changed 3->2, because it return empty string when set to 2
-    $slug = str_replace(array(FILE_EXT), '', $slug_array[3]);
-    
+    $slug_len = count($slug_array);
+    //This was hardcoded array index, it should always return the last index
+    $slug = str_replace(array(FILE_EXT), '', $slug_array[$slug_len - 1]);
+
     // Define the cached file.
     $cachefile = CACHE_DIR.$slug.'.html';
     
