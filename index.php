@@ -423,7 +423,7 @@ else {
     $host = $_SERVER['HTTP_HOST'];
     
     // Subdirectory support.
-    $dir      = dirname($_SERVER['REQUEST_URI']) . '/' . basename($_SERVER['REQUEST_URI']);
+    $dir      = dirname($_SERVER['REQUEST_URI']) . basename($_SERVER['REQUEST_URI']);
     $url      = $protocol . '://' . $host . $dir;
     
     ?>
