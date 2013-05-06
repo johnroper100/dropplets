@@ -89,7 +89,9 @@ if (empty($_GET['filename'])) {
 } else if($_GET['filename'] == 'rss' || $_GET['filename'] == 'atom') {
     $filename = $_GET['filename'];
 } else {
-    $filename = POSTS_DIR . $_GET['filename'] . FILE_EXT;
+    //Filename can be /some/blog/post-filename.md We should get the last part only
+    $filename = explode('/',$_GET['filename']);
+    $filename = POSTS_DIR . $filename[count($filename) - 1] . FILE_EXT;
 }
 
 /*-----------------------------------------------------------------------------------*/
