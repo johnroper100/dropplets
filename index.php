@@ -89,7 +89,9 @@ if (empty($_GET['filename'])) {
 } else if($_GET['filename'] == 'rss' || $_GET['filename'] == 'atom') {
     $filename = $_GET['filename'];
 } else {
-    $filename = POSTS_DIR . $_GET['filename'] . FILE_EXT;
+    //Filename can be /some/blog/post-filename.md We should get the last part only
+    $filename = explode('/',$_GET['filename']);
+    $filename = POSTS_DIR . $filename[count($filename) - 1] . FILE_EXT;
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -276,10 +278,10 @@ else {
     // Define the post file.
     $fcontents = file($filename);
     $slug_array = explode("/", $filename);
-    
-    //Changed 3->2, because it return empty string when set to 2
-    $slug = str_replace(array(FILE_EXT), '', $slug_array[3]);
-    
+    $slug_len = count($slug_array);
+    //This was hardcoded array index, it should always return the last index
+    $slug = str_replace(array(FILE_EXT), '', $slug_array[$slug_len - 1]);
+
     // Define the cached file.
     $cachefile = CACHE_DIR.$slug.'.html';
     
@@ -423,7 +425,7 @@ else {
     $host = $_SERVER['HTTP_HOST'];
     
     // Subdirectory support.
-    $dir      = dirname($_SERVER['REQUEST_URI']) . '/' . basename($_SERVER['REQUEST_URI']);
+    $dir      = dirname($_SERVER['REQUEST_URI']) . basename($_SERVER['REQUEST_URI']);
     $url      = $protocol . '://' . $host . $dir;
     
     ?>
