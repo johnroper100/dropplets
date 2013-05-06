@@ -16,6 +16,10 @@ function settings_format($name, $value) {
 /* Save Submitted Settings
 /*-----------------------------------------------------------------------------------*/
 
+// Should allow this only on first install or after the user is authenticated
+// but this doesn't quite work. So back to default.
+// if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SESSION['user'])))
+
 if ($_POST["submit"] == "submit")
 {
     // Get submitted setup values.

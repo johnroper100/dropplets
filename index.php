@@ -13,6 +13,7 @@ $display_errors = false;
 /*-----------------------------------------------------------------------------------*/
 
 $post_cache = 'off';
+$index_cache = 'off';
 
 /*-----------------------------------------------------------------------------------*/
 /* Configuration & Options
@@ -96,7 +97,19 @@ if (empty($_GET['filename'])) {
 /*-----------------------------------------------------------------------------------*/
 
 if ($filename==NULL) {
+   //Index page cache file name, will be used if index_cache = "on"
+   $cachefile = CACHE_DIR . "index" . '.html';
+    //If index cache file exists, serve it directly wihout getting all posts    
+    if (file_exists($cachefile) && $index_cache != 'off') {
+    
+        // Get the cached post.
+        include $cachefile;
+        exit;
+    // If there is a file for the selected permalink, display and cache the post.
+    } 
+    
     $posts = get_all_posts();
+
     if($posts) {
         ob_start();
         $content = '';
@@ -190,10 +203,17 @@ if ($filename==NULL) {
         $content = ob_get_contents();
         ob_end_clean();
     }
-    
-    // Get the index template file.
-    include_once $index_file;
-} 
+        ob_start();
+        // Get the index template file.
+        include_once $index_file;
+        //Now that we have the whole index page generated, put it in cache folder
+        if ($index_cache != 'off')
+        {
+            $fp = fopen($cachefile, 'w');
+            fwrite($fp, ob_get_contents());
+            fclose($fp);
+        }
+    }
 
 /*-----------------------------------------------------------------------------------*/
 /* RSS Feed
@@ -223,9 +243,9 @@ else if ($filename == 'rss' || $filename == 'atom') {
                 $item = $feed->createNewItem();
                 
                 // Quick & dirty hack to remove HTML 
-                $item->setTitle(substr($post['title'], 4, -6));
+                $item->setTitle(substr($post['post_title'], 4, -6));
                 $item->setLink(rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
-                $item->setDate($post['time']);
+                $item->setDate($post['post_date']);
 
 				$remove_metadata_from = file(rtrim(POSTS_DIR, '/').'/'.$post['fname']);
                 if($filename=='rss') {
@@ -256,19 +276,45 @@ else {
     // Define the post file.
     $fcontents = file($filename);
     $slug_array = explode("/", $filename);
-    $slug = str_replace(array(FILE_EXT), '', $slug_array[2]);
+    
+    //Changed 3->2, because it return empty string when set to 2
+    $slug = str_replace(array(FILE_EXT), '', $slug_array[3]);
+    
     // Define the cached file.
     $cachefile = CACHE_DIR.$slug.'.html';
     
     // If there's no file for the selected permalink, grab the 404 page template.
     if (!file_exists($filename)) {
     
+        //Change the cache file to 404 page
+        $cachefile = CACHE_DIR.'404.html';
+        
         // Define the site title.
         $page_title = $error_title;
     
         // Get the 404 page template.
         include $not_found_file;
-    
+        
+        //Get the contents
+        $content = ob_get_contents();
+        
+        //Flush the buffer so that we dont get the page 2x times
+        ob_end_clean();
+        
+        //Start new buffer
+        ob_start(); 
+        
+	    // Get the index template file.
+        include_once $index_file;
+        
+        // Cache the post on if caching is turned on.
+        if ($post_cache != 'off')
+        {
+            $fp = fopen($cachefile, 'w');
+            fwrite($fp, ob_get_contents());
+            fclose($fp);
+        }
+
     // If there is a cached file for the selected permalink, display the cached post.  
     } else if (file_exists($cachefile)) {
     
@@ -277,7 +323,9 @@ else {
         
         // Get the cached post.
         include $cachefile;
-    
+        
+        exit;
+        
     // If there is a file for the selected permalink, display and cache the post.
     } else {
         
@@ -346,21 +394,22 @@ else {
         
         // Get the post template file.
         include $post_file;
+
+        $content = ob_get_contents();
+        ob_end_clean();
+        ob_start();
+        
+        // Get the index template file.
+        include_once $index_file;
         
         // Cache the post on if caching is turned on.
         if ($post_cache != 'off')
         {
-            $fp = fopen($cachefile, 'w'); 
-            fwrite($fp, ob_get_contents()); 
+            $fp = fopen($cachefile, 'w');
+            fwrite($fp, ob_get_contents());
             fclose($fp);
         }
-        
     }
-    $content = ob_get_contents();
-    ob_end_clean();
-    
-    // Get the index template file.
-    include_once $index_file;
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -372,8 +421,10 @@ else {
     // Fetch the current url.
     $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
     $host = $_SERVER['HTTP_HOST'];
-    $dir = basename($_SERVER['REQUEST_URI']);
-    $url = $protocol . '://' . $host . '/' . $dir;
+    
+    // Subdirectory support.
+    $dir      = dirname($_SERVER['REQUEST_URI']) . '/' . basename($_SERVER['REQUEST_URI']);
+    $url      = $protocol . '://' . $host . $dir;
     
     ?>
     
