@@ -68,7 +68,7 @@ To change your blog template, login to your Dropplets Dashboard (e.g. **yoursite
 ## 3rd Party Templates
 Here's a list of currently known and recommended 3rd party templates for Dropplets. To install a 3rd party template, upload it to the "templates" directory within your Dropplets installation.
 
-- [Chevrons](https://github.com/bishless/chevrons) by Diniel Bishop
+- [Chevrons](https://github.com/bishless/chevrons) by Daniel Bishop
 
 ## Changelog
 
