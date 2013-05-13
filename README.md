@@ -18,6 +18,7 @@ Markdown is a text formatting syntax inspired on plain text email. It is extreme
 - [Changing Settings](#changing-settings)
 - [Changing Templates](#changing-templates)
 - [3rd Party Templates](#3rd-party-templates)
+- [Updating Dropplets](#updating-dropplets)
 - [Changelog](#changelog)
 - [License](#license)
 
@@ -69,6 +70,9 @@ To change your blog template, login to your Dropplets Dashboard (e.g. **yoursite
 Here's a list of currently known and recommended 3rd party templates for Dropplets. To install a 3rd party template, upload it to the "templates" directory within your Dropplets installation.
 
 - [Chevrons](https://github.com/bishless/chevrons) by Daniel Bishop
+
+## Updating Dropplets
+Eventually, we will be implementing auto-updates for the Dropplets platform, but until then, just replace everything but your **posts** directory and **config-settings.php** when we release a new version of Dropplets.
 
 ## Changelog
 
