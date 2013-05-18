@@ -1,4 +1,3 @@
-
 /********************************************************************************************
 
 Simple 1.0.1 by Jason Schuller (Jason.sc)
@@ -110,6 +109,28 @@ article.draft {
 article:last-child,
 article.single {
     border-bottom: 0;
+}
+
+.post blockquote {
+    border-left:.5em solid #eee;
+    padding: 0 2em;
+    margin-left:0;
+    max-width: 476px;
+}
+
+.post blockquote  cite {
+    font-size:14px;
+    line-height:20px;
+    color:#bfbfbf;
+}
+
+.post blockquote cite:before {
+    content: '\2014 \00A0';
+}
+
+.post blockquote p {  
+    color: #666;
+    max-width: 460px;
 }
 
 .post ul:nth-child(2) {
