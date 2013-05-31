@@ -427,7 +427,7 @@ else {
     // Subdirectory support.
     $dir      = dirname($_SERVER['REQUEST_URI']) . basename($_SERVER['REQUEST_URI']);
     $url      = $protocol . '://' . $host . $dir;
-    
+    $is_writable = (TRUE == is_writable(dirname(__FILE__) . '/dropplets/config/'));
     ?>
     
     <!DOCTYPE html>
@@ -444,7 +444,9 @@ else {
             
             <h1>Let's Get Started</h1>
             <p>With Dropplets, there's no database or confusing admins to worry about, just simple markdown blogging goodness. To get started, enter your site information below (all fields are required) and then click the check mark at the bottom. That's all there's to it :)</p>
-            
+            <?php if (!$is_writable) { ?>
+                <p style="color:red;">It seems that your config folder is not writable, please add the necessary permissions.</p>
+            <?php } ?>
     		<form method="POST" action="./dropplets/config/submit-settings.php">
     		    <fieldset>
     		        <div class="input">
