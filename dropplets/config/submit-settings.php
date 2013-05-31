@@ -53,6 +53,10 @@ if ($_POST["submit"] == "submit")
         $footer_inject = addslashes($_POST["footer_inject"]);
     }
 
+    // Get subdirectory
+    $dir_arr = explode('dropplets/', $_SERVER['SCRIPT_NAME']);
+    $dir = $dir_arr[0];
+
     // Output submitted setup values.
     $config[] = "<?php";
     $config[] = settings_format("blog_email", $blog_email);
@@ -78,6 +82,8 @@ if ($_POST["submit"] == "submit")
         $htaccess[] = "RewriteRule ^(images)($|/) - [L]";
         $htaccess[] = "Options +FollowSymLinks -MultiViews";
         $htaccess[] = "RewriteEngine on";
+        if (strlen($dir) > 1)
+            $htaccess[] = "RewriteBase " . $dir;
         $htaccess[] = "RewriteCond %{REQUEST_URI} !index";
         $htaccess[] = "RewriteCond %{REQUEST_FILENAME} !-f";
         $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [L]";
