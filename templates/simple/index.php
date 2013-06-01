@@ -25,7 +25,7 @@
 
     <body>
         <?php echo $content ?>
-        <?php echo $pagination ?>
+        <?=(isset($pagination) ? $pagination : "") ?>
 
         <?php echo $powered_by ?>
 
