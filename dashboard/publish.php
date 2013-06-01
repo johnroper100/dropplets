@@ -9,7 +9,9 @@ $allowed_ext = array('jpg','md');
 if(strtolower($_SERVER['REQUEST_METHOD']) != 'post'){
 	exit_status('Error! Wrong HTTP method!');
 }
-
+if (!isset($_SESSION['user'])) {
+    exit(json_encode(array('status' => "Unauthorized access")));
+}
 if(array_key_exists('file',$_FILES) && $_FILES['file']['error'] == 0 ){
 
 	$file = $_FILES['file'];
