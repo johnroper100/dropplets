@@ -25,6 +25,7 @@
 
     <body>
         <?php echo $content ?>
+        <?php echo $pagination ?>
 
         <?php echo $powered_by ?>
 
