@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /*-----------------------------------------------------------------------------------*/
 /* Save Template Selection
 /*-----------------------------------------------------------------------------------*/
@@ -7,7 +7,7 @@
 // Get existing config.
 include("config-settings.php");
 
-if($_POST["submit"] == "submit")
+if($_POST["submit"] == "submit" && isset($_SESSION['user']))
 {
     // Get the submitted template.
     $template = $_POST["template"];
