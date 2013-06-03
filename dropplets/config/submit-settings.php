@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 $phpass_file   = "../plugins/phpass-0.3/PasswordHash.php";
+=======
+session_start();
+>>>>>>> bc99e620b2b2b19b4275fbbfc65282da8364bd16
 $settings_file = "config-settings.php";
 $htaccess_file = "../../.htaccess";
 
@@ -21,9 +25,8 @@ function settings_format($name, $value) {
 
 // Should allow this only on first install or after the user is authenticated
 // but this doesn't quite work. So back to default.
-// if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SESSION['user'])))
-
-if ($_POST["submit"] == "submit")
+// This should work now.
+if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SESSION['user'])))
 {
     // Get submitted setup values.
     $blog_email = $_POST["blog_email"];
@@ -56,6 +59,10 @@ if ($_POST["submit"] == "submit")
         $footer_inject = addslashes($_POST["footer_inject"]);
     }
 
+    // Get subdirectory
+    $dir_arr = explode('dropplets/', $_SERVER['SCRIPT_NAME']);
+    $dir = $dir_arr[0];
+
     // Output submitted setup values.
     $config[] = "<?php";
     $config[] = settings_format("blog_email", $blog_email);
@@ -81,9 +88,11 @@ if ($_POST["submit"] == "submit")
         $htaccess[] = "RewriteRule ^(images)($|/) - [L]";
         $htaccess[] = "Options +FollowSymLinks -MultiViews";
         $htaccess[] = "RewriteEngine on";
+        if (strlen($dir) > 1)
+            $htaccess[] = "RewriteBase " . $dir;
         $htaccess[] = "RewriteCond %{REQUEST_URI} !index";
         $htaccess[] = "RewriteCond %{REQUEST_FILENAME} !-f";
-        $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [L]";
+        $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [NC,QSA,L]";
     
         // Generate the .htaccess file.
         file_put_contents($htaccess_file, implode("\n", $htaccess));

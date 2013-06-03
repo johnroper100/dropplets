@@ -33,6 +33,8 @@ $powered_by = '<a class="powered-by" href="http://dropplets.com" target="_blank"
 /*-----------------------------------------------------------------------------------*/
 /* Post Configuration
 /*-----------------------------------------------------------------------------------*/
+$pagination_on_off = "off";
+$posts_per_page = 4;
 
 $post_directory = './posts/';
 $cache_directory = './posts/cache/';
@@ -53,7 +55,7 @@ define('FILE_EXT', '.md');
 
 define('CACHE_DIR', $cache_directory);
 
-if (!file_exists(CACHE_DIR) && $post_cache != 'off') {
+if (!file_exists(CACHE_DIR) && ($post_cache != 'off' || $index_cache != 'off')) {
 	mkdir(CACHE_DIR,0755,TRUE);
 }
 
@@ -99,8 +101,12 @@ if (empty($_GET['filename'])) {
 /*-----------------------------------------------------------------------------------*/
 
 if ($filename==NULL) {
-   //Index page cache file name, will be used if index_cache = "on"
-   $cachefile = CACHE_DIR . "index" . '.html';
+
+    $page = (isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] > 1) ? $_GET['page'] : 1;
+    $offset = ($page == 1) ? 0 : ($page - 1) * $posts_per_page;
+
+    //Index page cache file name, will be used if index_cache = "on"
+    $cachefile = CACHE_DIR . "index" .$page. '.html';
     //If index cache file exists, serve it directly wihout getting all posts    
     if (file_exists($cachefile) && $index_cache != 'off') {
     
@@ -110,7 +116,9 @@ if ($filename==NULL) {
     // If there is a file for the selected permalink, display and cache the post.
     } 
     
-    $posts = get_all_posts();
+    $all_posts = get_all_posts();
+    $pagination = ($pagination_on_off != "off") ? get_pagination($page,round(count($all_posts)/ $posts_per_page)) : "";
+    $posts = ($pagination_on_off != "off") ? array_slice($all_posts,$offset,($posts_per_page > 0) ? $posts_per_page : null) : $all_posts;
 
     if($posts) {
         ob_start();
@@ -194,15 +202,17 @@ if ($filename==NULL) {
         ob_end_clean();
     } else {
         ob_start();
-        
-        // The site title
+
+        // Define the site title.
         $page_title = $error_title;
-        
+        $page_meta = '';
         // Get the 404 page template.
-        $post = Markdown(file_get_contents($not_found_file));
-        
-        include $post_file;
+        include $not_found_file;
+
+        //Get the contents
         $content = ob_get_contents();
+
+        //Flush the buffer so that we dont get the page 2x times
         ob_end_clean();
     }
         ob_start();
@@ -427,7 +437,7 @@ else {
     // Subdirectory support.
     $dir      = dirname($_SERVER['REQUEST_URI']) . basename($_SERVER['REQUEST_URI']);
     $url      = $protocol . '://' . $host . $dir;
-    
+    $is_writable = (TRUE == is_writable(dirname(__FILE__) . '/dropplets/config/'));
     ?>
     
     <!DOCTYPE html>
@@ -444,7 +454,9 @@ else {
             
             <h1>Let's Get Started</h1>
             <p>With Dropplets, there's no database or confusing admins to worry about, just simple markdown blogging goodness. To get started, enter your site information below (all fields are required) and then click the check mark at the bottom. That's all there's to it :)</p>
-            
+            <?php if (!$is_writable) { ?>
+                <p style="color:red;">It seems that your config folder is not writable, please add the necessary permissions.</p>
+            <?php } ?>
     		<form method="POST" action="./dropplets/config/submit-settings.php">
     		    <fieldset>
     		        <div class="input">
@@ -555,4 +567,19 @@ function get_all_posts() {
     } else {
         return false;
     }
+}
+
+function get_pagination($page,$total) {
+    $string = '';
+    $string .= "<ul style=\"list-style:none; width:400px; margin:15px auto;\">";
+
+    for ($i = 1; $i<=$total;$i++) {
+        if ($i == $page) {
+            $string .= "<li style='display: inline-block; margin:5px;' class=\"active\"><a class=\"button\" href='#'>".$i."</a></li>";
+        } else {
+            $string .=  "<li style='display: inline-block; margin:5px;'><a class=\"button\" href=\"/?page=".$i."\">".$i."</a></li>";
+        }
+    }
+    $string .= "</ul>";
+    return $string;
 }
