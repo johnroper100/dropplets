@@ -1,9 +1,6 @@
 <?php
-<<<<<<< HEAD
-$phpass_file   = "../plugins/phpass-0.3/PasswordHash.php";
-=======
 session_start();
->>>>>>> bc99e620b2b2b19b4275fbbfc65282da8364bd16
+$phpass_file   = "../plugins/phpass-0.3/PasswordHash.php";
 $settings_file = "config-settings.php";
 $htaccess_file = "../../.htaccess";
 
