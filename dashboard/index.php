@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$phpass_file   = '../dropplets/plugins/phpass-0.3/PasswordHash.php';
 $settings_file = '../dropplets/config/config-settings.php';
 $template_file = '../dropplets/config/config-template.php';
 $upload_dir    = '../posts/';
@@ -18,6 +18,11 @@ if (file_exists($template_file))
     include($template_file);
 }
 
+if (file_exists($phpass_file))
+{
+    include($phpass_file);
+    $hasher  = new PasswordHash(8,FALSE);
+}
 /* ----------------------------------------------------------------------------------- */
 /* User Machine
   /*----------------------------------------------------------------------------------- */
@@ -30,7 +35,7 @@ if (isset($_GET['action']))
 
         // Session Authentication
         case 'login':
-            if ((isset($_POST['password'])) && (sha1($_POST['password']) === $password))
+            if ((isset($_POST['password'])) && $hasher->CheckPassword($_POST['password'], $password))
             {
                 $_SESSION['user'] = true;
 
