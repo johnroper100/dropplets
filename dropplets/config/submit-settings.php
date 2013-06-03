@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $phpass_file   = '../dropplets/plugins/phpass-0.3/PasswordHash.php';
 $settings_file = "config-settings.php";
 $htaccess_file = "../../.htaccess";
@@ -24,9 +26,8 @@ function settings_format($name, $value) {
 
 // Should allow this only on first install or after the user is authenticated
 // but this doesn't quite work. So back to default.
-// if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SESSION['user'])))
-
-if ($_POST["submit"] == "submit")
+// This should work now.
+if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SESSION['user'])))
 {
     // Get submitted setup values.
     $blog_email = $_POST["blog_email"];
