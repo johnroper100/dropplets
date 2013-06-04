@@ -67,7 +67,7 @@ if (!file_exists(CACHE_DIR) && ($post_cache != 'off' || $index_cache != 'off')) 
 $template_dir = './templates/' . $template . '/';
 $template_dir_url = $blog_url . '/templates/' . $template . '/';
 
-// define the default locations of the template files
+// define the default locations of the template files.
 $index_file = $template_dir . 'index.php';
 $intro_file = $template_dir . 'intro.php';
 $post_file = $template_dir . 'post.php';
@@ -92,7 +92,8 @@ if (empty($_GET['filename'])) {
 } else if($_GET['filename'] == 'rss' || $_GET['filename'] == 'atom') {
     $filename = $_GET['filename'];
 } else {
-    //Filename can be /some/blog/post-filename.md We should get the last part only
+
+    //Filename can be /some/blog/post-filename.md We should get the last part only.
     $filename = explode('/',$_GET['filename']);
     $filename = POSTS_DIR . $filename[count($filename) - 1] . FILE_EXT;
 }
@@ -108,12 +109,14 @@ if ($filename==NULL) {
 
     //Index page cache file name, will be used if index_cache = "on"
     $cachefile = CACHE_DIR . "index" .$page. '.html';
+    
     //If index cache file exists, serve it directly wihout getting all posts    
     if (file_exists($cachefile) && $index_cache != 'off') {
     
         // Get the cached post.
         include $cachefile;
         exit;
+        
     // If there is a file for the selected permalink, display and cache the post.
     } 
     
@@ -127,7 +130,7 @@ if ($filename==NULL) {
         foreach($posts as $post) {
             
             // Get the post title.
-            $post_title = $post['post_title'];
+            $post_title = str_replace(array('<h1>','</h1>'), '', $post['post_title']);
             
             // Get the post author.
             $post_author = $post['post_author'];
@@ -207,6 +210,7 @@ if ($filename==NULL) {
         // Define the site title.
         $page_title = $error_title;
         $page_meta = '';
+        
         // Get the 404 page template.
         include $not_found_file;
 
@@ -217,11 +221,12 @@ if ($filename==NULL) {
         ob_end_clean();
     }
         ob_start();
+        
         // Get the index template file.
         include_once $index_file;
+        
         //Now that we have the whole index page generated, put it in cache folder
-        if ($index_cache != 'off')
-        {
+        if ($index_cache != 'off') {
             $fp = fopen($cachefile, 'w');
             fwrite($fp, ob_get_contents());
             fclose($fp);
@@ -255,12 +260,14 @@ else if ($filename == 'rss' || $filename == 'atom') {
             if($c<$feed_max_items) {
                 $item = $feed->createNewItem();
                 
-                // Remove HTML  from the RSS feed.
+                // Remove HTML from the RSS feed.
                 $item->setTitle(substr($post['post_title'], 4, -6));
                 $item->setLink(rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 $item->setDate($post['post_date']);
-
+                
+                // Remove Meta from the RSS feed.
 				$remove_metadata_from = file(rtrim(POSTS_DIR, '/').'/'.$post['fname']);
+				
                 if($filename=='rss') {
                     $item->addElement('author', str_replace('-', '', $remove_metadata_from[1]).' - ' . $blog_email);
                     $item->addElement('guid', rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
