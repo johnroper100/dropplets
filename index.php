@@ -506,6 +506,10 @@ else {
         		    <div class="input">
         		        <input type="password" name="password" id="password" required placeholder="Enter a Password">
         		    </div> 
+        		    
+        		    <div class="input">
+        		        <input type="password" name="password-confirmation" id="password-confirmation" required placeholder="Confirm Your Password" onblur="confirmPass()">
+        		    </div> 
     		    </fieldset>
     		    
     		    <fieldset class="hidden">
@@ -516,6 +520,16 @@ else {
     		    
     		    <button type="submit" name="submit" value="submit"></button>
     		</form>
+    		
+            <script>
+            	function confirmPass() {
+            		var pass = document.getElementById("password").value
+            		var confPass = document.getElementById("password-confirmation").value
+            		if(pass != confPass) {
+            			alert('Your passwords do not match!');
+            		}
+            	}
+            </script>
         </body>
     </html>
 
