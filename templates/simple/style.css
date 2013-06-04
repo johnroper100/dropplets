@@ -46,10 +46,6 @@ p, ul, ol {
     margin: 0 0 20px;
 }
 
-p {
-    margin: 0;
-}
-
 p + p {
     text-indent: 40px;
 }
