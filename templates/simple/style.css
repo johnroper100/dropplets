@@ -133,7 +133,9 @@ article.single {
     display: none;
 }
 
-.post p a {
+.post p a,
+.post ul a,
+.post ol a {
     border-bottom: 1px solid #ebebeb;
 }
 
