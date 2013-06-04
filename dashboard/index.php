@@ -1,26 +1,27 @@
 <?php
+
 session_start();
 
+// Settings file locations.
 $settings_file = '../dropplets/config/config-settings.php';
 $template_file = '../dropplets/config/config-template.php';
+
+// Upload directory
 $upload_dir    = '../posts/';
-if (file_exists($settings_file))
-{
+
+if (file_exists($settings_file)) {
     include($settings_file);
-}
-else
-{
+} else {
     header('Location: ../');
 }
 
-if (file_exists($template_file))
-{
+if (file_exists($template_file)) {
     include($template_file);
 }
 
-/* ----------------------------------------------------------------------------------- */
+/*-----------------------------------------------------------------------------------*/
 /* User Machine
-  /*----------------------------------------------------------------------------------- */
+/*-----------------------------------------------------------------------------------*/
 
 if (isset($_GET['action']))
 {
@@ -28,36 +29,38 @@ if (isset($_GET['action']))
     switch ($action)
     {
 
-        // Session Authentication
+        // Logging in.
         case 'login':
-            if ((isset($_POST['password'])) && (sha1($_POST['password']) === $password))
-            {
+            if ((isset($_POST['password'])) && (sha1($_POST['password']) === $password)) {
                 $_SESSION['user'] = true;
 
-                // Redirect
+                // Redirect if authenticated.
                 header('Location: ' . '../dashboard/');
-            }
-            else
-            {
+            } else {
+                
+                // Display error if not authenticated.
                 $login_error = 'Nope, try again!';
             }
             break;
 
-        // End Session
+        // Logging out.
         case 'logout':
             session_unset();
             session_destroy();
 
-            // Redirect
+            // Redirect to dashboard on logout.
             header('Location: ' . '../dashboard/');
             break;
-
+        
+        // Fogot password.
         case 'forgot':
+            
+            // The verification file.
             $verification_file = "./verify.php";
-
-            if (!isset($_GET["verify"]))
-            {
-
+            
+            // If verified, allow a password reset.
+            if (!isset($_GET["verify"])) {
+            
                 $code = sha1(md5(rand()));
 
                 $verify_file_contents[] = "<?php";
@@ -73,55 +76,50 @@ if (isset($_GET['action']))
 
                 mail($blog_email, $blog_title . " - Recover your Dropplets Password", $message, implode("\r\n", $headers));
                 $login_error = "Details on how to recover your password have been sent to your email.";
-            }
-            else
-            {
+            
+            // If not verified, display a verification error.   
+            } else {
 
                 include($verification_file);
 
-                if ($_GET["verify"] == $verification_code)
-                {
+                if ($_GET["verify"] == $verification_code) {
                     $_SESSION["user"] = true;
                     unlink($verification_file);
-                }
-                else
-                {
+                } else {
                     $login_error = "That's not the correct recovery code!";
                 }
             }
-
             break;
+        
+        // Invalidation            
         case 'invalidate':
-            if (!$_SESSION['user'])
-            {
+            if (!$_SESSION['user']) {
                 $login_error = 'Nope, try again!';
-            }
-            else
-            {
-                if (!file_exists($upload_dir . 'cache/'))
-                {
+            } else {
+                if (!file_exists($upload_dir . 'cache/')) {
                     return;
                 }
+                
                 $files = glob($upload_dir . 'cache/*');
-                foreach ($files as $file)
-                {
+                
+                foreach ($files as $file) {
                     if (is_file($file))
                         unlink($file);
                 }
             }
+            
             header('Location: ' . '../dashboard/');
             break;
     }
 }
 
-/* ----------------------------------------------------------------------------------- */
+/*-----------------------------------------------------------------------------------*/
 /* Templates Machine
-  /*----------------------------------------------------------------------------------- */
+/*-----------------------------------------------------------------------------------*/
 
 define('ACTIVE_TEMPLATE', $template);
 
-function get_templates()
-{
+function get_templates() {
 
     // The currently active template.
     $active_template = ACTIVE_TEMPLATE;
@@ -156,13 +154,11 @@ function get_templates()
     endforeach;
 }
 
-/* ----------------------------------------------------------------------------------- */
+/*-----------------------------------------------------------------------------------*/
 /* If Logged Out, Get the Login Panel
-  /*----------------------------------------------------------------------------------- */
+/*-----------------------------------------------------------------------------------*/
 
-if (!isset($_SESSION['user']))
-{
-    ?>
+if (!isset($_SESSION['user'])) { ?>
     <!DOCTYPE html>
     <html>
         <head>
@@ -180,9 +176,9 @@ if (!isset($_SESSION['user']))
 
 
             <form method="POST" action="?action=login">
-    <?php if (isset($login_error)): ?>
-                    <p class="error"><?php echo $login_error; ?></p>
-    <?php endif; ?>
+                <?php if (isset($login_error)): ?>
+                <p class="error"><?php echo $login_error; ?></p>
+                <?php endif; ?>
 
                 <input type="password" name="password" id="password">
 
@@ -191,14 +187,13 @@ if (!isset($_SESSION['user']))
             <p><a class="back" href="?action=forgot">Forget your password?</a> - <a class="back" href="<?php echo $blog_url; ?>">Back to "<?php echo $blog_title; ?>"</a></p>
         </body>
     </html>
-    <?php
-} else
-{
+<?php } else {
 
-    /* ----------------------------------------------------------------------------------- */
-    /* Else, If Logged In, Get The Post Panel
-      /*----------------------------------------------------------------------------------- */
-    ?>
+/*-----------------------------------------------------------------------------------*/
+/* If Logged In, Go to the Dashboard
+/*-----------------------------------------------------------------------------------*/
+      
+?>
     <!DOCTYPE html>
     <html>
         <head>
@@ -294,7 +289,7 @@ if (!isset($_SESSION['user']))
                 <a class="templates-close" href="#templates"></a>
 
                 <ul>
-    <?php get_templates(); ?>
+                    <?php get_templates(); ?>
                 </ul>
 
                 <div id="arrows">

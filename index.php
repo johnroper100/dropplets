@@ -33,6 +33,7 @@ $powered_by = '<a class="powered-by" href="http://dropplets.com" target="_blank"
 /*-----------------------------------------------------------------------------------*/
 /* Post Configuration
 /*-----------------------------------------------------------------------------------*/
+
 $pagination_on_off = "off";
 $posts_per_page = 4;
 
@@ -254,7 +255,7 @@ else if ($filename == 'rss' || $filename == 'atom') {
             if($c<$feed_max_items) {
                 $item = $feed->createNewItem();
                 
-                // Quick & dirty hack to remove HTML 
+                // Remove HTML  from the RSS feed.
                 $item->setTitle(substr($post['post_title'], 4, -6));
                 $item->setLink(rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 $item->setDate($post['post_date']);
@@ -264,7 +265,8 @@ else if ($filename == 'rss' || $filename == 'atom') {
                     $item->addElement('author', str_replace('-', '', $remove_metadata_from[1]).' - ' . $blog_email);
                     $item->addElement('guid', rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 }
-				// Another quick & dirty hack to remove the metadata from the RSS feed.
+                
+				// Remove the metadata from the RSS feed.
 				unset($remove_metadata_from[0], $remove_metadata_from[1], $remove_metadata_from[2], $remove_metadata_from[3], $remove_metadata_from[4], $remove_metadata_from[5]);
 				$remove_metadata_from = array_values($remove_metadata_from);
 
@@ -289,7 +291,8 @@ else {
     $fcontents = file($filename);
     $slug_array = explode("/", $filename);
     $slug_len = count($slug_array);
-    //This was hardcoded array index, it should always return the last index
+    
+    // This was hardcoded array index, it should always return the last index.
     $slug = str_replace(array(FILE_EXT), '', $slug_array[$slug_len - 1]);
 
     // Define the cached file.
@@ -298,7 +301,7 @@ else {
     // If there's no file for the selected permalink, grab the 404 page template.
     if (!file_exists($filename)) {
     
-        //Change the cache file to 404 page
+        //Change the cache file to 404 page.
         $cachefile = CACHE_DIR.'404.html';
         
         // Define the site title.
@@ -307,13 +310,13 @@ else {
         // Get the 404 page template.
         include $not_found_file;
         
-        //Get the contents
+        // Get the contents.
         $content = ob_get_contents();
         
-        //Flush the buffer so that we dont get the page 2x times
+        // Flush the buffer so that we dont get the page 2x times.
         ob_end_clean();
         
-        //Start new buffer
+        // Start new buffer.
         ob_start(); 
         
 	    // Get the index template file.
