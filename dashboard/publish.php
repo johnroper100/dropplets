@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // Get existing config.
 include('../dropplets/config/config-settings.php');
