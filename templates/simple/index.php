@@ -48,7 +48,7 @@
                             var articles = $(result).filter(function() {
                                 return $(this).is('article');
                             });
-                            if (articles.length < 1) {
+                            if (articles.length < 2) {  //There's always one default article, so we should check if  < 2
                                 no_more_posts = true;
                             }  else {
                                 $('body').append(articles.slice(1));
