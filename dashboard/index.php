@@ -5,7 +5,7 @@ session_start();
 // Settings file locations.
 $settings_file = '../dropplets/config/config-settings.php';
 $template_file = '../dropplets/config/config-template.php';
-
+$phpass_file   = '../dropplets/plugins/phpass-0.3/PasswordHash.php';
 // Upload directory
 $upload_dir    = '../posts/';
 
@@ -17,6 +17,11 @@ if (file_exists($settings_file)) {
 
 if (file_exists($template_file)) {
     include($template_file);
+}
+if (file_exists($phpass_file))
+{
+    include($phpass_file);
+    $hasher  = new PasswordHash(8,FALSE);
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -31,7 +36,7 @@ if (isset($_GET['action']))
 
         // Logging in.
         case 'login':
-            if ((isset($_POST['password'])) && (sha1($_POST['password']) === $password)) {
+            if ((isset($_POST['password'])) && $hasher->CheckPassword($_POST['password'], $password)) {
                 $_SESSION['user'] = true;
 
                 // Redirect if authenticated.
