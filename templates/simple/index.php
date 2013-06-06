@@ -25,10 +25,48 @@
 
     <body>
         <?php echo $content ?>
-        
-        <?=(isset($pagination) ? $pagination : "") ?>
+
+        <?=(isset($pagination) && (isset($infinite_scroll) && $infinite_scroll == "off") ? $pagination : "") ?>
 
         <?php echo $powered_by ?>
+
+        <script src="http://code.jquery.com/jquery-1.9.0.js"></script>
+        <script>
+            var infinite = <?=($infinite_scroll !== "off" && $pagination_on_off !== "off") ? "true;" : "false;";?>
+            var next_page = 2;
+            var loading = false;
+            var no_more_posts = false;
+            $(function() {
+                function load_next_page() {
+                    loading = true;
+                    var url ="?page=" + next_page;
+
+                    $.ajax({
+                        url: "?page=" + next_page,
+                        success: function (res) {
+                            next_page++;
+                            var result = $.parseHTML(res);
+                            var articles = $(result).filter(function() {
+                                return $(this).is('article');
+                            });
+                            if (articles.length < 1) {
+                                no_more_posts = true;
+                            }  else {
+                                $('body').append(articles.slice(1));
+                            }
+                            loading = false;
+                        }
+                    });
+                }
+
+                $(window).scroll(function() {
+                    var when_to_load = $(window).scrollTop() * 0.32;
+                    if (infinite && (loading != true && !no_more_posts) && $(window).scrollTop() + when_to_load > ($(document).height()- $(window).height() ) ) {
+                        setTimeout(load_next_page,500);
+                    }
+                });
+            });
+        </script>
 
         <?php echo stripslashes($footer_inject) ?>
     </body>

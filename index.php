@@ -36,7 +36,7 @@ $powered_by = '<a class="powered-by" href="http://dropplets.com" target="_blank"
 
 $pagination_on_off = "off";
 $posts_per_page = 4;
-
+$infinite_scroll = "on"; //Infinite scroll works only if pagination is on.
 $post_directory = './posts/';
 $cache_directory = './posts/cache/';
 
