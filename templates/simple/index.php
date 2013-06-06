@@ -39,7 +39,6 @@
             $(function() {
                 function load_next_page() {
                     loading = true;
-                    var url ="?page=" + next_page;
 
                     $.ajax({
                         url: "?page=" + next_page,
