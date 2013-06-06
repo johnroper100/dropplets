@@ -38,8 +38,6 @@
             var no_more_posts = false;
             $(function() {
                 function load_next_page() {
-                    loading = true;
-
                     $.ajax({
                         url: "?page=" + next_page,
                         success: function (res) {
@@ -61,6 +59,9 @@
                 $(window).scroll(function() {
                     var when_to_load = $(window).scrollTop() * 0.32;
                     if (infinite && (loading != true && !no_more_posts) && $(window).scrollTop() + when_to_load > ($(document).height()- $(window).height() ) ) {
+                        // Sometimes the scroll function may be called several times until the loading is set to true.
+                        // So we need to set it as soon as possible
+                        loading = true;
                         setTimeout(load_next_page,500);
                     }
                 });
