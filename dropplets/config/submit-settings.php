@@ -5,12 +5,16 @@ session_start();
 // File locations.
 $settings_file = "config-settings.php";
 $htaccess_file = "../../.htaccess";
-
+$phpass_file   = '../plugins/phpass-0.3/PasswordHash.php';
 // Get existing settings.
 if (file_exists($settings_file)) {
     include($settings_file);
 }
-
+if (file_exists($phpass_file))
+{
+    include($phpass_file);
+    $hasher  = new PasswordHash(8,FALSE);
+}
 function settings_format($name, $value) {
     return sprintf("\$%s = \"%s\";", $name, $value);
 }
@@ -35,7 +39,7 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     // There must always be a $password, but it can be changed optionally in the
     // settings, so you might not always get it in $_POST.
     if (!isset($password) || !empty($_POST["password"])) {
-        $password = sha1($_POST["password"]);
+        $password = $hasher->HashPassword($_POST["password"]);
     }
 
     if(!isset($header_inject)) {
