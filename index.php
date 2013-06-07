@@ -618,7 +618,7 @@ function get_all_posts($options = array()) {
 /*-----------------------------------------------------------------------------------*/
 
 function get_posts_for_category($category) {
-  $category = trim(strtolower($category))
+  $category = trim(strtolower($category));
   return get_all_posts(array("category" => $category));
 }
 
