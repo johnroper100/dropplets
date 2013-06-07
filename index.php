@@ -117,7 +117,8 @@ if ($filename==NULL) {
     $offset = ($page == 1) ? 0 : ($page - 1) * $posts_per_page;
 
     //Index page cache file name, will be used if index_cache = "on"
-    $cachefile = CACHE_DIR . "index" .$page. '.html';
+
+    $cachefile = CACHE_DIR . ($category ? $category : "index") .$page. '.html';
 
     //If index cache file exists, serve it directly wihout getting all posts
     if (file_exists($cachefile) && $index_cache != 'off') {
@@ -556,10 +557,6 @@ else {
 function get_all_posts($options = array()) {
     global $dropplets;
 
-    if($options["category"]) {
-      $options["category"] = trim(strtolower($options["category"]));
-    }
-
     if($handle = opendir(POSTS_DIR)) {
 
         $files = array();
@@ -621,6 +618,7 @@ function get_all_posts($options = array()) {
 /*-----------------------------------------------------------------------------------*/
 
 function get_posts_for_category($category) {
+  $category = trim(strtolower($category))
   return get_all_posts(array("category" => $category));
 }
 
