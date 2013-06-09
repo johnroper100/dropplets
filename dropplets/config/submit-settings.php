@@ -16,7 +16,7 @@ if (file_exists($phpass_file))
     $hasher  = new PasswordHash(8,FALSE);
 }
 function settings_format($name, $value) {
-    return sprintf("\$%s = \"%s\";", $name, $value);
+    return sprintf("\$%s = '%s';", $name, $value);
 }
 
 /*-----------------------------------------------------------------------------------*/
