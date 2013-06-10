@@ -87,16 +87,25 @@ foreach(glob('./dropplets/plugins/' . '*.php') as $plugin){
 }
 
 // Reading file names.
+$category = NULL;
 if (empty($_GET['filename'])) {
     $filename = NULL;
 } else if($_GET['filename'] == 'rss' || $_GET['filename'] == 'atom') {
     $filename = $_GET['filename'];
-} else {
-
-    //Filename can be /some/blog/post-filename.md We should get the last part only.
+}  else {
+    //Filename can be /some/blog/post-filename.md We should get the last part only
     $filename = explode('/',$_GET['filename']);
-    $filename = POSTS_DIR . $filename[count($filename) - 1] . FILE_EXT;
+
+    // File name could be the name of a category
+    if($filename[count($filename) - 2] == "categories") {
+      $category = $filename[count($filename) - 1];
+      $filename = null;
+    } else {
+      // Individual Post
+      $filename = POSTS_DIR . $filename[count($filename) - 1] . FILE_EXT;
+    }
 }
+
 
 /*-----------------------------------------------------------------------------------*/
 /* The Home Page (All Posts)
@@ -108,7 +117,8 @@ if ($filename==NULL) {
     $offset = ($page == 1) ? 0 : ($page - 1) * $posts_per_page;
 
     //Index page cache file name, will be used if index_cache = "on"
-    $cachefile = CACHE_DIR . "index" .$page. '.html';
+
+    $cachefile = CACHE_DIR . ($category ? $category : "index") .$page. '.html';
 
     //If index cache file exists, serve it directly wihout getting all posts
     if (file_exists($cachefile) && $index_cache != 'off') {
@@ -120,7 +130,12 @@ if ($filename==NULL) {
     // If there is a file for the selected permalink, display and cache the post.
     }
 
-    $all_posts = get_all_posts();
+    if($category) {
+      $all_posts = get_posts_for_category($category);
+    } else {
+      $all_posts = get_all_posts();
+    }
+
     $pagination = ($pagination_on_off != "off") ? get_pagination($page,round(count($all_posts)/ $posts_per_page)) : "";
     $posts = ($pagination_on_off != "off") ? array_slice($all_posts,$offset,($posts_per_page > 0) ? $posts_per_page : null) : $all_posts;
 
@@ -542,7 +557,7 @@ else {
 /* Get All Posts Function (Used For the Home Page Above)
 /*-----------------------------------------------------------------------------------*/
 
-function get_all_posts() {
+function get_all_posts($options = array()) {
     global $dropplets;
 
     if($handle = opendir(POSTS_DIR)) {
@@ -571,6 +586,11 @@ function get_all_posts() {
                 // Define the post category.
                 $post_category = str_replace('-', '', $fcontents[4]);
 
+                // Early return if we only want posts from a certain category
+                if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
+                  continue;
+                }
+
                 // Define the post status.
                 $post_status = str_replace('- ', '', $fcontents[5]);
 
@@ -598,6 +618,15 @@ function get_all_posts() {
     } else {
         return false;
     }
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* Get Posts for Category
+/*-----------------------------------------------------------------------------------*/
+
+function get_posts_for_category($category) {
+  $category = trim(strtolower($category));
+  return get_all_posts(array("category" => $category));
 }
 
 function get_pagination($page,$total) {
