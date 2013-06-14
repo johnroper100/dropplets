@@ -8,7 +8,7 @@
             <ul>
                 <li><?php echo $blog_title ?></li>
                 <li><a href="mailto:<?php echo $blog_email ?>?subject=Hello"><?php echo $blog_email ?></a></li>
-                <li><a href="http://twitter.com/<?php echo $blog_twitter ?>">&#64;<?php echo $blog_twitter ?></a></li>
+                <li><a href="//twitter.com/<?php echo $blog_twitter ?>">&#64;<?php echo $blog_twitter ?></a></li>
                 <li></li>
             </ul>
         </div>

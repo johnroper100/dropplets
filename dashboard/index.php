@@ -305,8 +305,8 @@ if (!isset($_SESSION['user'])) { ?>
 
             <a class="logout" href="?action=logout"></a>
 
-            <script src="http://code.jquery.com/jquery-1.9.0.js"></script>
-            <script src="script.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <script src="script.js"></script>
 
             <script>
                 $(function() {
