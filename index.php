@@ -131,9 +131,9 @@ if ($filename==NULL) {
     }
 
     if($category) {
-      $all_posts = get_posts_for_category($category);
+        $all_posts = get_posts_for_category($category);
     } else {
-      $all_posts = get_all_posts();
+        $all_posts = get_all_posts();
     }
 
     $pagination = ($pagination_on_off != "off") ? get_pagination($page,round(count($all_posts)/ $posts_per_page)) : "";
@@ -184,7 +184,11 @@ if ($filename==NULL) {
             }
 
             // Get the site intro template file.
-            include_once $intro_file;
+            if ($category) {
+                // No intro for categories.
+            } else {
+                include_once $intro_file;
+            }
 
             // Get the milti-post template file.
             include $posts_file;
