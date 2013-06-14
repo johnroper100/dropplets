@@ -648,7 +648,8 @@ function get_pagination($page,$total) {
 /* Get Twitter Profile Image
 /*-----------------------------------------------------------------------------------*/
 
-function get_twitter_profile_img($username) {
-    $xml = simplexml_load_file('http://twitter.com/users/'.$username.'.xml');
-    return str_replace('_normal', '', $xml->profile_image_url);
+function get_twitter_profile_img($username, $size = '') {
+  $api_call = 'https://twitter.com/users/'.$username.'.json';
+  $results = json_decode(file_get_contents($api_call));
+  return str_replace('_normal', $size, $results->profile_image_url);
 }
