@@ -145,7 +145,7 @@ if ($filename==NULL) {
         foreach($posts as $post) {
 
             // Get the post title.
-            $post_title = str_replace(array('<h1>','</h1>'), '', $post['post_title']);
+            $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post['post_title']);
 
             // Get the post author.
             $post_author = $post['post_author'];
@@ -180,7 +180,7 @@ if ($filename==NULL) {
             if (file_exists($image)) {
                 $post_image = $blog_url.'/'.str_replace(array(FILE_EXT, '../'), '', POSTS_DIR.$post['fname']).'.jpg';
             } else {
-                $post_image = 'https://api.twitter.com/1/users/profile_image?screen_name='.$post_author_twitter.'&size=bigger';
+                $post_image = get_twitter_profile_img($post_author_twitter);
             }
 
             // Get the site intro template file.
@@ -370,16 +370,16 @@ else {
     } else {
 
         // Get the post title.
-        $post_title = str_replace('# ', '', $fcontents[0]);
+        $post_title = str_replace(array("\n", '# '), '', $fcontents[0]);
 
         // Get the post title.
         $post_intro = htmlspecialchars($fcontents[7]);
 
         // Get the post author.
-        $post_author = str_replace('-', '', $fcontents[1]);
+        $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
 
         // Get the post author Twitter ID.
-        $post_author_twitter = str_replace('- ', '', $fcontents[2]);
+        $post_author_twitter = str_replace(array("\n", '- '), '', $fcontents[2]);
 
         // Get the published date.
         $published_iso_date = str_replace('-', '', $fcontents[3]);
@@ -388,7 +388,7 @@ else {
         $published_date = date_format(date_create($published_iso_date), $date_format);
 
         // Get the post category.
-        $post_category = str_replace('-', '', $fcontents[4]);
+        $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
 
         // Get the post link.
         $post_link = $blog_url.'/'.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
@@ -399,7 +399,7 @@ else {
         if (file_exists($image)) {
             $post_image = $blog_url.'/'.str_replace(array(FILE_EXT, '../'), '', $filename).'.jpg';
         } else {
-            $post_image = 'https://api.twitter.com/1/users/profile_image?screen_name='.$post_author_twitter.'&size=bigger';
+            $post_image = get_twitter_profile_img($post_author_twitter);
         }
 
         // Get the site title.
@@ -575,16 +575,16 @@ function get_all_posts($options = array()) {
                 $post_title = Markdown($fcontents[0]);
 
                 // Define the post author.
-                $post_author = str_replace('-', '', $fcontents[1]);
+                $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
 
                 // Define the post author Twitter account.
-                $post_author_twitter = str_replace('- ', '', $fcontents[2]);
+                $post_author_twitter = str_replace(array("\n", '- '), '', $fcontents[2]);
 
                 // Define the published date.
                 $post_date = str_replace('-', '', $fcontents[3]);
 
                 // Define the post category.
-                $post_category = str_replace('-', '', $fcontents[4]);
+                $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
 
                 // Early return if we only want posts from a certain category
                 if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
@@ -592,7 +592,7 @@ function get_all_posts($options = array()) {
                 }
 
                 // Define the post status.
-                $post_status = str_replace('- ', '', $fcontents[5]);
+                $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
 
                 // Define the post intro.
                 $post_intro = Markdown($fcontents[7]);
@@ -625,8 +625,8 @@ function get_all_posts($options = array()) {
 /*-----------------------------------------------------------------------------------*/
 
 function get_posts_for_category($category) {
-  $category = trim(strtolower($category));
-  return get_all_posts(array("category" => $category));
+    $category = trim(strtolower($category));
+    return get_all_posts(array("category" => $category));
 }
 
 function get_pagination($page,$total) {
@@ -642,4 +642,13 @@ function get_pagination($page,$total) {
     }
     $string .= "</ul>";
     return $string;
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* Get Twitter Profile Image
+/*-----------------------------------------------------------------------------------*/
+
+function get_twitter_profile_img($username) {
+    $xml = simplexml_load_file('http://twitter.com/users/'.$username.'.xml');
+    return str_replace('_normal', '', $xml->profile_image_url);
 }

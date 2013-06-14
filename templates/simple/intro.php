@@ -2,7 +2,7 @@
     <div class="row">
         <div class="one-quarter meta">
             <div class="thumbnail">
-                <img src="https://api.twitter.com/1/users/profile_image?screen_name=<?php echo $blog_twitter ?>&size=bigger" alt="profile" />
+                <img src="<?php echo get_twitter_profile_img($blog_twitter) ?>" alt="profile" />
             </div>
 
             <ul>
