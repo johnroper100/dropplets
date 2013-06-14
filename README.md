@@ -1,7 +1,7 @@
 Dropplets
 =========
 
-> [v1.0.7](#version-107)
+> [v1.0.8](#version-108)
 
 Dropplets is a minimalist **Markdown** blogging platform focused on delivering just what you need in a blogging solution, but absolutely nothing you don't. When it comes to basic blogging, all you really want to do is write & publish which is where Dropplets excels. It's databaseless, so it installs on any server in just about 30 seconds. 
 
@@ -75,6 +75,15 @@ Here's a list of currently known and recommended 3rd party templates for Dropple
 Eventually, we will be implementing auto-updates for the Dropplets platform, but until then, just replace everything but your **posts** directory and **config-settings.php** when we release a new version of Dropplets.
 
 ## Changelog
+
+### Version 1.0.8
+- **NEW**: Infinite scrolling (pagination) of posts.
+- **NEW**: Ability to view posts by category.
+- **NEW**: New template tag post content.
+- **REVISED**: Implementation of PHPass for improved security.
+- **REVISED**: Slight style update for the Simple template.
+- **FIXED**: Twitter profile images broken as a result of the 1.0 API being retired by Twitter.
+- **FIXED**: Fixes an issue where H1 tags were being inserted inside the post title which are already wrapped in H2's.
 
 ### Version 1.0.7
 - **NEW**: Any plugin added to the "plugins" directory is now auto-included.
