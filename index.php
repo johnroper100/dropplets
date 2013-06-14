@@ -174,7 +174,11 @@ if ($filename==NULL) {
             $post_content = $post['post_content'];
 
             // Get the post link.
-            $post_link = str_replace(FILE_EXT, '', $post['fname']);
+            if ($category) {
+                $post_link = trim(strtolower($post_category)).'/'.str_replace(FILE_EXT, '', $post['fname']);
+            } else {
+                $post_link = str_replace(FILE_EXT, '', $post['fname']);
+            }
 
             // Get the post image url.
             $image = str_replace(array(FILE_EXT), '', POSTS_DIR.$post['fname']).'.jpg';
