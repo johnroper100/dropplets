@@ -8,7 +8,7 @@
             <ul>
                 <li>Written by <?php echo $post_author ?></li>
                 <li><?php echo $published_date ?></li>
-                <li>About <a href="<?php echo $blog_url.'/category/'.urlencode(trim($post_category)); ?>"><?php echo $post_category ?></a></li>
+                <li>About <a href="<?php echo $blog_url.'/category/'.urlencode(trim(strtolower($post_category))); ?>"><?php echo $post_category ?></a></li>
                 <li></li>
             </ul>
         </div>

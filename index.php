@@ -93,16 +93,18 @@ if (empty($_GET['filename'])) {
 } else if($_GET['filename'] == 'rss' || $_GET['filename'] == 'atom') {
     $filename = $_GET['filename'];
 }  else {
+    
     //Filename can be /some/blog/post-filename.md We should get the last part only
     $filename = explode('/',$_GET['filename']);
 
     // File name could be the name of a category
     if($filename[count($filename) - 2] == "category") {
-      $category = $filename[count($filename) - 1];
-      $filename = null;
+        $category = $filename[count($filename) - 1];
+        $filename = null;
     } else {
-      // Individual Post
-      $filename = POSTS_DIR . $filename[count($filename) - 1] . FILE_EXT;
+      
+        // Individual Post
+        $filename = POSTS_DIR . $filename[count($filename) - 1] . FILE_EXT;
     }
 }
 
@@ -592,7 +594,7 @@ function get_all_posts($options = array()) {
 
                 // Early return if we only want posts from a certain category
                 if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
-                  continue;
+                    continue;
                 }
 
                 // Define the post status.
