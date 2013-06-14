@@ -97,7 +97,7 @@ if (empty($_GET['filename'])) {
     $filename = explode('/',$_GET['filename']);
 
     // File name could be the name of a category
-    if($filename[count($filename) - 2] == "categories") {
+    if($filename[count($filename) - 2] == "category") {
       $category = $filename[count($filename) - 1];
       $filename = null;
     } else {
