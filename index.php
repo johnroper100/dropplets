@@ -647,7 +647,7 @@ function get_pagination($page,$total) {
         if ($i == $page) {
             $string .= "<li style='display: inline-block; margin:5px;' class=\"active\"><a class=\"button\" href='#'>".$i."</a></li>";
         } else {
-            $string .=  "<li style='display: inline-block; margin:5px;'><a class=\"button\" href=\"/?page=".$i."\">".$i."</a></li>";
+            $string .=  "<li style='display: inline-block; margin:5px;'><a class=\"button\" href=\"?page=".$i."\">".$i."</a></li>";
         }
     }
     $string .= "</ul>";
