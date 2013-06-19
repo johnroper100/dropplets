@@ -16,7 +16,7 @@ if (file_exists($phpass_file))
     $hasher  = new PasswordHash(8,FALSE);
 }
 function settings_format($name, $value) {
-    return sprintf("\$%s = '%s';", $name, $value);
+    return sprintf("\$%s = \"%s\";", $name, $value);
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -71,7 +71,7 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     $config[] = settings_format("meta_description", $meta_description);
     $config[] = settings_format("intro_title", $intro_title);
     $config[] = settings_format("intro_text", $intro_text);
-    $config[] = settings_format("password", $password);
+    $config[] = "\$password = '".$password."';";
     $config[] = settings_format("header_inject", $header_inject);
     $config[] = settings_format("footer_inject", $footer_inject);
     
