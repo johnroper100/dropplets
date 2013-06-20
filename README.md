@@ -72,7 +72,7 @@ Here's a list of currently known and recommended 3rd party templates for Dropple
 - [Chevrons](https://github.com/bishless/chevrons) by Daniel Bishop
 
 ## Updating Dropplets
-Eventually, we will be implementing auto-updates for the Dropplets platform, but until then, just replace everything but your **posts** directory and **config-settings.php** when we release a new version of Dropplets.
+Eventually, we will be implementing auto-updates for the Dropplets platform, but until then, just replace everything but your **posts** directory and **config-settings.php** and rename your **.htaccess** file to let it rebuild when we release a new version of Dropplets.
 
 ## Changelog
 
