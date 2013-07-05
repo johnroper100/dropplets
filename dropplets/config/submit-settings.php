@@ -87,9 +87,8 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
         $htaccess[] = "RewriteRule ^(images)($|/) - [L]";
         $htaccess[] = "Options +FollowSymLinks -MultiViews";
         $htaccess[] = "RewriteEngine on";
-        if (strlen($dir) > 1)
-            $htaccess[] = "RewriteBase " . $dir;
-        $htaccess[] = "RewriteCond %{REQUEST_URI} !index";
+        $htaccess[] = "RewriteBase " . $dir;
+        $htaccess[] = "RewriteCond %{REQUEST_URI} !index\.php";
         $htaccess[] = "RewriteCond %{REQUEST_FILENAME} !-f";
         $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [L]";
     
