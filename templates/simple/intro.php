@@ -1,4 +1,4 @@
-<article>
+<article class="intro">
     <div class="row">
         <div class="one-quarter meta">
             <div class="thumbnail">
