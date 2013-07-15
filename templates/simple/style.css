@@ -88,7 +88,7 @@ code, pre {
 /* Posts
 *********************************************************************************************/
 
-article {
+article, header {
     width: 100%;
     border-bottom: 1px solid #f1f1f1;
     padding: 60px 0;
@@ -385,7 +385,7 @@ ul.actions li {
     /* Articles
     *****************************************************************************************/
     
-    article {
+    article, header {
         padding: 40px 0;
     }
     

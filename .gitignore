@@ -1,8 +1,14 @@
+*.~
+*~
+*.swp
 *.espressostorage
 *.esproj
 *.pxm
 .DS_Store
 .htaccess
+.git/
+.gitignore
+
 dropplets/config/config-settings.php
 
 dashboard/verify.php
