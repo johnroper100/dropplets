@@ -4,5 +4,6 @@
 .DS_Store
 .htaccess
 dropplets/config/config-settings.php
-
+dropplets/config/config-template.php
+posts/
 dashboard/verify.php
