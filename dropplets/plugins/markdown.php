@@ -313,10 +313,37 @@ class Markdown_Parser {
 
 	var $document_gamut = array(
 		# Strip link definitions, store in hashes.
+		"markdownEnhancements" => 10,
+
 		"stripLinkDefinitions" => 20,
 
 		"runBasicBlockGamut"   => 30,
 		);
+
+	function markdownEnhancements($text) {
+	#
+	# Helpful additions to the core Markdown syntax like "shortlinks" 
+	# formatting, youtube and vimeo embeds
+	#
+		// Short link syntax, wrap links like [http://example.com] into [example.com](http://example.com)
+		$text = preg_replace('|(?<![!\\\])\[(https?://([^\s\]]+))\]|', '[$2]($1)', $text);
+		// If the text is prefixed with a backslash, don't replace it, and instead, un-escape.
+		$text = preg_replace('|\\\(\[(https?://([^\s\]]+))\])|', '$1', $text);
+
+		// Parse ![:vimeo]() tags
+		$text = preg_replace('|(?<!\\\)!\[:vimeo\]\(([^\)]+)\)|', 
+			'<div class="video-container">
+				<iframe src="http://player.vimeo.com/video/37360333" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			</div>', $text);
+
+		// Parse ![:youtube]() tags
+		$text = preg_replace('|(?<!\\\)!\[:youtube\]\(([^\)]+)\)|', 
+			'<div class="video-container">
+				<iframe src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>
+		 	</div>', $text);
+
+		return $text;
+	}
 
 
 	function stripLinkDefinitions($text) {
