@@ -229,6 +229,11 @@ if (!isset($_SESSION['user'])) { ?>
                 <form method="POST" action="../dropplets/config/submit-settings.php">
                     <fieldset>
                         <div class="input">
+                            <label>Blog Author</label>
+                            <input type="text" name="blog_author" id="blog_author" required value="<?php echo $blog_author; ?>">
+                        </div>
+
+                        <div class="input">
                             <label>Blog Email</label>
                             <input type="text" name="blog_email" id="blog_email" required value="<?php echo $blog_email; ?>">
                         </div>

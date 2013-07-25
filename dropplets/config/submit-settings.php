@@ -28,6 +28,7 @@ function settings_format($name, $value) {
 if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SESSION['user'])))
 {
     // Get submitted setup values.
+    $blog_author = $_POST["blog_author"];
     $blog_email = $_POST["blog_email"];
     $blog_twitter = $_POST["blog_twitter"];
     $blog_url = $_POST["blog_url"];
@@ -64,6 +65,7 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
 
     // Output submitted setup values.
     $config[] = "<?php";
+    $config[] = settings_format("blog_author", $blog_author);
     $config[] = settings_format("blog_email", $blog_email);
     $config[] = settings_format("blog_twitter", $blog_twitter);
     $config[] = settings_format("blog_url", $blog_url);
