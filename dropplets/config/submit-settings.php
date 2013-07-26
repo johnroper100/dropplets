@@ -91,9 +91,10 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
         $htaccess[] = "RewriteEngine on";
         if (strlen($dir) > 1)
             $htaccess[] = "RewriteBase " . $dir;
+        $htaccess[] = "RewriteCond %{QUERY_STRING} !page=";
         $htaccess[] = "RewriteCond %{REQUEST_URI} !index";
         $htaccess[] = "RewriteCond %{REQUEST_FILENAME} !-f";
-        $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [L]";
+        $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [L,QSA]";
     
         // Generate the .htaccess file.
         file_put_contents($htaccess_file, implode("\n", $htaccess));
