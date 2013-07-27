@@ -2,403 +2,470 @@
 /* Normalization
 *********************************************************************************************/
 
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}table{border-collapse:collapse;border-spacing:0;}
-
-/* Setup
-*********************************************************************************************/
-
-body {
-    background-color: #ffffff;
-    color: #788fa7;
-    text-align: center;
-    padding-bottom: 60px;
-    font: 18px/26px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+#dp-admin div,
+#dp-admin span,
+#dp-admin object,
+#dp-admin iframe,
+#dp-admin h1,
+#dp-admin h2,
+#dp-admin h3,
+#dp-admin p,
+#dp-admin a,
+#dp-admin em,
+#dp-admin img,
+#dp-admin strong,
+#dp-admin ol,
+#dp-admin ul,
+#dp-admin li,
+#dp-admin fieldset,
+#dp-admin form,
+#dp-admin label,
+#dp-admin section,
+#dp-admin video,
+body.install {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 
-body.dashboard {
-    overflow: hidden;
+#dp-admin a {
+    text-decoration: none;
+}
+
+#dp-admin ol,
+#dp-admin ul { 
+    list-style: none;
+}
+
+/* The Install Screen
+*********************************************************************************************/
+
+body.install {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #808080;
+    text-align: center;
+    text-rendering: optimizeLegibility;
+}
+
+a.dropplets {
+    background-color: #1096d7;
+    border-radius: 10px;
+    font-family: "dropplets";
+    font-size: 120px;
+    line-height: 160px;
+    color: #ffffff;
+    text-align: center;
+    width: 160px;
+    height: 160px;
+    float: left;
+    margin: -80px 0 0 80px;
+    text-decoration: none;
+}
+
+body.install form {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.01);
+    width: 320px;
+    height: 340px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -171px 0 0 -161px;
+}
+
+body.install form h2 {
+    font-size: 20px;
+    color: #404040;
+    font-weight: normal;
+    width: 320px;
+    float: left;
+    margin: 24px 0 10px;
+}
+
+body.install form p {
+    width: 300px;
+    float: left;
+    margin: 0 0 24px;
+    padding: 0 10px;
+}
+
+body.install form input[type="password"] {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    outline: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #404040;
+    text-align: center;
+    width: 258px;
+    float: left;
+    margin: 0 0 10px 10px;
+    padding: 10px 20px;
+    
+}
+
+body.install form button {
+    background-color: #4ebb44;
+    border: none;
+    border-radius: 4px;
+    font-family: "dropplets";
+    color: #ffffff;
+    font-size: 40px;
+    text-align: center;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    bottom: -35px;
+    left: 160px;
+    margin-left: -35px;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+body.install form button:hover {
+    opacity: 0.8;
 }
 
 /* Typography
 *********************************************************************************************/
 
-a {
-    color: #788fa7;
+@font-face {
+	font-family: 'dropplets';
+	src:url('fonts/dropplets.eot');
+	src:url('fonts/dropplets.eot?#iefix') format('embedded-opentype'),
+		url('fonts/dropplets.woff') format('woff'),
+		url('fonts/dropplets.ttf') format('truetype'),
+		url('fonts/dropplets.svg#dropplets') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
-a.back {
-    font-size: 14px;
-}
-
-.error {
-    background-color: rgba(255, 75, 0, 0.1);
-    color: rgba(255, 75, 0, 0.6);
-    font-size: 14px;
-    margin-top: -20px;
-    margin-bottom: 38px;
-    padding: 4px 0;
-    border-radius: 4px;
-}
-
-h1 {
-    font-size: 40px;
-    font-weight: normal;
-    margin: 0 0 20px;
-}
-
-p {
-    width: 600px;
-    margin: 0px auto;
-    margin-bottom: 50px;
-}
-
-/* Admin Panels
+/* Toolbar
 *********************************************************************************************/
 
-.panel {
-    background: #ffffff;
-    width: 100%;
-    height: 100%;
-    margin-bottom: -110px;
+#dp-admin #dp-tools {
+    font: 16px/16px "dropplets";
+    text-align: center;
+    position: fixed;
+    width: 35px;
+    top: 10px !important;
+    left: 10px !important;
+    margin: 0;
+    z-index: 2000;
+}
+
+#dp-admin #dp-tools li {
+    list-style: none;
+}
+
+#dp-admin #dp-tools li span {
+    background-color: #f44200;
     position: absolute;
-    bottom: -2000px;
-    z-index: 30000;
-    overflow-y: auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    z-index: 950;
+    color: #ffffff;
+    font-size: 11px;
+    line-height: 1;
+    width: 18px;
+    height: 15px;
+    text-align: center;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    margin: 0 0 0 1px;
+    padding: 3px 0 0 0;
+    box-shadow: inset 2px 0 0 0 rgba(0, 0, 0, 0.15);
 }
 
-.panel button {
-    bottom: -140px;
+#dp-admin #dp-tools li span.error {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    width: 260px;
+    height: 32px;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 12px;
+    line-height: 32px;
 }
 
-.panel fieldset.last {
-    margin-bottom: 250px;
+#dp-admin #dp-tools li,
+#dp-admin #dp-tools li a,
+#dp-admin #dp-tools li label {
+    width: 35px;
+    float: left;
 }
 
-.settings-close,
-.templates-close {
-    background: url('images/close.png') 0 0 no-repeat;
-    background-size: 30px;
-    width: 30px;
-    height: 30px;
+#dp-admin #dp-tools li span.error a {
+    width: auto;
+    float: none;
+    background: none;
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+#dp-admin #dp-tools li a,
+#dp-admin #dp-tools li label {
+    background-color: #f0f2f4;
+    margin-bottom: 1px;
+    color: #89949b;
+    padding: 8px 0;
+    
+}
+
+#dp-admin #dp-tools li label {
+    cursor: pointer;
+}
+
+#dp-admin #dp-tools li a:hover,
+#dp-admin #dp-tools li a.selected,
+#dp-admin #dp-tools li label:hover {
+    color: #1096d7;
+}
+
+#dp-admin #dp-tools li:last-child a {
+    margin: 0;
+}
+
+/* Uploader
+*********************************************************************************************/
+
+#dp-uploaded .success {
+    font: 60px/100px "dropplets";
+    background-color: #4ebb44;
+    color: #ffffff;
+    text-align: center;
+    width: 100px;
+    height: 100px;
     position: absolute;
-    top: 15px;
+    top: 50%;
+    margin-top: -50px;
     left: 50%;
-    margin-left: -15px;
-    opacity: 0.5;
-    transition-duration: .5s;
+    margin-left: -50px;
 }
 
-.settings-close:hover,
-.templates-close:hover {
-    opacity: 0.8;
-}
-
-/* Miscellaneous
+/* Cards
 *********************************************************************************************/
 
-img {
-    width: 200px;
-    margin: 50px 0;
+#dp-admin .dp-card {
+    background-color: #f0f2f4;
+    position: fixed;
+    top: 10px;
+    left: -800px;
+    z-index: 1000;
 }
 
-.hidden {
-    display: none;
+#dp-admin .dp-card.shown {
+    left: 46px;
+}
+
+#dp-admin .dp-card.small {
+    width: 300px;
+    height: 32px;
+}
+
+#dp-admin .dp-card.post {
+    width: 300px;
+    height: 300px;
+}
+
+#dp-admin .dp-card.medium {
+    width: 400px;
+    height: 600px;
+}
+
+#dp-admin .dp-card.large {
+    width: 700px;
+    height: 700px;
+    overflow: scroll;
 }
 
 /* Form Styles
 *********************************************************************************************/
 
-form,
-fieldset {
+#dp-admin .dp-card.small form {
+    width: 300px;
+    height: 32px;
+    float: left;
+}
+
+#dp-admin .dp-card.medium form {
+    width: 400px;
+    height: 600px;
+    float: left;
+    overflow-x: scroll;
+}
+
+body.install #dp-admin .dp-card.medium form {
+    overflow: hidden;
+}
+
+#dp-admin .dp-card.large form {
+    width: 175px;
+    height: 175px;
+    float: left;
+    position: relative;
+    
+}
+
+#dp-admin .dp-card .input {
     width: 100%;
     float: left;
-    margin: 0;
-    padding: 0;
+    position: relative;
 }
 
-fieldset {
+#dp-admin .dp-card .hidden {
+    display: none;
+}
+
+#dp-admin .dp-card label {
+    background-color: #e4e8ea;
+    text-transform: uppercase;
+    color: #89949b;
+    width: 360px;
+    float: left;
+    padding: 6px 20px 6px;
+    font: 12px/12px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    /*box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);*/
+}
+
+#dp-admin .dp-card.large label {
+    width: 660px;
+}
+
+#dp-admin .dp-card input[type="text"],
+#dp-admin .dp-card input[type="password"],
+#dp-admin .dp-card input[type="email"],
+#dp-admin .dp-card textarea {
+    background-color: #f0f2f4;
     border: none;
-    padding: 60px 0 40px;
-    background-color: rgba(235, 238, 241, 0.15);
-    border-top: 1px solid;
-    border-color: rgba(219, 224, 230, 0.3);
-    z-index: 2;
-}
-
-fieldset:nth-child(2) {
-    background-color: rgba(235, 238, 241, 0.25);
-    border-color: rgba(219, 224, 230, 0.5);
-}
-
-fieldset:nth-child(3) {
-    background-color: rgba(235, 238, 241, 0.35);
-    border-color: rgba(219, 224, 230, 0.7);
-}
-
-fieldset:nth-child(4) {
-    background-color: rgba(235, 238, 241, 0.45);
-    border-color: rgba(219, 224, 230, 0.9);
-    margin-bottom: 140px;
-}
-
-fieldset:nth-child(5) {
-    background-color: rgba(235, 238, 241, 0.55);
-    border-color: rgba(219, 224, 230, 1.1);
-    margin-top: -140px;
-    margin-bottom: 140px;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="email"],
-textarea {
-    border-radius: 4px;
-    border: 1px solid #cdd5dd;
-    font: 14px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #777777;
-    text-align: center;
-    width: 400px;
-    display: block;
-    margin: 0px auto;
-    margin-bottom: 20px;
-    padding: 10px;
     outline: none;
-    transition-duration: .2s;
-    background-color: #ffffff;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus,
-textarea:focus {
-    border: 1px solid #5b87a1;
-    color: #444444;
-    box-shadow: 0 0 15px rgba(212, 225, 232, 0.5);
-}
-
-textarea {
-    line-height: 18px;
-}
-
-.code {
-    font-family: monospace;
-    text-align: left;
-}
-
-label,
-legend {
-    display: block;
-    font-size: 16px;
-    margin: 0 0 8px;
-}
-
-button {
-    background: #cdd5dd url('images/check.png') center center no-repeat;
-    background-size: 80px;
-    border: none;
-    color: #5f7790;
-    cursor: pointer;
-    width: 100%;
-    height: 140px;
-    position: fixed;
-    display: block;
-    bottom: 0;
-    z-index: 1;
+    color: #929da3;
+    width: 360px;
+    float: left;
     margin: 0;
-    padding: 0;
-    transition-duration: .1s;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    padding: 15px 20px;
+    font: 14px/22px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-button:hover {
-    background-size: 100px;
+#dp-admin .dp-card.small input[type="password"] {
+    width: 280px;
+    font-size: 12px;
+    line-height: 12px;
+    padding: 9px 10px 8px;
 }
 
-/* Dropbox
-*********************************************************************************************/
-
-#dropbox {
-    background: url('images/mask.png') top left no-repeat;
-    background-size: 350px;
-    position: absolute;
-    z-index: 20000;
-    width: 350px;
-    height: 350px;
-    top: 50%;
-    left: 50%;
-    margin-left: -175px;
-    margin-top: -175px;
+#dp-admin .dp-card textarea {
+    height: 200px;
+    resize: none;
 }
 
-.loader {
-	position: absolute;
-	z-index: 10000;
-	width: 350px;
-	height: 350px;
-	top: 50%;
-	left: 50%;
-	margin-left: -175px;
-	margin-top: -175px;
+#dp-admin .dp-card textarea.code {
+    font-family: "Courier New", Courier, mono;
 }
 
-.loader .progress {
-    background-color: #cdd5dd;
-	width: 0;
-	height: 100%;
-	transition-duration: 2s;
-	-moz-transition-duration: 2s;
-	-webkit-transition-duration: 2s;
+body.install #dp-admin .dp-card textarea {
+    height: 165px;
 }
 
-.loader.done {
-    background: url('images/done.png') center center no-repeat;
-    background-size: 60px;
-    transition-delay: 1.5s;
-    -moz-transition-delay: 1.5s;
-    -webkit-transition-delay: 1.5s;
-    opacity: 0.5;
+#dp-admin .dp-card input[type="text"]:focus,
+#dp-admin .dp-card input[type="password"]:focus,
+#dp-admin .dp-card input[type="email"]:focus,
+#dp-admin .dp-card textarea:focus {
+    background-color: #f5f7f8;
+    color: #333b3f;
 }
 
-.loader.done:nth-child(1) .progress,
-.loader.done:nth-child(2) .progress {
-    background: none;
-}
-
-.loader.done .progress {
-	width:100% !important;
-}
-
-/* Navigation
-*********************************************************************************************/
-
-.home {
-    background: url('images/home.png') 0 0 no-repeat;
-}
-
-.logout {
-    background: url('images/logout.png') 0 0 no-repeat;
-}
-
-.settings {
-    background: url('images/settings.png') 0 0 no-repeat;
-}
-
-.templates {
-    background: url('images/templates.png') 0 0 no-repeat;
-}
-
-.home,
-.logout,
-.settings,
-.templates {
-    background-size: 60px;
+#dp-admin .dp-card input[type="submit"],
+#dp-admin .dp-card button,
+#dp-admin .dp-card a {
+    background-color: #4ebb44;
+    border: none;
+    font-family: "dropplets";
+    color: #ffffff;
+    font-size: 30px;
+    text-align: center;
     width: 60px;
     height: 60px;
     position: absolute;
-    left: 50%;
-    opacity: 0.5;
-    transition-duration: .5s;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    -webkit-appearance: none;
 }
 
-.logout,
-.settings,
-.templates {
-    background-size: 40px;
-    width: 40px;
-    height: 40px;
+#dp-admin .dp-card button.active {
+    background-color: #1096d7;
 }
 
-.home {
-    top: 20px;
-    margin-left: -30px;
-}
-
-.settings,
-.templates {
-    top: 35px;
-}
-
-.settings {
-    margin-left: -75px;
-}
-
-.templates {
-    margin-left: 35px;
-}
-
-.logout {
-    bottom: 20px;
-    margin-left: -20px;
-}
-
-.home:hover,
-.logout:hover,
-.settings:hover,
-.templates:hover {
+#dp-admin .dp-card input[type="submit"]:hover,
+#dp-admin .dp-card button:hover,
+#dp-admin .dp-card a:hover {
     opacity: 0.8;
 }
 
-/* Template Carousel
+#dp-admin .dp-card.large input[type="submit"],
+#dp-admin .dp-card.large button,
+#dp-admin .dp-card.large a,
+#dp-admin .dp-card.small input[type="submit"],
+#dp-admin .dp-card.small button,
+#dp-admin .dp-card.small a {
+    font-size: 16px;
+    line-height: 29px;
+    width: 32px;
+    height: 32px;
+    top: 0;
+    right: 0;
+}
+
+#dp-admin .dp-card.small a {
+    background-color: #1096d7;
+    font-size: 18px;
+    line-height: 32px;
+    right: -33px;
+}
+
+#dp-admin .dp-card.large input[type="submit"],
+#dp-admin .dp-card.large button,
+#dp-admin .dp-card.large a {
+    top: 138px;
+    right: 5px;
+}
+
+/* Templates
 *********************************************************************************************/
 
-#templates {
-    background-color: rgba(235, 238, 241, 0.25);
+#dp-admin .dp-card.large a.buy {
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 14px;
+    right: 38px;
 }
 
-#templates ul {
-	margin: 10px 0 0 0;
-	padding: 0;
-	list-style: none;
-	display: block;
-	width: 100%;
+#dp-admin .dp-card.large a.preview {
+    background-color: #1096d7;
+    line-height: 32px;
 }
 
-#templates li {
-	text-align: center;
-	width: 100%;
-	padding: 0;
-	display: block;
-	float: left;
+#dp-admin .dp-card.large li {
+    list-style: none;
+    width: 175px;
+    height: 175px;
+    float: left;
+    position: relative;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.15);
 }
 
-#templates li img {
-    width: 700px;
-    border-radius: 6px;
-    box-shadow: 0px 0 3px rgba(0, 0, 0, 0.25);
-}
-
-#arrows {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    margin-top: -160px;
-}
-
-.prev,
-.next {
-
-    width: 60px;
-    height: 60px;
-    opacity: 0.5;
-    cursor: pointer;
-}
-
-.prev {
-    background: url('images/arrow-previous.png') 0 0 no-repeat;
-    background-size: 60px;
-	float: left;
-	margin-left: 20px;
-}
-
-.next {
-    background: url('images/arrow-next.png') 0 0 no-repeat;
-    background-size: 60px;
-	float: right;
-	margin-right: 20px;
-}
-
-.prev:hover,
-.next:hover {
+#dp-admin .dp-card.large li img {
+    width: 175px;
+    height: 175px;
+    float: left;
     opacity: 0.8;
 }

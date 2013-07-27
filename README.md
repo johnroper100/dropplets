@@ -1,8 +1,6 @@
 Dropplets
 =========
 
-> [v1.0.8](#version-108)
-
 Dropplets is a minimalist **Markdown** blogging platform focused on delivering just what you need in a blogging solution, but absolutely nothing you don't. When it comes to basic blogging, all you really want to do is write & publish which is where Dropplets excels. It's databaseless, so it installs on any server in just about 30 seconds. 
 
 ## What's Markdown?
@@ -17,17 +15,15 @@ Markdown is a text formatting syntax inspired on plain text email. It is extreme
 - [Editing Posts](#editing-posts)
 - [Changing Settings](#changing-settings)
 - [Changing Templates](#changing-templates)
-- [3rd Party Templates](#3rd-party-templates)
 - [Updating Dropplets](#updating-dropplets)
-- [Changelog](#changelog)
 - [License](#license)
 
 ## Installation
 Dropplets is compatible with most server configurations and can be typically installed in under a minute using the few step-by-step instructions below:
 
-1. Download the latest version here on [GitHub](https://github.com/circa75/dropplets/archive/master.zip) and then extract the downloaded zip file.
+1. Download the latest **release** and then extract the downloaded zip file.
 3. Upload the entire contents of the extracted zip file to your web server wherever you want Dropplets to be installed. 
-4. Pull up your site in any modern web browser and follow the installation prompts. For instance, if you uploaded Dropplets to **yoursite.com**, load **yoursite.com** in your browser to finish the installation.
+4. Pull up your site in any modern web browser (e.g. if you uploaded Dropplets to **yoursite.com**, load **yoursite.com** in your browser to finish the installation), then create and confirm your password.
 
 ## Writing Posts
 With Dropplets, you write your posts offline (using the text or Markdown editor of your choice) in Markdown format. Here's a handy [syntax guide](https://github.com/circa75/dropplets/wiki/Markdown-Syntax-Guide) if you need a little help with your Markdown skills. All posts for Dropplets **MUST** be composed using the following format:
@@ -52,57 +48,22 @@ Some templates include the ability to add a post image or thumbnail along with y
 Post file names are used to structure post permalinks on your blog. So, a post file saved as **my-first-blog-post.md** will result in **yoursite.com/my-first-blog-post** as the post permalink.
 
 ## Publishing Posts
-After you've finished writing your post offline, you can then publish your post within the Dropplets Dashboard using these few steps:
+After you've finished writing your post offline, you can then publish your post using the Dropplets toolbar:
 
-1. Login to your Dropplets Dashboard (e.g. **yoursite.com/dashboard/**) using the password you created during the installation and setup process.
-2. Drag and drop your post file onto the ***droplet*** in the center of your dashboard.
+1. Login to your Dropplets installation using the password you created during the installation and setup process.
+2. Click the Dropplet in your toolbar to select, upload and publish your post.
 
 ## Editing Posts
-Simply re-upload your edited post file within the Dropplets Dashboard using the steps above. Doing this will automatically overwrite the existing post and publish your new edits. To delete a post, change the **Post Status** at the top of your post file to **draft**.
+Re-upload your edited post file using the steps above. Doing this will automatically overwrite the existing post and publish your new edits. To delete a post, change the **Post Status** at the top of your post file to **draft**.
 
 ## Changing Settings
-To change your blog settings, login to your Dropplets Dashboard (e.g. **yoursite.com/dashboard/**) using the password you created during the installation and setup process and then click the settings icon to the left of the home icon. This will load the settings panel where you will be able to change all of your blog settings including your password.
+To change your blog settings, click the gear icon in the Dropplets toolbar. This will load the settings panel where you will be able to change all of your blog settings including your password.
 
 ## Changing Templates
-To change your blog template, login to your Dropplets Dashboard (e.g. **yoursite.com/dashboard/**) using the password you created during the installation and setup process and then click the templates icon to the right of the home icon. This will load the templates panel where you will be able to browse and change your blog template.
-
-## 3rd Party Templates
-Here's a list of currently known and recommended 3rd party templates for Dropplets. To install a 3rd party template, upload it to the "templates" directory within your Dropplets installation.
-
-- [Chevrons](https://github.com/bishless/chevrons) by Daniel Bishop
+To change your blog template, click the star icon in the Dropplets toolbar. This will load the templates panel where you will be able to browse and change your blog template as well as purchase new premium templates.
 
 ## Updating Dropplets
-Eventually, we will be implementing auto-updates for the Dropplets platform, but until then, just replace everything but your **posts** directory and **config-settings.php** when we release a new version of Dropplets.
-
-## Changelog
-
-### Version 1.0.8
-- **NEW**: Infinite scrolling (pagination) of posts.
-- **NEW**: Ability to view posts by category.
-- **NEW**: New template tag post content.
-- **REVISED**: Implementation of PHPass for improved security.
-- **REVISED**: Slight style update for the Simple template.
-- **FIXED**: Twitter profile images broken as a result of the 1.0 API being retired by Twitter.
-- **FIXED**: Fixes an issue where H1 tags were being inserted inside the post title which are already wrapped in H2's.
-
-### Version 1.0.7
-- **NEW**: Any plugin added to the "plugins" directory is now auto-included.
-- **REVISED**: Post and index caching has been re-implemented with cache invalidation when a new post has been published.
-- **FIXED**: You can now install Dropplets within a sub-directory.
-- **FIXED**: Post date and title not being set in RSS.
-- **FIXED**: Header and footer inject errors on install.
-- **FIXED**: Removed duplicate feed links within the "panels" header.
-
-### Version 1.0.6
-- **NEW**: Password recovery integration.
-
-### Version 1.0.5
-- **NEW**: Open Graph and Twitter Card meta tag support.
-- **REVISED**: Improved post cache.
-- **REVISED**: Generate .htaccess on install.
-- **REVISED**: Added SHA1 password hashing.
-- **FIXED**: Header redirects for saving settings, publishing posts and changing templates.
-- **FIXED**: Dashboard shouldn't be accessible prior to installation.
+Eventually, we will be implementing auto-updates for the Dropplets platform, but until then, just replace everything but your **posts** directory and **config.php** when we release a new version of Dropplets.
 
 ## License
 Copyright (c) 2013 Circa75 Media, LLC
