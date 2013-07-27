@@ -109,7 +109,7 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
         $htaccess[] = "RewriteBase " . $dir;
         $htaccess[] = "RewriteCond %{REQUEST_URI} !index\.php";
         $htaccess[] = "RewriteCond %{REQUEST_FILENAME} !-f";
-        $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [L]";
+        $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [NC,QSA,L]";
     
         // Generate the .htaccess file.
         file_put_contents($htaccess_file, implode("\n", $htaccess));
