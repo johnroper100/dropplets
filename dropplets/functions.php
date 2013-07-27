@@ -315,7 +315,7 @@ function get_footer() { ?>
         $(function() {
             function load_next_page() {
                 $.ajax({
-                    url: "?page=" + next_page,
+                    url: "index.php?page=" + next_page,
                     success: function (res) {
                         next_page++;
                         var result = $.parseHTML(res);
