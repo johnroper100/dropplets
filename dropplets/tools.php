@@ -23,7 +23,7 @@ if (!isset($_SESSION['user'])) { ?>
         <form method="POST" action="?action=login">
             <fieldset>
                 <div class="input">
-                    <input type="password" name="password" id="password">
+                    <input type="password" name="password" id="password" placeholder="Enter Your Password">
                 </div>
             </fieldset>
     
