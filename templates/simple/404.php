@@ -1,8 +1,7 @@
-<article class="single">
+<article class="single not-found">
     <div class="row">
         <div class="one-quarter meta">
             <div class="thumbnail">
-                <img src="./dropplets/style/images/logo.png" alt="four-oh-four" />
             </div>
         </div>
 

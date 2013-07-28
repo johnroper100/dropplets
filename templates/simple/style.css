@@ -262,6 +262,11 @@ ul.actions li {
     -webkit-transition-duration: 0.05s;
 }
 
+.not-found .thumbnail {
+    background-color: #404040;
+    border-color: #404040;
+}
+
 .thumbnail img {
     border-radius: 50%;
     width: 100%;
