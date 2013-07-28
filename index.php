@@ -123,6 +123,8 @@ if ($filename==NULL) {
             } else {
                 $post_image = get_twitter_profile_img($post_author_twitter);
             }
+            
+            if ($post_status == 'draft') continue;
 
             // Get the milti-post template file.
             include $posts_file;
