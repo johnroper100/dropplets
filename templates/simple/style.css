@@ -125,10 +125,6 @@ article.single {
     max-width: 460px;
 }
 
-.post ul:nth-child(2) {
-    display: none;
-}
-
 .post p a,
 .post ul a,
 .post ol a {
