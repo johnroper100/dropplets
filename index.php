@@ -344,7 +344,20 @@ else {
         } else {
             $post_image = get_twitter_profile_img($post_author_twitter);
         }
-
+        
+        // Get the post content
+        $file_array = file($filename);
+        
+        unset($file_array[0]);
+        unset($file_array[1]);
+        unset($file_array[2]);
+        unset($file_array[3]);
+        unset($file_array[4]);
+        unset($file_array[5]);
+        unset($file_array[6]);
+        
+        $post_content = Markdown(implode("", $file_array));
+        
         // Get the site title.
         $page_title = str_replace('# ', '', $fcontents[0]);
 
