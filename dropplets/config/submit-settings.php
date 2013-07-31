@@ -43,22 +43,6 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
         $password = $hasher->HashPassword($_POST["password"]);
     }
 
-    if(!isset($header_inject)) {
-        $header_inject = "";        
-    }
-
-    if(isset($_POST["header_inject"])) {
-        $header_inject = addslashes($_POST["header_inject"]);
-    }
-
-    if(!isset($footer_inject)) {
-        $footer_inject = "";
-    }
-    
-    if(isset($_POST["footer_inject"])) {
-        $footer_inject = addslashes($_POST["footer_inject"]);
-    }
-
     // Get subdirectory
     $dir_arr = explode('dropplets/', $_SERVER['SCRIPT_NAME']);
     $dir = $dir_arr[0];
