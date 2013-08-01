@@ -84,13 +84,12 @@ if (!file_exists(CACHE_DIR) && ($post_cache != 'off' || $index_cache != 'off')) 
 /* Template Files
 /*-----------------------------------------------------------------------------------*/
 
+// Get the active template directory.
 $template_dir = './templates/' . $template . '/';
 $template_dir_url = $blog_url . 'templates/' . $template . '/';
 
-// define the default locations of the template files.
+// Get the active template files.
 $index_file = $template_dir . 'index.php';
-$intro_file = $template_dir . 'intro.php';
-define('INTRO_FILE', $intro_file);
 $post_file = $template_dir . 'post.php';
 $posts_file = $template_dir . 'posts.php';
 $not_found_file = $template_dir . '404.php';
