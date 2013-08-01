@@ -259,9 +259,9 @@ function get_premium_templates($type = 'all') {
         
         { ?>
         <li>
-            <img src="http://dropplets.com/view/<?php echo $template_file_name; ?>/templates/<?php echo $template_file_name; ?>/screenshot.jpg" alt="<?php echo $template_name; ?>">
-            <a class="buy" href="http://dropplets.com/marketplace/index.php?template=<?php echo $template_file_name; ?>" title="Purchase/Download" target="_blank"><?php echo $template_price; ?></a> 
-            <a class="preview" href="http://dropplets.com/view/<?php echo $template_file_name; ?>/" title="Prview" target="_blank">p</a>    
+            <img src="http://dropplets.com/demo/templates/<?php echo $template_file_name; ?>/screenshot.jpg" alt="<?php echo $template_name; ?>">
+            <a class="buy" href="http://dropplets.com/marketplace/?template=<?php echo $template_file_name; ?>" title="Purchase/Download" target="_blank"><?php echo $template_price; ?></a> 
+            <a class="preview" href="http://dropplets.com/demo/?template=<?php echo $template_file_name; ?>" title="Prview" target="_blank">p</a>    
         </li>
         
         <?php } 
