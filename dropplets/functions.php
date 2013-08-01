@@ -1,14 +1,6 @@
 <?php
 
 /*-----------------------------------------------------------------------------------*/
-/* Include All Plugins in Plugins Directory
-/*-----------------------------------------------------------------------------------*/
-
-foreach(glob('./plugins/' . '*.php') as $plugin){
-    include_once $plugin;
-}
-
-/*-----------------------------------------------------------------------------------*/
 /* Include 3rd Party Functions
 /*-----------------------------------------------------------------------------------*/
 
@@ -279,6 +271,41 @@ function get_premium_templates($type = 'all') {
 }
 
 /*-----------------------------------------------------------------------------------*/
+/* If is Home (Could use "is_single", "is_category" as well.)
+/*-----------------------------------------------------------------------------------*/
+
+$homepage = BLOG_URL;
+
+// Get the current page.    
+$currentpage  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] : 'https://'.$_SERVER["SERVER_NAME"];
+$currentpage .= $_SERVER["REQUEST_URI"];
+
+// If is home.
+$is_home = ($homepage==$currentpage);
+define('IS_HOME', $is_home);
+
+/*-----------------------------------------------------------------------------------*/
+/* Get Twitter Profile Image
+/*-----------------------------------------------------------------------------------*/
+
+function get_twitter_profile_img($username, $size = '') {
+    $api_call = 'https://twitter.com/users/'.$username.'.json';
+    $results = json_decode(file_get_contents($api_call));
+    return str_replace('_normal', $size, $results->profile_image_url);
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* Include All Plugins in Plugins Directory
+/*-----------------------------------------------------------------------------------*/
+
+foreach(glob('./plugins/' . '*.php') as $plugin){
+    include_once $plugin;
+}
+
+define('PLUGIN_HEADER_INJECT', $plugin_header_inject);
+define('PLUGIN_FOOTER_INJECT', $plugin_footer_inject);
+
+/*-----------------------------------------------------------------------------------*/
 /* Dropplets Header
 /*-----------------------------------------------------------------------------------*/
 
@@ -293,6 +320,9 @@ function get_header() { ?>
 
     <!-- User Header Injection -->
     <?php echo HEADER_INJECT; ?>
+    
+    <!-- Plugin Footer Injection -->
+    <?php echo PLUGIN_HEADER_INJECT; ?>
 <?php 
 
 } 
@@ -350,30 +380,9 @@ function get_footer() { ?>
     
     <!-- User Footer Injection -->
     <?php echo FOOTER_INJECT; ?>
+    
+    <!-- Plugin Footer Injection -->
+    <?php echo PLUGIN_FOOTER_INJECT; ?>
 <?php 
 
-}
-
-/*-----------------------------------------------------------------------------------*/
-/* If is Home (Could use "is_single", "is_category" as well.)
-/*-----------------------------------------------------------------------------------*/
-
-$homepage = BLOG_URL;
-
-// Get the current page.    
-$currentpage  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] : 'https://'.$_SERVER["SERVER_NAME"];
-$currentpage .= $_SERVER["REQUEST_URI"];
-
-// If is home.
-$is_home = ($homepage==$currentpage);
-define('IS_HOME', $is_home);
-
-/*-----------------------------------------------------------------------------------*/
-/* Get Twitter Profile Image
-/*-----------------------------------------------------------------------------------*/
-
-function get_twitter_profile_img($username, $size = '') {
-    $api_call = 'https://twitter.com/users/'.$username.'.json';
-    $results = json_decode(file_get_contents($api_call));
-    return str_replace('_normal', $size, $results->profile_image_url);
 }
