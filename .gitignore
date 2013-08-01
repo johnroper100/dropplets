@@ -10,3 +10,5 @@ posts/*.jpg
 templates/clear/
 templates/typographic/
 templates/cards/
+
+plugins/switcher.php
