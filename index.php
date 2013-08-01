@@ -112,7 +112,7 @@ if ($filename==NULL) {
             if ($category) {
                 $post_link = trim(strtolower($post_category)).'/'.str_replace(FILE_EXT, '', $post['fname']);
             } else {
-                $post_link = str_replace(FILE_EXT, '', $post['fname']);
+                $post_link = $blog_url.str_replace(FILE_EXT, '', $post['fname']);
             }
 
             // Get the post image url.
