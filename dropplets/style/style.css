@@ -40,18 +40,37 @@ body.install {
     list-style: none;
 }
 
-/* The Install Screen
+/* The Install Screen & Panel Styles
 *********************************************************************************************/
 
 #dp-admin .dp-panel {
     background: #ffffff;
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 100000;
     display: none;
+}
+
+#dp-admin .dp-close {
+    background-color: #333332;
+    width: 35px;
+    height: 35px;
+    font-family: "dropplets";
+    font-size: 16px;
+    line-height: 35px;
+    color: #ffffff;
+    overflow: hidden;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#dp-admin .dp-close:hover {
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.75);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
 }
 
 body.install,
@@ -65,44 +84,47 @@ body.install,
     text-rendering: optimizeLegibility;
 }
 
-a.dropplets {
-    background-color: #1096d7;
-    border-radius: 10px;
-    font-family: "dropplets";
-    font-size: 120px;
-    line-height: 160px;
-    color: #ffffff;
-    text-align: center;
-    width: 160px;
-    height: 160px;
-    float: left;
-    margin: -80px 0 0 80px;
-    text-decoration: none;
-}
-
 #dp-admin .dp-panel a.dropplets {
     background-color: #1096d7;
-    border-radius: 6px;
     font-family: "dropplets";
-    font-size: 40px;
-    line-height: 60px;
+    font-size: 16px;
+    line-height: 35px;
     color: #ffffff;
-    width: 60px;
-    height: 60px;
+    width: 35px;
+    height: 35px;
     position: absolute;
-    bottom: 20px;
-    left: 50%;
-    margin-left: -30px;
-    text-decoration: none;
+    top: 10px;
+    left: 10px;
+}
+
+#dp-admin .dp-panel a.dropplets-text {
+    background-color: #1096d7;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ffffff;
+    line-height: 33px;
+    height: 35px;
+    position: absolute;
+    top: 10px;
+    left: 46px;
+    padding: 0 12px;
+}
+
+#dp-admin .dp-panel a.dropplets:hover,
+#dp-admin .dp-panel a.dropplets-text:hover {
+    box-shadow: inset 0 0 20px rgba(20, 100, 140, 0.75);
+    text-shadow: 0 0 10px rgba(20, 100, 140, 0.75);
 }
 
 #dp-admin .dp-panel img {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
     width: 160px;
     height: 160px;
     float: left;
     margin: -80px 0 0 80px;
+    -moz-transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
 }
 
 body.install form,
@@ -128,6 +150,7 @@ body.install form h2,
     color: #404040;
     font-weight: normal;
     width: 320px;
+    max-width: 100% !important;
     float: left;
     margin: 24px 0 10px;
 }
@@ -184,7 +207,6 @@ body.install form button,
 #dp-admin .dp-panel form button {
     background-color: #4ebb44;
     border: none;
-    border-radius: 4px;
     font-family: "dropplets";
     color: #ffffff;
     font-size: 40px;
@@ -297,13 +319,27 @@ body.install form button:hover,
     color: #89949b;
 }
 
+#dp-admin #dp-tools li a.dp-login,
+#dp-admin #dp-tools li a.dp-login:hover {
+    background-color: #333332;
+    color: #ffffff;
+}
+
+#dp-admin #dp-tools li a.dp-login:hover {
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.75);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
+}
+
 #dp-admin #dp-tools li a.error {
     background-color: #f44200;
     color: #ffffff;
 }
 
 #dp-admin #dp-tools li a.error:hover {
-    color: rgba(255, 255, 255, 0.62);
+    background-color: #f44200;
+    color: #ffffff;
+    box-shadow: inset 0 0 20px rgba(161, 44, 17, 0.75);
+    text-shadow: 0 0 10px rgba(161, 44, 17, 0.75);
 }
 
 #dp-admin #dp-tools li label {
@@ -535,7 +571,8 @@ body.install #dp-admin .dp-card textarea {
     padding-left: 10px;
     padding-right: 10px;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 31px;
     right: 38px;
 }
 

@@ -11,13 +11,16 @@ if (!isset($_SESSION['user'])) { ?>
 <div id="dp-admin">
     <ul id="dp-tools">
         <li>
-            <a class="view-panel<?php if (isset($login_error)) { ?> error<?php }; ?>" href="#dp-login"><?php if (isset($login_error)) { ?>c<?php } else { ?><img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" /><?php }; ?></a>
+            <a class="view-panel<?php if (isset($login_error)) { ?> error<?php } else { ?> dp-login<?php }; ?>" href="#dp-login"><?php if (isset($login_error)) { ?>c<?php } else { ?>d<?php }; ?></a>
         </li>
     </ul>
     
     <div class="dp-panel" id="dp-login">
+        <a class="dropplets" href="http://dropplets.com" target="_blank">d</a>
+        <a class="dropplets-text" href="http://dropplets.com" target="_blank">Powered by Dropplets</a> 
+        
         <form method="POST" action="?action=login">
-            <img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
+            <a class="close-panel" href="#dp-login"><img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" /></a>
             
             <h2>Welcome Back!</h2>
             <p>Enter your password below to login.</p>
@@ -31,11 +34,13 @@ if (!isset($_SESSION['user'])) { ?>
             <?php if (isset($login_error)) { ?>
                 <span><a class="error" href="?action=forgot">Did you forget your password?</a></span>
             <?php } else { ?>
-                <span><a class="close-panel" href="#dp-login">Take me back to "<?php echo(BLOG_TITLE); ?>"</a></span>
+                <span><a href="http://dropplets.com" target="_blank">What is This?</a></span>
             <?php }; ?>
     
             <button type="submit" name="submit" value="submit">k</button>
-        </form>        
+        </form>    
+        
+        <a class="dp-close close-panel" href="#dp-login">c</a>   
     </div>
 </div>
 
