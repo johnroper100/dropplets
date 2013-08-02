@@ -11,26 +11,31 @@ if (!isset($_SESSION['user'])) { ?>
 <div id="dp-admin">
     <ul id="dp-tools">
         <li>
-            <a class="view" href="#dp-login">d</a>
-            
-            <?php if (isset($login_error)): ?>
-                <span class="error"><?php echo $login_error; ?> <a href="?action=forgot">Forget your password?</a></span>
-            <?php endif; ?>
+            <a class="view-panel<?php if (isset($login_error)) { ?> error<?php }; ?>" href="#dp-login"><?php if (isset($login_error)) { ?>c<?php } else { ?><img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" /><?php }; ?></a>
         </li>
     </ul>
     
-    <div class="dp-card small" id="dp-login">
+    <div class="dp-panel" id="dp-login">
         <form method="POST" action="?action=login">
+            <img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
+            
+            <h2>Welcome Back!</h2>
+            <p>Enter your password below to login.</p>
+            
             <fieldset>
                 <div class="input">
                     <input type="password" name="password" id="password" placeholder="Enter Your Password">
                 </div>
             </fieldset>
+            
+            <?php if (isset($login_error)) { ?>
+                <span><a class="error" href="?action=forgot">Did you forget your password?</a></span>
+            <?php } else { ?>
+                <span><a class="close-panel" href="#dp-login">Take me back to "<?php echo(BLOG_TITLE); ?>"</a></span>
+            <?php }; ?>
     
             <button type="submit" name="submit" value="submit">k</button>
-        </form>
-        
-        <a class="what" href="http://dropplets.com" title="What is This?" target="_blank">q</button>
+        </form>        
     </div>
 </div>
 
@@ -134,12 +139,15 @@ if (!isset($_SESSION['user'])) { ?>
         <label>Installed Templates</label>
         <?php get_installed_templates('all'); ?>
         
+        <div class="shadow one"></div>
         <label>Featured Premium Templates</label>
         <?php get_premium_templates('featured'); ?>
         
+        <div class="shadow two"></div>
         <label>Popular Premium Templates</label>
         <?php get_premium_templates('popular'); ?>
         
+        <div class="shadow three"></div>
         <label>All Premium Templates</label>
         <?php get_premium_templates('all'); ?>
     </div>
@@ -164,6 +172,20 @@ if (!isset($_SESSION['user'])) { ?>
             $(myelement).animate({left:"46px"}, 200);
             $(".dp-card:visible").not(myelement).animate({left:"-800px"}, 100);
             $("body").css({ overflow: 'hidden' });
+            return false;
+        });
+        
+        $(".view-panel").click(function(){
+            var myelement = $(this).attr("href")
+            $(myelement).fadeIn(200);
+            $("body").css({ overflow: 'hidden' });
+            return false;
+        });
+        
+        $(".close-panel").click(function(){
+            var myelement = $(this).attr("href")
+            $(myelement).fadeOut(100);
+            $("body").css({ overflow: 'scroll' });
             return false;
         });
         

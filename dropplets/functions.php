@@ -229,7 +229,8 @@ function get_installed_templates() {
         // Template screenshots.
         $template_screenshot = '' . $templates_directory . '' . $template_dir_name . '/screenshot.jpg'; {
             ?>
-            <li>
+            <li<?php if($active_template == $template_dir_name) { ?> class="active"<?php } ?>>
+                <div class="shadow"></div>
                 <form method="POST" action="./dropplets/save.php">
                     <img src="<?php echo $template_screenshot; ?>">
                     <input class="hidden" type="text" name="template" id="template" required readonly value="<?php echo $template_dir_name ?>">
@@ -259,6 +260,7 @@ function get_premium_templates($type = 'all') {
         
         { ?>
         <li>
+            <div class="shadow"></div>
             <img src="http://dropplets.com/demo/templates/<?php echo $template_file_name; ?>/screenshot.jpg" alt="<?php echo $template_name; ?>">
             <a class="buy" href="http://dropplets.com/marketplace/?template=<?php echo $template_file_name; ?>" title="Purchase/Download" target="_blank"><?php echo $template_price; ?></a> 
             <a class="preview" href="http://dropplets.com/demo/?template=<?php echo $template_file_name; ?>" title="Prview" target="_blank">p</a>    
