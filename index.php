@@ -309,6 +309,9 @@ else {
     // If there is a file for the selected permalink, display and cache the post.
     } else {
 
+        // Define the post status.
+        $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
+        
         // Get the post title.
         $post_title = str_replace(array("\n", '# '), '', $fcontents[0]);
 
