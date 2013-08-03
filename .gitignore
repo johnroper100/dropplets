@@ -1,6 +1,8 @@
 *.espressostorage
 *.esproj
 *.pxm
+*.xcf
+*~
 .DS_Store
 .htaccess
 config.php
