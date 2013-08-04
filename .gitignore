@@ -1,14 +1,15 @@
-*.~
-*~
-*.swp
 *.espressostorage
 *.esproj
 *.pxm
 .DS_Store
 .htaccess
-.git/
-.gitignore
+config.php
+verify.php
+posts/*.md
+posts/*.jpg
+templates/clear/
+templates/typographic/
+templates/cards/
 
-dropplets/config/config-settings.php
+plugins/switcher.php
 
-dashboard/verify.php

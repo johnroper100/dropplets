@@ -1,92 +1,24 @@
 <?php
 
-if (file_exists('./dropplets/config/config-settings.php')) {
+session_start();
 
 /*-----------------------------------------------------------------------------------*/
-/* Debug Mode
+/* If There's a Config Exists, Continue
 /*-----------------------------------------------------------------------------------*/
 
-$display_errors = false;
+if (file_exists('./config.php')) {
 
 /*-----------------------------------------------------------------------------------*/
-/* Post Cache ('on' or 'off')
+/* Get Settings & Functions
 /*-----------------------------------------------------------------------------------*/
 
-$post_cache = 'off';
-$index_cache = 'off';
+include('./dropplets/settings.php');
+include('./dropplets/functions.php');
 
 /*-----------------------------------------------------------------------------------*/
-/* Configuration & Options
+/* Reading File Names
 /*-----------------------------------------------------------------------------------*/
 
-include('./dropplets/config/config-settings.php');
-include('./dropplets/config/config-template.php');
-
-// A few definitions.
-$language = 'en-us';
-$feed_max_items = '10';
-$date_format = 'F jS, Y';
-$error_title = 'Sorry, But That&#8217;s Not Here';
-$error_text = 'Really sorry, but what you&#8217;re looking for isn&#8217;t here. Click the button below to find something else that might interest you.';
-$powered_by = '<a class="powered-by" href="http://dropplets.com" target="_blank"><img src="' . $blog_url . '/dropplets/style/images/powered-by.png" />Powered by Dropplets</a>';
-
-/*-----------------------------------------------------------------------------------*/
-/* Post Configuration
-/*-----------------------------------------------------------------------------------*/
-
-$pagination_on_off = "on";  //Infinite scroll by default?
-$posts_per_page = 4;
-$infinite_scroll = "on"; //Infinite scroll works only if pagination is on.
-$post_directory = './posts/';
-$cache_directory = './posts/cache/';
-
-if (glob($post_directory . '*.md') != false)
-{
-    $posts_dir = './posts/';
-} else {
-    $posts_dir = './dropplets/welcome/';
-}
-
-define('POSTS_DIR', $posts_dir);
-define('FILE_EXT', '.md');
-
-/*-----------------------------------------------------------------------------------*/
-/* Cache Configuration
-/*-----------------------------------------------------------------------------------*/
-
-define('CACHE_DIR', $cache_directory);
-
-if (!file_exists(CACHE_DIR) && ($post_cache != 'off' || $index_cache != 'off')) {
-	mkdir(CACHE_DIR,0755,TRUE);
-}
-
-/*-----------------------------------------------------------------------------------*/
-/* Template Files
-/*-----------------------------------------------------------------------------------*/
-
-$template_dir = './templates/' . $template . '/';
-$template_dir_url = $blog_url . '/templates/' . $template . '/';
-
-// define the default locations of the template files.
-$index_file = $template_dir . 'index.php';
-$intro_file = $template_dir . 'intro.php';
-$post_file = $template_dir . 'post.php';
-$posts_file = $template_dir . 'posts.php';
-$not_found_file = $template_dir . '404.php';
-
-/*-----------------------------------------------------------------------------------*/
-/* Let's Get Started
-/*-----------------------------------------------------------------------------------*/
-
-// Display errors if there are any.
-ini_set('display_errors', $display_errors);
-
-// Get required plugins.
-foreach(glob('./dropplets/plugins/' . '*.php') as $plugin){
-    include_once $plugin;
-}
-
-// Reading file names.
 $category = NULL;
 if (empty($_GET['filename'])) {
     $filename = NULL;
@@ -107,7 +39,6 @@ if (empty($_GET['filename'])) {
         $filename = POSTS_DIR . $filename[count($filename) - 1] . FILE_EXT;
     }
 }
-
 
 /*-----------------------------------------------------------------------------------*/
 /* The Home Page (All Posts)
@@ -139,6 +70,7 @@ if ($filename==NULL) {
     }
 
     $pagination = ($pagination_on_off != "off") ? get_pagination($page,round(count($all_posts)/ $posts_per_page)) : "";
+    define('PAGINATION', $pagination);
     $posts = ($pagination_on_off != "off") ? array_slice($all_posts,$offset,($posts_per_page > 0) ? $posts_per_page : null) : $all_posts;
 
     if($posts) {
@@ -163,6 +95,9 @@ if ($filename==NULL) {
 
             // Get the post category.
             $post_category = $post['post_category'];
+            
+            // Get the post category link.
+            $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
 
             // Get the post status.
             $post_status = $post['post_status'];
@@ -177,24 +112,19 @@ if ($filename==NULL) {
             if ($category) {
                 $post_link = trim(strtolower($post_category)).'/'.str_replace(FILE_EXT, '', $post['fname']);
             } else {
-                $post_link = str_replace(FILE_EXT, '', $post['fname']);
+                $post_link = $blog_url.str_replace(FILE_EXT, '', $post['fname']);
             }
 
             // Get the post image url.
             $image = str_replace(array(FILE_EXT), '', POSTS_DIR.$post['fname']).'.jpg';
 
             if (file_exists($image)) {
-                $post_image = $blog_url.'/'.str_replace(array(FILE_EXT, '../'), '', POSTS_DIR.$post['fname']).'.jpg';
+                $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', POSTS_DIR.$post['fname']).'.jpg';
             } else {
                 $post_image = get_twitter_profile_img($post_author_twitter);
             }
-
-            // Get the site intro template file.
-            if ($category) {
-                // No intro for categories.
-            } else {
-                include_once $intro_file;
-            }
+            
+            if ($post_status == 'draft') continue;
 
             // Get the milti-post template file.
             include $posts_file;
@@ -381,8 +311,8 @@ else {
 
         // Define the post status.
         $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
-
-        // Get the post title.
+        
+	// Get the post title.
         $post_title = str_replace(array("\n", '# '), '', $fcontents[0]);
 
         // Get the post title.
@@ -402,19 +332,35 @@ else {
 
         // Get the post category.
         $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
+        
+        // Get the post category link.
+        $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
 
         // Get the post link.
-        $post_link = $blog_url.'/'.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
+        $post_link = $blog_url.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
 
         // Get the post image url.
         $image = str_replace(array(FILE_EXT), '', $filename).'.jpg';
 
         if (file_exists($image)) {
-            $post_image = $blog_url.'/'.str_replace(array(FILE_EXT, '../'), '', $filename).'.jpg';
+            $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', $filename).'.jpg';
         } else {
             $post_image = get_twitter_profile_img($post_author_twitter);
         }
-
+        
+        // Get the post content
+        $file_array = file($filename);
+        
+        unset($file_array[0]);
+        unset($file_array[1]);
+        unset($file_array[2]);
+        unset($file_array[3]);
+        unset($file_array[4]);
+        unset($file_array[5]);
+        unset($file_array[6]);
+        
+        $post_content = Markdown(implode("", $file_array));
+        
         // Get the site title.
         $page_title = str_replace('# ', '', $fcontents[0]);
 
@@ -470,15 +416,13 @@ else {
 /*-----------------------------------------------------------------------------------*/
 
 } else {
-
-    // Fetch the current url.
-    $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
-    $host = $_SERVER['HTTP_HOST'];
-
-    // Subdirectory support.
-    $dir      = dirname($_SERVER['REQUEST_URI']) . basename($_SERVER['REQUEST_URI']);
-    $url      = $protocol . '://' . $host . $dir;
-    $is_writable = (TRUE == is_writable(dirname(__FILE__) . '/dropplets/config/'));
+    // Get the current url.
+    $domain = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] : 'https://'.$_SERVER["SERVER_NAME"];
+    $path = $_SERVER["REQUEST_URI"];
+    $url = $domain . $path;
+    
+    // Check if the install directory is writable.
+    $is_writable = (TRUE == is_writable(dirname(__FILE__) . '/'));
     ?>
 
     <!DOCTYPE html>
@@ -487,70 +431,36 @@ else {
             <meta charset="utf-8" />
             <title>Let's Get Started</title>
             <link rel="stylesheet" href="./dropplets/style/style.css" />
+            <link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
+            <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400' rel='stylesheet' type='text/css'>
             <link rel="shortcut icon" href="./dropplets/style/images/favicon.png">
         </head>
 
-        <body>
-            <img src="./dropplets/style/images/logo.png" alt="Dropplets" />
+        <body class="install">
+            <form method="POST" action="./dropplets/save.php">
+                <a class="dropplets" href="http://dropplets.com" target="_blank">d</a>
+                
+                <h2>Install Dropplets</h2>
+                <p>Welcome to an easier way to blog.</p>
+                
+                <input type="password" name="password" id="password" required placeholder="Choose Your Password">
+                <input type="password" name="password-confirmation" id="password-confirmation" required placeholder="Confirm Your Password" onblur="confirmPass()">
 
-            <h1>Let's Get Started</h1>
-            <p>With Dropplets, there's no database or confusing admins to worry about, just simple markdown blogging goodness. To get started, enter your site information below (all fields are required) and then click the check mark at the bottom. That's all there's to it :)</p>
+                <input hidden type="text" name="blog_email" id="blog_email" value="hi@dropplets.com">
+                <input hidden type="text" name="blog_twitter" id="blog_twitter" value="dropplets">
+                <input hidden type="text" name="blog_url" id="blog_url" value="<?php echo($url) ?><?php if ($url == $domain) { ?>/<?php } ?>">
+                <input hidden type="text" name="template" id="template" value="simple">
+                <input hidden type="text" name="blog_title" id="blog_title" value="Welcome to Dropplets">
+                <textarea hidden name="meta_description" id="meta_description"></textarea>
+                <input hidden type="text" name="intro_title" id="intro_title" value="Welcome to Dropplets">
+                <textarea hidden name="intro_text" id="intro_text">In a flooded selection of overly complex solutions, Dropplets has been created in order to deliver a much needed alternative. There is something to be said about true simplicity in the design, development and management of a blog. By eliminating all of the unnecessary elements found in typical solutions, Dropplets can focus on pure design, typography and usability. Welcome to an easier way to blog.</textarea>
+
+    		    <button type="submit" name="submit" value="submit">k</button>
+    		</form>
+                
             <?php if (!$is_writable) { ?>
                 <p style="color:red;">It seems that your config folder is not writable, please add the necessary permissions.</p>
             <?php } ?>
-    		<form method="POST" action="./dropplets/config/submit-settings.php">
-    		    <fieldset>
-    		        <div class="input">
-    		            <input type="text" name="blog_email" id="blog_email" required placeholder="The Email Address for Your Blog">
-    		        </div>
-
-    		        <div class="input">
-    		            <input type="text" name="blog_twitter" id="blog_twitter" required placeholder="The Twitter ID for Your Blog (e.g. &quot;dropplets&quot;)">
-    		        </div>
-    		    </fieldset>
-
-    		    <fieldset>
-        		    <div class="input hidden">
-        		        <input type="text" name="blog_url" id="blog_url" required readonly value="<?php echo($url) ?>">
-        		    </div>
-
-        		    <div class="input">
-        		        <input type="text" name="blog_title" id="blog_title" required placeholder="Your Blog Title">
-        		    </div>
-
-        		    <div class="input">
-        		        <textarea name="meta_description" id="meta_description" rows="6" required placeholder="Add your site description here... just a short sentence that describes what your blog is going to be about."></textarea>
-        		    </div>
-    		    </fieldset>
-
-    		    <fieldset>
-        		    <div class="input">
-        		        <input type="text" name="intro_title" id="intro_title" required placeholder="Your Intro Title">
-        		    </div>
-
-        		    <div class="input">
-        		        <textarea name="intro_text" id="intro_text" rows="12" required placeholder="Add your intro text here. The &quot;intro&quot; displayed at the top of the home page of your blog and is generally intended to introduce who you are to your readers, kind of like an &quot;about&quot; page."></textarea>
-        		    </div>
-    		    </fieldset>
-
-    		    <fieldset>
-        		    <div class="input">
-        		        <input type="password" name="password" id="password" required placeholder="Enter a Password">
-        		    </div>
-
-        		    <div class="input">
-        		        <input type="password" name="password-confirmation" id="password-confirmation" required placeholder="Confirm Your Password" onblur="confirmPass()">
-        		    </div>
-    		    </fieldset>
-
-    		    <fieldset class="hidden">
-    		        <div class="input">
-    		            <input type="text" name="template" id="template" required value="simple">
-    		        </div>
-    		    </fieldset>
-
-    		    <button type="submit" name="submit" value="submit"></button>
-    		</form>
 
             <script>
             	function confirmPass() {
@@ -563,106 +473,10 @@ else {
             </script>
         </body>
     </html>
-
-<?php }
-
-/*-----------------------------------------------------------------------------------*/
-/* Get All Posts Function (Used For the Home Page Above)
-/*-----------------------------------------------------------------------------------*/
-
-function get_all_posts($options = array()) {
-    global $dropplets;
-
-    if($handle = opendir(POSTS_DIR)) {
-
-        $files = array();
-        $filetimes = array();
-
-        while (false !== ($entry = readdir($handle))) {
-            if(substr(strrchr($entry,'.'),1)==ltrim(FILE_EXT, '.')) {
-
-                // Define the post file.
-                $fcontents = file(POSTS_DIR.$entry);
-
-                // Define the post title.
-                $post_title = Markdown($fcontents[0]);
-
-                // Define the post author.
-                $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
-
-                // Define the post author Twitter account.
-                $post_author_twitter = str_replace(array("\n", '- '), '', $fcontents[2]);
-
-                // Define the published date.
-                $post_date = str_replace('-', '', $fcontents[3]);
-
-                // Define the post category.
-                $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
-
-                // Early return if we only want posts from a certain category
-                if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
-                    continue;
-                }
-
-                // Define the post status.
-                $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
-
-                // Define the post intro.
-                $post_intro = Markdown($fcontents[7]);
-
-                // Define the post content
-                $post_content = Markdown(join('', array_slice($fcontents, 6, $fcontents.length -1)));
-
-                // Pull everything together for the loop.
-                $files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_category' => $post_category, 'post_status' => $post_status, 'post_intro' => $post_intro, 'post_content' => $post_content);
-                $post_dates[] = $post_date;
-                $post_titles[] = $post_title;
-                $post_authors[] = $post_author;
-                $post_authors_twitter[] = $post_author_twitter;
-                $post_categories[] = $post_category;
-                $post_statuses[] = $post_status;
-                $post_intros[] = $post_intro;
-                $post_contents[] = $post_content;
-            }
-        }
-        array_multisort($post_dates, SORT_DESC, $files);
-        return $files;
-
-    } else {
-        return false;
-    }
-}
+<?php 
 
 /*-----------------------------------------------------------------------------------*/
-/* Get Posts for Category
+/* That's All There is to It
 /*-----------------------------------------------------------------------------------*/
 
-function get_posts_for_category($category) {
-    $category = trim(strtolower($category));
-    return get_all_posts(array("category" => $category));
-}
-
-function get_pagination($page,$total) {
-    $string = '';
-    $string .= "<ul style=\"list-style:none; width:400px; margin:15px auto;\">";
-
-    for ($i = 1; $i<=$total;$i++) {
-        if ($i == $page) {
-            $string .= "<li style='display: inline-block; margin:5px;' class=\"active\"><a class=\"button\" href='#'>".$i."</a></li>";
-        } else {
-            $string .=  "<li style='display: inline-block; margin:5px;'><a class=\"button\" href=\"?page=".$i."\">".$i."</a></li>";
-        }
-    }
-    $string .= "</ul>";
-    return $string;
-}
-
-/*-----------------------------------------------------------------------------------*/
-/* Get Twitter Profile Image
-/*-----------------------------------------------------------------------------------*/
-
-function get_twitter_profile_img($username, $size = '') {
-  $api_call = 'https://twitter.com/users/'.$username.'.json';
-  $results = json_decode(file_get_contents($api_call));
-  return str_replace('_normal', $size, $results->profile_image_url);
 }

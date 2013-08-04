@@ -3,9 +3,10 @@
 session_start();
 
 // File locations.
-$settings_file = "config-settings.php";
-$htaccess_file = "../../.htaccess";
-$phpass_file   = '../plugins/phpass-0.3/PasswordHash.php';
+$settings_file = "../config.php";
+$htaccess_file = "../.htaccess";
+$phpass_file   = '../dropplets/includes/phpass.php';
+
 // Get existing settings.
 if (file_exists($settings_file)) {
     include($settings_file);
@@ -28,13 +29,30 @@ function settings_format($name, $value) {
 if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SESSION['user'])))
 {
     // Get submitted setup values.
-    $blog_email = $_POST["blog_email"];
-    $blog_twitter = $_POST["blog_twitter"];
-    $blog_url = $_POST["blog_url"];
-    $blog_title = htmlspecialchars($_POST["blog_title"]);
-    $meta_description = htmlspecialchars($_POST["meta_description"]);
-    $intro_title = htmlspecialchars($_POST["intro_title"]);
-    $intro_text = htmlspecialchars($_POST["intro_text"]);
+    if (isset($_POST["blog_email"])) {
+        $blog_email = $_POST["blog_email"];
+    }
+    if (isset($_POST["blog_twitter"])) {
+        $blog_twitter = $_POST["blog_twitter"];
+    }
+    if (isset($_POST["blog_url"])) {
+        $blog_url = $_POST["blog_url"];
+    }
+    if (isset($_POST["blog_title"])) {
+        $blog_title = $_POST["blog_title"];
+    }
+    if (isset($_POST["meta_description"])) {
+        $meta_description = $_POST["meta_description"];
+    }
+    if (isset($_POST["intro_title"])) {
+        $intro_title = $_POST["intro_title"];
+    }
+    if (isset($_POST["intro_text"])) {
+        $intro_text = $_POST["intro_text"];
+    }
+    if (isset($_POST["template"])) {
+        $template = $_POST["template"];
+    }
 
     // There must always be a $password, but it can be changed optionally in the
     // settings, so you might not always get it in $_POST.
@@ -59,8 +77,7 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     }
 
     // Get subdirectory
-    $dir_arr = explode('dropplets/', $_SERVER['SCRIPT_NAME']);
-    $dir = $dir_arr[0];
+    $dir .= str_replace('dropplets/save.php', '', $_SERVER["REQUEST_URI"]);
 
     // Output submitted setup values.
     $config[] = "<?php";
@@ -74,6 +91,7 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     $config[] = "\$password = '".$password."';";
     $config[] = settings_format("header_inject", $header_inject);
     $config[] = settings_format("footer_inject", $footer_inject);
+    $config[] = settings_format("template", $template);
     
     // Create the settings file.
     file_put_contents($settings_file, implode("\n", $config));
@@ -83,15 +101,15 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     
         // Parameters for the htaccess file.
         $htaccess[] = "# Pretty Permalinks";
-        $htaccess[] = "RewriteRule ^(dashboard)($|/) - [L]";
         $htaccess[] = "RewriteRule ^(images)($|/) - [L]";
+        $htaccess[] = "RewriteCond %{REQUEST_URI} !^action=logout [NC]";
+        $htaccess[] = "RewriteCond %{REQUEST_URI} !^action=login [NC]";
         $htaccess[] = "Options +FollowSymLinks -MultiViews";
         $htaccess[] = "RewriteEngine on";
-        if (strlen($dir) > 1)
-            $htaccess[] = "RewriteBase " . $dir;
-        $htaccess[] = "RewriteCond %{REQUEST_URI} !index";
+        $htaccess[] = "RewriteBase " . $dir;
+        $htaccess[] = "RewriteCond %{REQUEST_URI} !index\.php";
         $htaccess[] = "RewriteCond %{REQUEST_FILENAME} !-f";
-        $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [L]";
+        $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [NC,QSA,L]";
     
         // Generate the .htaccess file.
         file_put_contents($htaccess_file, implode("\n", $htaccess));

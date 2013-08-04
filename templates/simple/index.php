@@ -2,72 +2,50 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-
-        <title><?php echo $page_title ?></title>
-
-        <?php echo $page_meta ?>
-
+        
+        <title><?php echo($page_title); ?></title>
+        
+        <?php echo($page_meta); ?>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="alternate" type="application/rss+xml" title="Subscribe using RSS" href="/rss" />
-        <link rel="alternate" type="application/atom+xml" title="Subscribe using Atom" href="/atom" />
-
-        <link rel="stylesheet" href="<?php echo $template_dir_url ?>style.css">
-        <link rel="stylesheet" href="<?php echo $template_dir_url ?>subdiv.css">
-
+        
+        <link rel="stylesheet" href="<?php echo($template_dir_url); ?>style.css">
+        <link rel="stylesheet" href="<?php echo($template_dir_url); ?>subdiv.css">
         <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
-
-        <link rel="shortcut icon" href="<?php echo $blog_url ?>/dropplets/style/images/favicon.png">
-
-        <?php echo stripslashes($header_inject) ?>
+        
+        <?php get_header(); ?>
     </head>
 
     <body>
-        <?php echo $content ?>
-
-        <?=(isset($pagination) && (isset($infinite_scroll) && $infinite_scroll == "off") ? $pagination : "") ?>
-
-        <?php echo $powered_by ?>
-
-        <script src="http://code.jquery.com/jquery-1.9.0.js"></script>
-        <script>
-            var infinite = <?=($infinite_scroll !== "off" && $pagination_on_off !== "off") ? "true;" : "false;";?>
-            var next_page = 2;
-            var loading = false;
-            var no_more_posts = false;
-            $(function() {
-                function load_next_page() {
-                    $.ajax({
-                        url: "?page=" + next_page,
-                        success: function (res) {
-                            next_page++;
-                            var result = $.parseHTML(res);
-                            var articles = $(result).filter(function() {
-                                return $(this).is('article');
-                            });
-                            if (articles.length < 2) {  //There's always one default article, so we should check if  < 2
-                                no_more_posts = true;
-                            }  else {
-                                $('body').append(articles.slice(1));
-                            }
-                            loading = false;
-                        }
-                    });
-                }
-
-                $(window).scroll(function() {
-                    var when_to_load = $(window).scrollTop() * 0.32;
-                    if (infinite && (loading != true && !no_more_posts) && $(window).scrollTop() + when_to_load > ($(document).height()- $(window).height() ) ) {
-                        // Sometimes the scroll function may be called several times until the loading is set to true.
-                        // So we need to set it as soon as possible
-                        loading = true;
-                        setTimeout(load_next_page,500);
-                    }
-                });
-            });
-        </script>
-
-        <?php echo stripslashes($footer_inject) ?>
+        <?php if($is_home) { ?>
+        <article>
+            <div class="row">
+                <div class="one-quarter meta">
+                    <div class="thumbnail">
+                        <img src="<?php echo get_twitter_profile_img($blog_twitter); ?>" alt="profile" />
+                    </div>
+        
+                    <ul>
+                        <li><?php echo($blog_title); ?></li>
+                        <li><a href="mailto:<?php echo($blog_email); ?>?subject=Hello"><?php echo($blog_email); ?></a></li>
+                        <li><a href="http://twitter.com/<?php echo($blog_twitter); ?>">&#64;<?php echo($blog_twitter); ?></a></li>
+                        <li></li>
+                    </ul>
+                </div>
+        
+                <div class="three-quarters post">
+                    <h2><?php echo($intro_title); ?></h2>
+        
+                    <p><?php echo($intro_text); ?></p>
+        
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                </div>
+            </div>
+        </article>
+        <?php } ?>
+        
+        <?php echo($content); ?>
+        
+        <?php get_footer(); ?>
     </body>
 </html>

@@ -125,10 +125,6 @@ article.single {
     max-width: 460px;
 }
 
-.post ul:nth-child(2) {
-    display: none;
-}
-
 .post p a,
 .post ul a,
 .post ol a {
@@ -260,6 +256,11 @@ ul.actions li {
     margin-right: -21px;
     -moz-transition-duration: 0.05s;
     -webkit-transition-duration: 0.05s;
+}
+
+.not-found .thumbnail {
+    background-color: #404040;
+    border-color: #404040;
 }
 
 .thumbnail img {
