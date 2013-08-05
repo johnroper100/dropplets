@@ -8,39 +8,44 @@ $login_error = LOGIN_ERROR;
 
 if (!isset($_SESSION['user'])) { ?>
 
-<div id="dp-admin">
-    <ul id="dp-tools">
-        <li>
-            <a class="view-panel<?php if (isset($login_error)) { ?> error<?php } else { ?> dp-login<?php }; ?>" href="#dp-login"><?php if (isset($login_error)) { ?>c<?php } else { ?>d<?php }; ?></a>
-        </li>
-    </ul>
-    
-    <div class="dp-panel" id="dp-login">
-        <a class="dropplets" href="http://dropplets.com" target="_blank">d</a>
-        <a class="dropplets-text" href="http://dropplets.com" target="_blank">Powered by Dropplets</a> 
+<div class="dp-panel-wrapper <?php if($_COOKIE['dp-panel']) { echo($_COOKIE['dp-panel']); } ?>" id="dp-dropplets">
+    <div class="dp-panel">
+        <div class="dp-row profile">
+            <div class="dp-icon">
+                <img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
+            </div>
+            
+            <div class="dp-content">
+                <span class="title">Hey There!</span>
+                <a class="dp-button dp-button-dark dp-close dp-icon-close" href="#dp-dropplets"></a>
+            </div>
+        </div>
         
-        <form method="POST" action="?action=login">
-            <a class="close-panel" href="#dp-login"><img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" /></a>
+        <div class="dp-row dp-editable dp-editable-dark">
+            <div class="dp-icon dp-icon-key"></div>
             
-            <h2>Welcome Back!</h2>
-            <p>Enter your password below to login.</p>
-            
-            <fieldset>
-                <div class="input">
-                    <input type="password" name="password" id="password" placeholder="Enter Your Password">
-                </div>
-            </fieldset>
-            
-            <?php if (isset($login_error)) { ?>
-                <span><a class="error" href="?action=forgot">Did you forget your password?</a></span>
-            <?php } else { ?>
-                <span><a href="http://dropplets.com" target="_blank">What is This?</a></span>
-            <?php }; ?>
-    
-            <button type="submit" name="submit" value="submit">k</button>
-        </form>    
+            <div class="dp-content">
+                <form method="POST" action="?action=login">
+                    <label>Enter Your Password</label>
+                    <input type="password" name="password" id="password">
+                    <button class="dp-icon-checkmark" type="submit" name="submit" value="submit"></button>
+                </form>
+            </div>
+        </div>
         
-        <a class="dp-close close-panel" href="#dp-login">c</a>   
+        <?php if (isset($login_error)) { ?>
+        <div class="dp-row">
+            <div class="dp-icon dp-icon-large dp-icon-question"></div>
+            <div class="dp-content">Forget Your password?</div>
+            <a class="dp-link" href="?action=forgot" target="_blank"></a>
+        </div>    
+        <?php }; ?>
+        
+        <div class="dp-row">
+            <div class="dp-icon dp-icon-dropplets"></div>
+            <div class="dp-content">What is This?</div>
+            <a class="dp-link" href="http://dropplets.com" target="_blank"></a>
+        </div>
     </div>
 </div>
 
@@ -52,109 +57,153 @@ if (!isset($_SESSION['user'])) { ?>
 
 } else { ?>
 
-<div id="dp-admin">
-    <ul id="dp-tools">
-        <li>
-            <label for="postfiles">d</label>
-            <input style="display: none;" type="file" name="postfiles" id="postfiles" class="postfiles" multiple="multiple" />
-        </li>
-        <li><a class="view" href="#dp-settings">s</a></li>
-        <li><a class="view" href="#dp-templates">t</a></li>
-        <li><a href="?action=logout">l</a></li>
-    </ul>
-    
-    <div class="dp-card post" id="dp-post">
-        <div id="publish">
-            <div id="dropbox">
-                <!-- Drag & Drop Publishing -->
+<div class="dp-panel-wrapper <?php if($_COOKIE['dp-panel']) { echo($_COOKIE['dp-panel']); } ?>" id="dp-dropplets">
+    <div class="dp-panel">
+        <div class="dp-row profile">
+            <div class="dp-icon">
+                <img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
             </div>
-    
-            <div id="loader">
-                <!-- The Publishing Loader -->
+            
+            <div class="dp-content">
+                <span class="title">Welcome Back!</span>
+                <a class="dp-button  dp-button-dark dp-close  dp-icon-close" href="#dp-dropplets"></a>
             </div>
         </div>
-    </div>
-    
-    <div class="dp-card medium" id="dp-settings">
+        
+        <div class="dp-row">
+            <div class="dp-icon dp-icon-dropplets"></div>
+            <div class="dp-content">Publish or Update Posts</div>
+            <label class="dp-link" for="postfiles"></label>
+            <input style="display: none;" type="file" name="postfiles" id="postfiles" class="postfiles" multiple="multiple" />
+        </div>
+        
         <form method="POST" action="./dropplets/save.php">
-            <fieldset>
-                <div class="input">
-                    <label>Blog Email</label>
-                    <input type="text" name="blog_email" id="blog_email" required value="<?php echo BLOG_EMAIL; ?>">
+            <div class="dp-row">
+                <div class="dp-icon dp-icon-settings"></div>
+                <div class="dp-content">Blog Settings</div>                
+                <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-settings']) { echo($_COOKIE['#dp-settings']); } ?>" href="#dp-settings"></a>
+                <button class="dp-button" type="submit" name="submit" value="submit">k</button>
+            </div>
+            
+            <div class="dp-sub-panel <?php if($_COOKIE['#dp-settings']) { echo($_COOKIE['#dp-settings']); } ?>" id="dp-settings">
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Blog Email</label>
+                        <input type="text" name="blog_email" id="blog_email" required value="<?php echo BLOG_EMAIL; ?>">
+                    </div>
                 </div>
-    
-                <div class="input">
-                    <label>Blog Twitter ID</label>
-                    <input type="text" name="blog_twitter" id="blog_twitter" required value="<?php echo BLOG_TWITTER; ?>">
+                
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Blog Twitter</label>
+                        <input type="text" name="blog_twitter" id="blog_twitter" required value="<?php echo BLOG_TWITTER; ?>">
+                    </div>
                 </div>
-            </fieldset>
-    
-            <fieldset>
-                <div class="input hidden">
-                    <input type="text" name="blog_url" id="blog_url" required readonly value="<?php echo BLOG_URL; ?>">
+                
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Blog Title</label>
+                        <input type="text" name="blog_title" id="blog_title" required value="<?php echo BLOG_TITLE; ?>">
+                    </div>
                 </div>
-    
-                <div class="input">
-                    <label>Blog Title</label>
-                    <input type="text" name="blog_title" id="blog_title" required value="<?php echo BLOG_TITLE; ?>">
+                
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Blog Description</label>
+                        <textarea name="meta_description" id="meta_description" rows="6" required placeholder="Add your site description here... just a short sentence that describes what your blog is going to be about."><?php echo META_DESCRIPTION; ?></textarea>
+                    </div>
                 </div>
-    
-                <div class="input">
-                    <label>Blog Description</label>
-                    <textarea name="meta_description" id="meta_description" rows="6" required placeholder="Add your site description here... just a short sentence that describes what your blog is going to be about."><?php echo META_DESCRIPTION; ?></textarea>
+                
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Intro Title</label>
+                        <input type="text" name="intro_title" id="intro_title" required value="<?php echo INTRO_TITLE; ?>">
+                    </div>
                 </div>
-            </fieldset>
-    
-            <fieldset>
-                <div class="input">
-                    <label>Intro Title</label>
-                    <input type="text" name="intro_title" id="intro_title" required value="<?php echo INTRO_TITLE; ?>">
+                
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Intro Text</label>
+                        <textarea name="intro_text" id="intro_text" rows="12" required><?php echo INTRO_TEXT; ?></textarea>
+                    </div>
                 </div>
-    
-                <div class="input">
-                    <label>Intro Text</label>
-                    <textarea name="intro_text" id="intro_text" rows="12" required><?php echo INTRO_TEXT; ?></textarea>
-                </div>
-            </fieldset>
-    
-            <fieldset>
-                <div class="input">
-                    <label>Password</label>
-                    <input type="password" name="password" id="password" value="">
-                </div>
-            </fieldset>
-    
-            <fieldset class="last">
-                <div class="input">
-                    <label>Header Injection (e.g. Custom Styles)</label>
-                    <textarea class="code" name="header_inject" id="header_inject" rows="12"><?php echo HEADER_INJECT; ?></textarea>
-                </div>
-    
-                <div class="input">
-                    <label>Footer Injection (e.g. Tracking Code)</label>
-                    <textarea class="code" name="footer_inject" id="footer_inject" rows="12"><?php echo FOOTER_INJECT; ?></textarea>
-                </div>
-            </fieldset>
-    
-            <button type="submit" name="submit" value="submit">k</button>
+            </div>
         </form>
-    </div>
-    
-    <div class="dp-card large" id="dp-templates">
-        <label>Installed Templates</label>
-        <?php get_installed_templates('all'); ?>
         
-        <div class="shadow one"></div>
-        <label>Featured Premium Templates</label>
-        <?php get_premium_templates('featured'); ?>
+        <div class="dp-row">
+            <div class="dp-icon dp-icon-large dp-icon-grid"></div>
+            <div class="dp-content">Installed Templates</div>        
+            <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-templates']) { echo($_COOKIE['#dp-templates']); } ?>" href="#dp-templates"></a>
+        </div>
         
-        <div class="shadow two"></div>
-        <label>Popular Premium Templates</label>
-        <?php get_premium_templates('popular'); ?>
+        <div class="dp-sub-panel <?php if($_COOKIE['#dp-templates']) { echo($_COOKIE['#dp-templates']); } ?>" id="dp-templates">
+            <div class="dp-row dp-templates">
+                <?php get_installed_templates('all'); ?>
+            </div>
+        </div>
         
-        <div class="shadow three"></div>
-        <label>All Premium Templates</label>
-        <?php get_premium_templates('all'); ?>
+        <div class="dp-row">
+            <div class="dp-icon dp-icon-templates"></div>
+            <div class="dp-content">Featured Templates</div>
+            <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-featured']) { echo($_COOKIE['#dp-featured']); } ?>" href="#dp-featured"></a>
+            <span class="dp-number dp-number-dark"><?php count_premium_templates('featured'); ?></span>
+        </div>
+        
+        <div class="dp-sub-panel <?php if($_COOKIE['#dp-featured']) { echo($_COOKIE['#dp-featured']); } ?>" id="dp-featured">
+            <div class="dp-row dp-templates">
+                <?php get_premium_templates('featured'); ?>
+            </div>
+        </div>
+        
+        <div class="dp-row">
+            <div class="dp-icon dp-icon-templates"></div>
+            <div class="dp-content">Popular Templates</div>
+            <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-popular']) { echo($_COOKIE['#dp-popular']); } ?>" href="#dp-popular"></a>        
+            <span class="dp-number dp-number-dark"><?php count_premium_templates('popular'); ?></span>
+        </div>
+        
+        <div class="dp-sub-panel <?php if($_COOKIE['#dp-popular']) { echo($_COOKIE['#dp-popular']); } ?>" id="dp-popular">
+            <div class="dp-row dp-templates">
+                <?php get_premium_templates('popular'); ?>
+            </div>
+        </div>
+        
+        <div class="dp-row">
+            <div class="dp-icon dp-icon-templates"></div>
+            <div class="dp-content">All Templates</div>
+            <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-all']) { echo($_COOKIE['#dp-all']); } ?>" href="#dp-all"></a>
+            <span class="dp-number dp-number-dark"><?php count_premium_templates('all'); ?></span>
+        </div>
+        
+        <div class="dp-sub-panel <?php if($_COOKIE['#dp-all']) { echo($_COOKIE['#dp-all']); } ?>" id="dp-all">
+            <div class="dp-row dp-templates">
+                <?php get_premium_templates('all'); ?>
+            </div>
+        </div>
+        
+        <div class="dp-row">
+            <div class="dp-icon dp-icon-large dp-icon-question"></div>
+            <div class="dp-content">Need Some Help?</div>
+            <a class="dp-link" href="mailto:support@dropplets.com"></a>
+        </div>
+        
+        <div class="dp-row">
+            <div class="dp-icon dp-icon-key"></div>
+            <div class="dp-content">Log Out</div>
+            <a class="dp-link" href="?action=logout" title="Logout"></a>
+        </div>
     </div>
 </div>
 
@@ -168,39 +217,45 @@ if (!isset($_SESSION['user'])) { ?>
 
 ?>
 
+<a class="dp-open dp-icon-dropplets" id="dp-dropplets-icon" href="#dp-dropplets"></a>
+
+<script type="text/javascript" src="<?php echo(BLOG_URL); ?>dropplets/includes/js/cookies.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
-        $(".view").click(function(){
-            $(".view").removeClass('selected'); 
-            $(this).addClass('selected');
+        $(".dp-open").click(function(){
             var myelement = $(this).attr("href")
-            $(myelement).animate({left:"46px"}, 200);
-            $(".dp-card:visible").not(myelement).animate({left:"-800px"}, 100);
+            $(myelement).animate({left:"0"}, 200);
+            $.cookies.set('dp-panel', 'open');
             $("body").css({ overflow: 'hidden' });
             return false;
         });
         
-        $(".view-panel").click(function(){
+        $(".dp-close").click(function(){
             var myelement = $(this).attr("href")
-            $(myelement).fadeIn(200);
-            $("body").css({ overflow: 'hidden' });
-            return false;
-        });
-        
-        $(".close-panel").click(function(){
-            var myelement = $(this).attr("href")
-            $(myelement).fadeOut(100);
+            $(myelement).animate({left:"-300px"}, 200);
+            $.cookies.set('dp-panel', 'closed');
             $("body").css({ overflow: 'scroll' });
             return false;
         });
         
-        $(document).keydown(function(e) {            
-            // Close all panels
-            if (e.keyCode == 27) {
-                $(".view").removeClass('selected'); 
-                $(".dp-card:visible").animate({left:"-800px"}, 100);
-                $("body").css({ overflow: 'scroll' });
-            }
+        $(".dp-toggle").click(function(){
+            var myelement = $(this).attr("href")
+            $(myelement).toggle(100);
+            $.cookies.set(myelement, 'expanded');
+            return false;
+        });
+        
+        $(".expanded").click(function(){
+            var myelement = $(this).attr("href")
+            $.cookies.set(myelement, 'collapsed');
+        });
+        
+        // For Input Labels
+        $('input, textarea').focus(function () {
+            $(this).prev('label').hide(200);
+        })
+        .blur(function () {
+            $(this).prev('label').show(200);
         });
     });
 </script>
@@ -219,9 +274,8 @@ if (isset($_SESSION['user'])) { ?>
         $('.postfiles').liteUploader(
 		{
 			script: './dropplets/includes/uploader.php',
-			// allowedFileTypes: 'image/jpeg,image/jpg,image/png,doc/md', need to figure this out
 			maxSizeInBytes: 1048576,
-			typeMessage: 'You can put your custom type validation message here',
+			typeMessage: '',
 			before: function ()
 			{
 				$('#details').html('');

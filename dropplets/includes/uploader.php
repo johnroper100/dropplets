@@ -20,7 +20,7 @@ if (isset($_POST['liteUploader_id']) && $_POST['liteUploader_id'] == 'postfiles'
 	    }
 	}
 
-	echo '<span class="success">k</span>';
+	echo '<span class="success"></span>';
 }
 
 ?>

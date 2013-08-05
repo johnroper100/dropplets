@@ -433,9 +433,9 @@ else {
             <link rel="shortcut icon" href="./dropplets/style/images/favicon.png">
         </head>
 
-        <body class="install">
+        <body class="dp-install">
             <form method="POST" action="./dropplets/save.php">
-                <a class="dropplets" href="http://dropplets.com" target="_blank">d</a>
+                <a class="dp-icon-dropplets" href="http://dropplets.com" target="_blank"></a>
                 
                 <h2>Install Dropplets</h2>
                 <p>Welcome to an easier way to blog.</p>

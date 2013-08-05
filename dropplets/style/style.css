@@ -2,27 +2,27 @@
 /* Normalization
 *********************************************************************************************/
 
-#dp-admin div,
-#dp-admin span,
-#dp-admin object,
-#dp-admin iframe,
-#dp-admin h1,
-#dp-admin h2,
-#dp-admin h3,
-#dp-admin p,
-#dp-admin a,
-#dp-admin em,
-#dp-admin img,
-#dp-admin strong,
-#dp-admin ol,
-#dp-admin ul,
-#dp-admin li,
-#dp-admin fieldset,
-#dp-admin form,
-#dp-admin label,
-#dp-admin section,
-#dp-admin video,
-body.install {
+.dp-panel div,
+.dp-panel span,
+.dp-panel object,
+.dp-panel iframe,
+.dp-panel h1,
+.dp-panel h2,
+.dp-panel h3,
+.dp-panel p,
+.dp-panel a,
+.dp-panel em,
+.dp-panel img,
+.dp-panel strong,
+.dp-panel ol,
+.dp-panel ul,
+.dp-panel li,
+.dp-panel fieldset,
+.dp-panel form,
+.dp-panel label,
+.dp-panel section,
+.dp-panel video,
+body.dp-install {
     margin: 0;
     padding: 0;
     border: 0;
@@ -31,50 +31,20 @@ body.install {
     vertical-align: baseline;
 }
 
-#dp-admin a {
+.dp-panel a,
+body.dp-install a {
     text-decoration: none;
 }
 
-#dp-admin ol,
-#dp-admin ul { 
+.dp-panel ol,
+.dp-panel ul { 
     list-style: none;
 }
 
-/* The Install Screen & Panel Styles
+/* The Install Screen
 *********************************************************************************************/
 
-#dp-admin .dp-panel {
-    background: #ffffff;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100000;
-    display: none;
-}
-
-#dp-admin .dp-close {
-    background-color: #333332;
-    width: 35px;
-    height: 35px;
-    font-family: "dropplets";
-    font-size: 16px;
-    line-height: 35px;
-    color: #ffffff;
-    overflow: hidden;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-#dp-admin .dp-close:hover {
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.75);
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
-}
-
-body.install,
-#dp-admin .dp-panel {
+body.dp-install {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -84,51 +54,25 @@ body.install,
     text-rendering: optimizeLegibility;
 }
 
-#dp-admin .dp-panel a.dropplets {
+body.dp-install .dp-icon-dropplets {
     background-color: #1096d7;
     font-family: "dropplets";
-    font-size: 16px;
-    line-height: 35px;
+    font-size: 110px;
+    line-height: 160px;
     color: #ffffff;
-    width: 35px;
-    height: 35px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-#dp-admin .dp-panel a.dropplets-text {
-    background-color: #1096d7;
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    color: #ffffff;
-    line-height: 33px;
-    height: 35px;
-    position: absolute;
-    top: 10px;
-    left: 46px;
-    padding: 0 12px;
-}
-
-#dp-admin .dp-panel a.dropplets:hover,
-#dp-admin .dp-panel a.dropplets-text:hover {
-    box-shadow: inset 0 0 20px rgba(20, 100, 140, 0.75);
-    text-shadow: 0 0 10px rgba(20, 100, 140, 0.75);
-}
-
-#dp-admin .dp-panel img {
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
     width: 160px;
     height: 160px;
     float: left;
     margin: -80px 0 0 80px;
-    -moz-transition-duration: 0.1s;
-    -webkit-transition-duration: 0.1s;
 }
 
-body.install form,
-#dp-admin .dp-panel form {
+.dp-panel .dp-panel a.dropplets:hover,
+.dp-panel .dp-panel a.dropplets-text:hover {
+    box-shadow: inset 0 0 20px rgba(20, 100, 140, 0.75);
+    text-shadow: 0 0 10px rgba(20, 100, 140, 0.75);
+}
+
+body.dp-install form {
     border: 1px solid rgba(0, 0, 0, 0.15);
     background-color: rgba(0, 0, 0, 0.01);
     width: 320px;
@@ -139,13 +83,7 @@ body.install form,
     margin: -171px 0 0 -161px;
 }
 
-#dp-admin .dp-panel form {    
-    height: 320px;
-    margin-top: -151px;
-}
-
-body.install form h2,
-#dp-admin .dp-panel form h2 {
+body.dp-install form h2 {
     font-size: 20px;
     color: #404040;
     font-weight: normal;
@@ -155,35 +93,14 @@ body.install form h2,
     margin: 24px 0 10px;
 }
 
-body.install form p,
-#dp-admin .dp-panel form p {
+body.dp-install form p {
     width: 300px;
     float: left;
     margin: 0 0 24px;
     padding: 0 10px;
 }
 
-#dp-admin .dp-panel form span {
-    font-size: 12px;
-    color: #cccccc;
-    background-color: #f6f6f6;
-    width: 300px;
-    float: left;
-    margin: 0 0 0 10px;
-    padding: 2px 0 3px;
-}
-
-#dp-admin .dp-panel form span a {
-    color: #cccccc;
-    text-decoration: underline;
-}
-
-#dp-admin .dp-panel form a.error {
-    color: #e77556;
-}
-
-body.install form input[type="password"],
-#dp-admin .dp-panel form input[type="password"] {
+body.dp-install form input[type="password"] {
     background-color: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.15);
     outline: none;
@@ -199,12 +116,7 @@ body.install form input[type="password"],
     padding: 10px 20px;
 }
 
-#dp-admin .dp-panel form input[type="password"] {
-    margin-bottom: 0px;
-}
-
-body.install form button,
-#dp-admin .dp-panel form button {
+body.dp-install form button {
     background-color: #4ebb44;
     border: none;
     font-family: "dropplets";
@@ -223,13 +135,12 @@ body.install form button,
     -webkit-transition-duration: 0.1s;
 }
 
-body.install form button:hover,
-#dp-admin .dp-panel form button:hover {
+body.dp-install form button:hover {
     box-shadow: inset 0 0 20px rgba(54, 124, 49, 0.75);
     text-shadow: 0 0 10px rgba(54, 124, 49, 0.75);
 }
 
-/* Typography
+/* Icon Font
 *********************************************************************************************/
 
 @font-face {
@@ -243,390 +154,405 @@ body.install form button:hover,
 	font-style: normal;
 }
 
-/* Toolbar
+/* Icon Classes
 *********************************************************************************************/
 
-#dp-admin #dp-tools {
-    font: 16px/16px "dropplets";
-    text-align: center;
-    position: fixed;
-    width: 35px;
-    top: 10px !important;
-    left: 10px !important;
-    margin: 0;
-    z-index: 2000;
+.dp-icon-dropplets, .dp-icon-key, .dp-icon-settings, .dp-icon-templates, .dp-icon-close, .dp-icon-checkmark, .dp-icon-preview, .dp-icon-question, .dp-icon-twitter, .dp-icon-edit, .dp-icon-grid {
+	font-family: 'dropplets';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	-webkit-font-smoothing: antialiased;
+}
+.dp-icon-dropplets:before {
+	content: "\64";
+}
+.dp-icon-key:before {
+	content: "\6c";
+}
+.dp-icon-settings:before {
+	content: "\73";
+}
+.dp-icon-templates:before {
+	content: "\74";
+}
+.dp-icon-close:before {
+	content: "\63";
+}
+.dp-icon-checkmark:before {
+	content: "\6b";
+}
+.dp-icon-preview:before {
+	content: "\70";
+}
+.dp-icon-question:before {
+	content: "\71";
+}
+.dp-icon-twitter:before {
+	content: "\65";
+}
+.dp-icon-edit:before {
+	content: "\69";
+}
+.dp-icon-grid:before {
+	content: "\61";
 }
 
-#dp-admin #dp-tools li {
-    list-style: none;
-}
+/* Side Admin Panel
+*********************************************************************************************/
 
-#dp-admin #dp-tools li span {
-    background-color: #f44200;
-    position: absolute;
-    z-index: 950;
+#dp-dropplets-icon {
+    background-color: #464646;
+    font-family: "dropplets";
+    font-size: 16px;
     color: #ffffff;
-    font-size: 11px;
-    line-height: 1;
-    width: 18px;
-    height: 15px;
     text-align: center;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    margin: 0 0 0 1px;
-    padding: 3px 0 0 0;
-    box-shadow: inset 2px 0 0 0 rgba(0, 0, 0, 0.15);
-}
-
-#dp-admin #dp-tools li span.error {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    width: 260px;
-    height: 32px;
-    padding: 0;
-    border-radius: 0;
-    box-shadow: none;
-    font-size: 12px;
-    line-height: 32px;
-}
-
-#dp-admin #dp-tools li,
-#dp-admin #dp-tools li a,
-#dp-admin #dp-tools li label {
-    width: 35px;
-    height: 35px;
     line-height: 35px;
-    float: left;
-    margin-bottom: 1px;
-    overflow: hidden;
-}
-
-#dp-admin #dp-tools li img {
     width: 35px;
     height: 35px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 80000;
 }
 
-#dp-admin #dp-tools li span.error a {
-    width: auto;
-    float: none;
-    background: none;
-    color: #ffffff;
-    text-decoration: underline;
-}
-
-#dp-admin #dp-tools li a,
-#dp-admin #dp-tools li label {
-    background-color: #f0f2f4;
-    color: #89949b;
-}
-
-#dp-admin #dp-tools li a.dp-login,
-#dp-admin #dp-tools li a.dp-login:hover {
-    background-color: #333332;
-    color: #ffffff;
-}
-
-#dp-admin #dp-tools li a.dp-login:hover {
+#dp-dropplets-icon:hover {
     box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.75);
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
 }
 
-#dp-admin #dp-tools li a.error {
-    background-color: #f44200;
-    color: #ffffff;
+.dp-panel-wrapper {
+    width: 280px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: -300px;
+    z-index: 100000;
+    overflow: hidden;
+    box-shadow: 0 0 3px rgba(0,0,0,0.5);
 }
 
-#dp-admin #dp-tools li a.error:hover {
-    background-color: #f44200;
-    color: #ffffff;
-    box-shadow: inset 0 0 20px rgba(161, 44, 17, 0.75);
-    text-shadow: 0 0 10px rgba(161, 44, 17, 0.75);
+.dp-panel-wrapper.open {
+    left: 0px;
 }
 
-#dp-admin #dp-tools li label {
+.dp-panel {
+    background-color: rgba(255, 255, 255, 0.95);
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 13px;
+    line-height: 25px;
+    color: #303030;
+    width: 280px;
+    height: 100%;
+    padding-right: 20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.dp-panel ::-webkit-scrollbar { 
+    display: none; 
+}
+
+.dp-sub-panel {
+    display: none;
+}
+
+.dp-sub-panel.expanded {
+    display: block;
+}
+
+.dp-panel .dp-row .title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.dp-panel a {
+    color: #303030;
+}
+
+.dp-panel .dp-row p {
+    font-size: 12px;
+    margin: 0 0 4px;
+    line-height: 16px;
+}
+
+.dp-panel .dp-row {
+    width: 260px;
+    min-height: 25px;
+    float: left;
+    padding: 10px;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.dp-panel .dp-link {
+    width: 235px;
+    min-height: 45px;
+    position: absolute;
+    top: 0;
+    left: 0;
     cursor: pointer;
 }
 
-#dp-admin #dp-tools li a:hover,
-#dp-admin #dp-tools li a.selected,
-#dp-admin #dp-tools li label:hover {
-    color: #1096d7;
+.dp-panel .dp-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
-#dp-admin #dp-tools li:last-child a {
-    margin: 0;
-}
-
-/* Uploader
-*********************************************************************************************/
-
-#dp-uploaded .success
-#dp-error .error {
-    font: 60px/100px "dropplets";
-    background-color: #4ebb44;
-    color: #ffffff;
+.dp-panel .dp-row .dp-icon {
+    font-family: "dropplets";
+    font-size: 16px;
+    color: #464646;
     text-align: center;
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top: 50%;
-    margin-top: -50px;
-    left: 50%;
-    margin-left: -50px;
+    width: 25px;
+    height: 25px;
+    float: left;
+    padding-right: 10px;
 }
 
-/* Cards
-*********************************************************************************************/
-
-#dp-admin .dp-card {
-    background-color: #f0f2f4;
-    position: fixed;
-    top: 10px;
-    left: -800px;
-    z-index: 1000;
+.dp-panel .dp-row .dp-icon.dp-icon-large {
+    font-size: 24px;
 }
 
-#dp-admin .dp-card.shown {
-    left: 46px;
+.dp-panel .dp-row.dp-editable .dp-icon {
+    color: #9e9e9e;
 }
 
-#dp-admin .dp-card.small {
-    width: 300px;
-    height: 32px;
+.dp-panel .dp-row.dp-editable-dark .dp-icon {
+    color: #464646;
 }
 
-#dp-admin .dp-card.post {
-    width: 300px;
-    height: 300px;
+.dp-panel .dp-row .dp-content {
+    width: 220px;
+    float: left;
 }
 
-#dp-admin .dp-card.medium {
-    width: 400px;
-    height: 600px;
-}
-
-#dp-admin .dp-card.large {
-    width: 700px;
-    height: 700px;
-    overflow: scroll;
+.dp-panel .dp-row.profile img{
+    background-color:  #ffffff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin: -2px 0 0 -2px;
 }
 
 /* Form Styles
 *********************************************************************************************/
 
-#dp-admin .dp-card.small form {
-    width: 300px;
-    height: 32px;
-    float: left;
+.dp-panel .dp-row.dp-editable .dp-content label {
+    color: #9e9e9e;
+    line-height: 45px;
+    width: 215px;
+    height: 45px;
+    position: absolute;
+    top: 0;
+    left: 45px;
 }
 
-#dp-admin .dp-card.medium form {
-    width: 400px;
-    height: 600px;
-    float: left;
-    overflow-x: scroll;
+.dp-panel .dp-row.dp-editable-dark .dp-content label {
+    color: #464646;
 }
 
-body.install #dp-admin .dp-card.medium form {
-    overflow: hidden;
-}
-
-#dp-admin .dp-card.large form {
-    width: 175px;
-    height: 175px;
-    float: left;
-    position: relative;
-    
-}
-
-#dp-admin .dp-card .input {
-    width: 100%;
-    float: left;
-    position: relative;
-}
-
-#dp-admin .dp-card .hidden {
-    display: none;
-}
-
-#dp-admin .dp-card label {
-    background-color: #e4e8ea;
-    text-transform: uppercase;
-    color: #89949b;
-    width: 360px;
-    float: left;
-    padding: 6px 20px 6px;
-    font: 12px/12px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-}
-
-#dp-admin .dp-card.large label {
-    width: 660px;
-}
-
-#dp-admin .dp-card input[type="text"],
-#dp-admin .dp-card input[type="password"],
-#dp-admin .dp-card input[type="email"],
-#dp-admin .dp-card textarea {
-    background-color: #f0f2f4;
+.dp-panel .dp-row.dp-editable .dp-content input[type="text"],
+.dp-panel .dp-row.dp-editable .dp-content input[type="password"],
+.dp-panel .dp-row.dp-editable .dp-content input[type="email"],
+.dp-panel .dp-row.dp-editable .dp-content textarea {
+    background: none;
     border: none;
     outline: none;
-    color: #929da3;
-    width: 360px;
-    float: left;
-    margin: 0;
-    padding: 15px 20px;
-    font: 14px/22px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-}
-
-#dp-admin .dp-card.small input[type="password"] {
-    width: 280px;
-    font-size: 12px;
-    line-height: 12px;
-    padding: 10px 10px 9px;
-}
-
-#dp-admin .dp-card textarea {
-    height: 200px;
     resize: none;
+    font-size: 12px;
+    color: #464646;
+    float: left;
+    width: 220px;
+    margin: 0;
+    opacity: 0;
+    font: 14px/22px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    -moz-transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
 }
 
-#dp-admin .dp-card textarea.code {
-    font-family: "Courier New", Courier, mono;
+@-moz-document url-prefix() { 
+    .dp-panel .dp-row.dp-editable .dp-content input[type="text"],
+    .dp-panel .dp-row.dp-editable .dp-content input[type="password"],
+    .dp-panel .dp-row.dp-editable .dp-content input[type="email"],
+    .dp-panel .dp-row.dp-editable .dp-content textarea {
+        margin-top: 3px;
+    }
+    
+    .dp-panel .dp-row.dp-editable .dp-content textarea {
+        width: 230px;
+        padding-right: 40px;
+    }
 }
 
-body.install #dp-admin .dp-card textarea {
-    height: 165px;
+.dp-panel .dp-row.dp-editable-dark .dp-content input[type="password"] {
+    color: #464646;
 }
 
-#dp-admin .dp-card input[type="text"]:focus,
-#dp-admin .dp-card input[type="password"]:focus,
-#dp-admin .dp-card input[type="email"]:focus,
-#dp-admin .dp-card textarea:focus {
-    background-color: #f5f7f8;
-    color: #333b3f;
+.dp-panel .dp-row.dp-editable .dp-content input[type="text"]:focus,
+.dp-panel .dp-row.dp-editable .dp-content input[type="password"]:focus,
+.dp-panel .dp-row.dp-editable .dp-content input[type="email"]:focus,
+.dp-panel .dp-row.dp-editable .dp-content textarea:focus {
+    opacity: 1;
 }
 
-#dp-admin .dp-card input[type="submit"],
-#dp-admin .dp-card button,
-#dp-admin .dp-card a {
+.dp-panel .dp-row.dp-editable textarea {
+    height: 20px;
+}
+
+.dp-panel .dp-row.dp-editable textarea:focus {
+    height: auto;
+}
+
+.dp-panel .dp-row.dp-editable ::-webkit-input-placeholder {
+   font-size: 13px;
+   color: #303030;
+}
+
+.dp-panel .dp-row.dp-editable input[type="submit"],
+.dp-panel .dp-row.dp-editable button,
+.dp-panel .dp-row .dp-button,
+.dp-panel .dp-row .dp-number {
     background-color: #4ebb44;
     border: none;
     font-family: "dropplets";
     color: #ffffff;
-    font-size: 30px;
+    font-size: 13px;
+    line-height: 22px;
     text-align: center;
-    width: 60px;
-    height: 60px;
+    width: 25px;
+    height: 25px;
     position: absolute;
-    bottom: 10px;
+    top: 10px;
     right: 10px;
     cursor: pointer;
     -webkit-appearance: none;
     z-index: 20;
 }
 
-#dp-admin .dp-card button.active {
-    background-color: #1096d7;
+.dp-panel .dp-row.dp-editable input[type="submit"]:hover,
+.dp-panel .dp-row.dp-editable button:hover,
+.dp-panel .dp-row .dp-button:hover {
+    box-shadow: inset 0 0 10px rgba(54, 124, 49, 0.65);
+    text-shadow: 0 0 5px rgba(54, 124, 49, 0.65);
 }
 
-#dp-admin .dp-card input[type="submit"]:hover,
-#dp-admin .dp-card button:hover,
-#dp-admin .dp-card a:hover {
-    box-shadow: inset 0 0 20px rgba(54, 124, 49, 0.75);
-    text-shadow: 0 0 10px rgba(54, 124, 49, 0.75);
+.dp-panel .dp-row a.dp-button.dp-button-dark,
+.dp-panel .dp-row .dp-number.dp-number-dark {
+    background-color: #464646;
+    font-size: 11px;
+    line-height: 24px;
 }
 
-#dp-admin .dp-card.large input[type="submit"],
-#dp-admin .dp-card.large button,
-#dp-admin .dp-card.large a,
-#dp-admin .dp-card.small input[type="submit"],
-#dp-admin .dp-card.small button,
-#dp-admin .dp-card.small a {
-    font-size: 16px;
-    line-height: 29px;
-    width: 32px;
-    height: 32px;
+.dp-panel .dp-row a.dp-button.dp-button-dark:hover {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.65);
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.65);
+}
+
+.dp-panel .dp-row .dp-number.dp-number-dark {
+    font: 12px/25px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    cursor: auto;
+}
+
+/* Template Styles
+*********************************************************************************************/
+
+.dp-panel .dp-row.dp-templates {
+    padding-bottom: 0;
+}
+
+.dp-panel .dp-row.dp-templates li {
+    list-style: none;
+    margin: 0 10px 10px 0;
+    position: relative;
+}
+
+.dp-panel .dp-row.dp-templates li:nth-child(even) {
+    margin: 0 0 10px 0;
+}
+
+.dp-panel .dp-row.dp-templates li,
+.dp-panel .dp-row.dp-templates li img {
+    width: 125px;
+    height: 125px;
+    float: left;
+}
+
+.dp-panel .dp-row.dp-templates li button {
+    width: 125px;
+    height: 125px;
+    position: absolute;
     top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.dp-panel .dp-row.dp-templates li img {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    -moz-transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
+    opacity: 0.5;
+}
+
+.dp-panel .dp-row.dp-templates li:hover img,
+.dp-panel .dp-row.dp-templates li.active img,
+.dp-panel .dp-row.dp-templates li.premium img {
+    opacity: 1;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Premium Template Styles
+*********************************************************************************************/
+
+.dp-panel .dp-row.dp-templates li a.buy,
+.dp-panel .dp-row.dp-templates li a.preview {
+    height: 20px;
+    line-height: 20px;
+    position: absolute;
+    bottom: -1px;
+    color: #ffffff;
+    font-size: 11px;
+    text-align: center;
+}
+
+.dp-panel .dp-row.dp-templates li a.buy {
+    background-color: #4ebb44;
+    width: 85px;
+    left: 0;
+}
+
+.dp-panel .dp-row.dp-templates li a.buy:hover {
+    box-shadow: inset 0 0 10px rgba(54, 124, 49, 0.45);
+    text-shadow: 0 0 5px rgba(54, 124, 49, 0.45);
+}
+
+.dp-panel .dp-row.dp-templates li a.preview {
+    background-color: #1096d7;
+    font-family: "dropplets";
+    width: 40px;
     right: 0;
 }
 
-#dp-admin .dp-card.small a {
-    background-color: #1096d7;
-    font-size: 18px;
-    line-height: 32px;
-    right: -33px;
+.dp-panel .dp-row.dp-templates li a.preview:hover {
+    box-shadow: inset 0 0 10px rgba(20, 100, 140, 0.45);
+    text-shadow: 0 0 5px rgba(20, 100, 140, 0.45);
 }
 
-#dp-admin .dp-card.large input[type="submit"],
-#dp-admin .dp-card.large button,
-#dp-admin .dp-card.large a {
-    top: 138px;
-    right: 5px;
-}
-
-/* Templates
+/* Uploader
 *********************************************************************************************/
 
-#dp-admin .dp-card.large a.buy {
-    width: auto;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    font-size: 13px;
-    line-height: 31px;
-    right: 38px;
-}
-
-#dp-admin .dp-card.large a.preview {
-    background-color: #1096d7;
-    line-height: 32px;
-    z-index: 20;
-}
-
-#dp-admin .dp-card.large a.preview:hover {
-    box-shadow: inset 0 0 20px rgba(20, 100, 140, 0.75);
-    text-shadow: 0 0 10px rgba(20, 100, 140, 0.75);
-}
-
-#dp-admin .dp-card.large li {
-    list-style: none;
-    width: 175px;
-    height: 175px;
-    float: left;
-    position: relative;
-    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.15);
-}
-
-#dp-admin .dp-card.large li .shadow {
-    width: 175px;
-    height: 175px;
-    position: absolute;
-    z-index: 10;
+#dp-uploaded .success,
+#dp-error .error {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
     top: 0;
     left: 0;
-    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.25);
-    -moz-transition-duration: 0.1s;
-    -webkit-transition-duration: 0.1s;
-}
-
-#dp-admin .dp-card.large li:hover .shadow,
-#dp-admin .dp-card.large li.active .shadow {
-    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.1);
-}
-
-#dp-admin .dp-card.large li img {
-    width: 175px;
-    height: 175px;
-    float: left;
-    -webkit-filter: grayscale(100%);
-    -moz-filter: grayscale(100%);
-    filter: grayscale(100%);
-    -moz-transition-duration: 0.1s;
-    -webkit-transition-duration: 0.1s;
-}
-
-#dp-admin .dp-card.large li:hover img,
-#dp-admin .dp-card.large li.active img {
-    -webkit-filter: grayscale(0%);
-    -moz-filter: grayscale(0%);
-    filter: grayscale(0%);
+    z-index: 220000;
+    -moz-transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
 }

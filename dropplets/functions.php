@@ -233,7 +233,7 @@ function get_installed_templates() {
                 <div class="shadow"></div>
                 <form method="POST" action="./dropplets/save.php">
                     <img src="<?php echo $template_screenshot; ?>">
-                    <input class="hidden" type="text" name="template" id="template" required readonly value="<?php echo $template_dir_name ?>">
+                    <input type="hidden" name="template" id="template" required readonly value="<?php echo $template_dir_name ?>">
                     <button class="<?php if ($active_template == $template_dir_name) :?>active<?php else : ?>activate<?php endif; ?>" type="submit" name="submit" value="submit"><?php if ($active_template == $template_dir_name) :?>t<?php else : ?>k<?php endif; ?></button>
                 </form>
             </li>
@@ -259,7 +259,7 @@ function get_premium_templates($type = 'all') {
         $template_price=$template->price;
         
         { ?>
-        <li>
+        <li class="premium">
             <div class="shadow"></div>
             <img src="http://dropplets.com/demo/templates/<?php echo $template_file_name; ?>/screenshot.jpg" alt="<?php echo $template_name; ?>">
             <a class="buy" href="http://dropplets.com/marketplace/?template=<?php echo $template_file_name; ?>" title="Purchase/Download" target="_blank"><?php echo $template_price; ?></a> 
@@ -269,6 +269,14 @@ function get_premium_templates($type = 'all') {
         <?php } 
     
     endforeach;
+
+}
+
+function count_premium_templates($type = 'all') {
+    
+    $templates = simplexml_load_file('http://dropplets.com/marketplace/templates-'. $type .'.xml');
+    $templates_count = $templates->children();
+    echo count($templates_count);
 
 }
 
