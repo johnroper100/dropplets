@@ -226,7 +226,7 @@ if (!isset($_SESSION['user'])) { ?>
             var myelement = $(this).attr("href")
             $(myelement).animate({left:"0"}, 200);
             $.cookies.set('dp-panel', 'open');
-            $("body").css({ overflow: 'hidden' });
+            $("body").css({ overflow: 'scroll-y' });
             return false;
         });
         
@@ -234,7 +234,7 @@ if (!isset($_SESSION['user'])) { ?>
             var myelement = $(this).attr("href")
             $(myelement).animate({left:"-300px"}, 200);
             $.cookies.set('dp-panel', 'closed');
-            $("body").css({ overflow: 'scroll' });
+            $("body").css({ overflow: 'scroll-y' });
             return false;
         });
         
