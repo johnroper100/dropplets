@@ -402,6 +402,12 @@ body.dp-install form button:hover {
     height: 20px;
 }
 
+.dp-panel .dp-row.dp-editable textarea.dp-code {
+    font-family: "Courier New", Courier, mono;
+    font-size: 12px;
+    line-height: 14px;
+}
+
 .dp-panel .dp-row.dp-editable textarea:focus {
     height: auto;
 }

@@ -139,6 +139,24 @@ if (!isset($_SESSION['user'])) { ?>
                         <textarea name="intro_text" id="intro_text" rows="12" required><?php echo INTRO_TEXT; ?></textarea>
                     </div>
                 </div>
+                
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Header Injection</label>
+                        <textarea class="dp-code" name="header_inject" id="header_inject" rows="12"><?php echo HEADER_INJECT; ?></textarea>
+                    </div>
+                </div>
+                
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Footer Injection</label>
+                        <textarea class="dp-code" name="footer_inject" id="footer_inject" rows="12"><?php echo FOOTER_INJECT; ?></textarea>
+                    </div>
+                </div>
             </div>
         </form>
         
