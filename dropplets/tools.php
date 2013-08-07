@@ -196,7 +196,7 @@ if (!isset($_SESSION['user'])) { ?>
         <div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-question"></div>
             <div class="dp-content">Need Some Help?</div>
-            <a class="dp-link" href="mailto:support@dropplets.com"></a>
+            <a class="dp-link" href="mailto:help@dropplets.com"></a>
         </div>
         
         <div class="dp-row">
