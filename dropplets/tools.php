@@ -234,7 +234,7 @@ if (!isset($_SESSION['user'])) { ?>
             var myelement = $(this).attr("href")
             $(myelement).animate({left:"-300px"}, 200);
             $.cookies.set('dp-panel', 'closed');
-            $("body").css({ overflowY: 'scroll' });
+            $("body").css({ overflowY: 'auto' });
             return false;
         });
         
