@@ -59,7 +59,7 @@ if (isset($_GET['action']))
                 $verify_file_contents[] = "\$verification_code = \"" . $code . "\";";
                 file_put_contents($verification_file, implode("\n", $verify_file_contents));
 
-                $recovery_url = sprintf("%s/dashboard/index.php?action=forgot&verify=%s,", $blog_url, $code);
+                $recovery_url = sprintf("%s/index.php?action=forgot&verify=%s,", $blog_url, $code);
                 $message      = sprintf("To reset your password go to: %s", $recovery_url);
 
                 $headers[] = "From: " . $blog_email;
