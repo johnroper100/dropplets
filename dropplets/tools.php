@@ -79,13 +79,13 @@ if (!isset($_SESSION['user'])) { ?>
         
         <form method="POST" action="./dropplets/save.php">
             <div class="dp-row">
-                <div class="dp-icon dp-icon-settings"></div>
-                <div class="dp-content">Blog Settings</div>                
-                <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-settings']) { echo($_COOKIE['#dp-settings']); } ?>" href="#dp-settings"></a>
+                <div class="dp-icon dp-icon-profile dp-icon-large"></div>
+                <div class="dp-content">Blog Profile</div>                
+                <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-profile']) { echo($_COOKIE['#dp-profile']); } ?>" href="#dp-profile"></a>
                 <button class="dp-button" type="submit" name="submit" value="submit">k</button>
             </div>
             
-            <div class="dp-sub-panel <?php if($_COOKIE['#dp-settings']) { echo($_COOKIE['#dp-settings']); } ?>" id="dp-settings">
+            <div class="dp-sub-panel <?php if($_COOKIE['#dp-profile']) { echo($_COOKIE['#dp-profile']); } ?>" id="dp-profile">
                 <div class="dp-row dp-editable">
                     <div class="dp-icon dp-icon-edit"></div>
                     
@@ -103,7 +103,16 @@ if (!isset($_SESSION['user'])) { ?>
                         <input type="text" name="blog_twitter" id="blog_twitter" required value="<?php echo BLOG_TWITTER; ?>">
                     </div>
                 </div>
-                
+            </div>
+            
+            <div class="dp-row">
+                <div class="dp-icon dp-icon-text"></div>
+                <div class="dp-content">Blog Meta</div>                
+                <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-meta-text']) { echo($_COOKIE['#dp-meta-text']); } ?>" href="#dp-meta-text"></a>
+                <button class="dp-button" type="submit" name="submit" value="submit">k</button>
+            </div>
+            
+            <div class="dp-sub-panel <?php if($_COOKIE['#dp-meta-text']) { echo($_COOKIE['#dp-meta-text']); } ?>" id="dp-meta-text">
                 <div class="dp-row dp-editable">
                     <div class="dp-icon dp-icon-edit"></div>
                     
@@ -121,7 +130,17 @@ if (!isset($_SESSION['user'])) { ?>
                         <textarea name="meta_description" id="meta_description" rows="6" required placeholder="Add your site description here... just a short sentence that describes what your blog is going to be about."><?php echo META_DESCRIPTION; ?></textarea>
                     </div>
                 </div>
-                
+            </div>
+            
+            
+            <div class="dp-row">
+                <div class="dp-icon dp-icon-text"></div>
+                <div class="dp-content">Intro Text</div>                
+                <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-intro-text']) { echo($_COOKIE['#dp-intro-text']); } ?>" href="#dp-intro-text"></a>
+                <button class="dp-button" type="submit" name="submit" value="submit">k</button>
+            </div>
+            
+            <div class="dp-sub-panel <?php if($_COOKIE['#dp-intro-text']) { echo($_COOKIE['#dp-intro-text']); } ?>" id="dp-intro-text">
                 <div class="dp-row dp-editable">
                     <div class="dp-icon dp-icon-edit"></div>
                     
@@ -139,7 +158,18 @@ if (!isset($_SESSION['user'])) { ?>
                         <textarea name="intro_text" id="intro_text" rows="12" required><?php echo INTRO_TEXT; ?></textarea>
                     </div>
                 </div>
-                
+            </div>
+            
+            
+            
+            <div class="dp-row">
+                <div class="dp-icon dp-icon-code"></div>
+                <div class="dp-content">Code Injection</div>                
+                <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-injection']) { echo($_COOKIE['#dp-injection']); } ?>" href="#dp-injection"></a>
+                <button class="dp-button" type="submit" name="submit" value="submit">k</button>
+            </div>
+            
+            <div class="dp-sub-panel <?php if($_COOKIE['#dp-injection']) { echo($_COOKIE['#dp-injection']); } ?>" id="dp-injection">
                 <div class="dp-row dp-editable">
                     <div class="dp-icon dp-icon-edit"></div>
                     

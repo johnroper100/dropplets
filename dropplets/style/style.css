@@ -199,6 +199,15 @@ body.dp-install form button:hover {
 .dp-icon-grid:before {
 	content: "\61";
 }
+.dp-icon-code:before {
+	content: "\21";
+}
+.dp-icon-profile:before {
+	content: "\22";
+}
+.dp-icon-text:before {
+	content: "\23";
+}
 
 /* Side Admin Panel
 *********************************************************************************************/
