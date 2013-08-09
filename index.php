@@ -357,7 +357,7 @@ else {
         unset($file_array[6]);
         
         $post_content = Markdown(implode("", $file_array));
-        
+                
         // Get the site title.
         $page_title = str_replace('# ', '', $fcontents[0]);
 

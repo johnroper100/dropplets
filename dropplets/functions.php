@@ -7,6 +7,7 @@
 include('./dropplets/includes/feedwriter.php');
 include('./dropplets/includes/markdown.php');
 include('./dropplets/includes/phpass.php');
+include('./dropplets/includes/actions.php');
 
 /*-----------------------------------------------------------------------------------*/
 /* User Machine
@@ -248,7 +249,7 @@ function get_installed_templates() {
 /* Get Premium Templates
 /*-----------------------------------------------------------------------------------*/
 
-function get_premium_templates($type = 'all') {
+function get_premium_templates($type = 'all', $target = 'blank') {
     
     $templates = simplexml_load_file('http://dropplets.com/marketplace/templates-'. $type .'.xml');
     
@@ -262,8 +263,8 @@ function get_premium_templates($type = 'all') {
         <li class="premium">
             <div class="shadow"></div>
             <img src="http://dropplets.com/demo/templates/<?php echo $template_file_name; ?>/screenshot.jpg" alt="<?php echo $template_name; ?>">
-            <a class="buy" href="http://dropplets.com/marketplace/?template=<?php echo $template_file_name; ?>" title="Purchase/Download" target="_blank"><?php echo $template_price; ?></a> 
-            <a class="preview" href="http://dropplets.com/demo/?template=<?php echo $template_file_name; ?>" title="Prview" target="_blank">p</a>    
+            <a class="buy" href="http://dropplets.com/marketplace/?template=<?php echo $template_file_name; ?>" title="Purchase/Download" target="_<?php echo $target; ?>"><?php echo $template_price; ?></a> 
+            <a class="preview" href="http://dropplets.com/demo/?template=<?php echo $template_file_name; ?>" title="Prview" target="_<?php echo $target; ?>">p</a>    
         </li>
         
         <?php } 
@@ -295,7 +296,7 @@ $is_home = ($homepage==$currentpage);
 define('IS_HOME', $is_home);
 
 /*-----------------------------------------------------------------------------------*/
-/* Get Twitter Profile Image
+/* Get Twitter Profile Image (This Needs to be Cached)
 /*-----------------------------------------------------------------------------------*/
 
 function get_twitter_profile_img($username, $size = '') {
@@ -311,9 +312,6 @@ function get_twitter_profile_img($username, $size = '') {
 foreach(glob('./plugins/' . '*.php') as $plugin){
     include_once $plugin;
 }
-
-define('PLUGIN_HEADER_INJECT', $plugin_header_inject);
-define('PLUGIN_FOOTER_INJECT', $plugin_footer_inject);
 
 /*-----------------------------------------------------------------------------------*/
 /* Dropplets Header
@@ -331,8 +329,8 @@ function get_header() { ?>
     <!-- User Header Injection -->
     <?php echo HEADER_INJECT; ?>
     
-    <!-- Plugin Footer Injection -->
-    <?php echo PLUGIN_HEADER_INJECT; ?>
+    <!-- Plugin Header Injection -->
+    <?php action::run('dp_header'); ?>
 <?php 
 
 } 
@@ -392,7 +390,7 @@ function get_footer() { ?>
     <?php echo FOOTER_INJECT; ?>
     
     <!-- Plugin Footer Injection -->
-    <?php echo PLUGIN_FOOTER_INJECT; ?>
+    <?php action::run('dp_footer'); ?>
 <?php 
 
 }
