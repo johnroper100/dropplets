@@ -12,3 +12,6 @@ templates/typographic/
 templates/cards/
 
 plugins/switcher.php
+
+cache/*.png
+cache/*.jpeg
