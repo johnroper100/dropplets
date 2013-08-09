@@ -66,7 +66,7 @@ if (!isset($_SESSION['user'])) { ?>
             
             <div class="dp-content">
                 <span class="title">Welcome Back!</span>
-                <a class="dp-button  dp-button-dark dp-close  dp-icon-close" href="#dp-dropplets"></a>
+                <a class="dp-button dp-button-dark dp-close  dp-icon-close" href="#dp-dropplets"></a>
             </div>
         </div>
         
@@ -79,19 +79,37 @@ if (!isset($_SESSION['user'])) { ?>
         
         <form method="POST" action="./dropplets/save.php">
             <div class="dp-row">
-                <div class="dp-icon dp-icon-profile dp-icon-large"></div>
-                <div class="dp-content">Blog Profile</div>                
-                <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-profile']) { echo($_COOKIE['#dp-profile']); } ?>" href="#dp-profile"></a>
-                <button class="dp-button" type="submit" name="submit" value="submit">k</button>
+                <div class="dp-icon dp-icon-settings"></div>
+                <div class="dp-content">Blog Settings</div>                
+                <a class="dp-link dp-toggle collapsed" href="#dp-settings"></a>
+                <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
             
-            <div class="dp-sub-panel <?php if($_COOKIE['#dp-profile']) { echo($_COOKIE['#dp-profile']); } ?>" id="dp-profile">
+            <div class="dp-sub-panel" id="dp-settings">
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Blog Password</label>
+                        <input type="password" name="password" id="password" value="">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dp-row">
+                <div class="dp-icon dp-icon-profile dp-icon-large"></div>
+                <div class="dp-content">Blog Profile</div>                
+                <a class="dp-link dp-toggle" href="#dp-profile"></a>
+                <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
+            </div>
+            
+            <div class="dp-sub-panel" id="dp-profile">
                 <div class="dp-row dp-editable">
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
                         <label>Blog Email</label>
-                        <input type="text" name="blog_email" id="blog_email" required value="<?php echo BLOG_EMAIL; ?>">
+                        <input type="text" name="blog_email" id="blog_email" value="<?php echo BLOG_EMAIL; ?>">
                     </div>
                 </div>
                 
@@ -100,7 +118,7 @@ if (!isset($_SESSION['user'])) { ?>
                     
                     <div class="dp-content">
                         <label>Blog Twitter</label>
-                        <input type="text" name="blog_twitter" id="blog_twitter" required value="<?php echo BLOG_TWITTER; ?>">
+                        <input type="text" name="blog_twitter" id="blog_twitter" value="<?php echo BLOG_TWITTER; ?>">
                     </div>
                 </div>
             </div>
@@ -108,17 +126,17 @@ if (!isset($_SESSION['user'])) { ?>
             <div class="dp-row">
                 <div class="dp-icon dp-icon-text"></div>
                 <div class="dp-content">Blog Meta</div>                
-                <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-meta-text']) { echo($_COOKIE['#dp-meta-text']); } ?>" href="#dp-meta-text"></a>
-                <button class="dp-button" type="submit" name="submit" value="submit">k</button>
+                <a class="dp-link dp-toggle" href="#dp-meta-text"></a>
+                <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
             
-            <div class="dp-sub-panel <?php if($_COOKIE['#dp-meta-text']) { echo($_COOKIE['#dp-meta-text']); } ?>" id="dp-meta-text">
+            <div class="dp-sub-panel" id="dp-meta-text">
                 <div class="dp-row dp-editable">
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
                         <label>Blog Title</label>
-                        <input type="text" name="blog_title" id="blog_title" required value="<?php echo BLOG_TITLE; ?>">
+                        <input type="text" name="blog_title" id="blog_title" value="<?php echo BLOG_TITLE; ?>">
                     </div>
                 </div>
                 
@@ -127,26 +145,25 @@ if (!isset($_SESSION['user'])) { ?>
                     
                     <div class="dp-content">
                         <label>Blog Description</label>
-                        <textarea name="meta_description" id="meta_description" rows="6" required placeholder="Add your site description here... just a short sentence that describes what your blog is going to be about."><?php echo META_DESCRIPTION; ?></textarea>
+                        <textarea name="meta_description" id="meta_description" rows="6" placeholder="Add your site description here... just a short sentence that describes what your blog is going to be about."><?php echo META_DESCRIPTION; ?></textarea>
                     </div>
                 </div>
             </div>
             
-            
             <div class="dp-row">
                 <div class="dp-icon dp-icon-text"></div>
                 <div class="dp-content">Intro Text</div>                
-                <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-intro-text']) { echo($_COOKIE['#dp-intro-text']); } ?>" href="#dp-intro-text"></a>
-                <button class="dp-button" type="submit" name="submit" value="submit">k</button>
+                <a class="dp-link dp-toggle" href="#dp-intro-text"></a>
+                <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
             
-            <div class="dp-sub-panel <?php if($_COOKIE['#dp-intro-text']) { echo($_COOKIE['#dp-intro-text']); } ?>" id="dp-intro-text">
+            <div class="dp-sub-panel" id="dp-intro-text">
                 <div class="dp-row dp-editable">
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
                         <label>Intro Title</label>
-                        <input type="text" name="intro_title" id="intro_title" required value="<?php echo INTRO_TITLE; ?>">
+                        <input type="text" name="intro_title" id="intro_title" value="<?php echo INTRO_TITLE; ?>">
                     </div>
                 </div>
                 
@@ -155,21 +172,19 @@ if (!isset($_SESSION['user'])) { ?>
                     
                     <div class="dp-content">
                         <label>Intro Text</label>
-                        <textarea name="intro_text" id="intro_text" rows="12" required><?php echo INTRO_TEXT; ?></textarea>
+                        <textarea name="intro_text" id="intro_text" rows="12"><?php echo INTRO_TEXT; ?></textarea>
                     </div>
                 </div>
             </div>
             
-            
-            
             <div class="dp-row">
                 <div class="dp-icon dp-icon-code"></div>
                 <div class="dp-content">Code Injection</div>                
-                <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-injection']) { echo($_COOKIE['#dp-injection']); } ?>" href="#dp-injection"></a>
-                <button class="dp-button" type="submit" name="submit" value="submit">k</button>
+                <a class="dp-link dp-toggle" href="#dp-injection"></a>
+                <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
             
-            <div class="dp-sub-panel <?php if($_COOKIE['#dp-injection']) { echo($_COOKIE['#dp-injection']); } ?>" id="dp-injection">
+            <div class="dp-sub-panel" id="dp-injection">
                 <div class="dp-row dp-editable">
                     <div class="dp-icon dp-icon-edit"></div>
                     
@@ -193,10 +208,10 @@ if (!isset($_SESSION['user'])) { ?>
         <div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-grid"></div>
             <div class="dp-content">Installed Templates</div>        
-            <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-templates']) { echo($_COOKIE['#dp-templates']); } ?>" href="#dp-templates"></a>
+            <a class="dp-link dp-toggle" href="#dp-templates"></a>
         </div>
         
-        <div class="dp-sub-panel <?php if($_COOKIE['#dp-templates']) { echo($_COOKIE['#dp-templates']); } ?>" id="dp-templates">
+        <div class="dp-sub-panel" id="dp-templates">
             <div class="dp-row dp-templates">
                 <?php get_installed_templates('all'); ?>
             </div>
@@ -205,11 +220,11 @@ if (!isset($_SESSION['user'])) { ?>
         <div class="dp-row">
             <div class="dp-icon dp-icon-templates"></div>
             <div class="dp-content">Featured Templates</div>
-            <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-featured']) { echo($_COOKIE['#dp-featured']); } ?>" href="#dp-featured"></a>
+            <a class="dp-link dp-toggle" href="#dp-featured"></a>
             <span class="dp-number dp-number-dark"><?php count_premium_templates('featured'); ?></span>
         </div>
         
-        <div class="dp-sub-panel <?php if($_COOKIE['#dp-featured']) { echo($_COOKIE['#dp-featured']); } ?>" id="dp-featured">
+        <div class="dp-sub-panel" id="dp-featured">
             <div class="dp-row dp-templates">
                 <?php get_premium_templates('featured'); ?>
             </div>
@@ -218,11 +233,11 @@ if (!isset($_SESSION['user'])) { ?>
         <div class="dp-row">
             <div class="dp-icon dp-icon-templates"></div>
             <div class="dp-content">Popular Templates</div>
-            <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-popular']) { echo($_COOKIE['#dp-popular']); } ?>" href="#dp-popular"></a>        
+            <a class="dp-link dp-toggle" href="#dp-popular"></a>        
             <span class="dp-number dp-number-dark"><?php count_premium_templates('popular'); ?></span>
         </div>
         
-        <div class="dp-sub-panel <?php if($_COOKIE['#dp-popular']) { echo($_COOKIE['#dp-popular']); } ?>" id="dp-popular">
+        <div class="dp-sub-panel" id="dp-popular">
             <div class="dp-row dp-templates">
                 <?php get_premium_templates('popular'); ?>
             </div>
@@ -231,11 +246,11 @@ if (!isset($_SESSION['user'])) { ?>
         <div class="dp-row">
             <div class="dp-icon dp-icon-templates"></div>
             <div class="dp-content">All Templates</div>
-            <a class="dp-link dp-toggle <?php if($_COOKIE['#dp-all']) { echo($_COOKIE['#dp-all']); } ?>" href="#dp-all"></a>
+            <a class="dp-link dp-toggle" href="#dp-all"></a>
             <span class="dp-number dp-number-dark"><?php count_premium_templates('all'); ?></span>
         </div>
         
-        <div class="dp-sub-panel <?php if($_COOKIE['#dp-all']) { echo($_COOKIE['#dp-all']); } ?>" id="dp-all">
+        <div class="dp-sub-panel" id="dp-all">
             <div class="dp-row dp-templates">
                 <?php get_premium_templates('all'); ?>
             </div>
@@ -289,13 +304,8 @@ if (!isset($_SESSION['user'])) { ?>
         $(".dp-toggle").click(function(){
             var myelement = $(this).attr("href")
             $(myelement).toggle(100);
-            $.cookies.set(myelement, 'expanded');
+            $(this).next('button.dp-button-submit').toggle(100);
             return false;
-        });
-        
-        $(".expanded").click(function(){
-            var myelement = $(this).attr("href")
-            $.cookies.set(myelement, 'collapsed');
         });
         
         // For Input Labels

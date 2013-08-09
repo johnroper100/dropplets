@@ -447,6 +447,10 @@ body.dp-install form button:hover {
     z-index: 20;
 }
 
+.dp-panel .dp-row .dp-button-submit {
+    display: none;
+}
+
 .dp-panel .dp-row.dp-editable input[type="submit"]:hover,
 .dp-panel .dp-row.dp-editable button:hover,
 .dp-panel .dp-row .dp-button:hover {
