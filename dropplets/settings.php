@@ -30,6 +30,8 @@ define('BLOG_TITLE', $blog_title);
 define('META_DESCRIPTION', $meta_description);
 define('INTRO_TITLE', $intro_title);
 define('INTRO_TEXT', $intro_text);
+define('BITLY_UN', $bitly_un);
+define('BITLY_KEY', $bitly_key);
 define('HEADER_INJECT', stripslashes($header_inject));
 define('FOOTER_INJECT', stripslashes($footer_inject));
 define('ACTIVE_TEMPLATE', $template);
