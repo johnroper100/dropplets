@@ -69,9 +69,9 @@ $template_dir_url = $blog_url . '/templates/' . $template . '/';
 
 // define the default locations of the template files.
 $index_file = $template_dir . 'index.php';
-$intro_file = $template_dir . 'intro.php';
+$header_file = $template_dir . 'header.php';
+$footer_file = $template_dir . 'footer.php';
 $post_file = $template_dir . 'post.php';
-$posts_file = $template_dir . 'posts.php';
 $not_found_file = $template_dir . '404.php';
 
 /*-----------------------------------------------------------------------------------*/
@@ -142,6 +142,9 @@ if ($filename==NULL) {
 
     if($posts) {
         ob_start();
+
+        include_once $header_file;
+
         $content = '';
         foreach($posts as $post) {
 
@@ -178,17 +181,12 @@ if ($filename==NULL) {
             } else {
                 $post_image = get_twitter_profile_img($blog_twitter);
             }
-
-            // Get the site intro template file.
-            if ($category) {
-                // No intro for categories.
-            } else {
-                include_once $intro_file;
-            }
-
-            // Get the milti-post template file.
-            include $posts_file;
+            
+            include $post_file;
         }
+
+        include_once $footer_file;
+
         echo $content;
         $content = ob_get_contents();
 
@@ -427,8 +425,14 @@ else {
         // Generate all page meta.
         $page_meta = implode("\n", $get_page_meta);
 
+        // Get the header file
+        include $header_file;
+
         // Get the post template file.
         include $post_file;
+
+        // Get the footer file
+        include $footer_file;
 
         $content = ob_get_contents();
         ob_end_clean();
