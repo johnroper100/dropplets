@@ -303,8 +303,8 @@ if (!isset($_SESSION['user'])) { ?>
         
         $(".dp-toggle").click(function(){
             var myelement = $(this).attr("href")
-            $(myelement).toggle(100);
-            $(this).next('button.dp-button-submit').toggle(100);
+            $(myelement).toggle();
+            $(this).next('button.dp-button-submit').toggle();
             return false;
         });
         
