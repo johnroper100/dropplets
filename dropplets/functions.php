@@ -299,34 +299,11 @@ define('IS_HOME', $is_home);
 /* Get Profile Image (This Needs to be Cached)
 /*-----------------------------------------------------------------------------------*/
 
-function get_twitter_profile_img($username, $size = '') {
-    $api_call = 'https://twitter.com/users/'.$username.'.json';
-    $results = json_decode(file_get_contents($api_call));
-    $image_url = str_replace('_normal', $size, $results->profile_image_url);
-
-    // Replace with your cache directory.
-	$image_path = './cache/';
-	
-	// Get the name of the file.
-	$exploded_image_url = explode("/",$image_url);
-	$image_filename = end($exploded_image_url);
-	$exploded_image_filename = explode(".",$image_filename);
-	$extension = end($exploded_image_filename);
-	
-	// Make sure its an image.
-	if($extension=="gif"||$extension=="jpg"||$extension=="jpeg"||$extension=="png"){
-	
-		// Get the remote image.
-		$image_to_fetch = file_get_contents($image_url);
-		
-		// Save it.
-		$local_image_file  = fopen($image_path.$image_filename, 'w+');
-		chmod($image_path.$image_filename,0755);
-		fwrite($local_image_file, $image_to_fetch);
-		fclose($local_image_file);	
-	}
-	
-	return $image_path.$image_filename;
+function get_twitter_profile_img($username) {
+    
+    // Temporary fix for profile images.
+    $image_url = 'http://dropplets.com/profiles/?id='.$username.'';
+	return $image_url;
 }
 
 /*-----------------------------------------------------------------------------------*/
