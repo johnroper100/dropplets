@@ -330,6 +330,9 @@ else {
         // Get the post category.
         $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
         
+        // Get the post status.
+        $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
+        
         // Get the post category link.
         $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
 
