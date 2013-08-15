@@ -399,7 +399,7 @@ else {
         include_once $index_file;
 
         // Cache the post on if caching is turned on.
-        if ($post_cache != 'off')
+        if ($post_cache != 'off' && !$_SESSION['user'])
         {
             $fp = fopen($cachefile, 'w');
             fwrite($fp, ob_get_contents());
