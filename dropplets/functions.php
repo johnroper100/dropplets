@@ -204,7 +204,6 @@ function get_pagination($page,$total) {
     
     $string .= "</ul>";
     return $string;
-    
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -240,9 +239,7 @@ function get_installed_templates() {
             </li>
         <?php
         }
-
     endforeach;
-
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -253,32 +250,35 @@ function get_premium_templates($type = 'all', $target = 'blank') {
     
     $templates = simplexml_load_file('http://dropplets.com/marketplace/templates-'. $type .'.xml');
     
-    foreach ($templates as $template):
-        
-        $template_name=$template->name;
-        $template_file_name=$template->file;
-        $template_price=$template->price;
-        
-        { ?>
-        <li class="premium">
-            <div class="shadow"></div>
-            <img src="http://dropplets.com/demo/templates/<?php echo $template_file_name; ?>/screenshot.jpg" alt="<?php echo $template_name; ?>">
-            <a class="buy" href="http://dropplets.com/marketplace/?template=<?php echo $template_file_name; ?>" title="Purchase/Download" target="_<?php echo $target; ?>"><?php echo $template_price; ?></a> 
-            <a class="preview" href="http://dropplets.com/demo/?template=<?php echo $template_file_name; ?>" title="Prview" target="_<?php echo $target; ?>">p</a>    
-        </li>
-        
-        <?php } 
-    
-    endforeach;
-
+    if($templates===FALSE) {
+        // Feed not available.
+    } else {
+        foreach ($templates as $template):
+            
+            // Define some variables
+            $template_name=$template->name;
+            $template_file_name=$template->file;
+            $template_price=$template->price;
+            
+            { ?>
+            <li class="premium">
+                <img src="http://dropplets.com/demo/templates/<?php echo $template_file_name; ?>/screenshot.jpg" alt="<?php echo $template_name; ?>">
+                <a class="buy" href="http://dropplets.com/marketplace/?template=<?php echo $template_file_name; ?>" title="Purchase/Download" target="_<?php echo $target; ?>"><?php echo $template_price; ?></a> 
+                <a class="preview" href="http://dropplets.com/demo/?template=<?php echo $template_file_name; ?>" title="Prview" target="_<?php echo $target; ?>">p</a>    
+            </li>
+            <?php } 
+        endforeach;
+    }
 }
 
 function count_premium_templates($type = 'all') {
-    
-    $templates = simplexml_load_file('http://dropplets.com/marketplace/templates-'. $type .'.xml');
-    $templates_count = $templates->children();
-    echo count($templates_count);
-
+    if($templates===FALSE) {
+        // Feed not available.
+    } else {
+        $templates = simplexml_load_file('http://dropplets.com/marketplace/templates-'. $type .'.xml');
+        $templates_count = $templates->children();
+        echo count($templates_count);
+    }
 }
 
 /*-----------------------------------------------------------------------------------*/
