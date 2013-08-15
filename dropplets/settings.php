@@ -76,6 +76,12 @@ define('FILE_EXT', '.md');
 /* Cache Configuration
 /*-----------------------------------------------------------------------------------*/
 
+//no caching if user is logged in
+if ( $_SESSION['user'] ) {
+	$post_cache = 'off';
+	$index_cache = 'off';
+}
+
 if (!file_exists(CACHE_DIR) && ($post_cache != 'off' || $index_cache != 'off')) {
 	mkdir(CACHE_DIR,0755,TRUE);
 }
