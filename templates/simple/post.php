@@ -1,4 +1,4 @@
-<article class="single">
+<article class="single <?php echo($post_status); ?>">
     <div class="row">
         <div class="one-quarter meta">
             <div class="thumbnail">
