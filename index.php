@@ -423,12 +423,12 @@ else {
     $path = $_SERVER["REQUEST_URI"];
 
     // Check if running on alternate port.
-    if($protocol = "https://"){
-        if($port === 443)
+    if ($protocol === "https://") {
+        if ($port === 443)
             $url = $protocol . $domain;
         else
             $url = $protocol . $domain . ":" . $port;
-    } else {
+    } elseif ($protocol === "http://") {
         if ($port === 80)
             $url = $protocol . $domain;
         else
