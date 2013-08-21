@@ -416,10 +416,26 @@ else {
 /*-----------------------------------------------------------------------------------*/
 
 } else {
-    // Get the current url.
-    $domain = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] : 'https://'.$_SERVER["SERVER_NAME"];
+    // Get the components of the current url.
+    $protocol = @( $_SERVER["HTTPS"] != 'on') ? 'http://' : 'https://';
+    $domain = $_SERVER["SERVER_NAME"];
+    $port = $_SERVER["SERVER_PORT"];
     $path = $_SERVER["REQUEST_URI"];
-    $url = $domain . $path;
+
+    // Check if running on alternate port.
+    if($protocol = "https://"){
+        if($port === 443)
+            $url = $protocol . $domain;
+        else
+            $url = $protocol . $domain . ":" . $port;
+    } else {
+        if ($port === 80)
+            $url = $protocol . $domain;
+        else
+            $url = $protocol . $domain . ":" . $port;
+    }
+
+    $url .= $path;
     
     // Check if the install directory is writable.
     $is_writable = (TRUE == is_writable(dirname(__FILE__) . '/'));
