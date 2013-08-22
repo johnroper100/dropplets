@@ -423,6 +423,13 @@ else {
     $path_last_element = end(explode("/", $path));
     $file_name = end(explode("/", __FILE__));
     if ($path_last_element === $file_name) {
+        /* If the last part of the URI is the same as the
+         * last part of the __FILE__ (the file's name). 
+         * Remove it from the end.
+         *
+         * Using substr() since str_replace() could remove more than 
+         * we would like.
+         */
         $path = substr ($path, 0, -strlen($path_last_element));
     }
 
