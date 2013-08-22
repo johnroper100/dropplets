@@ -10,6 +10,7 @@ posts/*.jpg
 templates/clear/
 templates/typographic/
 templates/cards/
+templates/posted/
 
 plugins/switcher.php
 
