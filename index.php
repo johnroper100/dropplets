@@ -312,7 +312,7 @@ else {
         // Get the post title.
         $post_title = str_replace(array("\n", '# '), '', $fcontents[0]);
 
-        // Get the post title.
+        // Get the post intro.
         $post_intro = htmlspecialchars($fcontents[7]);
 
         // Get the post author.
