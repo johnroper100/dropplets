@@ -310,7 +310,8 @@ else {
     } else {
 
         // Get the post title.
-        $post_title = str_replace(array("\n", '# '), '', $fcontents[0]);
+        $post_title = Markdown($fcontents[0]);
+        $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post_title);
 
         // Get the post intro.
         $post_intro = htmlspecialchars($fcontents[7]);
