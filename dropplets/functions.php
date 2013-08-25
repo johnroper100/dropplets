@@ -272,6 +272,9 @@ function get_premium_templates($type = 'all', $target = 'blank') {
 }
 
 function count_premium_templates($type = 'all') {
+
+    $templates = simplexml_load_file('http://dropplets.com/marketplace/templates-'. $type .'.xml');
+
     if($templates===FALSE) {
         // Feed not available.
     } else {
