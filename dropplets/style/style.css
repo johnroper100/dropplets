@@ -224,7 +224,7 @@ body.dp-install form button:hover {
     position: fixed;
     top: 10px;
     left: 10px;
-    z-index: 80000;
+    z-index: 1900;
 }
 
 #dp-dropplets-icon:hover {
@@ -238,7 +238,7 @@ body.dp-install form button:hover {
     position: fixed;
     top: 0;
     left: -300px;
-    z-index: 100000;
+    z-index: 1950;
     overflow: hidden;
     box-shadow: 0 0 3px rgba(0,0,0,0.5);
 }
@@ -444,7 +444,7 @@ body.dp-install form button:hover {
     right: 10px;
     cursor: pointer;
     -webkit-appearance: none;
-    z-index: 20;
+    z-index: 1000;
 }
 
 .dp-panel .dp-row .dp-button-submit {
@@ -571,7 +571,7 @@ body.dp-install form button:hover {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 220000;
+    z-index: 1975;
     -moz-transition-duration: 0.5s;
     -webkit-transition-duration: 0.5s;
 }

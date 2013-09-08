@@ -248,7 +248,7 @@ function get_installed_templates() {
 
 function get_premium_templates($type = 'all', $target = 'blank') {
     
-    $templates = simplexml_load_file('http://dropplets.com/marketplace/templates-'. $type .'.xml');
+    $templates = simplexml_load_file('http://dropplets.com/templates-'. $type .'.xml');
     
     if($templates===FALSE) {
         // Feed not available.
@@ -256,14 +256,14 @@ function get_premium_templates($type = 'all', $target = 'blank') {
         foreach ($templates as $template):
             
             // Define some variables
-            $template_name=$template->name;
             $template_file_name=$template->file;
             $template_price=$template->price;
+            $template_url=$template->url;
             
             { ?>
             <li class="premium">
-                <img src="http://dropplets.com/demo/templates/<?php echo $template_file_name; ?>/screenshot.jpg" alt="<?php echo $template_name; ?>">
-                <a class="buy" href="http://dropplets.com/marketplace/?template=<?php echo $template_file_name; ?>" title="Purchase/Download" target="_<?php echo $target; ?>"><?php echo $template_price; ?></a> 
+                <img src="http://dropplets.com/demo/templates/<?php echo $template_file_name; ?>/screenshot.jpg">
+                <a class="buy" href="http://gum.co/dp-<?php echo $template_file_name; ?>" title="Purchase/Download"><?php echo $template_price; ?></a> 
                 <a class="preview" href="http://dropplets.com/demo/?template=<?php echo $template_file_name; ?>" title="Prview" target="_<?php echo $target; ?>">p</a>    
             </li>
             <?php } 
@@ -273,12 +273,12 @@ function get_premium_templates($type = 'all', $target = 'blank') {
 
 function count_premium_templates($type = 'all') {
 
-    $templates = simplexml_load_file('http://dropplets.com/marketplace/templates-'. $type .'.xml');
+    $templates = simplexml_load_file('http://dropplets.com/templates-'. $type .'.xml');
 
     if($templates===FALSE) {
         // Feed not available.
     } else {
-        $templates = simplexml_load_file('http://dropplets.com/marketplace/templates-'. $type .'.xml');
+        $templates = simplexml_load_file('http://dropplets.com/templates-'. $type .'.xml');
         $templates_count = $templates->children();
         echo count($templates_count);
     }

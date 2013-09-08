@@ -284,7 +284,7 @@ else {
         // Start new buffer.
         ob_start();
 
-	    // Get the index template file.
+	      // Get the index template file.
         include_once $index_file;
 
         // Cache the post on if caching is turned on.
