@@ -17,7 +17,7 @@ plugins/*
 !plugins/index.php
 
 posts/*
-!plugins/index.php
+!posts/index.php
 
 plugins/switcher.php
 
