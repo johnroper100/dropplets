@@ -13,6 +13,9 @@ posts/*.jpg
 templates/*
 !templates/simple/
 
+plugins/*
+!plugins/index.php
+
 plugins/switcher.php
 
 cache/*.png
