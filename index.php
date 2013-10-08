@@ -116,14 +116,8 @@ if ($filename==NULL) {
             }
 
             // Get the post image url.
-            $image = str_replace(array(FILE_EXT), '', POSTS_DIR.$post['fname']).'.jpg';
+            $post_image = get_post_image_url( $post['fname'] ) ?: get_twitter_profile_img($post_author_twitter);
 
-            if (file_exists($image)) {
-                $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', POSTS_DIR.$post['fname']).'.jpg';
-            } else {
-                $post_image = get_twitter_profile_img($post_author_twitter);
-            }
-            
             if ($post_status == 'draft') continue;
 
             // Get the milti-post template file.
@@ -341,14 +335,8 @@ else {
         $post_link = $blog_url.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
 
         // Get the post image url.
-        $image = str_replace(array(FILE_EXT), '', $filename).'.jpg';
+        $post_image = get_post_image_url($filename) ?: get_twitter_profile_img($post_author_twitter);
 
-        if (file_exists($image)) {
-            $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', $filename).'.jpg';
-        } else {
-            $post_image = get_twitter_profile_img($post_author_twitter);
-        }
-        
         // Get the post content
         $file_array = file($filename);
         
