@@ -10,11 +10,14 @@ verify.php
 posts/*.md
 posts/*.jpg
 
-templates/clear/
-templates/typographic/
-templates/cards/
-templates/posted/
-templates/focus/
+templates/*
+!templates/simple/
+
+plugins/*
+!plugins/index.php
+
+posts/*
+!posts/index.php
 
 plugins/switcher.php
 
