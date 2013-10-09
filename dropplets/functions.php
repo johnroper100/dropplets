@@ -186,6 +186,25 @@ function get_posts_for_category($category) {
 }
 
 /*-----------------------------------------------------------------------------------*/
+/* Get Image for a Post
+/*-----------------------------------------------------------------------------------*/
+function get_post_image_url($filename)
+{
+    global $blog_url;
+    $supportedFormats = array( "jpg", "png", "gif" );
+    $slug = pathinfo($filename, PATHINFO_FILENAME);
+
+    foreach($supportedFormats as $fmt)
+    {
+        $imgFile = sprintf("%s%s.%s", POSTS_DIR, $slug, $fmt);
+        if (file_exists($imgFile))
+            return sprintf("%s/%s.%s", "${blog_url}posts", $slug, $fmt);
+    }
+
+    return false;
+}
+
+/*-----------------------------------------------------------------------------------*/
 /* Post Pagination
 /*-----------------------------------------------------------------------------------*/
 
