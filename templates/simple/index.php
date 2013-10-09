@@ -6,6 +6,7 @@
         <title><?php echo($page_title); ?></title>
         
         <?php echo($page_meta); ?>
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         <link rel="stylesheet" href="<?php echo($template_dir_url); ?>style.css">

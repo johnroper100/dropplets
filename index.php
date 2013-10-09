@@ -314,7 +314,7 @@ else {
         $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post_title);
 
         // Get the post intro.
-        $post_intro = htmlspecialchars($fcontents[7]);
+        $post_intro = htmlspecialchars(trim($fcontents[7]));
 
         // Get the post author.
         $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
@@ -350,20 +350,14 @@ else {
         }
         
         // Get the post content
-        $file_array = file($filename);
-        
-        unset($file_array[0]);
-        unset($file_array[1]);
-        unset($file_array[2]);
-        unset($file_array[3]);
-        unset($file_array[4]);
-        unset($file_array[5]);
-        unset($file_array[6]);
-        
-        $post_content = Markdown(implode("", $file_array));
+        $file_array = array_slice( file($filename), 7);
+        $post_content = Markdown(trim(implode("", $file_array)));
+
+        // free memory
+        unset($file_array);
                 
         // Get the site title.
-        $page_title = str_replace('# ', '', $fcontents[0]);
+        $page_title = trim(str_replace('# ', '', $fcontents[0]));
 
         // Generate the page description and author meta.
         $get_page_meta[] = '<meta name="description" content="' . $post_intro . '">';
@@ -387,7 +381,7 @@ else {
         $get_page_meta[] = '<meta property="og:image" content="' . $post_image . '">';
 
         // Generate all page meta.
-        $page_meta = implode("\n", $get_page_meta);
+        $page_meta = implode("\n\t", $get_page_meta);
 
         // Generate the post.
         $post = Markdown(join('', $fcontents));
