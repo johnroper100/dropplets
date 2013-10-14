@@ -91,7 +91,7 @@ if ($filename==NULL) {
             $published_iso_date = $post['post_date'];
 
             // Generate the published date.
-            $published_date = date_format(date_create($published_iso_date), $date_format);
+            $published_date = strftime($date_format, strtotime($published_iso_date));
 
             // Get the post category.
             $post_category = $post['post_category'];
@@ -320,7 +320,7 @@ else {
         $published_iso_date = str_replace('-', '', $fcontents[3]);
 
         // Generate the published date.
-        $published_date = date_format(date_create($published_iso_date), $date_format);
+        $published_date = strftime($date_format, strtotime($published_iso_date));
 
         // Get the post category.
         $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
