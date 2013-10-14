@@ -178,6 +178,32 @@ if (!isset($_SESSION['user'])) { ?>
             </div>
             
             <div class="dp-row">
+                <div class="dp-icon dp-icon-text"></div>
+                <div class="dp-content">Extras</div>                
+                <a class="dp-link dp-toggle" href="#dp-extras"></a>
+                <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
+            </div>
+            
+            <div class="dp-sub-panel" id="dp-extras">
+            	<div class="dp-row dp-editable">
+                	<div class="dp-icon dp-icon-edit"></div>
+                    
+                	<div class="dp-content">
+                    	<label>Bitly Username</label>
+                    	<input type="text" name="bitly_un" id="bitly_un" value="<?php echo BITLY_UN; ?>">
+                	</div>
+            	</div>
+            	<div class="dp-row dp-editable">
+                	<div class="dp-icon dp-icon-edit"></div>
+                    
+                	<div class="dp-content">
+                    	<label>Bitly API Key</label>
+                    	<input type="text" name="bitly_key" id="bitly_key" value="<?php echo BITLY_KEY; ?>">
+                	</div>
+            	</div>
+            </div>
+            
+            <div class="dp-row">
                 <div class="dp-icon dp-icon-code"></div>
                 <div class="dp-content">Code Injection</div>                
                 <a class="dp-link dp-toggle" href="#dp-injection"></a>

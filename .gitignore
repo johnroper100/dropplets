@@ -4,6 +4,7 @@
 .DS_Store
 
 .htaccess
+.project
 config.php
 verify.php
 

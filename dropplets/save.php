@@ -50,6 +50,12 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     if (isset($_POST["intro_text"])) {
         $intro_text = $_POST["intro_text"];
     }
+	if (isset($_POST["bitly_un"])) {
+        $bitly_un = $_POST["bitly_un"];
+    }
+	if (isset($_POST["bitly_key"])) {
+        $bitly_key = $_POST["bitly_key"];
+    }
     if (isset($_POST["template"])) {
         $template = $_POST["template"];
     }
@@ -88,6 +94,8 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     $config[] = settings_format("meta_description", $meta_description);
     $config[] = settings_format("intro_title", $intro_title);
     $config[] = settings_format("intro_text", $intro_text);
+	$config[] = settings_format("bitly_un", $bitly_un);
+	$config[] = settings_format("bitly_key", $bitly_key);
     $config[] = "\$password = '".$password."';";
     $config[] = settings_format("header_inject", $header_inject);
     $config[] = settings_format("footer_inject", $footer_inject);

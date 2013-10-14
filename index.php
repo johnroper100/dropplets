@@ -114,6 +114,13 @@ if ($filename==NULL) {
             } else {
                 $post_link = $blog_url.str_replace(FILE_EXT, '', $post['fname']);
             }
+			
+			// Get post short (bitly) link.
+			if ($bitly_un != "" or $bitly_key != "") {
+				$short_url = get_bitly_short_url($post_link,$bitly_un,$bitly_key);
+			} else {
+				$short_url = $post_link;
+			}
 
             // Get the post image url.
             $post_image = get_post_image_url( $post['fname'] ) ?: get_twitter_profile_img($post_author_twitter);
@@ -333,6 +340,13 @@ else {
 
         // Get the post link.
         $post_link = $blog_url.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
+		
+		// Get post short (bitly) link.
+		if ($bitly_un != "" or $bitly_key != "") {
+			$short_url = get_bitly_short_url($post_link,$bitly_un,$bitly_key);
+		} else {
+			$short_url = $post_link;
+		}
 
         // Get the post image url.
         $post_image = get_post_image_url($filename) ?: get_twitter_profile_img($post_author_twitter);
@@ -453,6 +467,8 @@ else {
                 <textarea hidden name="meta_description" id="meta_description"></textarea>
                 <input hidden type="text" name="intro_title" id="intro_title" value="Welcome to Dropplets">
                 <textarea hidden name="intro_text" id="intro_text">In a flooded selection of overly complex solutions, Dropplets has been created in order to deliver a much needed alternative. There is something to be said about true simplicity in the design, development and management of a blog. By eliminating all of the unnecessary elements found in typical solutions, Dropplets can focus on pure design, typography and usability. Welcome to an easier way to blog.</textarea>
+                <input hidden type="text" name="bitly_un" id="bitly_un" value="">
+				<input hidden type="text" name="bitly_key" id="bitly_key" value="">
 
     		    <button type="submit" name="submit" value="submit">k</button>
     		</form>
