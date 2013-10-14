@@ -139,11 +139,12 @@ function get_all_posts($options = array()) {
                 // Define the published date.
                 $post_date = str_replace('-', '', $fcontents[3]);
 
-                // Define the post category.
-                $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
+                // Define the post categories.
+                $post_categories_ = explode(';', str_replace(array("\n", '-'), '', $fcontents[4]));
+                $post_categories_ = array_map(function($el) { return trim($el); }, $post_categories_);
 
                 // Early return if we only want posts from a certain category
-                if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
+                if($options["category"] && !in_array(strtolower($options["category"]), array_map('strtolower', $post_categories_))) {
                     continue;
                 }
 
@@ -157,12 +158,12 @@ function get_all_posts($options = array()) {
                 $post_content = Markdown(join('', array_slice($fcontents, 6, $fcontents.length -1)));
 
                 // Pull everything together for the loop.
-                $files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_category' => $post_category, 'post_status' => $post_status, 'post_intro' => $post_intro, 'post_content' => $post_content);
+                $files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_categories' => $post_categories_, 'post_status' => $post_status, 'post_intro' => $post_intro, 'post_content' => $post_content);
                 $post_dates[] = $post_date;
                 $post_titles[] = $post_title;
                 $post_authors[] = $post_author;
                 $post_authors_twitter[] = $post_author_twitter;
-                $post_categories[] = $post_category;
+                $post_categories[] = $post_categories_;
                 $post_statuses[] = $post_status;
                 $post_intros[] = $post_intro;
                 $post_contents[] = $post_content;
