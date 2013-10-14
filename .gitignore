@@ -19,8 +19,6 @@ plugins/*
 posts/*
 !posts/index.php
 
-plugins/switcher.php
-
 cache/*.png
 cache/*.jpeg
 cache/*.jpg
