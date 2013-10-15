@@ -393,6 +393,7 @@ function get_footer() { ?>
                     url: "index.php?page=" + next_page,
                     beforeSend: function () {
                         $('body').append('<article class="loading-frame"><div class="row"><div class="one-quarter meta"></div><div class="three-quarters"><img src="./templates/<?php echo(ACTIVE_TEMPLATE); ?>/loading.gif" alt="Loading"></div></div></article>');
+                        $("body").animate({ scrollTop: $("body").scrollTop() + 250 }, 1000);
                     },
                     success: function (res) {
                         $('.loading-frame').remove();
