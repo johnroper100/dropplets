@@ -141,6 +141,31 @@ article.single {
     max-width: 100%;
 }
 
+/* Loading frame
+*********************************************************************************************/
+
+.loading-frame {
+    text-align: center;
+       -moz-animation: loadingFrame 3s linear infinite;
+    -webkit-animation: loadingFrame 3s linear infinite;
+            animation: loadingFrame 3s linear infinite;
+}
+@-moz-keyframes loadingFrame {
+    from { background-color: #EEE; }
+    50%  { background-color: #FFF; }
+    to   { background-color: #EEE; }
+}
+@-webkit-keyframes loadingFrame {
+    from { background-color: #EEE; }
+    50%  { background-color: #FFF; }
+    to   { background-color: #EEE; }
+}
+@keyframes loadingFrame {
+    from { background-color: #EEE; }
+    50%  { background-color: #FFF; }
+    to   { background-color: #EEE; }
+}
+
 /* Buttons
 *********************************************************************************************/
 
