@@ -97,7 +97,7 @@ if ($filename==NULL) {
             $post_categories = $post['post_categories'];
             
             // Get the post categories links.
-            $post_categories_links = array_map(function($e) { return $blog_url.'category/'.urlencode(trim(strtolower($e))); }, $post_categories);
+            $post_categories_links = array_map(function($e) { return BLOG_URL.'category/'.urlencode(trim(strtolower($e))); }, $post_categories);
 
             // Get the post status.
             $post_status = $post['post_status'];
@@ -330,7 +330,7 @@ else {
         $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
         
         // Get the post categories links.
-        $post_categories_links = array_map(function($e) { return $blog_url.'category/'.urlencode(trim(strtolower($e))); }, $post_categories);
+        $post_categories_links = array_map(function($e) { return BLOG_URL.'category/'.urlencode(trim(strtolower($e))); }, $post_categories);
 
         // Get the post link.
         $post_link = $blog_url.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
