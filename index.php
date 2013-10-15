@@ -109,11 +109,7 @@ if ($filename==NULL) {
             $post_content = $post['post_content'];
 
             // Get the post link.
-            if ($category) {
-                $post_link = trim(strtolower($category)).'/'.str_replace(FILE_EXT, '', $post['fname']); //WTF ?
-            } else {
-                $post_link = $blog_url.str_replace(FILE_EXT, '', $post['fname']);
-            }
+            $post_link = $blog_url.str_replace(FILE_EXT, '', $post['fname']);
 
             // Get the post image url.
             $post_image = get_post_image_url( $post['fname'] ) ?: get_twitter_profile_img($post_author_twitter);
