@@ -316,6 +316,8 @@ $currentpage .= $_SERVER["REQUEST_URI"];
 // If is home.
 $is_home = ($homepage==$currentpage);
 define('IS_HOME', $is_home);
+define('IS_CATEGORY', (bool)strstr($_SERVER['REQUEST_URI'], '/category/'));
+define('IS_SINGLE', !(IS_HOME || IS_CATEGORY));
 
 /*-----------------------------------------------------------------------------------*/
 /* Get Profile Image
@@ -324,7 +326,7 @@ define('IS_HOME', $is_home);
 function get_twitter_profile_img($username) {
 	
 	// Get the cached profile image.
-    $cache = (strstr($_SERVER['REQUEST_URI'], '/category/')) ? '.' : '';
+    $cache = IS_CATEGORY ? '.' : '';
     $array = split('/category/', $_SERVER['REQUEST_URI']);
     $array = split('/', $array[1]);
     if(count($array)!=1) $cache .= './.';
@@ -380,7 +382,7 @@ function get_footer() { ?>
     <!-- jQuery & Required Scripts -->
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     
-    <?php if (PAGINATION_ON_OFF !== "off") { ?>
+    <?php if (!IS_SINGLE && PAGINATION_ON_OFF !== "off") { ?>
     <!-- Post Pagination -->
     <script>
         var infinite = true;
