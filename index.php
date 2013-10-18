@@ -319,7 +319,7 @@ else {
         $published_date = strftime($date_format, strtotime($published_iso_date));
 
         // Get the post category.
-        $post_categories = explode(';', str_replace(array("\n", '-'), '', $fcontents[4]));
+        $post_categories = explode(',', str_replace(array("\n", '-'), '', $fcontents[4]));
         $post_categories = array_map(function($el) { return trim($el); }, $post_categories);
         
         // Get the post status.
