@@ -140,7 +140,7 @@ function get_all_posts($options = array()) {
                 $post_date = str_replace('-', '', $fcontents[3]);
 
                 // Define the post categories.
-                $post_categories_ = explode(';', str_replace(array("\n", '-'), '', $fcontents[4]));
+                $post_categories_ = explode(',', str_replace(array("\n", '-'), '', $fcontents[4]));
                 $post_categories_ = array_map(function($el) { return trim($el); }, $post_categories_);
 
                 // Early return if we only want posts from a certain category
