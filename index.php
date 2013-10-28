@@ -407,12 +407,12 @@ else {
 
     // Check if running on alternate port.
     if ($protocol === "https://") {
-        if ($port === 443)
+        if ($port == 443)
             $url = $protocol . $domain;
         else
             $url = $protocol . $domain . ":" . $port;
     } elseif ($protocol === "http://") {
-        if ($port === 80)
+        if ($port == 80)
             $url = $protocol . $domain;
         else
             $url = $protocol . $domain . ":" . $port;
