@@ -6,6 +6,7 @@ session_start();
 $settings_file = "../config.php";
 $htaccess_file = "../.htaccess";
 $phpass_file   = '../dropplets/includes/phpass.php';
+$dir = '';
 
 // Get existing settings.
 if (file_exists($settings_file)) {
