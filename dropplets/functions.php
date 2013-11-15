@@ -408,7 +408,7 @@ function get_footer() { ?>
                             no_more_posts = true;
                         }  else {
                             $('.loading-frame').remove();
-                            $('body').append(articles.slice(1));
+                            $('body').append(articles);
                         }
                         loading = false;
                     },
