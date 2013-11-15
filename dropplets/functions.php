@@ -410,6 +410,10 @@ function get_footer() { ?>
                             $('body').append(articles.slice(1));
                         }
                         loading = false;
+                    },
+                    error: function() {
+                        $('.loading-frame').html('An error occurred while loading posts.');
+                        //keep loading equal to false to avoid multiple loads. An error will require a manual refresh
                     }
                 });
             }
