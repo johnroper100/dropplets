@@ -334,6 +334,7 @@ $currentpage .= $_SERVER["REQUEST_URI"];
 // If is home.
 $is_home = ($homepage==$currentpage);
 define('IS_HOME', $is_home);
+define('IS_TAG', (bool)strstr($_SERVER['REQUEST_URI'], '/tag/'));
 define('IS_CATEGORY', (bool)strstr($_SERVER['REQUEST_URI'], '/category/'));
 define('IS_SINGLE', !(IS_HOME || IS_CATEGORY));
 
@@ -342,13 +343,13 @@ define('IS_SINGLE', !(IS_HOME || IS_CATEGORY));
 /*-----------------------------------------------------------------------------------*/
 
 function get_twitter_profile_img($username) {
-	
 	// Get the cached profile image.
     $cache = IS_CATEGORY ? '.' : '';
     $array = split('/category/', $_SERVER['REQUEST_URI']);
     $array = split('/', $array[1]);
     if(count($array)!=1) $cache .= './.';
     $cache .= './cache/';
+    $cache = IS_TAG ? '../cache/' : $cache;
 	$profile_image = $cache.$username.'.jpg';
 
 	// Cache the image if it doesn't already exist.
