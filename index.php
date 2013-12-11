@@ -20,6 +20,7 @@ include('./dropplets/functions.php');
 /*-----------------------------------------------------------------------------------*/
 
 $category = NULL;
+$tag = NULL;
 if (empty($_GET['filename'])) {
     $filename = NULL;
 } else if($_GET['filename'] == 'rss' || $_GET['filename'] == 'atom') {
@@ -32,6 +33,9 @@ if (empty($_GET['filename'])) {
     // File name could be the name of a category
     if($filename[count($filename) - 2] == "category") {
         $category = $filename[count($filename) - 1];
+        $filename = null;
+	} elseif($filename[count($filename) - 2] == "tag") {
+        $tag = $filename[count($filename) - 1];
         $filename = null;
     } else {
       
@@ -65,6 +69,8 @@ if ($filename==NULL) {
 
     if($category) {
         $all_posts = get_posts_for_category($category);
+	} elseif($tag) {
+        $all_posts = get_posts_for_tag($tag);
     } else {
         $all_posts = get_all_posts();
     }
@@ -98,6 +104,15 @@ if ($filename==NULL) {
             
             // Get the post category link.
             $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
+
+			// Get the posts tags.
+			$post_tags = array();
+			foreach($post['post_tags'] as $tag) {
+				$post_tags[] = array(
+					'name' => trim($tag),
+					'url' => $blog_url.'tag/'.urlencode(trim(strtolower($tag))),
+				);
+			}
 
             // Get the post status.
             $post_status = $post['post_status'];
@@ -308,7 +323,7 @@ else {
         $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post_title);
 
         // Get the post intro.
-        $post_intro = htmlspecialchars(trim($fcontents[7]));
+        $post_intro = htmlspecialchars(trim($fcontents[8]));
 
         // Get the post author.
         $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
@@ -324,12 +339,24 @@ else {
 
         // Get the post category.
         $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
+
+        // Get the posts tags.
+        $temp_tags = explode('|', trim(str_replace(array("\n", '-'), '', $fcontents[6])));
+		$post_tags = array();
+		foreach($temp_tags as $tag) {
+			$post_tags[] = array(
+				'name' => trim($tag),
+				'url' => $blog_url.'tag/'.urlencode(trim(strtolower($tag))),
+			);
+		}
+        
+        // Get the post category link.
+        $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
         
         // Get the post status.
         $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
         
-        // Get the post category link.
-        $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
+        
 
         // Get the post link.
         $post_link = $blog_url.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
@@ -338,7 +365,7 @@ else {
         $post_image = get_post_image_url($filename) ?: get_twitter_profile_img($post_author_twitter);
 
         // Get the post content
-        $file_array = array_slice( file($filename), 7);
+        $file_array = array_slice( file($filename), 8);
         $post_content = Markdown(trim(implode("", $file_array)));
 
         // free memory
