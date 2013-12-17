@@ -398,18 +398,23 @@ function get_footer() { ?>
                         $("body").animate({ scrollTop: $("body").scrollTop() + 250 }, 1000);
                     },
                     success: function (res) {
-                        $('.loading-frame').remove();
                         next_page++;
                         var result = $.parseHTML(res);
                         var articles = $(result).filter(function() {
                             return $(this).is('article');
                         });
                         if (articles.length < 2) {  //There's always one default article, so we should check if  < 2
+                            $('.loading-frame').html('You\'ve reached the end of this list.');
                             no_more_posts = true;
                         }  else {
-                            $('body').append(articles.slice(1));
+                            $('.loading-frame').remove();
+                            $('body').append(articles);
                         }
                         loading = false;
+                    },
+                    error: function() {
+                        $('.loading-frame').html('An error occurred while loading posts.');
+                        //keep loading equal to false to avoid multiple loads. An error will require a manual refresh
                     }
                 });
             }
