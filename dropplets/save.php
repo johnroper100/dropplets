@@ -77,6 +77,12 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
         $footer_inject = addslashes($_POST["footer_inject"]);
     }
 
+	if((bool) $_POST["future-posts"] === true) {
+		$future_posts_value = 1;
+	} else {
+		$future_posts_value = 0;
+	}
+
     // Get subdirectory
     $dir .= str_replace('dropplets/save.php', '', $_SERVER["REQUEST_URI"]);
 
@@ -92,8 +98,9 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     $config[] = "\$password = '".$password."';";
     $config[] = settings_format("header_inject", $header_inject);
     $config[] = settings_format("footer_inject", $footer_inject);
+    $config[] = "\$future_posts = ".$future_posts_value.";";
     $config[] = settings_format("template", $template);
-    
+	
     // Create the settings file.
     file_put_contents($settings_file, implode("\n", $config));
     
