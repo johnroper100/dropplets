@@ -165,182 +165,167 @@ function get_all_posts($options = array()) {
                 $post_content = Markdown(join('', array_slice($fcontents, 8, $fcontents.length -1)));
 				
                 // Pull everything together for the loop.
-				if(FUTURE_POSTS === true) {
-					if(time() >= strtotime($post_date)) {
-						$files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_category' => $post_category, 'post_tags' => $post_tags, 'post_status' => $post_status, 'post_intro' => $post_intro, 'post_content' => $post_content);
-						$post_dates[] = $post_date;
-						$post_titles[] = $post_title;
-						$post_authors[] = $post_author;
-						$post_authors_twitter[] = $post_author_twitter;
-						$post_categories[] = $post_category;
-						$post_tags[] = $post_tags;
-						$post_statuses[] = $post_status;
-						$post_intros[] = $post_intro;
-						$post_contents[] = $post_content;
-					}
-				} else {
-					$files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_category' => $post_category, 'post_tags' => $post_tags, 'post_status' => $post_status, 'post_intro' => $post_intro, 'post_content' => $post_content);
-					$post_dates[] = $post_date;
-					$post_titles[] = $post_title;
-					$post_authors[] = $post_author;
-					$post_authors_twitter[] = $post_author_twitter;
-					$post_categories[] = $post_category;
-					$post_tags[] = $post_tags;
-					$post_statuses[] = $post_status;
-					$post_intros[] = $post_intro;
-					$post_contents[] = $post_content;
-				}
-			}
-		}
-		array_multisort($post_dates, SORT_DESC, $files);
-		return $files;
+                $files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_category' => $post_category, 'post_tags' => $post_tags, 'post_status' => $post_status, 'post_intro' => $post_intro, 'post_content' => $post_content);
+                $post_dates[] = $post_date;
+                $post_titles[] = $post_title;
+                $post_authors[] = $post_author;
+                $post_authors_twitter[] = $post_author_twitter;
+                $post_categories[] = $post_category;
+				$post_tags[] = $post_tags;
+                $post_statuses[] = $post_status;
+                $post_intros[] = $post_intro;
+                $post_contents[] = $post_content;
+            }
+        }
+        array_multisort($post_dates, SORT_DESC, $files);
+        return $files;
 
-	} else {
-		return false;
-	}
+    } else {
+        return false;
+    }
 }
 
 /*-----------------------------------------------------------------------------------*/
 /* Get Posts for Selected Tag
 /*-----------------------------------------------------------------------------------*/
 
-	function get_posts_for_tag($tag) {
-		$tag = trim(strtolower($tag));
-		return get_all_posts(array("tag" => $tag));
-	}
+function get_posts_for_tag($tag) {
+    $tag = trim(strtolower($tag));
+    return get_all_posts(array("tag" => $tag));
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Get Posts for Selected Category
 /*-----------------------------------------------------------------------------------*/
 
-	function get_posts_for_category($category) {
-		$category = trim(strtolower($category));
-		return get_all_posts(array("category" => $category));
-	}
+function get_posts_for_category($category) {
+    $category = trim(strtolower($category));
+    return get_all_posts(array("category" => $category));
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Get Image for a Post
 /*-----------------------------------------------------------------------------------*/
-	function get_post_image_url($filename)
-	{
-		global $blog_url;
-		$supportedFormats = array( "jpg", "png", "gif" );
-		$slug = pathinfo($filename, PATHINFO_FILENAME);
+function get_post_image_url($filename)
+{
+    global $blog_url;
+    $supportedFormats = array( "jpg", "png", "gif" );
+    $slug = pathinfo($filename, PATHINFO_FILENAME);
 
-		foreach($supportedFormats as $fmt)
-		{
-			$imgFile = sprintf("%s%s.%s", POSTS_DIR, $slug, $fmt);
-			if (file_exists($imgFile))
-				return sprintf("%s/%s.%s", "${blog_url}posts", $slug, $fmt);
-		}
+    foreach($supportedFormats as $fmt)
+    {
+        $imgFile = sprintf("%s%s.%s", POSTS_DIR, $slug, $fmt);
+        if (file_exists($imgFile))
+            return sprintf("%s/%s.%s", "${blog_url}posts", $slug, $fmt);
+    }
 
-		return false;
-	}
+    return false;
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Post Pagination
 /*-----------------------------------------------------------------------------------*/
 
-	function get_pagination($page,$total) {
+function get_pagination($page,$total) {
 
-		$string = '';
-		$string .= "<ul style=\"list-style:none; width:400px; margin:15px auto;\">";
+    $string = '';
+    $string .= "<ul style=\"list-style:none; width:400px; margin:15px auto;\">";
 
-		for ($i = 1; $i<=$total;$i++) {
-			if ($i == $page) {
-				$string .= "<li style='display: inline-block; margin:5px;' class=\"active\"><a class=\"button\" href='#'>".$i."</a></li>";
-			} else {
-				$string .=  "<li style='display: inline-block; margin:5px;'><a class=\"button\" href=\"?page=".$i."\">".$i."</a></li>";
-			}
-		}
-
-		$string .= "</ul>";
-		return $string;
-	}
+    for ($i = 1; $i<=$total;$i++) {
+        if ($i == $page) {
+            $string .= "<li style='display: inline-block; margin:5px;' class=\"active\"><a class=\"button\" href='#'>".$i."</a></li>";
+        } else {
+            $string .=  "<li style='display: inline-block; margin:5px;'><a class=\"button\" href=\"?page=".$i."\">".$i."</a></li>";
+        }
+    }
+    
+    $string .= "</ul>";
+    return $string;
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Get Installed Templates
 /*-----------------------------------------------------------------------------------*/
 
-	function get_installed_templates() {
+function get_installed_templates() {
+    
+    // The currently active template.
+    $active_template = ACTIVE_TEMPLATE;
 
-		// The currently active template.
-		$active_template = ACTIVE_TEMPLATE;
+    // The templates directory.
+    $templates_directory = './templates/';
 
-		// The templates directory.
-		$templates_directory = './templates/';
+    // Get all templates in the templates directory.
+    $available_templates = glob($templates_directory . '*');
+    
+    foreach ($available_templates as $template):
 
-		// Get all templates in the templates directory.
-		$available_templates = glob($templates_directory . '*');
+        // Generate template names.
+        $template_dir_name = substr($template, 12);
 
-		foreach ($available_templates as $template):
-
-			// Generate template names.
-			$template_dir_name = substr($template, 12);
-
-		// Template screenshots.
-		$template_screenshot = '' . $templates_directory . '' . $template_dir_name . '/screenshot.jpg'; {
-?>
-			<li<?php if($active_template == $template_dir_name) { ?> class="active"<?php } ?>>
-				<div class="shadow"></div>
-				<form method="POST" action="./dropplets/save.php">
-					<img src="<?php echo $template_screenshot; ?>">
-					<input type="hidden" name="template" id="template" required readonly value="<?php echo $template_dir_name ?>">
-					<button class="<?php if ($active_template == $template_dir_name) :?>active<?php else : ?>activate<?php endif; ?>" type="submit" name="submit" value="submit"><?php if ($active_template == $template_dir_name) :?>t<?php else : ?>k<?php endif; ?></button>
-				</form>
-			</li>
-<?php
-		}
-endforeach;
-	}
+        // Template screenshots.
+        $template_screenshot = '' . $templates_directory . '' . $template_dir_name . '/screenshot.jpg'; {
+            ?>
+            <li<?php if($active_template == $template_dir_name) { ?> class="active"<?php } ?>>
+                <div class="shadow"></div>
+                <form method="POST" action="./dropplets/save.php">
+                    <img src="<?php echo $template_screenshot; ?>">
+                    <input type="hidden" name="template" id="template" required readonly value="<?php echo $template_dir_name ?>">
+                    <button class="<?php if ($active_template == $template_dir_name) :?>active<?php else : ?>activate<?php endif; ?>" type="submit" name="submit" value="submit"><?php if ($active_template == $template_dir_name) :?>t<?php else : ?>k<?php endif; ?></button>
+                </form>
+            </li>
+        <?php
+        }
+    endforeach;
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Get Premium Templates
 /*-----------------------------------------------------------------------------------*/
 
-	function get_premium_templates($type = 'all', $target = 'blank') {
-
-		$templates = simplexml_load_file('http://dropplets.com/templates-'. $type .'.xml');
-
-		if($templates===FALSE) {
-			// Feed not available.
-		} else {
-			foreach ($templates as $template):
-
-				// Define some variables
-				$template_file_name=$template->file;
-			$template_price=$template->price;
-			$template_url=$template->url;
-
-			{ ?>
-			<li class="premium">
-				<img src="http://dropplets.com/demo/templates/<?php echo $template_file_name; ?>/screenshot.jpg">
-				<a class="buy" href="http://gum.co/dp-<?php echo $template_file_name; ?>" title="Purchase/Download"><?php echo $template_price; ?></a> 
-				<a class="preview" href="http://dropplets.com/demo/?template=<?php echo $template_file_name; ?>" title="Prview" target="_<?php echo $target; ?>">p</a>    
-			</li>
-<?php } 
-endforeach;
-		}
-	}
+function get_premium_templates($type = 'all', $target = 'blank') {
+    
+    $templates = simplexml_load_file('http://dropplets.com/templates-'. $type .'.xml');
+    
+    if($templates===FALSE) {
+        // Feed not available.
+    } else {
+        foreach ($templates as $template):
+            
+            // Define some variables
+            $template_file_name=$template->file;
+            $template_price=$template->price;
+            $template_url=$template->url;
+            
+            { ?>
+            <li class="premium">
+                <img src="http://dropplets.com/demo/templates/<?php echo $template_file_name; ?>/screenshot.jpg">
+                <a class="buy" href="http://gum.co/dp-<?php echo $template_file_name; ?>" title="Purchase/Download"><?php echo $template_price; ?></a> 
+                <a class="preview" href="http://dropplets.com/demo/?template=<?php echo $template_file_name; ?>" title="Prview" target="_<?php echo $target; ?>">p</a>    
+            </li>
+            <?php } 
+        endforeach;
+    }
+}
 
 function count_premium_templates($type = 'all') {
 
-	$templates = simplexml_load_file('http://dropplets.com/templates-'. $type .'.xml');
+    $templates = simplexml_load_file('http://dropplets.com/templates-'. $type .'.xml');
 
-	if($templates===FALSE) {
-		// Feed not available.
-	} else {
-		$templates = simplexml_load_file('http://dropplets.com/templates-'. $type .'.xml');
-		$templates_count = $templates->children();
-		echo count($templates_count);
-	}
+    if($templates===FALSE) {
+        // Feed not available.
+    } else {
+        $templates = simplexml_load_file('http://dropplets.com/templates-'. $type .'.xml');
+        $templates_count = $templates->children();
+        echo count($templates_count);
+    }
 }
 
 /*-----------------------------------------------------------------------------------*/
 /* If is Home (Could use "is_single", "is_category" as well.)
 /*-----------------------------------------------------------------------------------*/
 
-	$homepage = BLOG_URL;
+$homepage = BLOG_URL;
 
 // Get the current page.    
 $currentpage  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] : 'https://'.$_SERVER["SERVER_NAME"];
@@ -357,118 +342,118 @@ define('IS_SINGLE', !(IS_HOME || IS_CATEGORY));
 /* Get Profile Image
 /*-----------------------------------------------------------------------------------*/
 
-	function get_twitter_profile_img($username) {
-		// Get the cached profile image.
-		$cache = IS_CATEGORY ? '.' : '';
-		$array = split('/category/', $_SERVER['REQUEST_URI']);
-		$array = split('/', $array[1]);
-		if(count($array)!=1) $cache .= './.';
-		$cache .= './cache/';
-		$cache = IS_TAG ? '../cache/' : $cache;
-		$profile_image = $cache.$username.'.jpg';
+function get_twitter_profile_img($username) {
+	// Get the cached profile image.
+    $cache = IS_CATEGORY ? '.' : '';
+    $array = split('/category/', $_SERVER['REQUEST_URI']);
+    $array = split('/', $array[1]);
+    if(count($array)!=1) $cache .= './.';
+    $cache .= './cache/';
+    $cache = IS_TAG ? '../cache/' : $cache;
+	$profile_image = $cache.$username.'.jpg';
 
-		// Cache the image if it doesn't already exist.
-		if (!file_exists($profile_image)) {
-			$image_url = 'http://dropplets.com/profiles/?id='.$username.'';
-			$image = file_get_contents($image_url);
-			file_put_contents($cache.$username.'.jpg', $image);
-		}
-
-		// Return the image URL.
-		return $profile_image;
+	// Cache the image if it doesn't already exist.
+	if (!file_exists($profile_image)) {
+	    $image_url = 'http://dropplets.com/profiles/?id='.$username.'';
+	    $image = file_get_contents($image_url);
+	    file_put_contents($cache.$username.'.jpg', $image);
 	}
+	
+	// Return the image URL.
+	return $profile_image;
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Include All Plugins in Plugins Directory
 /*-----------------------------------------------------------------------------------*/
 
-	foreach(glob('./plugins/' . '*.php') as $plugin){
-		include_once $plugin;
-	}
+foreach(glob('./plugins/' . '*.php') as $plugin){
+    include_once $plugin;
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Dropplets Header
 /*-----------------------------------------------------------------------------------*/
 
-	function get_header() { ?>
-	<!-- RSS Feed Links -->
-	<link rel="alternate" type="application/rss+xml" title="Subscribe using RSS" href="<?php echo BLOG_URL; ?>rss" />
-	<link rel="alternate" type="application/atom+xml" title="Subscribe using Atom" href="<?php echo BLOG_URL; ?>atom" />
+function get_header() { ?>
+    <!-- RSS Feed Links -->
+    <link rel="alternate" type="application/rss+xml" title="Subscribe using RSS" href="<?php echo BLOG_URL; ?>rss" />
+    <link rel="alternate" type="application/atom+xml" title="Subscribe using Atom" href="<?php echo BLOG_URL; ?>atom" />
+    
+    <!-- Dropplets Styles -->
+    <link rel="stylesheet" href="<?php echo BLOG_URL; ?>dropplets/style/style.css">
+    <link rel="shortcut icon" href="<?php echo BLOG_URL; ?>dropplets/style/images/favicon.png">
 
-	<!-- Dropplets Styles -->
-	<link rel="stylesheet" href="<?php echo BLOG_URL; ?>dropplets/style/style.css">
-	<link rel="shortcut icon" href="<?php echo BLOG_URL; ?>dropplets/style/images/favicon.png">
-
-	<!-- User Header Injection -->
-	<?php echo HEADER_INJECT; ?>
-
-	<!-- Plugin Header Injection -->
-	<?php action::run('dp_header'); ?>
+    <!-- User Header Injection -->
+    <?php echo HEADER_INJECT; ?>
+    
+    <!-- Plugin Header Injection -->
+    <?php action::run('dp_header'); ?>
 <?php 
 
-	} 
+} 
 
 /*-----------------------------------------------------------------------------------*/
 /* Dropplets Footer
 /*-----------------------------------------------------------------------------------*/
 
-	function get_footer() { ?>
-	<!-- jQuery & Required Scripts -->
-	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+function get_footer() { ?>
+    <!-- jQuery & Required Scripts -->
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    
+    <?php if (!IS_SINGLE && PAGINATION_ON_OFF !== "off") { ?>
+    <!-- Post Pagination -->
+    <script>
+        var infinite = true;
+        var next_page = 2;
+        var loading = false;
+        var no_more_posts = false;
+        $(function() {
+            function load_next_page() {
+                $.ajax({
+                    url: "index.php?page=" + next_page,
+                    beforeSend: function () {
+                        $('body').append('<article class="loading-frame"><div class="row"><div class="one-quarter meta"></div><div class="three-quarters"><img src="./templates/<?php echo(ACTIVE_TEMPLATE); ?>/loading.gif" alt="Loading"></div></div></article>');
+                        $("body").animate({ scrollTop: $("body").scrollTop() + 250 }, 1000);
+                    },
+                    success: function (res) {
+                        $('.loading-frame').remove();
+                        next_page++;
+                        var result = $.parseHTML(res);
+                        var articles = $(result).filter(function() {
+                            return $(this).is('article');
+                        });
+                        if (articles.length < 2) {  //There's always one default article, so we should check if  < 2
+                            no_more_posts = true;
+                        }  else {
+                            $('body').append(articles.slice(1));
+                        }
+                        loading = false;
+                    }
+                });
+            }
 
-	<?php if (!IS_SINGLE && PAGINATION_ON_OFF !== "off") { ?>
-	<!-- Post Pagination -->
-	<script>
-	var infinite = true;
-var next_page = 2;
-var loading = false;
-var no_more_posts = false;
-$(function() {
-	function load_next_page() {
-		$.ajax({
-			url: "index.php?page=" + next_page,
-				beforeSend: function () {
-					$('body').append('<article class="loading-frame"><div class="row"><div class="one-quarter meta"></div><div class="three-quarters"><img src="./templates/<?php echo(ACTIVE_TEMPLATE); ?>/loading.gif" alt="Loading"></div></div></article>');
-					$("body").animate({ scrollTop: $("body").scrollTop() + 250 }, 1000);
-				},
-					success: function (res) {
-						$('.loading-frame').remove();
-						next_page++;
-						var result = $.parseHTML(res);
-						var articles = $(result).filter(function() {
-							return $(this).is('article');
-						});
-						if (articles.length < 2) {  //There's always one default article, so we should check if  < 2
-							no_more_posts = true;
-						}  else {
-							$('body').append(articles.slice(1));
-						}
-						loading = false;
-					}
-		});
-	}
-
-	$(window).scroll(function() {
-		var when_to_load = $(window).scrollTop() * 0.32;
-		if (infinite && (loading != true && !no_more_posts) && $(window).scrollTop() + when_to_load > ($(document).height()- $(window).height() ) ) {
-			// Sometimes the scroll function may be called several times until the loading is set to true.
-			// So we need to set it as soon as possible
-			loading = true;
-			setTimeout(load_next_page,500);
-		}
-	});
-});
-</script>
-	<?php } ?>
-
-	<!-- Dropplets Tools -->
-	<?php include('./dropplets/tools.php'); ?>
-
-	<!-- User Footer Injection -->
-	<?php echo FOOTER_INJECT; ?>
-
-	<!-- Plugin Footer Injection -->
-	<?php action::run('dp_footer'); ?>
+            $(window).scroll(function() {
+                var when_to_load = $(window).scrollTop() * 0.32;
+                if (infinite && (loading != true && !no_more_posts) && $(window).scrollTop() + when_to_load > ($(document).height()- $(window).height() ) ) {
+                    // Sometimes the scroll function may be called several times until the loading is set to true.
+                    // So we need to set it as soon as possible
+                    loading = true;
+                    setTimeout(load_next_page,500);
+                }
+            });
+        });
+    </script>
+    <?php } ?>
+    
+    <!-- Dropplets Tools -->
+    <?php include('./dropplets/tools.php'); ?>
+    
+    <!-- User Footer Injection -->
+    <?php echo FOOTER_INJECT; ?>
+    
+    <!-- Plugin Footer Injection -->
+    <?php action::run('dp_footer'); ?>
 <?php 
 
-	}
+}

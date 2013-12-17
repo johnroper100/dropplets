@@ -93,18 +93,6 @@ if (!isset($_SESSION['user'])) { ?>
                         <label>Blog Password</label>
                         <input type="password" name="password" id="password" value="">
                     </div>
-				</div>
-                <div class="dp-row dp-editable">
-                    <div class="dp-icon"></div>
-                    <div class="dp-content">
-						<label>Publish predated posts automatically?</label>
-						<br />
-						<?php if(FUTURE_POSTS === true) {
-						echo '<input type="checkbox" name="future-posts" value="1" checked="checked" class="checkbox-switch">';
-						} else {
-						echo '<input type="checkbox" name="future-posts" value="1" class="checkbox-switch">';
-						}; ?>
-                    </div>
                 </div>
             </div>
             
