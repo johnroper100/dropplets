@@ -364,6 +364,7 @@ define('IS_SINGLE', !(IS_HOME || IS_CATEGORY));
 		$array = split('/', $array[1]);
 		if(count($array)!=1) $cache .= './.';
 		$cache .= './cache/';
+		$cache = IS_TAG ? '../cache/' : $cache;
 		$profile_image = $cache.$username.'.jpg';
 
 		// Cache the image if it doesn't already exist.
