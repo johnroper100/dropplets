@@ -341,7 +341,7 @@ else {
         $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
 
 		// Get the posts tags.
-		$temp_tags = explode('|', trim(str_replace(array("\n", '-'), '', $fcontents[6])));
+		$temp_tags = explode(',', trim(str_replace(array("\n", '-'), '', $fcontents[6])));
 		$post_tags = array();
 		foreach($temp_tags as $tag) {
 			$post_tags[] = array(

@@ -143,7 +143,7 @@ function get_all_posts($options = array()) {
                 $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
 				
 				// Get the posts tags.
-				$post_tags = explode('|', trim(str_replace(array("\n", '-'), '', $fcontents[6])));
+				$post_tags = explode(',', trim(str_replace(array("\n", '-'), '', $fcontents[6])));
 				$post_tags = array_map('trim', $post_tags);
 
 				if($options['tag'] && !in_array($options["tag"], $post_tags)) {
