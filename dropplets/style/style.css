@@ -584,11 +584,11 @@ body.dp-install form button:hover {
 	border-radius: 15px;
 	cursor: pointer;
 	display: inline-block;
-	height: 21px;
+	height: 15px;
 	padding: 1px;
 	position: relative;
 	margin: 0px;
-	width: 31px;
+	width: 23px;
 	-webkit-transition: all 0.3s ease-out;
 	-o-transition: all 0.3s ease-out;
 	transition: all 0.3s ease-out;
@@ -603,9 +603,9 @@ body.dp-install form button:hover {
 	border-radius: 15px;
 	content: '';
 	cursor: pointer;
-	height: 19px;
+	height: 14px;
 	position: absolute;
-	width: 19px;
+	width: 14px;
 	-webkit-transition: all 0.1s ease-in 0.1s;
 	-o-transition: all 0.1s ease-in 0.1s;
 	transition: all 0.1s ease-in 0.1s;
@@ -615,9 +615,5 @@ body.dp-install form button:hover {
 	box-shadow: inset 0px 0px 0px 20px #464646;
 }
 .checkbox-switch:checked:after {
-	left: 12px;
-}
-.dp-panel .dp-row.dp-editable .dp-content label.multiline-label {
-	line-height: 17px;
-	margin-top: 5px;
+	left: 9px;
 }

@@ -103,7 +103,7 @@ if (!isset($_SESSION['user'])) { ?>
 						}; ?>
 					</div>
                     <div class="dp-content">
-						<label class="multiline-label">Publish scheduled posts automatically?</label>
+						<label>Scheduled publishing?</label>
                     </div>
                 </div>
             </div>
