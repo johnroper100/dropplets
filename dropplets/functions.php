@@ -106,8 +106,12 @@ if (isset($_GET['action']))
     }
     
 }
+// not show warning or error if the element is not set
+if (!(defined('LOGIN_ERROR'))) { 
+	if (!isset($login_error)) { $login_error=''; } 
+	define('LOGIN_ERROR', $login_error);
+}
 
-define('LOGIN_ERROR', $login_error);
 
 /*-----------------------------------------------------------------------------------*/
 /* Get All Posts Function
@@ -143,9 +147,11 @@ function get_all_posts($options = array()) {
                 $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
 
                 // Early return if we only want posts from a certain category
-                if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
-                    continue;
-                }
+				if (isset($options["category"])) { // not show warning or error if the element is not set
+					if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
+						continue;
+					}
+				}
 
                 // Define the post status.
                 $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
@@ -154,9 +160,9 @@ function get_all_posts($options = array()) {
                 $post_intro = Markdown($fcontents[7]);
 
                 // Define the post content
-                $post_content = Markdown(join('', array_slice($fcontents, 6, $fcontents.length -1)));
-
-                // Pull everything together for the loop.
+				$post_content = Markdown(join('', array_slice($fcontents, 6, sizeof($fcontents) -1))); // change $fcontents.length to sizeof($fcontents)
+                
+				// Pull everything together for the loop.
                 $files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_category' => $post_category, 'post_status' => $post_status, 'post_intro' => $post_intro, 'post_content' => $post_content);
                 $post_dates[] = $post_date;
                 $post_titles[] = $post_title;
@@ -186,6 +192,7 @@ function get_posts_for_category($category) {
 }
 
 /*-----------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------*/
 /* Get Image for a Post
 /*-----------------------------------------------------------------------------------*/
 function get_post_image_url($filename)
@@ -203,8 +210,6 @@ function get_post_image_url($filename)
 
     return false;
 }
-
-/*-----------------------------------------------------------------------------------*/
 /* Post Pagination
 /*-----------------------------------------------------------------------------------*/
 
@@ -319,30 +324,6 @@ define('IS_HOME', $is_home);
 define('IS_CATEGORY', (bool)strstr($_SERVER['REQUEST_URI'], '/category/'));
 define('IS_SINGLE', !(IS_HOME || IS_CATEGORY));
 
-/*-----------------------------------------------------------------------------------*/
-/* Get Profile Image
-/*-----------------------------------------------------------------------------------*/
-
-function get_twitter_profile_img($username) {
-	
-	// Get the cached profile image.
-    $cache = IS_CATEGORY ? '.' : '';
-    $array = split('/category/', $_SERVER['REQUEST_URI']);
-    $array = split('/', $array[1]);
-    if(count($array)!=1) $cache .= './.';
-    $cache .= './cache/';
-	$profile_image = $cache.$username.'.jpg';
-
-	// Cache the image if it doesn't already exist.
-	if (!file_exists($profile_image)) {
-	    $image_url = 'http://dropplets.com/profiles/?id='.$username.'';
-	    $image = file_get_contents($image_url);
-	    file_put_contents($cache.$username.'.jpg', $image);
-	}
-	
-	// Return the image URL.
-	return $profile_image;
-}
 
 /*-----------------------------------------------------------------------------------*/
 /* Include All Plugins in Plugins Directory
@@ -350,6 +331,186 @@ function get_twitter_profile_img($username) {
 
 foreach(glob('./plugins/' . '*.php') as $plugin){
     include_once $plugin;
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* Get Profile Image
+/*-----------------------------------------------------------------------------------*/
+function get_facebook_profile_img($fImg) {
+	if (trim($fImg)=='') {
+		return '';
+	}
+	try {
+		// Set the cached profile image.
+		$facebook_image = './cache/facebook_'.$fImg.'.jpg';
+		if (!file_exists($facebook_image)) {
+			$image_url = 'https://graph.facebook.com/'.$fImg.'/picture';
+			$image = @file_get_contents($image_url);
+			if (isset($image)) {
+				// Cache the image if it doesn't already exist.
+				file_put_contents('./cache/facebook_'.$fImg.'.jpg', $image);
+			} else {
+				$facebook_image = '';
+			}
+		}
+	} catch (Exception $e) {
+		$facebook_image = '';
+	}
+	// Return the image URL.
+	return $facebook_image;
+}
+function get_gplus_profile_img($gImg) {
+	if (trim($gImg)=='') {
+		return '';
+	}
+	try {
+		// Get the cached profile image.
+		$gplus_image = './cache/gplus_'.$gImg.'.jpg';
+		if (!file_exists($gplus_image)) {		
+			$image_url = 'https://profiles.google.com/s2/photos/profile/'.$gImg.'';
+			$image = @file_get_contents($image_url);
+			if (isset($image)) {
+				// Cache the image if it doesn't already exist.
+				file_put_contents('./cache/gplus_'.$gImg.'.jpg', $image);
+			} else {
+				$gplus_image = '';
+			}			
+		}
+	} catch (Exception $e) {
+		$gplus_image = '';
+	}
+	// Return the image URL.
+	return $gplus_image;
+}
+function get_twitter_profile_img($tImg) {
+	if (trim($tImg)=='') {
+		return '';
+	}	
+	try {
+		// Get the cached profile image.
+		$twitter_image = './cache/'.$tImg.'.jpg';	
+		// Cache the image if it doesn't already exist.
+		if (!file_exists($twitter_image)) {
+			$image_url = 'http://dropplets.com/profiles/?id='.$tImg.'';
+			$image = file_get_contents($image_url);
+			if (isset($image)) {		
+				file_put_contents('./cache/'.$tImg.'.jpg', $image);
+			} else {
+				$twitter_image = '';
+			}		
+		}
+	} catch (Exception $e) {
+		$twitter_image = '';
+	}	
+	// Return the image URL.
+	return $twitter_image;
+}
+function get_twitter_profile_imgV2($tImg) { // use new Twitter API
+//As you rightly pointed out, as of June 11th 2013 you can't make unauthenticated requests, 
+//or any to the 1.0 API any more, because it has been retired. 
+//So OAuth is the way to make requests to the 1.1 API.
+//https://dev.twitter.com/apps
+//https://dev.twitter.com/docs/api/1.1/get/users/lookup
+// The link below, get read-only access
+// Give your application READ access, and hit "Update" at the bottom.
+// http://stackoverflow.com/questions/12916539/simplest-php-example-for-retrieving-user-timeline-with-twitter-api-version-1-1/15314662#15314662
+	if (trim($tImg)=='') {
+		return '';
+	}	
+	try {
+		$twitter_image = '';
+		if (!file_exists('./cache/twitter_'.$tImg.'.jpg')) {
+			if ((TWITTER_TOKEN != "") || (TWITTER_TOKEN != "") || (TWITTER_TOKEN != "") || (TWITTER_TOKEN != "")) {
+				$settings = array(
+					'oauth_access_token' => TWITTER_TOKEN,
+					'oauth_access_token_secret' => TWITTER_TSECRET,
+					'consumer_key' => TWITTER_CKEY,
+					'consumer_secret' => TWITTER_CSECRET
+				);	
+				/** URL for REST request, see: https://dev.twitter.com/docs/api/1.1/ **/
+				$api_call = 'https://api.twitter.com/1.1/users/show.json';
+				/** Perform a GET request and echo the response **/
+				/** Note: Set the GET field BEFORE calling buildOauth(); **/
+				$getfield = '?screen_name='.$tImg;
+				$requestMethod = 'GET';
+				/** Perform a POST request and echo the response **/
+				$twitter = new TwitterAPIExchange($settings);
+				$results = $twitter->setGetfield($getfield)->buildOauth($api_call,$requestMethod)->performRequest();			
+				if (isset($results)) {
+					$results = json_decode($results);
+					if (isset($results)) {
+						// Cache the image if it doesn't already exist.					
+						$image = str_replace('_normal', '100', $results->profile_image_url);
+						file_put_contents('./cache/twitter_'.$tImg.'.jpg', $image);
+						// Set the cached profile image.
+						$twitter_image =  './cache/twitter_'.$tImg.'.jpg';						
+					}
+				}
+			}
+		} else {
+			// Get the cached profile image.
+			$twitter_image =  './cache/twitter_'.$tImg.'.jpg';		
+		}
+	} catch (Exception $e) {
+		$twitter_image = '';
+	}
+	// Return the image URL.
+	return $twitter_image;
+}
+function get_profile_img($tImg,$fImg,$gImg) {
+	$imageProfile = '';
+	$tImgD = get_twitter_profile_img($tImg);
+	if ($tImgD == './cache/'.$tImg.'.jpg') {
+		$imageProfile = $tImgD;
+	} else {	
+		$tImgD = get_twitter_profile_imgV2($tImg);
+		if ($tImgD == './cache/twitter_'.$tImg.'.jpg') {
+			$imageProfile = $tImgD;
+		} else {
+			$fImgD = get_facebook_profile_img($fImg);
+			if ($fImgD == './cache/facebook_'.$fImg.'.jpg') {
+				$imageProfile = $fImgD;
+			} else {
+				$gImgD = get_gplus_profile_img($gImg);
+				if ($gImgD == './cache/gplus_'.$gImg.'.jpg') {
+					$imageProfile = $gImgD;
+				} else {			
+					$imageProfile = './cache/dropplets.jpg';
+				}			
+			}		
+		}
+	}
+	if (file_exists($imageProfile)) {
+		return $imageProfile;
+	}
+}
+
+function getLanguages() {
+	if(isset($_COOKIE['i18nLanguage'])) { 
+		$default = trim($_COOKIE['i18nLanguage']); 
+	} else {
+		$default = language_default;
+	}
+	$local = './plugins/locale/';
+	foreach(glob($local . '*.po') as $lng){
+		$lng = str_replace('.po','',str_replace($local,'',$lng));
+		if($default == $lng) { 
+			echo '<option id="' . $lng . '" value="' . $lng .'" selected>' . _t(str_replace('_','',$lng)) . '</option>'; 
+		} else {
+			echo '<option id="' . $lng . '" value="' . $lng .'">' . _t(str_replace('_','',$lng)) . '</option>';
+		}
+	}
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* String limit - defines the maximum size of the fields Twitter Card and Open Graph Tags
+/*-----------------------------------------------------------------------------------*/
+function StrLimit($sStrg,$iLmt){
+	if (strlen($sStrg)>$iLmt) {
+		return substr($sStrg,0,$iLmt);
+	} else {
+		return $sStrg;
+	}
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -364,7 +525,22 @@ function get_header() { ?>
     <!-- Dropplets Styles -->
     <link rel="stylesheet" href="<?php echo BLOG_URL; ?>dropplets/style/style.css">
     <link rel="shortcut icon" href="<?php echo BLOG_URL; ?>dropplets/style/images/favicon.png">
-
+    
+	<!-- jQuery & Required Scripts -->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<!-- jQuery I8N Language Switcher -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#i18nLanguageOptions").on("change", function() {
+				$.cookies.set('i18nLanguage', $("#i18nLanguageOptions option:selected").val());
+				location.reload();
+			});					
+		});
+		function OpenWind(w, h, qUrl) {
+			window.open(qUrl, 'Window', 'width=' + w + ',height=' + h + ',location=yes,personalbar=no,menubar=no,resizable=yes,status=no,scrollbars=no,toolbar=no');
+			return false;
+		}
+	</script>
     <!-- User Header Injection -->
     <?php echo HEADER_INJECT; ?>
     
@@ -377,10 +553,9 @@ function get_header() { ?>
 /*-----------------------------------------------------------------------------------*/
 /* Dropplets Footer
 /*-----------------------------------------------------------------------------------*/
-
+// jquery moved to header
 function get_footer() { ?>
-    <!-- jQuery & Required Scripts -->
-    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
     
     <?php if (!IS_SINGLE && PAGINATION_ON_OFF !== "off") { ?>
     <!-- Post Pagination -->
@@ -404,16 +579,16 @@ function get_footer() { ?>
                             return $(this).is('article');
                         });
                         if (articles.length < 2) {  //There's always one default article, so we should check if  < 2
-                            $('.loading-frame').html('You\'ve reached the end of this list.');
+							$('.loading-frame').html(_t("You've reached the end of this list."));
                             no_more_posts = true;
                         }  else {
-                            $('.loading-frame').remove();
-                            $('body').append(articles);
+							$('.loading-frame').remove();
+                            $('body').append(articles.slice(1));
                         }
                         loading = false;
                     },
                     error: function() {
-                        $('.loading-frame').html('An error occurred while loading posts.');
+                        $('.loading-frame').html(_t("An error occurred while loading posts."));
                         //keep loading equal to false to avoid multiple loads. An error will require a manual refresh
                     }
                 });

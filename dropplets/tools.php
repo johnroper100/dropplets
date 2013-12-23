@@ -3,7 +3,8 @@
 /*-----------------------------------------------------------------------------------*/
 /* If Logged Out, Get the Login Form
 /*-----------------------------------------------------------------------------------*/
-
+// //not show warning or error if the element is not set
+if (!(defined('LOGIN_ERROR'))) { define('LOGIN_ERROR', ''); }
 $login_error = LOGIN_ERROR;
 
 if (!isset($_SESSION['user'])) { ?>
@@ -11,12 +12,12 @@ if (!isset($_SESSION['user'])) { ?>
 <div class="dp-panel-wrapper <?php if($_COOKIE['dp-panel']) { echo($_COOKIE['dp-panel']); } ?>" id="dp-dropplets">
     <div class="dp-panel">
         <div class="dp-row profile">
-            <div class="dp-icon">
-                <img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
+            <div class="dp-thumbnail">
+                <img src="<?php echo get_profile_img(BLOG_TWITTER,BLOG_FACEBOOK,BLOG_GOOGLEP); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
             </div>
             
             <div class="dp-content">
-                <span class="title">Hey There!</span>
+                <span class="title"><?php _e('Hey There!'); ?></span>
                 <a class="dp-button dp-button-dark dp-close dp-icon-close" href="#dp-dropplets"></a>
             </div>
         </div>
@@ -26,7 +27,7 @@ if (!isset($_SESSION['user'])) { ?>
             
             <div class="dp-content">
                 <form method="POST" action="?action=login">
-                    <label>Enter Your Password</label>
+                    <label><?php _e('Enter Your Password'); ?></label>
                     <input type="password" name="password" id="password">
                     <button class="dp-icon-checkmark" type="submit" name="submit" value="submit"></button>
                 </form>
@@ -36,14 +37,23 @@ if (!isset($_SESSION['user'])) { ?>
         <?php if (isset($login_error)) { ?>
         <div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-question"></div>
-            <div class="dp-content">Forget Your password?</div>
+            <div class="dp-content"><?php _e('Forget Your password?'); ?></div>
             <a class="dp-link" href="?action=forgot" target="_blank"></a>
         </div>    
         <?php }; ?>
+
+	    <div class="dp-row">
+			<div class="dp-icon dp-icon-settings"></div>
+			<div class="dp-content">
+					<select id="i18nLanguageOptions" class="i18nSelect">
+						<?php getLanguages(); ?>
+					</select>
+			</div>
+        </div>	
         
         <div class="dp-row">
             <div class="dp-icon dp-icon-dropplets"></div>
-            <div class="dp-content">What is This?</div>
+            <div class="dp-content"><?php _e('What is This?'); ?></div>
             <a class="dp-link" href="http://dropplets.com" target="_blank"></a>
         </div>
     </div>
@@ -61,18 +71,18 @@ if (!isset($_SESSION['user'])) { ?>
     <div class="dp-panel">
         <div class="dp-row profile">
             <div class="dp-icon">
-                <img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
+                <img src="<?php echo get_profile_img(BLOG_TWITTER,BLOG_FACEBOOK,BLOG_GOOGLEP); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
             </div>
             
             <div class="dp-content">
-                <span class="title">Welcome Back!</span>
+                <span class="title"><?php _e('Welcome Back!'); ?></span>
                 <a class="dp-button dp-button-dark dp-close  dp-icon-close" href="#dp-dropplets"></a>
             </div>
         </div>
         
         <div class="dp-row">
             <div class="dp-icon dp-icon-dropplets"></div>
-            <div class="dp-content">Publish or Update Posts</div>
+            <div class="dp-content"><?php _e('Publish or Update Posts'); ?></div>
             <label class="dp-link" for="postfiles"></label>
             <input style="display: none;" type="file" name="postfiles" id="postfiles" class="postfiles" multiple="multiple" />
         </div>
@@ -80,7 +90,7 @@ if (!isset($_SESSION['user'])) { ?>
         <form method="POST" action="./dropplets/save.php">
             <div class="dp-row">
                 <div class="dp-icon dp-icon-settings"></div>
-                <div class="dp-content">Blog Settings</div>                
+                <div class="dp-content"><?php _e('Blog Settings'); ?></div>                
                 <a class="dp-link dp-toggle collapsed" href="#dp-settings"></a>
                 <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
@@ -90,7 +100,7 @@ if (!isset($_SESSION['user'])) { ?>
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
-                        <label>Blog Password</label>
+                        <label><?php _e('Blog Password'); ?></label>
                         <input type="password" name="password" id="password" value="">
                     </div>
                 </div>
@@ -98,7 +108,7 @@ if (!isset($_SESSION['user'])) { ?>
             
             <div class="dp-row">
                 <div class="dp-icon dp-icon-profile dp-icon-large"></div>
-                <div class="dp-content">Blog Profile</div>                
+                <div class="dp-content"><?php _e('Blog Profile'); ?></div>                
                 <a class="dp-link dp-toggle" href="#dp-profile"></a>
                 <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
@@ -108,7 +118,7 @@ if (!isset($_SESSION['user'])) { ?>
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
-                        <label>Blog Email</label>
+                        <label><?php _e('Blog Email'); ?></label>
                         <input type="text" name="blog_email" id="blog_email" value="<?php echo BLOG_EMAIL; ?>">
                     </div>
                 </div>
@@ -117,15 +127,76 @@ if (!isset($_SESSION['user'])) { ?>
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
-                        <label>Blog Twitter</label>
+                        <label><?php _e('Blog Twitter'); ?></label>
                         <input type="text" name="blog_twitter" id="blog_twitter" value="<?php echo BLOG_TWITTER; ?>">
                     </div>
                 </div>
+			
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label><?php _e('Blog Facebook'); ?></label>
+                        <input type="text" name="blog_facebook" id="blog_facebook" value="<?php echo BLOG_FACEBOOK; ?>">
+                    </div>
+                </div>	
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label><?php _e('Blog Google+'); ?></label>
+                        <input type="text" name="blog_googlep" id="blog_googlep" value="<?php echo BLOG_GOOGLEP; ?>">
+                    </div>
+                </div>					
             </div>
             
             <div class="dp-row">
+                <div class="dp-icon dp-twitterMenu dp-icon-large"></div>
+                <div class="dp-content">Twitter API</div>                
+                <a class="dp-link dp-toggle" href="#dp-twitterAPI"></a>
+                <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
+            </div>			
+			
+			<div class="dp-sub-panel" id="dp-twitterAPI">
+			    <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Twitter Consumer Key</label>
+                        <input type="text" name="consumerkey" id="consumerkey" value="<?php echo TWITTER_CKEY; ?>">
+                    </div>
+                </div>
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Twitter Consumer Secret</label>
+                        <input type="text" name="consumersecret" id="consumersecret" value="<?php echo TWITTER_CSECRET; ?>">
+                    </div>
+                </div>						
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Twitter Access Token</label>
+                        <input type="text" name="accesstoken" id="accesstoken" value="<?php echo TWITTER_TOKEN; ?>">
+                    </div>
+                </div>
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label>Twitter Access Token Secret</label>
+                        <input type="text" name="accesstokensecret" id="accesstokensecret" value="<?php echo TWITTER_TSECRET; ?>">
+                    </div>
+                </div>
+			</div>
+			
+			
+			
+            <div class="dp-row">
                 <div class="dp-icon dp-icon-text"></div>
-                <div class="dp-content">Blog Meta</div>                
+                <div class="dp-content"><?php _e('Blog Meta'); ?></div>                
                 <a class="dp-link dp-toggle" href="#dp-meta-text"></a>
                 <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
@@ -135,7 +206,7 @@ if (!isset($_SESSION['user'])) { ?>
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
-                        <label>Blog Title</label>
+                        <label><?php _e('Blog Title'); ?></label>
                         <input type="text" name="blog_title" id="blog_title" value="<?php echo BLOG_TITLE; ?>">
                     </div>
                 </div>
@@ -144,7 +215,7 @@ if (!isset($_SESSION['user'])) { ?>
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
-                        <label>Blog Description</label>
+                        <label><?php _e('Blog Description'); ?></label>
                         <textarea name="meta_description" id="meta_description" rows="6" placeholder="Add your site description here... just a short sentence that describes what your blog is going to be about."><?php echo META_DESCRIPTION; ?></textarea>
                     </div>
                 </div>
@@ -152,7 +223,7 @@ if (!isset($_SESSION['user'])) { ?>
             
             <div class="dp-row">
                 <div class="dp-icon dp-icon-text"></div>
-                <div class="dp-content">Intro Text</div>                
+                <div class="dp-content"><?php _e('Intro Text'); ?></div>                
                 <a class="dp-link dp-toggle" href="#dp-intro-text"></a>
                 <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
@@ -162,7 +233,7 @@ if (!isset($_SESSION['user'])) { ?>
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
-                        <label>Intro Title</label>
+                        <label><?php _e('Intro Title'); ?></label>
                         <input type="text" name="intro_title" id="intro_title" value="<?php echo INTRO_TITLE; ?>">
                     </div>
                 </div>
@@ -171,7 +242,7 @@ if (!isset($_SESSION['user'])) { ?>
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
-                        <label>Intro Text</label>
+                        <label><?php _e('Intro Text'); ?></label>
                         <textarea name="intro_text" id="intro_text" rows="12"><?php echo INTRO_TEXT; ?></textarea>
                     </div>
                 </div>
@@ -179,7 +250,7 @@ if (!isset($_SESSION['user'])) { ?>
             
             <div class="dp-row">
                 <div class="dp-icon dp-icon-code"></div>
-                <div class="dp-content">Code Injection</div>                
+                <div class="dp-content"><?php _e('Code Injection'); ?></div>                
                 <a class="dp-link dp-toggle" href="#dp-injection"></a>
                 <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
@@ -189,7 +260,7 @@ if (!isset($_SESSION['user'])) { ?>
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
-                        <label>Header Injection</label>
+                        <label><?php _e('Header Injection'); ?></label>
                         <textarea class="dp-code" name="header_inject" id="header_inject" rows="12"><?php echo HEADER_INJECT; ?></textarea>
                     </div>
                 </div>
@@ -198,7 +269,7 @@ if (!isset($_SESSION['user'])) { ?>
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
-                        <label>Footer Injection</label>
+                        <label><?php _e('Footer Injection'); ?></label>
                         <textarea class="dp-code" name="footer_inject" id="footer_inject" rows="12"><?php echo FOOTER_INJECT; ?></textarea>
                     </div>
                 </div>
@@ -207,7 +278,7 @@ if (!isset($_SESSION['user'])) { ?>
         
         <div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-grid"></div>
-            <div class="dp-content">Installed Templates</div>        
+            <div class="dp-content"><?php _e('Installed Templates'); ?></div>        
             <a class="dp-link dp-toggle" href="#dp-templates"></a>
         </div>
         
@@ -219,7 +290,7 @@ if (!isset($_SESSION['user'])) { ?>
         
         <div class="dp-row">
             <div class="dp-icon dp-icon-templates"></div>
-            <div class="dp-content">Featured Templates</div>
+            <div class="dp-content"><?php _e('Featured Templates'); ?></div>
             <a class="dp-link dp-toggle" href="#dp-featured"></a>
             <span class="dp-number dp-number-dark"><?php count_premium_templates('featured'); ?></span>
         </div>
@@ -232,7 +303,7 @@ if (!isset($_SESSION['user'])) { ?>
         
         <div class="dp-row">
             <div class="dp-icon dp-icon-templates"></div>
-            <div class="dp-content">Popular Templates</div>
+            <div class="dp-content"><?php _e('Popular Templates'); ?></div>
             <a class="dp-link dp-toggle" href="#dp-popular"></a>        
             <span class="dp-number dp-number-dark"><?php count_premium_templates('popular'); ?></span>
         </div>
@@ -245,7 +316,7 @@ if (!isset($_SESSION['user'])) { ?>
         
         <div class="dp-row">
             <div class="dp-icon dp-icon-templates"></div>
-            <div class="dp-content">All Templates</div>
+            <div class="dp-content"><?php _e('All Templates'); ?></div>
             <a class="dp-link dp-toggle" href="#dp-all"></a>
             <span class="dp-number dp-number-dark"><?php count_premium_templates('all'); ?></span>
         </div>
@@ -258,13 +329,13 @@ if (!isset($_SESSION['user'])) { ?>
         
         <div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-question"></div>
-            <div class="dp-content">Need Some Help?</div>
+            <div class="dp-content"><?php _e('Need Some Help?'); ?></div>
             <a class="dp-link" href="mailto:help@dropplets.com"></a>
         </div>
         
         <div class="dp-row">
             <div class="dp-icon dp-icon-key"></div>
-            <div class="dp-content">Log Out</div>
+            <div class="dp-content"><?php _e('Log Out'); ?></div>
             <a class="dp-link" href="?action=logout" title="Logout"></a>
         </div>
     </div>
@@ -280,7 +351,7 @@ if (!isset($_SESSION['user'])) { ?>
 
 ?>
 
-<a class="dp-open dp-icon-dropplets" id="dp-dropplets-icon" href="#dp-dropplets"></a>
+<a class="dp-open dp-icon-dropplets dp-icon-dropplets-mnu" id="dp-dropplets-icon" href="#dp-dropplets"></a>
 
 <script type="text/javascript" src="<?php echo(BLOG_URL); ?>dropplets/includes/js/cookies.js"></script>
 <script type="text/javascript">

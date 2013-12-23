@@ -18,6 +18,25 @@ Markdown is a text formatting syntax inspired on plain text email. It is extreme
 - [Updating Dropplets](#updating-dropplets)
 - [License](#license)
 
+## What is new?
+- Templates and Interface enables language selection
+- Language Pack can be created from a PO file.
+- Available llanguages: en_US and pt_BR
+- Languages already preconfigured: da_DK, fr_FR, de_DE, el_GR, he_IL, it_IT, ja_JP, ko_KR, ru_RU, nl_NL, zh_CN, zh_TW
+- Sharing with Facebook and Google+
+- Picture of the post is selected based on social networks, following the order: Twitter, Facebook and Google+
+- Data encrypted in the configuration file
+- Protected Directories
+- Implemented Twetter API v1.1 for future resources
+
+## How to Translate:
+- Copy the en_US.po file to one of the names below::
+> da_DK, fr_FR, de_DE, el_GR, he_IL, it_IT, ja_JP, ko_KR, ru_RU, nl_NL, zh_CN, zh_TW
+- Use an editor like Poedit language
+- Open the file chosen for translation.
+- Write the corresponding translation
+- Share on GitHub.
+
 ## Installation
 Dropplets is compatible with most server configurations and can be typically installed in under a minute using the few step-by-step instructions below:
 

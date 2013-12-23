@@ -21,23 +21,22 @@ include('./dropplets/functions.php');
 
 $category = NULL;
 if (empty($_GET['filename'])) {
-    $filename = NULL;
+	$filename = NULL;
 } else if($_GET['filename'] == 'rss' || $_GET['filename'] == 'atom') {
-    $filename = $_GET['filename'];
+	$filename = $_GET['filename'];
 }  else {
-    
-    //Filename can be /some/blog/post-filename.md We should get the last part only
-    $filename = explode('/',$_GET['filename']);
+	
+	//Filename can be /some/blog/post-filename.md We should get the last part only
+	$filename = explode('/',$_GET['filename']);
 
-    // File name could be the name of a category
-    if($filename[count($filename) - 2] == "category") {
-        $category = $filename[count($filename) - 1];
-        $filename = null;
-    } else {
-      
-        // Individual Post
-        $filename = POSTS_DIR . $filename[count($filename) - 1] . FILE_EXT;
-    }
+	// File name could be the name of a category
+	if( ((count($filename)>=2)?$filename[count($filename) - 2]:"") == "category") { // test offset before if
+		$category = $filename[count($filename) - 1];
+		$filename = null;
+	} else {
+		// Individual Post
+		$filename = POSTS_DIR . $filename[count($filename) - 1] . FILE_EXT;
+	}
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -75,7 +74,12 @@ if ($filename==NULL) {
 
     if($posts) {
         ob_start();
-        $content = '';
+		
+		// i18n – Internationalization
+		//require_once('./plugins/i18n-dropplets.php');
+
+		
+		$content = '';
         foreach($posts as $post) {
 
             // Get the post title.
@@ -91,7 +95,7 @@ if ($filename==NULL) {
             $published_iso_date = $post['post_date'];
 
             // Generate the published date.
-            $published_date = strftime($date_format, strtotime($published_iso_date));
+            $published_date = localDate($published_iso_date); //mod for i18n - original: date_format(date_create($published_iso_date), $date_format);
 
             // Get the post category.
             $post_category = $post['post_category'];
@@ -116,8 +120,14 @@ if ($filename==NULL) {
             }
 
             // Get the post image url.
-            $post_image = get_post_image_url( $post['fname'] ) ?: get_twitter_profile_img($post_author_twitter);
+            $image = str_replace(array(FILE_EXT), '', POSTS_DIR.$post['fname']).'.jpg';
 
+            if (file_exists($image)) {
+                $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', POSTS_DIR.$post['fname']).'.jpg';
+            } else {
+                $post_image = get_profile_img(BLOG_TWITTER,BLOG_FACEBOOK,BLOG_GOOGLEP);
+            }
+            
             if ($post_status == 'draft') continue;
 
             // Get the milti-post template file.
@@ -138,18 +148,18 @@ if ($filename==NULL) {
         // Get the Twitter card.
         $get_page_meta[] = '<meta name="twitter:card" content="summary">';
         $get_page_meta[] = '<meta name="twitter:site" content="' . $blog_twitter . '">';
-        $get_page_meta[] = '<meta name="twitter:title" content="' . $blog_title . '">';
-        $get_page_meta[] = '<meta name="twitter:description" content="' . $meta_description . '">';
+        $get_page_meta[] = '<meta name="twitter:title" content="' . StrLimit($blog_title,70) . '">';
+        $get_page_meta[] = '<meta name="twitter:description" content="' . StrLimit($meta_description,200) . '">';
         $get_page_meta[] = '<meta name="twitter:creator" content="' . $blog_twitter . '">';
         $get_page_meta[] = '<meta name="twitter:image:src" content="' . $blog_image . '">';
         $get_page_meta[] = '<meta name="twitter:domain" content="' . $blog_url . '">';
 
         // Get the Open Graph tags.
         $get_page_meta[] = '<meta property="og:type" content="website">';
-        $get_page_meta[] = '<meta property="og:title" content="' . $blog_title . '">';
+        $get_page_meta[] = '<meta property="og:title" content="' . StrLimit($blog_title,95) . '">';
         $get_page_meta[] = '<meta property="og:site_name" content="' . $blog_title . '">';
         $get_page_meta[] = '<meta property="og:url" content="' .$blog_url . '">';
-        $get_page_meta[] = '<meta property="og:description" content="' . $meta_description . '">';
+        $get_page_meta[] = '<meta property="og:description" content="' . StrLimit($meta_description,297) . '">';
         $get_page_meta[] = '<meta property="og:image" content="' . $blog_image . '">';
 
         // Get all page meta.
@@ -160,7 +170,7 @@ if ($filename==NULL) {
         ob_start();
 
         // Define the site title.
-        $page_title = $error_title;
+        $page_title = _t("Sorry, But That’s Not Here");
         $page_meta = '';
 
         // Get the 404 page template.
@@ -246,26 +256,30 @@ else if ($filename == 'rss' || $filename == 'atom') {
 else {
     ob_start();
 
-    // Define the post file.
-    $fcontents = file($filename);
-    $slug_array = explode("/", $filename);
-    $slug_len = count($slug_array);
+    // warning correction - if the file doesn't exist will not show error
+    if (file_exists($filename)) { 
+    	// Define the post file.
+	    $fcontents = file($filename);
+	    $slug_array = explode("/", $filename);
+	    $slug_len = count($slug_array);
 
-    // This was hardcoded array index, it should always return the last index.
-    $slug = str_replace(array(FILE_EXT), '', $slug_array[$slug_len - 1]);
+	    // This was hardcoded array index, it should always return the last index.
+	    $slug = str_replace(array(FILE_EXT), '', $slug_array[$slug_len - 1]);
 
-    // Define the cached file.
-    $cachefile = CACHE_DIR.$slug.'.html';
-
+	    // Define the cached file.
+	    $cachefile = CACHE_DIR.$slug.'.html';
+	}
     // If there's no file for the selected permalink, grab the 404 page template.
     if (!file_exists($filename)) {
 
         //Change the cache file to 404 page.
         $cachefile = CACHE_DIR.'404.html';
-
-        // Define the site title.
+        //variables preserved for backwards compatibility.
+		$error_title = _t("Sorry, But That's Not Here");
+		$error_text  = _t("Really sorry, but what you're looking for isn't here.") . " " . _t("Click the button below to find something else that might interest you.");
+		// Define the site title.
         $page_title = $error_title;
-
+		
         // Get the 404 page template.
         include $not_found_file;
 
@@ -320,7 +334,7 @@ else {
         $published_iso_date = str_replace('-', '', $fcontents[3]);
 
         // Generate the published date.
-        $published_date = strftime($date_format, strtotime($published_iso_date));
+        $published_date = localDate($published_iso_date); //mod for i18n - original: date_format(date_create($published_iso_date), $date_format);
 
         // Get the post category.
         $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
@@ -335,17 +349,31 @@ else {
         $post_link = $blog_url.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
 
         // Get the post image url.
-        $post_image = get_post_image_url($filename) ?: get_twitter_profile_img($post_author_twitter);
+        $image = str_replace(array(FILE_EXT), '', $filename).'.jpg';
 
+        if (file_exists($image)) {
+            $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', $filename).'.jpg';
+        } else {
+            $post_image = get_profile_img(BLOG_TWITTER,BLOG_FACEBOOK,BLOG_GOOGLEP);
+        }
+        
         // Get the post content
-        $file_array = array_slice( file($filename), 7);
+        $file_array = file($filename);
+        
+        unset($file_array[0]);
+        unset($file_array[1]);
+        unset($file_array[2]);
+        unset($file_array[3]);
+        unset($file_array[4]);
+        unset($file_array[5]);
+        unset($file_array[6]);
+        
         $post_content = Markdown(trim(implode("", $file_array)));
-
         // free memory
         unset($file_array);
                 
         // Get the site title.
-        $page_title = trim(str_replace('# ', '', $fcontents[0]));
+        $page_title = str_replace('# ', '', $fcontents[0]);
 
         // Generate the page description and author meta.
         $get_page_meta[] = '<meta name="description" content="' . $post_intro . '">';
@@ -354,22 +382,22 @@ else {
         // Generate the Twitter card.
         $get_page_meta[] = '<meta name="twitter:card" content="summary">';
         $get_page_meta[] = '<meta name="twitter:site" content="' . $blog_twitter . '">';
-        $get_page_meta[] = '<meta name="twitter:title" content="' . $page_title . '">';
-        $get_page_meta[] = '<meta name="twitter:description" content="' . $post_intro  . '">';
+        $get_page_meta[] = '<meta name="twitter:title" content="' . StrLimit($page_title,70) . '">';
+        $get_page_meta[] = '<meta name="twitter:description" content="' . StrLimit($post_intro,200)  . '">';
         $get_page_meta[] = '<meta name="twitter:creator" content="' . $post_author_twitter . '">';
         $get_page_meta[] = '<meta name="twitter:image:src" content="' . $post_image . '">';
         $get_page_meta[] = '<meta name="twitter:domain" content="' . $post_link . '">';
 
         // Get the Open Graph tags.
         $get_page_meta[] = '<meta property="og:type" content="article">';
-        $get_page_meta[] = '<meta property="og:title" content="' . $page_title . '">';
+        $get_page_meta[] = '<meta property="og:title" content="' . StrLimit($page_title,95) . '">';
         $get_page_meta[] = '<meta property="og:site_name" content="' . $page_title . '">';
         $get_page_meta[] = '<meta property="og:url" content="' . $post_link . '">';
-        $get_page_meta[] = '<meta property="og:description" content="' . $post_intro . '">';
+        $get_page_meta[] = '<meta property="og:description" content="' . StrLimit($post_intro,297) . '">';
         $get_page_meta[] = '<meta property="og:image" content="' . $post_image . '">';
 
         // Generate all page meta.
-        $page_meta = implode("\n\t", $get_page_meta);
+        $page_meta = implode("\n", $get_page_meta);
 
         // Generate the post.
         $post = Markdown(join('', $fcontents));
@@ -407,19 +435,18 @@ else {
 
     // Check if running on alternate port.
     if ($protocol === "https://") {
-        if ($port == 443)
+        if ($port === 443)
             $url = $protocol . $domain;
         else
             $url = $protocol . $domain . ":" . $port;
     } elseif ($protocol === "http://") {
-        if ($port == 80)
+        if ($port === 80)
             $url = $protocol . $domain;
         else
             $url = $protocol . $domain . ":" . $port;
     }
 
     $url .= $path;
-    
     // Check if the install directory is writable.
     $is_writable = (TRUE == is_writable(dirname(__FILE__) . '/'));
     ?>
@@ -441,14 +468,13 @@ else {
                 
                 <h2>Install Dropplets</h2>
                 <p>Welcome to an easier way to blog.</p>
-                
                 <input type="password" name="password" id="password" required placeholder="Choose Your Password">
                 <input type="password" name="password-confirmation" id="password-confirmation" required placeholder="Confirm Your Password" onblur="confirmPass()">
 
                 <input hidden type="text" name="blog_email" id="blog_email" value="hi@dropplets.com">
                 <input hidden type="text" name="blog_twitter" id="blog_twitter" value="dropplets">
                 <input hidden type="text" name="blog_url" id="blog_url" value="<?php echo($url) ?><?php if ($url == $domain) { ?>/<?php } ?>">
-                <input hidden type="text" name="template" id="template" value="simple">
+                <input hidden type="text" name="template" id="template" value="simpleI8N">
                 <input hidden type="text" name="blog_title" id="blog_title" value="Welcome to Dropplets">
                 <textarea hidden name="meta_description" id="meta_description"></textarea>
                 <input hidden type="text" name="intro_title" id="intro_title" value="Welcome to Dropplets">
@@ -460,17 +486,16 @@ else {
             <?php if (!$is_writable) { ?>
                 <p style="color:red;">It seems that your config folder is not writable, please add the necessary permissions.</p>
             <?php } ?>
-
-            <script>
+            <script type="text/javascript">
             	function confirmPass() {
             		var pass = document.getElementById("password").value
             		var confPass = document.getElementById("password-confirmation").value
             		if(pass != confPass) {
             			alert('Your passwords do not match!');
             		}
-            	}
-            </script>
-        </body>
+            	}		
+			</script>
+		</body>
     </html>
 <?php 
 
