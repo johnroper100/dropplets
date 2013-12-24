@@ -51,7 +51,7 @@ Isto irá garantir a integridade da tradução e do sistema que desenvolvi para 
 	Functions:
 	
 	_e('Key to search'); => Return: echo 'Translation'; 
-	_s('Key to search'); => Return: 'Translation'; 
+	_t('Key to search'); => Return: 'Translation'; 
 
 	WARNING:
 	This plugin has a limitation:
