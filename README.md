@@ -21,7 +21,7 @@ Markdown is a text formatting syntax inspired on plain text email. It is extreme
 ## What is new?
 - Templates and Interface enables language selection
 - Language Pack can be created from a PO file.
-- Available llanguages: en_US and pt_BR
+- Available languages: en_US and pt_BR
 - Languages already preconfigured: da_DK, fr_FR, de_DE, el_GR, he_IL, it_IT, ja_JP, ko_KR, ru_RU, nl_NL, zh_CN, zh_TW
 - Sharing with Facebook and Google+
 - Picture of the post is selected based on social networks, following the order: Twitter, Facebook and Google+
