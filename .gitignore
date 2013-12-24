@@ -14,17 +14,6 @@ templates/*
 !templates/simple/
 !templates/simpleI8N/
 
-plugins/*
-!plugins/index.php
-!plugins/TwitterAPIExchange
-!plugins/i18n-dropplets
-
-plugins/locale/*
-!plugins/locale/index.php
-!plugins/locale/.htaccess
-!plugins/locale/en_US.po
-!plugins/locale/pt_BR.po
-
 posts/*
 !posts/index.php
 

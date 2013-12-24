@@ -1,0 +1,184 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Dropplets\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: MBarbosaEng <mbarbosaeng@engbit.com.br>\n"
+"Language-Team: MBarbosaEng <mbarbosaeng@engbit.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#, c-format
+msgid "(beta version expires %s)"
+msgstr "(beta version expires %s)"
+
+msgid " (modified)"
+msgstr " (modified)"
+
+msgid "Written by"
+msgstr "Written by"
+
+msgid "About"
+msgstr "About"
+
+msgid "Continue Reading"
+msgstr "Continue Reading"
+
+msgid "Comment on"
+msgstr "Comment on"
+
+msgid "Share on"
+msgstr "Share on"
+
+msgid "More Articles"
+msgstr "More Articles"
+
+msgid "Welcome Back!"
+msgstr "Welcome Back!"
+
+msgid "Publish or Update Posts"
+msgstr "Publish or Update Posts"
+
+msgid "Blog Settings"
+msgstr "Blog Settings"
+
+msgid "Blog Profile"
+msgstr "Blog Profile"
+
+msgid "Blog Meta"
+msgstr "Blog Meta"
+
+msgid "Intro Text"
+msgstr "Intro Text"
+
+msgid "Code Injection"
+msgstr "Code Injection"
+
+msgid "Installed Templates"
+msgstr "Installed Templates"
+
+msgid "Featured Templates"
+msgstr "Featured Templates"
+
+msgid "Popular Templates"
+msgstr "Popular Templates"
+
+msgid "All Templates"
+msgstr "All Templates"
+
+msgid "Need Some Help?"
+msgstr "Need Some Help?"
+
+msgid "Log Out"
+msgstr "Log Out"
+
+msgid "Blog Password"
+msgstr "Blog Password"
+
+msgid "Blog Email"
+msgstr "Blog Email"
+
+msgid "Blog Twitter"
+msgstr "Blog Twitter"
+
+msgid "Blog Facebook"
+msgstr "Blog Facebook"
+
+msgid "Blog Google+"
+msgstr "Blog Google+"
+
+msgid "Blog Title"
+msgstr "Blog Title"
+
+msgid "Blog Description"
+msgstr "Blog Description"
+
+msgid "Intro Title"
+msgstr "Intro Title"
+
+msgid "Header Injection"
+msgstr "Header Injection"
+
+msgid "Footer Injection"
+msgstr "Footer Injection"
+
+msgid "Enter Your Password"
+msgstr "Enter Your Password"
+
+msgid "Forget Your Password?"
+msgstr "Forget Your Password?"
+
+msgid "What is This?"
+msgstr "What is This?"
+
+msgid "Hey There!"
+msgstr "Hey There!"
+
+msgid "Sorry, But That's Not Here"
+msgstr "Sorry, But That's Not Here"
+
+msgid "Really sorry, but what you're looking for isn't here."
+msgstr "Really sorry, but what you're looking for isn't here."
+
+msgid "Click the button below to find something else that might interest you."
+msgstr "Click the button below to find something else that might interest you."
+
+msgid "You've reached the end of this list."
+msgstr "You've reached the end of this list."
+
+msgid "An error occurred while loading posts."
+msgstr "An error occurred while loading posts."
+
+# Don't translate this field - Use in your language
+#. Don't translate this field - Use in your language
+msgid "enUS"
+msgstr "English - US"
+
+# Don't translate this field - Use in your language
+#. Don't translate this field - Use in your language
+msgid "ptBR"
+msgstr "Português - Brasil"
+
+# Don't translate this field - Use in your language - Spanish
+#. Don't translate this field - Use in your language - Spanish
+msgid "euES"
+msgstr "Español"
+
+# Don't translate this field - Use in your language - Danish
+#. Don't translate this field - Use in your language - Danish
+msgid "daDK"
+msgstr "Dansk"
+
+# Don't translate this field - Use in your language - French
+#. Don't translate this field - Use in your language - French
+msgid "frFR"
+msgstr "Français"
+
+# Don't translate this field - Use in your language - German
+#. Don't translate this field - Use in your language - German
+msgid "deDE"
+msgstr "Deutsch"
+
+# Don't translate this field - Use in your language - Greek
+#. Don't translate this field - Use in your language - Greek
+msgid "elGR"
+msgstr "Ελληνικά"
+
+# Don't translate this field - Use in your language - Italian
+#. Don't translate this field - Use in your language - Italian
+msgid "itIT"
+msgstr "Italiano"
+
+# Don't translate this field - Use in your language - Russian
+#. Don't translate this field - Use in your language - Russian
+msgid "ruRU"
+msgstr "Pусском"
+
+# Don't translate this field - Use in your language - Dutch
+#. Don't translate this field - Use in your language - Dutch
+msgid "nlNL"
+msgstr "Nederlands"
