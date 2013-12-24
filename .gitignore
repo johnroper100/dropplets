@@ -12,6 +12,7 @@ posts/*.jpg
 
 templates/*
 !templates/simple/
+!templates/simpleI8N/
 
 plugins/*
 !plugins/index.php
