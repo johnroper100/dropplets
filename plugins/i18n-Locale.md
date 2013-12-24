@@ -4,7 +4,7 @@ Internationalization
 The internationalization of systems on Windows using Apache / PHP with UTF-8, setlocale and gettext has documented problems. 
 I tested several solutions and alternatives to operate simply and none had a productive outcome. 
 
-If you want to use another approach to the problem, you have some links in the internal review of the plugin file that might help.
+If you want to use another approach to the problem, you have some links below that might help.
 
 This solution did not use the files .mo but files .po.
 
@@ -51,8 +51,11 @@ DON'T PASS 79 COLUMN LIMIT
 	|																			   |	
 
 ## How to Translate:
-- Copy the en_US.po file (from locale directory) to one of the names below::
+- Copy the en_US.po file (from locale directory) to one of the names below:
+
 > 	da_DK, fr_FR, de_DE, el_GR, he_IL, it_IT, ja_JP, ko_KR, ru_RU, nl_NL, zh_CN, zh_TW
+
+ 	 	
 - Use an editor like Poedit language
 - Open the file chosen for translation.
 - Write the corresponding translation

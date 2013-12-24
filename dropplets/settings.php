@@ -4,7 +4,7 @@
 /* Debug Mode
 /*-----------------------------------------------------------------------------------*/
 
-$display_errors = true;
+$display_errors = false;
 
 // Display errors if there are any.
 ini_set('display_errors', $display_errors);

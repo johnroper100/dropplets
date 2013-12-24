@@ -23,7 +23,9 @@ Markdown is a text formatting syntax inspired on plain text email. It is extreme
 - Language Pack can be created from a PO file.
 - Available languages: en_US and pt_BR
 - Languages already preconfigured:
+
 > 	da_DK, fr_FR, de_DE, el_GR, he_IL, it_IT, ja_JP, ko_KR, ru_RU, nl_NL, zh_CN, zh_TW
+
 - Sharing with Facebook and Google+
 - Picture of the post is selected based on social networks, following the order: Twitter, Facebook and Google+
 - Data encrypted in the configuration file
@@ -31,8 +33,10 @@ Markdown is a text formatting syntax inspired on plain text email. It is extreme
 - Implemented Twetter API v1.1 for future resources
 
 ## How to Translate:
-- Copy the en_US.po file to one of the names below::
-> da_DK, fr_FR, de_DE, el_GR, he_IL, it_IT, ja_JP, ko_KR, ru_RU, nl_NL, zh_CN, zh_TW
+- Copy the en_US.po file to one of the names below:
+
+> 	da_DK, fr_FR, de_DE, el_GR, he_IL, it_IT, ja_JP, ko_KR, ru_RU, nl_NL, zh_CN, zh_TW
+
 - Use an editor like Poedit language
 - Open the file chosen for translation.
 - Write the corresponding translation
