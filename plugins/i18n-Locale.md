@@ -4,7 +4,7 @@ Internationalization
 The internationalization of systems on Windows using Apache / PHP with UTF-8, setlocale and gettext has documented problems. 
 I tested several solutions and alternatives to operate simply and none had a productive outcome. 
 
-If you want to use another approach to the problem, you have some links below that might help.
+If you want to use another approach to the problem, you have some links in the internal review of the plugin file that might help.
 
 This solution did not use the files .mo but files .po.
 
