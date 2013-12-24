@@ -15,15 +15,10 @@ templates/*
 !templates/simpleI8N/
 
 plugins/*
-!plugins/index.php
-!plugins/TwitterAPIExchange
-!plugins/i18n-dropplets
+!plugins/
 
 plugins/locale/*
-!plugins/locale/index.php
-!plugins/locale/.htaccess
-!plugins/locale/en_US.po
-!plugins/locale/pt_BR.po
+!plugins/locale/
 
 posts/*
 !posts/index.php
