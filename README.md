@@ -30,7 +30,7 @@ With Dropplets, you write your posts offline (using the text or Markdown editor 
 
     # Your Post Title
     - Post Author Name (e.g. "Dropplets")
-    - Post Author Twitter Handle (e.g. "dropplets")
+    - Post Author Email (e.g. "me@domain.com")
     - Publish Date in YYYY/MM/DD Format (e.g. "2013/04/28")
     - Post Category (e.g. "Random Thoughts")
     - Post Status (e.g. "published" or "draft")
