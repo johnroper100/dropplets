@@ -13,7 +13,7 @@ Despite files .po are text files, use programs such as Poedit to translate.
 
 This will ensure the integrity of the translation and the system I developed to read the files.
 
-
+## Version 1.01
 ### Original Directory structure of locale is (for example): 
 	locale/en_US/LC_MESSAGES/en_US.mo 
 	locale/pt_BR/LC_MESSAGES/pt_BR.mo 
@@ -63,7 +63,7 @@ DON'T PASS 79 COLUMN LIMIT
 
 
 ## License
-Copyright (c) 2013 Marcio Barbosa a.k.a. MBarbosaEng
+Copyright (c) 2013 Marcio Barbosa (MBarbosaEng)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sub license, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

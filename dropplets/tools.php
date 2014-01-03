@@ -13,7 +13,7 @@ if (!isset($_SESSION['user'])) { ?>
     <div class="dp-panel">
         <div class="dp-row profile">
             <div class="dp-thumbnail">
-                <img src="<?php echo get_profile_img(BLOG_TWITTER,BLOG_FACEBOOK,BLOG_GOOGLEP); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
+                <img src="<?php echo get_profile_img(); ?>" />
             </div>
             
             <div class="dp-content">
@@ -38,7 +38,7 @@ if (!isset($_SESSION['user'])) { ?>
         <div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-question"></div>
             <div class="dp-content"><?php _e('Forget Your password?'); ?></div>
-            <a class="dp-link" href="?action=forgot" target="_blank"></a>
+            <a class="dp-link" href="<?php echo(BLOG_URL); ?>?action=forgot" target="_self"></a>
         </div>    
         <?php }; ?>
 
@@ -71,7 +71,7 @@ if (!isset($_SESSION['user'])) { ?>
     <div class="dp-panel">
         <div class="dp-row profile">
             <div class="dp-icon">
-                <img src="<?php echo get_profile_img(BLOG_TWITTER,BLOG_FACEBOOK,BLOG_GOOGLEP); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
+                <img src="<?php echo get_profile_img(); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
             </div>
             
             <div class="dp-content">
@@ -95,15 +95,32 @@ if (!isset($_SESSION['user'])) { ?>
                 <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
             
-            <div class="dp-sub-panel" id="dp-settings">
+            <div class="dp-sub-panel" id="dp-settings">				
+                <div class="dp-row">
+					<div class="dp-icon dp-icon-settings"></div>
+					<div class="dp-content">
+							<select id="paginationAuto" name="paginationAuto" class="i18nSelect">
+								<?php 
+									getPaginationAuto(); 
+								?>
+							</select>
+					</div>
+                </div>	           
+            
                 <div class="dp-row dp-editable">
-                    <div class="dp-icon dp-icon-edit"></div>
-                    
+                    <div class="dp-icon dp-icon-edit"></div> 
                     <div class="dp-content">
                         <label><?php _e('Blog Password'); ?></label>
                         <input type="password" name="password" id="password" value="">
                     </div>
                 </div>
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div> 
+                    <div class="dp-content">
+                        <label>Copyright &copy;</label>
+                        <input type="text" name="copyright" id="copyright" value="<?php echo COPYRIGHT; ?>">
+                    </div>
+                </div>				
             </div>
             
             <div class="dp-row">
@@ -114,6 +131,18 @@ if (!isset($_SESSION['user'])) { ?>
             </div>
             
             <div class="dp-sub-panel" id="dp-profile">
+
+				<div class="dp-row">
+					<div class="dp-icon dp-icon-settings"></div>
+					<div class="dp-content">
+							<select id="avatar_default" name="avatar_default" class="i18nSelect">
+								<?php 
+									getAvatar(); 
+								?>
+							</select>
+					</div>
+				</div>				
+
                 <div class="dp-row dp-editable">
                     <div class="dp-icon dp-icon-edit"></div>
                     
@@ -140,6 +169,7 @@ if (!isset($_SESSION['user'])) { ?>
                         <input type="text" name="blog_facebook" id="blog_facebook" value="<?php echo BLOG_FACEBOOK; ?>">
                     </div>
                 </div>	
+				
                 <div class="dp-row dp-editable">
                     <div class="dp-icon dp-icon-edit"></div>
                     
@@ -147,8 +177,17 @@ if (!isset($_SESSION['user'])) { ?>
                         <label><?php _e('Blog Google+'); ?></label>
                         <input type="text" name="blog_googlep" id="blog_googlep" value="<?php echo BLOG_GOOGLEP; ?>">
                     </div>
-                </div>					
-            </div>
+                </div>	
+				
+                <div class="dp-row dp-editable">
+                    <div class="dp-icon dp-icon-edit"></div>
+                    
+                    <div class="dp-content">
+                        <label><?php _e('Blog Tumblr'); ?></label>
+                        <input type="text" name="blog_tumblr" id="blog_tumblr" value="<?php echo BLOG_TUMBLR; ?>">
+                    </div>
+                </div>	
+			</div>
             
             <div class="dp-row">
                 <div class="dp-icon dp-twitterMenu dp-icon-large"></div>
@@ -326,7 +365,7 @@ if (!isset($_SESSION['user'])) { ?>
                 <?php get_premium_templates('all'); ?>
             </div>
         </div>
-        
+
         <div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-question"></div>
             <div class="dp-content"><?php _e('Need Some Help?'); ?></div>
@@ -348,11 +387,16 @@ if (!isset($_SESSION['user'])) { ?>
 /*-----------------------------------------------------------------------------------*/
 /* Show/Hide Tool Cards Script
 /*-----------------------------------------------------------------------------------*/
-
+		// windows compatible - change icon from tools
+        $file = BLOG_PATH  . "favicon.png";
+    	if(file_exists($file)) {
+			echo '<a class="dp-open dp-icon-dropplets-mnu" id="dp-dropplets-icon" href="#dp-dropplets"><img src="' . BLOG_URL . 'favicon.png" border="0" style="width: 16px; padding-top: 9px !important;"></a>';
+		} else {
+			// nothing change
+			echo '<a class="dp-open dp-icon-dropplets dp-icon-dropplets-mnu" id="dp-dropplets-icon" href="#dp-dropplets"></a>';        
+		}
+		
 ?>
-
-<a class="dp-open dp-icon-dropplets dp-icon-dropplets-mnu" id="dp-dropplets-icon" href="#dp-dropplets"></a>
-
 <script type="text/javascript" src="<?php echo(BLOG_URL); ?>dropplets/includes/js/cookies.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
@@ -394,9 +438,8 @@ if (!isset($_SESSION['user'])) { ?>
 /*-----------------------------------------------------------------------------------*/
 /* Get the Uploader Script if Logged In
 /*-----------------------------------------------------------------------------------*/
-
+//why this? <script type="text/javascript" src="https://gumroad.com/js/gumroad.js"></script>
 if (isset($_SESSION['user'])) { ?> 
-<script type="text/javascript" src="https://gumroad.com/js/gumroad.js"></script>
 <script type="text/javascript" src="<?php echo(BLOG_URL); ?>dropplets/includes/js/uploader.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function($) {    

@@ -1,10 +1,9 @@
 <?php 
-
 /*-----------------------------------------------------------------------------------*/
 /* Debug Mode
 /*-----------------------------------------------------------------------------------*/
 
-$display_errors = false;
+$display_errors = true;
 
 // Display errors if there are any.
 ini_set('display_errors', $display_errors);
@@ -24,6 +23,13 @@ include('./config.php');
 // encode/decode config variables
 include_once('./dropplets/encdec.php');
 
+// Define your blog copyright
+date_default_timezone_set('GMT');
+$copyYear = 2013; 
+$curYear = date('Y'); 
+define('COPYRIGHT',trim($copyright));
+define('BLOG_COPYRIGHT', "&copy;&nbsp;" . $copyYear . (($copyYear != $curYear) ? '-' . $curYear : '') . "&nbsp;" . $copyright);
+
 // Definitions from the included configs above.
 define('BLOG_EMAIL', $blog_email);
 define('BLOG_TWITTER', $blog_twitter);
@@ -33,7 +39,9 @@ define('TWITTER_TOKEN', Decode($password,$accesstoken));
 define('TWITTER_TSECRET', Decode($password,$accesstokensecret));
 define('BLOG_FACEBOOK', $blog_facebook);
 define('BLOG_GOOGLEP', $blog_googlep);
+define('BLOG_TUMBLR', $blog_tumblr);
 define('BLOG_URL', $blog_url);
+define('BLOG_PATH', str_replace("dropplets","",str_replace("\\","/",realpath(__DIR__)))); // for use with windows
 define('BLOG_TITLE', $blog_title);
 define('META_DESCRIPTION', $meta_description);
 define('INTRO_TITLE', trim($intro_title));
@@ -42,6 +50,9 @@ define('HEADER_INJECT', stripslashes(trim($header_inject)));
 define('FOOTER_INJECT', stripslashes(trim($footer_inject)));
 define('ACTIVE_TEMPLATE', $template);
 define('language_default', $language_default);
+define('avatar_default', $avatar_default);
+define('paginationAuto', $paginationAuto);
+
 /*-----------------------------------------------------------------------------------*/
 /* Definitions (These Should Be Moved to "Settings")
 /*-----------------------------------------------------------------------------------*/
@@ -62,14 +73,14 @@ $date_format = '%B %d, %Y';
 /*-----------------------------------------------------------------------------------*/
 /* Post Configuration
 /*-----------------------------------------------------------------------------------*/
+$pagination_on_off = paginationAuto; //"on"; //Infinite scroll by default?
 
-$pagination_on_off = "on"; //Infinite scroll by default?
 define('PAGINATION_ON_OFF', $pagination_on_off);
 
 $posts_per_page = 4;
 define('POSTS_PER_PAGE', $posts_per_page);
 
-$infinite_scroll = "off"; //Infinite scroll works only if pagination is on.
+$infinite_scroll = paginationAuto; //"on"; //Infinite scroll works only if pagination is on.
 define('INFINITE_SCROLL', $infinite_scroll);
 
 $post_directory = './posts/';
@@ -105,6 +116,13 @@ if (!file_exists(CACHE_DIR) && ($post_cache != 'off' || $index_cache != 'off')) 
 }
 
 /*-----------------------------------------------------------------------------------*/
+/* Other css and javascript File - plugins
+/*-----------------------------------------------------------------------------------*/
+$src_dir = './src/';
+$src_dir_url = $blog_url . 'src/';
+
+
+/*-----------------------------------------------------------------------------------*/
 /* Template Files
 /*-----------------------------------------------------------------------------------*/
 
@@ -112,8 +130,10 @@ if (!file_exists(CACHE_DIR) && ($post_cache != 'off' || $index_cache != 'off')) 
 $template_dir = './templates/' . $template . '/';
 $template_dir_url = $blog_url . 'templates/' . $template . '/';
 
+
 // Get the active template files.
 $index_file = $template_dir . 'index.php';
 $post_file = $template_dir . 'post.php';
 $posts_file = $template_dir . 'posts.php';
 $not_found_file = $template_dir . '404.php';
+?>

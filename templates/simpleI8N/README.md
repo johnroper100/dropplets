@@ -7,6 +7,9 @@ Copyright Circa75 Media, LLC (Circa75.co)
 ### Need Help?
 Help is just an email away... help@dropplets.com.
 
+#### Version 1.0.2 MOD by MBarbosaEng
+- Same before, but now with language.
+
 #### Version 1.0.2
 - REVISED: Single post pages now include the Post Content tag integrated in Dropplets version 1.5.4.
 

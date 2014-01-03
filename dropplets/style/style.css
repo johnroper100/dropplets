@@ -76,7 +76,7 @@ body.dp-install form {
     border: 1px solid rgba(0, 0, 0, 0.15);
     background-color: rgba(0, 0, 0, 0.01);
     width: 320px;
-    height: 340px;
+    height: 370px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -107,7 +107,7 @@ body.dp-install form input[type="password"] {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 400;
     font-size: 14px;
-    line-height: 22px;
+    line-height: 18px;
     color: #404040;
     text-align: center;
     width: 258px;
@@ -620,4 +620,20 @@ body.dp-install form button:hover {
 }
 .btnshare{
 	margin-right: 30px;
+}
+
+body.dp-install form input[type="text"] {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    outline: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #404040;
+    text-align: center;
+    width: 258px;
+    float: left;
+    margin: 0 0 10px 10px;
+    padding: 10px 20px;
 }

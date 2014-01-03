@@ -184,3 +184,15 @@ msgstr "Pусском"
 #. Don't translate this field - Use in your language - Dutch
 msgid "nlNL"
 msgstr "Nederlands"
+
+msgid "Blog Tumblr"
+msgstr "Tumblr do Autor"
+
+msgid "Developed with:"
+msgstr "Desenvolvido com:"
+
+msgid "Pagination On"
+msgstr "Paginação Ativada"
+
+msgid "Pagination Off"
+msgstr "Paginação Desligada"

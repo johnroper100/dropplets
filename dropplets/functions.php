@@ -10,6 +10,14 @@ include('./dropplets/includes/phpass.php');
 include('./dropplets/includes/actions.php');
 
 /*-----------------------------------------------------------------------------------*/
+/* Include All Plugins in Plugins Directory
+/*-----------------------------------------------------------------------------------*/
+
+foreach(glob('./plugins/' . '*.php') as $plugin){
+    include_once $plugin;
+}
+
+/*-----------------------------------------------------------------------------------*/
 /* User Machine
 /*-----------------------------------------------------------------------------------*/
 
@@ -56,7 +64,7 @@ if (isset($_GET['action']))
             
                 $code = sha1(md5(rand()));
 
-                $verify_file_contents[] = "<?php";
+                $verify_file_contents[] = "<?php\n";
                 $verify_file_contents[] = "\$verification_code = \"" . $code . "\";";
                 file_put_contents($verification_file, implode("\n", $verify_file_contents));
 
@@ -174,12 +182,68 @@ function get_all_posts($options = array()) {
                 $post_contents[] = $post_content;
             }
         }
-        array_multisort($post_dates, SORT_DESC, $files);
-        return $files;
+		if (count($files)>1) {
+			array_multisort($post_dates, SORT_DESC, $files);
+			return $files;
+		} else {
+			return false;
+		}
 
     } else {
         return false;
     }
+}
+/*-----------------------------------------------------------------------------------*/
+/* Get all categories for make menu
+/*-----------------------------------------------------------------------------------*/
+function get_Menu() {
+	$menu  = '<script type="text/javascript">';
+	$menu .= "function OpenWin(w, h, qUrl) {window.open(qUrl, 'Window', 'width=' + w + ',height=' + h + ',location=yes,personalbar=no,menubar=no,resizable=no,status=no,scrollbars=no,toolbar=no'); return false;}";
+	$menu .= "function changeMenu(){ $('#mnu').toggle(); $('#btnMenu').toggle(); }";
+  	$menu .= '</script>';  
+  		$file = BLOG_PATH . "templates/" . ACTIVE_TEMPLATE . "/menu.css";
+    	if(file_exists($file)) {   
+            $menu .= '<link rel="stylesheet" href="' . BLOG_URL . 'templates/' . ACTIVE_TEMPLATE . '/menu.css" type="text/css">';
+		} else {
+			$menu .= '<link rel="stylesheet" href="' . BLOG_URL . 'src/css/menu.css" type="text/css">';
+		}	 
+	$menu .= "<div id='btnMenu'><button onclick='javascript:changeMenu()' class='myButton'><i class='fa fa-list'></i></button></div>";	
+	$menu .= "<div class='mnuright' id='mnu' style='display:none;'>";
+	$menu .= "<span><button onclick='javascript:changeMenu()' class='myButton'><i class='fa fa-list'></i></button></span>";	
+	$menu .= "<ul>";
+    if($handle = opendir(POSTS_DIR)) {
+        $post_categories = array();
+        while (false !== ($entry = readdir($handle))) {
+            if(substr(strrchr($entry,'.'),1)==ltrim(FILE_EXT, '.')) {
+                // Define the post file.
+                $fcontents = file(POSTS_DIR.$entry);
+                // Define the post category.
+                $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
+                
+				// Pull everything together for the loop.
+				//if(isset($post_categories['say']) && $post_categories['say'] == $post_category) {
+				if (in_array($post_category, $post_categories)){
+					// value is in array - nothing to do
+				} else {
+					$post_categories[] = $post_category;
+				}
+            }
+        }
+		if (count($post_categories)>1) {
+			asort($post_categories);
+			foreach($post_categories as $lnk)
+			{
+				$menu .= "<li class='menu'><a href='" . BLOG_URL . "category/" . str_replace(' ','+',trim($lnk)) . "'>" . trim($lnk) . "</a></li>";
+			}
+		}
+    }
+	$menu  .= "</ul>";
+	$menu  .= "<span style='text-align:center;'>";
+	$menu .= "<button onclick=\"window.location.href='" . BLOG_URL . "';\" class='myButton'><i class='fa fa-map-marker'></i></button>&nbsp;";
+	$menu .= "<button onclick=\"window.location.href='mailto:" . BLOG_EMAIL . "?subject=Contact from " . BLOG_TITLE . "';\" class='myButton'><i class='fa fa-envelope-o fa-2'></i></button>&nbsp;";
+	$menu  .= "<button onclick=\"javascript:OpenWin('600', '250','https://twitter.com/intent/tweet?text=" . BLOG_TITLE . "%20>%20" . BLOG_URL . "')\" title='" . _t('Comment on') . " Twitter' class='myButton'><i class='fa fa-comment-o'></i></button></span>";
+	$menu  .= "</div>";	
+	return $menu;
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -309,102 +373,120 @@ function count_premium_templates($type = 'all') {
 }
 
 /*-----------------------------------------------------------------------------------*/
+/* get current Home url
+/*-----------------------------------------------------------------------------------*/
+function get_HOME(){
+    // Get the components of the current url.
+    $protocol = @( $_SERVER["HTTPS"] != 'on') ? 'http://' : 'https://';
+    $domain = $_SERVER["SERVER_NAME"];
+    $port = $_SERVER["SERVER_PORT"];
+    $path = $_SERVER["REQUEST_URI"];
+    // Check if running on alternate port.
+    if ($protocol === "https://") {
+        if ($port === 443)
+            $currentpage = $protocol . $domain;
+        else
+            $currentpage = $protocol . $domain . ":" . $port;
+    } elseif ($protocol === "http://") {
+        if ($port === 80)
+            $currentpage = $protocol . $domain;
+        else
+            $currentpage = $protocol . $domain . ":" . $port;
+    }
+    $currentpage .= $path;
+	return $currentpage;	
+}
+/*-----------------------------------------------------------------------------------*/
 /* If is Home (Could use "is_single", "is_category" as well.)
 /*-----------------------------------------------------------------------------------*/
 
 $homepage = BLOG_URL;
 
 // Get the current page.    
-$currentpage  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] : 'https://'.$_SERVER["SERVER_NAME"];
-$currentpage .= $_SERVER["REQUEST_URI"];
+// $currentpage  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] : 'https://'.$_SERVER["SERVER_NAME"];
+//$currentpage .= $_SERVER["REQUEST_URI"];
+$currentpage  = get_HOME();
 
-// If is home.
+// If is home. 
 $is_home = ($homepage==$currentpage);
 define('IS_HOME', $is_home);
 define('IS_CATEGORY', (bool)strstr($_SERVER['REQUEST_URI'], '/category/'));
 define('IS_SINGLE', !(IS_HOME || IS_CATEGORY));
 
-
-/*-----------------------------------------------------------------------------------*/
-/* Include All Plugins in Plugins Directory
-/*-----------------------------------------------------------------------------------*/
-
-foreach(glob('./plugins/' . '*.php') as $plugin){
-    include_once $plugin;
-}
-
 /*-----------------------------------------------------------------------------------*/
 /* Get Profile Image
 /*-----------------------------------------------------------------------------------*/
-function get_facebook_profile_img($fImg) {
-	if (trim($fImg)=='') {
+function get_myProfile_img($qImg,$qId){
+	if (trim($qImg)=='') { // need name
 		return '';
 	}
-	try {
+	if (trim($qId)=='') { // need id
+		return '';
+	}	
+	try {	
+		if ($qId == null) {
+			return '';
+		}
+		$cache_image = '';
 		// Set the cached profile image.
-		$facebook_image = './cache/facebook_'.$fImg.'.jpg';
-		if (!file_exists($facebook_image)) {
-			$image_url = 'https://graph.facebook.com/'.$fImg.'/picture';
+		switch($qImg) {
+			case "gravatar":
+					$cache_image = './cache/gravatar.jpg';
+					$image_url ="http://www.gravatar.com/avatar/" . md5(strtolower(trim($qId))) . "&s=100";
+					// to save image use this:
+					//$grav_url = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?d=" . urlencode($default) . "&s=" . $size;
+				break;
+			case "facebook":
+					$cache_image = './cache/facebook_'.$qId.'.jpg';
+					$image_url =  'https://graph.facebook.com/'.$qId.'/picture';			
+				break;
+			case "dtwitter":
+					$cache_image = './cache/twitter_d_'.$qId.'.jpg';
+					$image_url = 'http://dropplets.com/profiles/?id='.$qId.'';					
+				break;		
+			case "twitter":
+					return get_twitter_profile_imgV2($qId);					
+				break;	
+			case "tumblr":			
+				$cache_image = './cache/tumblr_' . $qId . '.png';
+				$image_url ="http://api.tumblr.com/v2/blog/" . $qId . ".tumblr.com/avatar";
+				break;
+			case "google":
+					$cache_image = './cache/gplus_'.$qId.'.jpg';
+					$image_url = 'https://profiles.google.com/s2/photos/profile/'.$qId;
+				break;
+		}
+
+		if (!file_exists($cache_image)) {
 			$image = @file_get_contents($image_url);
-			if (isset($image)) {
-				// Cache the image if it doesn't already exist.
-				file_put_contents('./cache/facebook_'.$fImg.'.jpg', $image);
+			if (($image == "")||($image === FALSE)||(stripos($image,'404')>0)||(stripos($image,'status')>0)||(stripos($image,'meta')>0)||(stripos($image,'response')>0)) {
+				return '';
 			} else {
-				$facebook_image = '';
-			}
+				// Cache the image if it doesn't already exist.
+				file_put_contents($cache_image, $image);
+			} 
 		}
 	} catch (Exception $e) {
-		$facebook_image = '';
+		$cache_image = '';
 	}
-	// Return the image URL.
-	return $facebook_image;
+	return $cache_image;
+}
+function get_gravatar_profile_img($gvImg){
+	return get_myProfile_img("gravatar",$gvImg);
+}
+function get_tumblr_profile_img($tbImg){
+	return get_myProfile_img("tumblr",$tbImg);
+}
+function get_facebook_profile_img($fImg) {
+	return get_myProfile_img("facebook",$fImg);
 }
 function get_gplus_profile_img($gImg) {
-	if (trim($gImg)=='') {
-		return '';
-	}
-	try {
-		// Get the cached profile image.
-		$gplus_image = './cache/gplus_'.$gImg.'.jpg';
-		if (!file_exists($gplus_image)) {		
-			$image_url = 'https://profiles.google.com/s2/photos/profile/'.$gImg.'';
-			$image = @file_get_contents($image_url);
-			if (isset($image)) {
-				// Cache the image if it doesn't already exist.
-				file_put_contents('./cache/gplus_'.$gImg.'.jpg', $image);
-			} else {
-				$gplus_image = '';
-			}			
-		}
-	} catch (Exception $e) {
-		$gplus_image = '';
-	}
-	// Return the image URL.
-	return $gplus_image;
+	return get_myProfile_img("google",$gImg);
 }
 function get_twitter_profile_img($tImg) {
-	if (trim($tImg)=='') {
-		return '';
-	}	
-	try {
-		// Get the cached profile image.
-		$twitter_image = './cache/'.$tImg.'.jpg';	
-		// Cache the image if it doesn't already exist.
-		if (!file_exists($twitter_image)) {
-			$image_url = 'http://dropplets.com/profiles/?id='.$tImg.'';
-			$image = file_get_contents($image_url);
-			if (isset($image)) {		
-				file_put_contents('./cache/'.$tImg.'.jpg', $image);
-			} else {
-				$twitter_image = '';
-			}		
-		}
-	} catch (Exception $e) {
-		$twitter_image = '';
-	}	
-	// Return the image URL.
-	return $twitter_image;
+	return get_myProfile_img("dtwitter",$tImg);
 }
+
 function get_twitter_profile_imgV2($tImg) { // use new Twitter API
 //As you rightly pointed out, as of June 11th 2013 you can't make unauthenticated requests, 
 //or any to the 1.0 API any more, because it has been retired. 
@@ -457,31 +539,110 @@ function get_twitter_profile_imgV2($tImg) { // use new Twitter API
 	// Return the image URL.
 	return $twitter_image;
 }
-function get_profile_img($tImg,$fImg,$gImg) {
+function get_profile_auto() {
 	$imageProfile = '';
-	$tImgD = get_twitter_profile_img($tImg);
-	if ($tImgD == './cache/'.$tImg.'.jpg') {
-		$imageProfile = $tImgD;
+	$imgD = get_gravatar_profile_img(BLOG_EMAIL);
+	if ($imgD == './cache/gravatar.jpg') {
+		$imageProfile = $imgD;
 	} else {	
-		$tImgD = get_twitter_profile_imgV2($tImg);
-		if ($tImgD == './cache/twitter_'.$tImg.'.jpg') {
-			$imageProfile = $tImgD;
-		} else {
-			$fImgD = get_facebook_profile_img($fImg);
-			if ($fImgD == './cache/facebook_'.$fImg.'.jpg') {
-				$imageProfile = $fImgD;
+		$imgD = get_twitter_profile_img(BLOG_TWITTER);
+		if ($imgD == './cache/twitter_d_'.BLOG_TWITTER.'.jpg') {
+			$imageProfile = $imgD;
+		} else {	
+			$imgD = get_twitter_profile_imgV2(BLOG_TWITTER);
+			if ($imgD == './cache/twitter_'.BLOG_TWITTER.'.jpg') {
+				$imageProfile = $imgD;
 			} else {
-				$gImgD = get_gplus_profile_img($gImg);
-				if ($gImgD == './cache/gplus_'.$gImg.'.jpg') {
-					$imageProfile = $gImgD;
-				} else {			
-					$imageProfile = './cache/dropplets.jpg';
-				}			
-			}		
+				$imgD = get_facebook_profile_img(BLOG_FACEBOOK);
+				if ($imgD == './cache/facebook_'.BLOG_FACEBOOK.'.jpg') {
+					$imageProfile = $imgD;
+				} else {
+					$imgD = get_tumblr_profile_img(BLOG_TUMBLR);
+					if ($imgD == './cache/tumblr_'.BLOG_TUMBLR.'.png') {
+						$imageProfile = $imgD;
+					} else {				
+						$imgD = get_gplus_profile_img(BLOG_GOOGLEP);
+						if ($imgD == './cache/gplus_'.BLOG_GOOGLEP.'.jpg') {
+							$imageProfile = $imgD;
+						}	
+					}						
+				}		
+			}
 		}
 	}
+	if ($imageProfile == '') {
+		$imageProfile = './cache/dropplets.jpg';
+	}	
 	if (file_exists($imageProfile)) {
-		return $imageProfile;
+		return BLOG_URL.str_replace(array(FILE_EXT, './'), '',$imageProfile);
+	}
+}
+
+function get_profile_img() {
+	switch(avatar_default) {
+		case "auto":
+				return get_profile_auto();
+			break;
+		case "gravatar":
+				$imgD = get_gravatar_profile_img(BLOG_EMAIL);
+				$imgDc = './cache/gravatar.jpg';
+			break;		
+		case "twitter":
+				$imgD = get_twitter_profile_img(BLOG_TWITTER);
+				$imgDc = './cache/twitter_d_'.BLOG_TWITTER.'.jpg';
+			break;
+		case "facebook":
+				$imgD = get_facebook_profile_img(BLOG_FACEBOOK);
+				$imgDc = './cache/facebook_'.BLOG_FACEBOOK.'.jpg';
+			break;
+		case "tumblr":
+				$imgD = get_tumblr_profile_img(BLOG_TUMBLR);
+				$imgDc = './cache/tumblr_'.BLOG_TUMBLR.'.png';
+			break;
+		case "google":
+				$imgD = get_gplus_profile_img(BLOG_GOOGLEP);
+				$imgDc = './cache/gplus_'.BLOG_GOOGLEP.'.jpg';
+			break;	
+		default:
+				return get_profile_auto();
+			break;		
+	}
+	$imageProfile = '';
+	if ($imgD == $imgDc) {
+		$imageProfile = $imgD;
+	}	
+	if ($imageProfile == '') {
+		$imageProfile = './cache/dropplets.jpg';
+	}	
+	if (file_exists($imageProfile)) {
+		return BLOG_URL.str_replace(array(FILE_EXT, './'), '',$imageProfile);
+	}
+}
+
+
+
+/*-----------------------------------------------------------------------------------*/
+/* defines default blog options 
+/*-----------------------------------------------------------------------------------*/
+function getPaginationAuto() {
+	if(paginationAuto == "on") { 
+		echo '<option value="on" selected>' . _t("Pagination On") . '</option>';
+        echo '<option value="off">' . _t("Pagination Off") . '</option>';        
+	} else {
+		echo '<option value="on">' . _t("Pagination On") . '</option>';    
+		echo '<option value="off" selected>' . _t("Pagination Off") . '</option>';
+	}
+}
+
+function getAvatar() {
+	$default = avatar_default;	
+	$avatares= array( 0 => "auto", 1 => "gravatar", 2 => "twitter", 3 => "facebook",4 => "tumblr", 5 => "google+" );
+	foreach($avatares as $avatar){
+		if($default == $avatar) { 
+			echo '<option value="' . str_replace('+','',$avatar) .'" selected>' . strtoupper($avatar) . '</option>'; 
+		} else {
+			echo '<option value="' . str_replace('+','',$avatar) .'">' . strtoupper($avatar) . '</option>';
+		}
 	}
 }
 
@@ -524,10 +685,45 @@ function get_header() { ?>
     
     <!-- Dropplets Styles -->
     <link rel="stylesheet" href="<?php echo BLOG_URL; ?>dropplets/style/style.css">
-    <link rel="shortcut icon" href="<?php echo BLOG_URL; ?>dropplets/style/images/favicon.png">
-    
-	<!-- jQuery & Required Scripts -->
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<?php
+      	$file = BLOG_PATH . "favicon.png"; // windows compatible
+    	if(file_exists($file)) {  
+			echo '<link rel="shortcut icon" href="' . BLOG_URL . 'favicon.png">';
+		} else {
+			echo '<link rel="shortcut icon" href="' . BLOG_URL . 'dropplets/style/images/favicon.png">';
+		}
+		echo "<!-- jQuery & Required Scripts -->";
+      	$file = BLOG_PATH . "src/js/jquery-1.10.2.min.js"; // windows compatible
+    	if(file_exists($file)) {  
+            echo '<script src="' . BLOG_URL . 'src/js/jquery-1.10.2.min.js"></script>';			
+		} else {
+			echo '<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>';
+		}
+        
+      	$file = BLOG_PATH . "src/js/modernizr.custom.js"; // windows compatible
+    	if(file_exists($file)) {          
+            echo "<!-- Modernizr Script -->";        
+            echo "<script src='" . BLOG_URL . "src/js/modernizr.custom.js'></script>";
+        }
+        
+        echo "<!-- Fonts Merriweather & Source Sans Pro -->";
+		$file = BLOG_PATH . "src/fonts/fonts.css";
+    	if(file_exists($file)) {
+            echo "<link href='" . BLOG_URL . "src/fonts/fonts.css' rel='stylesheet' type='text/css'>";        
+		} else {
+			echo "<link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,700' rel='stylesheet' type='text/css'>";
+			echo "<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>";
+		}     
+        
+		$file = BLOG_PATH  . "src/font-awesome/css/font-awesome.min.css";
+    	if(file_exists($file)) {
+            echo "<!-- Fonts Awesome -->";
+            echo '<link rel="stylesheet" href="' . BLOG_URL  . 'src/font-awesome/css/font-awesome.min.css">'; 
+        }        
+    ?>
+    <!-- Twitter & Tumblr Scripts -->
+    <script src="http://platform.tumblr.com/v1/share.js"></script>
+    <script id="twitter-wjs" src="http://platform.twitter.com/widgets.js"></script>
 	<!-- jQuery I8N Language Switcher -->
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -555,58 +751,68 @@ function get_header() { ?>
 /*-----------------------------------------------------------------------------------*/
 // jquery moved to header
 function get_footer() { ?>
-
-    
+	<!-- Post Pagination -->   
     <?php if (!IS_SINGLE && PAGINATION_ON_OFF !== "off") { ?>
-    <!-- Post Pagination -->
-    <script>
-        var infinite = true;
-        var next_page = 2;
-        var loading = false;
-        var no_more_posts = false;
-        $(function() {
-            function load_next_page() {
-                $.ajax({
-                    url: "index.php?page=" + next_page,
-                    beforeSend: function () {
-                        $('body').append('<article class="loading-frame"><div class="row"><div class="one-quarter meta"></div><div class="three-quarters"><img src="./templates/<?php echo(ACTIVE_TEMPLATE); ?>/loading.gif" alt="Loading"></div></div></article>');
-                        $("body").animate({ scrollTop: $("body").scrollTop() + 250 }, 1000);
-                    },
-                    success: function (res) {
-                        next_page++;
-                        var result = $.parseHTML(res);
-                        var articles = $(result).filter(function() {
-                            return $(this).is('article');
-                        });
-                        if (articles.length < 2) {  //There's always one default article, so we should check if  < 2
-							$('.loading-frame').html(_t("You've reached the end of this list."));
-                            no_more_posts = true;
-                        }  else {
-							$('.loading-frame').remove();
-                            $('body').append(articles.slice(1));
-                        }
-                        loading = false;
-                    },
-                    error: function() {
-                        $('.loading-frame').html(_t("An error occurred while loading posts."));
-                        //keep loading equal to false to avoid multiple loads. An error will require a manual refresh
-                    }
-                });
-            }
-
-            $(window).scroll(function() {
-                var when_to_load = $(window).scrollTop() * 0.32;
-                if (infinite && (loading != true && !no_more_posts) && $(window).scrollTop() + when_to_load > ($(document).height()- $(window).height() ) ) {
-                    // Sometimes the scroll function may be called several times until the loading is set to true.
-                    // So we need to set it as soon as possible
-                    loading = true;
-                    setTimeout(load_next_page,500);
-                }
-            });
-        });
+    <script type="text/javascript">
+			var infinite = true;
+			var next_page = 1;
+			var loading = false;
+			var no_more_posts = false;
+			$(function() {
+				function load_next_page() {
+					$.ajax({
+						url: "index.php?page=" + next_page,
+						beforeSend: function () {
+							$('body').append('<article class="loading-frame"><div class="row"><div class="one-quarter meta"></div><div class="three-quarters"><?php
+                                    $file = BLOG_PATH  . "src/imgs/loading.gif";
+                                    if(file_exists($file)) {
+                                        echo '<img src="' . BLOG_URL . 'src/imgs/loading.gif" alt="Loading" width="80" style="margin-left:20%;float:left;">';
+									} else {
+										echo '<img src="' . BLOG_URL . 'templates/' . ACTIVE_TEMPLATE . '/loading.gif" alt="Loading" width="180" style="margin-left:20%;float:left;">';	
+									}							
+							?></div></div></article>');
+							$("body").animate({ scrollTop: $("body").scrollTop() + 250 }, 1000);
+						},
+						success: function (res) {
+							next_page++;
+							var result = $.parseHTML(res);
+							var articles = $(result).filter(function() {
+								return $(this).is('article');
+							});
+							if (articles.length < 2) {  //There's always one default article, so we should check if  < 2
+								$('.loading-frame').html(<?php _t("You've reached the end of this list."); ?>);
+								no_more_posts = true;
+							}  else {
+								$('.loading-frame').remove();
+								$('body').append(articles.slice(1));
+							}
+							loading = false;
+						},
+						error: function() {
+							$('.loading-frame').html(<?php _t("An error occurred while loading posts."); ?>);
+							//keep loading equal to false to avoid multiple loads. An error will require a manual refresh
+						}
+					});
+				}
+				$(window).scroll(function() {
+					var when_to_load = $(window).scrollTop() * 0.32;
+					if (infinite && (loading != true && !no_more_posts) && $(window).scrollTop() + when_to_load > ($(document).height()- $(window).height() ) ) {
+						// Sometimes the scroll function may be called several times until the loading is set to true.
+						// So we need to set it as soon as possible
+						loading = true;
+						setTimeout(load_next_page,500);
+					}
+				});
+			});
     </script>
-    <?php } ?>
-    
+	<?php				 
+		} 
+	?>
+	<!-- Copyright -->
+	<div style="text-align:center; font-size:11px; bottom:0; position: fixed;">
+			<?php echo BLOG_COPYRIGHT; ?> - <?php _e("Developed with:"); ?>&nbsp;<a class="dp-link" href="http://dropplets.com" target="_blank">Dopplets</a>&nbsp;&&nbsp;
+            <a class="dp-link" href="http://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a>&nbsp;&&nbsp;<a class="dp-link" href="http://modernizr.com/" target="_blank">Modernizr</a>
+	</div>   
     <!-- Dropplets Tools -->
     <?php include('./dropplets/tools.php'); ?>
     

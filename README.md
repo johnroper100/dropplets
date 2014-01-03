@@ -18,30 +18,6 @@ Markdown is a text formatting syntax inspired on plain text email. It is extreme
 - [Updating Dropplets](#updating-dropplets)
 - [License](#license)
 
-## What is new?
-- Templates and Interface enables language selection
-- Language Pack can be created from a PO file.
-- Available languages: en_US and pt_BR
-- Languages already preconfigured:
-
-> 	da_DK, fr_FR, de_DE, el_GR, he_IL, it_IT, ja_JP, ko_KR, ru_RU, nl_NL, zh_CN, zh_TW
-
-- Sharing with Facebook and Google+
-- Picture of the post is selected based on social networks, following the order: Twitter, Facebook and Google+
-- Data encrypted in the configuration file
-- Protected Directories
-- Implemented Twetter API v1.1 for future resources
-
-## How to Translate:
-- Copy the en_US.po file to one of the names below:
-
-> 	da_DK, fr_FR, de_DE, el_GR, he_IL, it_IT, ja_JP, ko_KR, ru_RU, nl_NL, zh_CN, zh_TW
-
-- Use an editor like Poedit language
-- Open the file chosen for translation.
-- Write the corresponding translation
-- Share on GitHub.
-
 ## Installation
 Dropplets is compatible with most server configurations and can be typically installed in under a minute using the few step-by-step instructions below:
 
@@ -97,3 +73,95 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+# **Modifications**
+This is a version of the original system Dropplets.
+Some features may not yet be present in the original version, or are not yet deployed.
+Always refer to the original design.
+
+## **Version 1.02**
+
+### Fixes
+ 
+- Url to retrieve password 
+- Url to page 404 
+- Blog Url configuration 
+- Tests of existence of variables 
+
+### New Features 
+
+- Choose initial email in the initial configuration 
+- Choose the default avatar 
+- Avatar Twitter not set by default 
+- Avatar from Gravatar by default 
+- Avatar of Tumblr 
+- Share on Tumblr 
+- Comment on twitter (the site, not the article) 
+- Automatic Menu categories 
+- Modernizr 
+- Font Awesome 
+- Choose the name for Copyright 
+- Copyright in the bottom 
+- Contact by email 
+- Possibility to use PNG image with article icon 
+- Allows you to change the default Favicon 
+- Fonts, Scripts and Css moved to local site (if you do not find uses standard) 
+- Allows you to configure how the pagination will be taken 
+
+### Customization 
+
+- Favicon.png 
+> Put in the site root (./favicon.png) 
+
+- Font Merriweather and Source Sans Pro 
+> First searches for the file ./src/fonts/fonts.css 
+
+- Loading.gif 
+> First searches for the file ./src/imgs/loading.gif 
+
+- Modernizr.js 
+> Located in ./src/js/modernizr.custom.js 
+
+- Jquery-1.10.2.min.js 
+> First searches for the file ./src/js/ 
+
+- Menu.css 
+> If you want to customize the menu, copy the file to the directory of your template and change as desired.
+
+
+
+## **Version 1.01**
+
+### What is new?
+- Templates and Interface enables language selection
+- Language Pack can be created from a PO file.
+- Available languages: 
+
+> 	en_US and pt_BR
+
+- Languages already preconfigured:
+
+> 	da_DK, fr_FR, de_DE, el_GR, he_IL, it_IT, ja_JP, ko_KR, ru_RU, nl_NL, zh_CN, zh_TW
+
+- Sharing with Facebook and Google+
+- Picture of the post is selected based on social networks, following the order: Twitter, Facebook and Google+
+- Data encrypted in the configuration file
+- Protected Directories
+- Implemented Twetter API v1.1 for future resources
+
+### How to Translate:
+- Copy the en_US.po file to one of the names below:
+
+> 	da_DK, fr_FR, de_DE, el_GR, he_IL, it_IT, ja_JP, ko_KR, ru_RU, nl_NL, zh_CN, zh_TW
+
+- Use an editor like Poedit language
+- Open the file chosen for translation.
+- Write the corresponding translation
+- Share on GitHub.
+
+## License
+Copyright (c) 2013 Marcio Barbosa (MBarbosaEng)
+
+The changes implemented following the same guidelines as the original license.

@@ -52,9 +52,17 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     }	
 	if(!isset($blog_googlep)) {
         $blog_googlep = "";
-    }		
+    }	
+    if (isset($_POST["blog_tumblr"])) {
+        $blog_tumblr = $_POST["blog_tumblr"];
+    }
+	if(!isset($blog_tumblr)) {
+        $blog_tumblr = "";
+    }	
+	
     if (isset($_POST["blog_url"])) {
         $blog_url = $_POST["blog_url"];
+		$blog_url = str_replace("?action=login", "",$blog_url);
     }
     if (isset($_POST["blog_title"])) {
         $blog_title = $_POST["blog_title"];
@@ -125,6 +133,22 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
 		$language_default = "en_US";
 	}
 	
+	if(isset($_POST["avatar_default"])) { 
+		$avatar_default = trim($_POST["avatar_default"]); 
+	} else {
+		$avatar_default = "gravatar";
+	}	
+	
+	if(isset($_POST["copyright"])) { 
+		$copyright = trim($_POST["copyright"]) ."&nbsp;"; 
+	} else {
+		$copyright = "";
+	}	
+	
+	if(isset($_POST["paginationAuto"])) { 
+		$paginationAuto = $_POST["paginationAuto"]; 
+	}	
+    
     // Get subdirectory
     $dir .= str_replace('dropplets/save.php', '', $_SERVER["REQUEST_URI"]);
 
@@ -138,6 +162,7 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
 	$config[] = settings_format("accesstokensecret", $accesstokensecret);
 	$config[] = settings_format("blog_facebook", $blog_facebook);
 	$config[] = settings_format("blog_googlep", $blog_googlep);
+	$config[] = settings_format("blog_tumblr", $blog_tumblr);	
     $config[] = settings_format("blog_url", $blog_url);
     $config[] = settings_format("blog_title", $blog_title);
     $config[] = settings_format("meta_description", $meta_description);
@@ -148,7 +173,10 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     $config[] = settings_format("footer_inject", $footer_inject);
     $config[] = settings_format("template", $template);
     $config[] = settings_format("language_default", $language_default);
-    
+    $config[] = settings_format("avatar_default", $avatar_default);
+    $config[] = settings_format("copyright", $copyright);
+    $config[] = settings_format("paginationAuto", $paginationAuto);
+    $config[] = "?>";    
     // Create the settings file.
     file_put_contents($settings_file, implode("\n", $config));
     

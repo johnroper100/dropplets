@@ -39,6 +39,10 @@ if (empty($_GET['filename'])) {
 	}
 }
 
+// Get Menu.
+$menu_site = get_Menu();
+// Get Copyright	
+$Blog_Copyright = BLOG_COPYRIGHT;
 /*-----------------------------------------------------------------------------------*/
 /* The Home Page (All Posts)
 /*-----------------------------------------------------------------------------------*/
@@ -54,8 +58,8 @@ if ($filename==NULL) {
 
     //If index cache file exists, serve it directly wihout getting all posts
     if (file_exists($cachefile) && $index_cache != 'off') {
-
-        // Get the cached post.
+	
+       // Get the cached post.
         include $cachefile;
         exit;
 
@@ -70,21 +74,20 @@ if ($filename==NULL) {
 
     $pagination = ($pagination_on_off != "off") ? get_pagination($page,round(count($all_posts)/ $posts_per_page)) : "";
     define('PAGINATION', $pagination);
-    $posts = ($pagination_on_off != "off") ? array_slice($all_posts,$offset,($posts_per_page > 0) ? $posts_per_page : null) : $all_posts;
-
+	if (count($all_posts)>1) {
+		$posts = ($pagination_on_off != "off") ? array_slice($all_posts,$offset,($posts_per_page > 0) ? $posts_per_page : null) : $all_posts;
+	} else {
+		$posts = false;
+	}
     if($posts) {
         ob_start();
-		
-		// i18n – Internationalization
-		//require_once('./plugins/i18n-dropplets.php');
 
-		
 		$content = '';
         foreach($posts as $post) {
 
             // Get the post title.
-            $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post['post_title']);
-
+            $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post['post_title']);	
+			
             // Get the post author.
             $post_author = $post['post_author'];
 
@@ -121,11 +124,15 @@ if ($filename==NULL) {
 
             // Get the post image url.
             $image = str_replace(array(FILE_EXT), '', POSTS_DIR.$post['fname']).'.jpg';
-
             if (file_exists($image)) {
                 $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', POSTS_DIR.$post['fname']).'.jpg';
             } else {
-                $post_image = get_profile_img(BLOG_TWITTER,BLOG_FACEBOOK,BLOG_GOOGLEP);
+			    $image = str_replace(array(FILE_EXT), '', POSTS_DIR.$post['fname']).'.png';
+				if (file_exists($image)) {
+					$post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', POSTS_DIR.$post['fname']).'.png';
+				} else {
+					$post_image = get_profile_img();
+				}
             }
             
             if ($post_status == 'draft') continue;
@@ -138,8 +145,9 @@ if ($filename==NULL) {
 
         // Get the site title
         $page_title = $blog_title;
-
-        $blog_image = 'https://api.twitter.com/1/users/profile_image?screen_name='.$blog_twitter.'&size=bigger';
+		
+		
+        $blog_image = get_profile_img();
 
         // Get the page description and author meta.
         $get_page_meta[] = '<meta name="description" content="' . $meta_description . '">';
@@ -172,7 +180,7 @@ if ($filename==NULL) {
         // Define the site title.
         $page_title = _t("Sorry, But That’s Not Here");
         $page_meta = '';
-
+        
         // Get the 404 page template.
         include $not_found_file;
 
@@ -183,7 +191,7 @@ if ($filename==NULL) {
         ob_end_clean();
     }
         ob_start();
-
+		
         // Get the index template file.
         include_once $index_file;
 
@@ -291,7 +299,7 @@ else {
 
         // Start new buffer.
         ob_start();
-
+		
 	      // Get the index template file.
         include_once $index_file;
 
@@ -308,7 +316,7 @@ else {
 
         // Define site title
         $page_title = str_replace('# ', '', $fcontents[0]);
-
+		
         // Get the cached post.
         include $cachefile;
 
@@ -320,7 +328,7 @@ else {
         // Get the post title.
         $post_title = Markdown($fcontents[0]);
         $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post_title);
-
+	
         // Get the post intro.
         $post_intro = htmlspecialchars(trim($fcontents[7]));
 
@@ -350,12 +358,16 @@ else {
 
         // Get the post image url.
         $image = str_replace(array(FILE_EXT), '', $filename).'.jpg';
-
         if (file_exists($image)) {
             $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', $filename).'.jpg';
-        } else {
-            $post_image = get_profile_img(BLOG_TWITTER,BLOG_FACEBOOK,BLOG_GOOGLEP);
-        }
+		} else {	
+            $image = str_replace(array(FILE_EXT), '', $filename).'.png';
+			if (file_exists($image)) {
+				$post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', $filename).'.png';
+			}  else {
+				$post_image = get_profile_img();
+			}
+		}
         
         // Get the post content
         $file_array = file($filename);
@@ -374,7 +386,7 @@ else {
                 
         // Get the site title.
         $page_title = str_replace('# ', '', $fcontents[0]);
-
+		
         // Generate the page description and author meta.
         $get_page_meta[] = '<meta name="description" content="' . $post_intro . '">';
         $get_page_meta[] = '<meta name="author" content="' . $post_author . '">';
@@ -470,9 +482,8 @@ else {
                 <p>Welcome to an easier way to blog.</p>
                 <input type="password" name="password" id="password" required placeholder="Choose Your Password">
                 <input type="password" name="password-confirmation" id="password-confirmation" required placeholder="Confirm Your Password" onblur="confirmPass()">
-
-                <input hidden type="text" name="blog_email" id="blog_email" value="hi@dropplets.com">
-                <input hidden type="text" name="blog_twitter" id="blog_twitter" value="dropplets">
+                <input type="text" name="blog_email" id="blog_email" value="" required placeholder="Choose Your E-mail">				
+                <input hidden type="text" name="blog_twitter" id="blog_twitter" value="">
                 <input hidden type="text" name="blog_url" id="blog_url" value="<?php echo($url) ?><?php if ($url == $domain) { ?>/<?php } ?>">
                 <input hidden type="text" name="template" id="template" value="simpleI8N">
                 <input hidden type="text" name="blog_title" id="blog_title" value="Welcome to Dropplets">
@@ -504,3 +515,5 @@ else {
 /*-----------------------------------------------------------------------------------*/
 
 }
+
+?>

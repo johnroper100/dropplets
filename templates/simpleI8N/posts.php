@@ -18,12 +18,13 @@
 
             <?php echo($post_intro); ?>
 
-            <ul class="actions">
-                <li><a class="button" href="<?php echo($post_link); ?>"><?php _e('Continue Reading'); ?></a></li>
-                <?php if ($category) { ?>
-                <li><a class="button" href="<?php echo($blog_url); ?>"><?php _e('More Articles'); ?></a></li>
-                <?php } ?>
-            </ul>
+			
+			<div class="fa-actions">
+				<a href="<?php echo($post_link); ?>"><?php _e('Continue Reading'); ?><i class="fa-df fa-plus-square-o"></i></a>
+				<?php if ($category) { ?>  
+					<a href="<?php echo($blog_url); ?>"><?php _e('More Articles'); ?><i class="fa-df fa-map-marker"></i></a>
+				<?php } ?>
+			</div>	
         </div>
     </div>
 </article>

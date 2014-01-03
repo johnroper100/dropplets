@@ -17,17 +17,15 @@
             <h2><?php echo($post_title); ?></h2>
             <?php echo($post_content); ?>
 
-            <ul class="actions">
-                <li><a class="button" href="https://twitter.com/intent/tweet?screen_name=<?php echo($post_author_twitter); ?>&text=Re:%20<?php echo($post_link); ?>%20" data-dnt="true"><?php _e('Comment on'); ?> Twitter</a></li>
-                <li>
-					<a class="button btnshare" href="https://twitter.com/intent/tweet?text=&quot;<?php echo($post_title); ?>&quot;%20<?php echo($post_link); ?>%20via%20&#64;<?php echo($post_author_twitter); ?>" data-dnt="true"><?php _e('Share on'); ?> Twitter</a>
-				    <a class="button btnshare" href="javascript:OpenWind('590', '320','https://www.facebook.com/sharer/sharer.php?u=<?php echo(urlencode($post_link)); ?>&t=<?php echo(urlencode($post_title)); ?>')"><?php _e('Share on'); ?> Facebook</a>
-					<a class="button" href="javascript:OpenWind('518', '365','https://plus.google.com/share?url=<?php echo(urlencode($post_link)); ?>')"><?php _e('Share on'); ?> Google+</a>
-				</li>
-                <li><a class="button" href="<?php echo($blog_url); ?>"><?php _e('More Articles'); ?></a></li>
-            </ul>
+            <div class="fa-actions">
+                    <a href="https://twitter.com/intent/tweet?screen_name=<?php echo($post_author_twitter); ?>&text=Re:%20<?php echo($post_link); ?>%20" data-dnt="true" title="<?php _e('Comment on'); ?> Twitter"><i class="fa-df fa-eb faf-twitterc fa-comment-o"></i></a>
+                    <a href="https://twitter.com/intent/tweet?text=&quot;<?php echo($post_title); ?>&quot;%20<?php echo($post_link); ?>%20via%20&#64;<?php echo($post_author_twitter); ?>" data-dnt="true" title="<?php _e('Share on'); ?> Twitter"><i class="fa-df fa-eb faf-twitter fa-twitter"></i></a>
+                    <a href="javascript:OpenWind('590', '320','https://www.facebook.com/sharer/sharer.php?u=<?php echo(urlencode($post_link)); ?>&t=<?php echo(urlencode($post_title)); ?>')" title="<?php _e('Share on'); ?> Facebook"><i class="fa-df fa-eb faf-facebook fa-facebook"></i></a>
+                    <a href="javascript:OpenWind('518', '365','https://plus.google.com/share?url=<?php echo(urlencode($post_link)); ?>')" title="<?php _e('Share on'); ?> Google+"><i class="fa-df fa-eb faf-googlep fa-google-plus"></i></a>
+                    <a href="javascript:OpenWind('500', '450','http://www.tumblr.com/share')" title="<?php _e('Share on'); ?> Tumblr"><i class="fa-df fa-eb faf-tumblr fa-tumblr"></i></a>
 
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                    <a href="<?php echo($blog_url); ?>" title="<?php _e('More Articles'); ?>"><i class="fa-df fa-eb fa-map-marker"></i></a>
+            </div>
         </div>
-    </div>
+    </div>    
 </article>
