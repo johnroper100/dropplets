@@ -1,9 +1,9 @@
 <?php
 /*
- * Plugin Name: I18n for Dropplets
- * Author: MBarbosaEng <MBarbosaEng@engbit.com.br>
+ * Plugin Name: I18n for Dropplets & BitZero
+ * Author: MBarbosaEng <MBarbosaEng@EngBit.com.br>
  * Twitter: @MBarbosaEng
- * Plugin filename: i18n-dropplets
+ * Plugin filename: i18n-Locale
  * Version: 1.0.0
  */
 
@@ -139,7 +139,7 @@ function _t($word){  //==> _("HELLO_WORLD");
 		$searchtxt = array_map('strtolower',$contents);
 		$pos = array_flip(preg_grep('/' . $word . '/', $searchtxt));
 		if ($pos !== false) {
-			return preg_replace('/"/','',preg_replace('/msgstr /','',$contents[array_shift($pos)+1]));
+			return preg_replace('/\n/','',preg_replace('/"/','',preg_replace('/msgstr /','',$contents[array_shift($pos)+1])));
 		} else {
 			return '';		
 		}

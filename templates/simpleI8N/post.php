@@ -24,7 +24,7 @@
                     <a href="javascript:OpenWind('518', '365','https://plus.google.com/share?url=<?php echo(urlencode($post_link)); ?>')" title="<?php _e('Share on'); ?> Google+"><i class="fa-df fa-eb faf-googlep fa-google-plus"></i></a>
                     <a href="javascript:OpenWind('500', '450','http://www.tumblr.com/share')" title="<?php _e('Share on'); ?> Tumblr"><i class="fa-df fa-eb faf-tumblr fa-tumblr"></i></a>
 
-                    <a href="<?php echo($blog_url); ?>" title="<?php _e('More Articles'); ?>"><i class="fa-df fa-eb fa-map-marker"></i></a>
+                    <a href="<?php echo($blog_url); ?>" title="<?php _e('More Articles'); ?>">&nbsp;<i class="fa-df fa-eb fa-map-marker"></i></a>
             </div>
         </div>
     </div>    

@@ -20,9 +20,9 @@
 
 			
 			<div class="fa-actions">
-				<a href="<?php echo($post_link); ?>"><?php _e('Continue Reading'); ?><i class="fa-df fa-plus-square-o"></i></a>
+				<a href="<?php echo($post_link); ?>"><?php _e('Continue Reading'); ?>&nbsp;<i class="fa-df fa-plus-square-o"></i></a>
 				<?php if ($category) { ?>  
-					<a href="<?php echo($blog_url); ?>"><?php _e('More Articles'); ?><i class="fa-df fa-map-marker"></i></a>
+					<a href="<?php echo($blog_url); ?>"><?php _e('More Articles'); ?>&nbsp;<i class="fa-df fa-map-marker"></i></a>
 				<?php } ?>
 			</div>	
         </div>

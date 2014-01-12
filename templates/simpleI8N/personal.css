@@ -14,6 +14,7 @@ dp-button {
 }
 
 .fontawesome-icon-list .fa-hover a .fa {
+
 	width: 32px;
 	font-size: 14px;
 	display: inline-block;
@@ -49,6 +50,7 @@ dp-button {
 	margin-right: 20px;
 	cursor: pointer;
 	height: 34px;	
+    text-decoration: none;
 }
 .fa-eb {
 	font-size: 24px;
@@ -61,6 +63,7 @@ dp-button {
 	border: 1px solid transparent;
 	border-radius: 50%;
 	width: 40px;
+    text-decoration: none;    
 }
 .fa-eb:hover {
 	font-size: 18px;
@@ -94,6 +97,13 @@ dp-button {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
+}
+.finfo {
+    color:white; 
+    font-size:50px; 
+    padding-right:20px; 
+    vertical-align:bottom;
+    line-height: 1.3 !important;
 }
 
 .btn {

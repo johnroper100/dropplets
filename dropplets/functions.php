@@ -193,6 +193,7 @@ function get_all_posts($options = array()) {
         return false;
     }
 }
+
 /*-----------------------------------------------------------------------------------*/
 /* Get all categories for make menu
 /*-----------------------------------------------------------------------------------*/
@@ -200,44 +201,80 @@ function get_Menu() {
 	$menu  = '<script type="text/javascript">';
 	$menu .= "function OpenWin(w, h, qUrl) {window.open(qUrl, 'Window', 'width=' + w + ',height=' + h + ',location=yes,personalbar=no,menubar=no,resizable=no,status=no,scrollbars=no,toolbar=no'); return false;}";
 	$menu .= "function changeMenu(){ $('#mnu').toggle(); $('#btnMenu').toggle(); }";
+	$menu .= "function changeCat(){ $('#mnuCat').toggle();}";    
   	$menu .= '</script>';  
   		$file = BLOG_PATH . "templates/" . ACTIVE_TEMPLATE . "/menu.css";
     	if(file_exists($file)) {   
             $menu .= '<link rel="stylesheet" href="' . BLOG_URL . 'templates/' . ACTIVE_TEMPLATE . '/menu.css" type="text/css">';
 		} else {
-			$menu .= '<link rel="stylesheet" href="' . BLOG_URL . 'src/css/menu.css" type="text/css">';
+			$menu .= '<link rel="stylesheet" href="' . BLOG_URL . 'bitzero/css/menu.css" type="text/css">';
 		}	 
 	$menu .= "<div id='btnMenu'><button onclick='javascript:changeMenu()' class='myButton'><i class='fa fa-list'></i></button></div>";	
 	$menu .= "<div class='mnuright' id='mnu' style='display:none;'>";
-	$menu .= "<span><button onclick='javascript:changeMenu()' class='myButton'><i class='fa fa-list'></i></button></span>";	
-	$menu .= "<ul>";
-    if($handle = opendir(POSTS_DIR)) {
-        $post_categories = array();
+	$menu .= "<span><button onclick='javascript:changeMenu()' class='myButton'><i class='fa fa-list'></i></button></span>";
+
+    $menu .= "<ul id='mnuPages'>";
+    //static pages listing
+    if($handle = opendir(PAGE_DIR)) {
+        $pages = array();
         while (false !== ($entry = readdir($handle))) {
             if(substr(strrchr($entry,'.'),1)==ltrim(FILE_EXT, '.')) {
                 // Define the post file.
-                $fcontents = file(POSTS_DIR.$entry);
-                // Define the post category.
-                $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
-                
-				// Pull everything together for the loop.
-				//if(isset($post_categories['say']) && $post_categories['say'] == $post_category) {
-				if (in_array($post_category, $post_categories)){
-					// value is in array - nothing to do
-				} else {
-					$post_categories[] = $post_category;
-				}
+                $fcontents = file(PAGE_DIR.$entry);
+                // Define the page name.
+                $page = str_replace(array("\n", '#'), '', $fcontents[0]) . "|" . str_replace(FILE_EXT, '', $entry);
+                // Pull everything together for the loop.
+                if (in_array($page,$pages)){
+                    // value is in array - nothing to do
+                } else {
+                    $pages[] = $page;
+                }
             }
         }
-		if (count($post_categories)>1) {
-			asort($post_categories);
-			foreach($post_categories as $lnk)
-			{
-				$menu .= "<li class='menu'><a href='" . BLOG_URL . "category/" . str_replace(' ','+',trim($lnk)) . "'>" . trim($lnk) . "</a></li>";
-			}
-		}
+
+        $paglnk = array();
+        if (count($pages)>0) {
+            asort($pages);
+            foreach($pages as $lnk)
+            {
+                $paglnk = split('\|',$lnk);
+                $menu .= "<li class='menu'><a href='" . BLOG_URL . str_replace(' ','+',trim($paglnk[1])) . "'>" . trim($paglnk[0]) . "</a></li>";
+            }
+        }
     }
-	$menu  .= "</ul>";
+        
+    // Menu Categories
+    $menu .= "<li class='menu'><a href='javascript:changeCat()'>" . _t("Categories") . "</a></li>"; 	
+        $menu .= '<ul id="mnuCat" style="display:none;">';       
+        // listing directories
+        if($handle = opendir(POSTS_DIR)) {
+            $post_categories = array();
+            while (false !== ($entry = readdir($handle))) {
+                if(substr(strrchr($entry,'.'),1)==ltrim(FILE_EXT, '.')) {
+                    // Define the post file.
+                    $fcontents = file(POSTS_DIR.$entry);
+                    // Define the post category.
+                    $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
+                    
+                    // Pull everything together for the loop.
+
+                    if (in_array($post_category, $post_categories)){
+                        // value is in array - nothing to do
+                    } else {
+                        $post_categories[] = $post_category;
+                    }
+                }
+            }
+            if (count($post_categories)>0) {
+                asort($post_categories);
+                foreach($post_categories as $lnk)
+                {
+                    $menu .= "<li class='menu'><a href='" . BLOG_URL . "category/" . str_replace(' ','+',trim($lnk)) . "'>" . trim($lnk) . "</a></li>";
+                }
+            }
+        }
+        $menu  .= "</ul>";	
+    $menu .= "</ul>";
 	$menu  .= "<span style='text-align:center;'>";
 	$menu .= "<button onclick=\"window.location.href='" . BLOG_URL . "';\" class='myButton'><i class='fa fa-map-marker'></i></button>&nbsp;";
 	$menu .= "<button onclick=\"window.location.href='mailto:" . BLOG_EMAIL . "?subject=Contact from " . BLOG_TITLE . "';\" class='myButton'><i class='fa fa-envelope-o fa-2'></i></button>&nbsp;";
@@ -417,12 +454,14 @@ define('IS_SINGLE', !(IS_HOME || IS_CATEGORY));
 /* Get Profile Image
 /*-----------------------------------------------------------------------------------*/
 function get_myProfile_img($qImg,$qId){
-	if (trim($qImg)=='') { // need name
+        $qImg = trim($qImg);
+        $qId = trim($qId);
+	if ($qImg == '') { // need name
 		return '';
 	}
-	if (trim($qId)=='') { // need id
+	if ($qId == '') { // need id
 		return '';
-	}	
+	}
 	try {	
 		if ($qId == null) {
 			return '';
@@ -472,19 +511,19 @@ function get_myProfile_img($qImg,$qId){
 	return $cache_image;
 }
 function get_gravatar_profile_img($gvImg){
-	return get_myProfile_img("gravatar",$gvImg);
+	return get_myProfile_img("gravatar",trim($gvImg));
 }
 function get_tumblr_profile_img($tbImg){
-	return get_myProfile_img("tumblr",$tbImg);
+	return get_myProfile_img("tumblr",trim($tbImg));
 }
 function get_facebook_profile_img($fImg) {
-	return get_myProfile_img("facebook",$fImg);
+	return get_myProfile_img("facebook",trim($fImg));
 }
 function get_gplus_profile_img($gImg) {
-	return get_myProfile_img("google",$gImg);
+	return get_myProfile_img("google",trim($gImg));
 }
 function get_twitter_profile_img($tImg) {
-	return get_myProfile_img("dtwitter",$tImg);
+	return get_myProfile_img("dtwitter",trim($tImg));
 }
 
 function get_twitter_profile_imgV2($tImg) { // use new Twitter API
@@ -496,9 +535,10 @@ function get_twitter_profile_imgV2($tImg) { // use new Twitter API
 // The link below, get read-only access
 // Give your application READ access, and hit "Update" at the bottom.
 // http://stackoverflow.com/questions/12916539/simplest-php-example-for-retrieving-user-timeline-with-twitter-api-version-1-1/15314662#15314662
-	if (trim($tImg)=='') {
+    $tImg = trim($tImg);
+	if ($tImg == '') {
 		return '';
-	}	
+	}
 	try {
 		$twitter_image = '';
 		if (!file_exists('./cache/twitter_'.$tImg.'.jpg')) {
@@ -579,6 +619,7 @@ function get_profile_auto() {
 }
 
 function get_profile_img() {
+    $imgD = $imgDc = '';
 	switch(avatar_default) {
 		case "auto":
 				return get_profile_auto();
@@ -693,32 +734,32 @@ function get_header() { ?>
 			echo '<link rel="shortcut icon" href="' . BLOG_URL . 'dropplets/style/images/favicon.png">';
 		}
 		echo "<!-- jQuery & Required Scripts -->";
-      	$file = BLOG_PATH . "src/js/jquery-1.10.2.min.js"; // windows compatible
+      	$file = BLOG_PATH . "bitzero/js/jquery-1.10.2.min.js"; // windows compatible
     	if(file_exists($file)) {  
-            echo '<script src="' . BLOG_URL . 'src/js/jquery-1.10.2.min.js"></script>';			
+            echo '<script src="' . BLOG_URL . 'bitzero/js/jquery-1.10.2.min.js"></script>';			
 		} else {
 			echo '<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>';
 		}
         
-      	$file = BLOG_PATH . "src/js/modernizr.custom.js"; // windows compatible
+      	$file = BLOG_PATH . "bitzero/js/modernizr.custom.js"; // windows compatible
     	if(file_exists($file)) {          
             echo "<!-- Modernizr Script -->";        
-            echo "<script src='" . BLOG_URL . "src/js/modernizr.custom.js'></script>";
+            echo "<script src='" . BLOG_URL . "bitzero/js/modernizr.custom.js'></script>";
         }
         
         echo "<!-- Fonts Merriweather & Source Sans Pro -->";
-		$file = BLOG_PATH . "src/fonts/fonts.css";
+		$file = BLOG_PATH . "bitzero/fonts/fonts.css";
     	if(file_exists($file)) {
-            echo "<link href='" . BLOG_URL . "src/fonts/fonts.css' rel='stylesheet' type='text/css'>";        
+            echo "<link href='" . BLOG_URL . "bitzero/fonts/fonts.css' rel='stylesheet' type='text/css'>";        
 		} else {
 			echo "<link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,700' rel='stylesheet' type='text/css'>";
 			echo "<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>";
 		}     
         
-		$file = BLOG_PATH  . "src/font-awesome/css/font-awesome.min.css";
+		$file = BLOG_PATH  . "bitzero/font-awesome/css/font-awesome.min.css";
     	if(file_exists($file)) {
             echo "<!-- Fonts Awesome -->";
-            echo '<link rel="stylesheet" href="' . BLOG_URL  . 'src/font-awesome/css/font-awesome.min.css">'; 
+            echo '<link rel="stylesheet" href="' . BLOG_URL  . 'bitzero/font-awesome/css/font-awesome.min.css">'; 
         }        
     ?>
     <!-- Twitter & Tumblr Scripts -->
@@ -764,9 +805,9 @@ function get_footer() { ?>
 						url: "index.php?page=" + next_page,
 						beforeSend: function () {
 							$('body').append('<article class="loading-frame"><div class="row"><div class="one-quarter meta"></div><div class="three-quarters"><?php
-                                    $file = BLOG_PATH  . "src/imgs/loading.gif";
+                                    $file = BLOG_PATH  . "bitzero/imgs/loading.gif";
                                     if(file_exists($file)) {
-                                        echo '<img src="' . BLOG_URL . 'src/imgs/loading.gif" alt="Loading" width="80" style="margin-left:20%;float:left;">';
+                                        echo '<img src="' . BLOG_URL . 'bitzero/imgs/loading.gif" alt="Loading" width="80" style="margin-left:20%;float:left;">';
 									} else {
 										echo '<img src="' . BLOG_URL . 'templates/' . ACTIVE_TEMPLATE . '/loading.gif" alt="Loading" width="180" style="margin-left:20%;float:left;">';	
 									}							
@@ -810,7 +851,7 @@ function get_footer() { ?>
 	?>
 	<!-- Copyright -->
 	<div style="text-align:center; font-size:11px; bottom:0; position: fixed;">
-			<?php echo BLOG_COPYRIGHT; ?> - <?php _e("Developed with:"); ?>&nbsp;<a class="dp-link" href="http://dropplets.com" target="_blank">Dopplets</a>&nbsp;&&nbsp;
+			<?php echo BLOG_COPYRIGHT; ?> - <?php _e("Developed with:"); ?>&nbsp;&nbsp;<a class="dp-link" href="http://bit.ly/BitZero" target="_blank">BitZero</a>&nbsp;&&nbsp;<a class="dp-link" href="http://bit.ly/Dropplets" target="_blank">Dropplets</a>&nbsp;&&nbsp;
             <a class="dp-link" href="http://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a>&nbsp;&&nbsp;<a class="dp-link" href="http://modernizr.com/" target="_blank">Modernizr</a>
 	</div>   
     <!-- Dropplets Tools -->
