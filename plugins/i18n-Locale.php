@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Plugin Name: I18n for Dropplets & BitZero
  * Author: MBarbosaEng <MBarbosaEng@EngBit.com.br>
@@ -159,15 +159,21 @@ function _n($var, $number){
 	}		
 }
 
-function localDate($dt){
-	try{
-		date_default_timezone_set(timeZone); 
-		setlocale(LC_ALL,message,lngWin);
-		$aData = explode('-',date_format(date_create($dt,null),"Y-m-d"));
-		return strftime(date_format,mktime(0,0,0,$aData[1],$aData[2],$aData[0]));
-	} catch (Exception $e) {
-		return '';
-	}	
+ffunction localDate($dt){
+    $dt = str_replace("\\", "-", $dt);
+    $dt = str_replace("/", "-", $dt);
+    if (strlen($dt)<10) {
+        return '';
+    } else {
+        try{
+            date_default_timezone_set(timeZone);
+            setlocale(LC_ALL,message,lngWin);
+            $aData = explode('-',$dt);
+            return strftime(date_format,mktime(0,0,0,(int)$aData[1],(int)$aData[2],(int)$aData[0]));
+        } catch (Exception $e) {
+            return '';
+        }
+    }
 }
 
 ?>
