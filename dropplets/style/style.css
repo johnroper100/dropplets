@@ -76,7 +76,7 @@ body.dp-install form {
     border: 1px solid rgba(0, 0, 0, 0.15);
     background-color: rgba(0, 0, 0, 0.01);
     width: 320px;
-    height: 340px;
+    height: 370px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -107,7 +107,7 @@ body.dp-install form input[type="password"] {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 400;
     font-size: 14px;
-    line-height: 22px;
+    line-height: 18px;
     color: #404040;
     text-align: center;
     width: 258px;
@@ -229,7 +229,7 @@ body.dp-install form button:hover {
 
 #dp-dropplets-icon:hover {
     box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.75);
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
 }
 
 .dp-panel-wrapper {
@@ -574,4 +574,66 @@ body.dp-install form button:hover {
     z-index: 1975;
     -moz-transition-duration: 0.5s;
     -webkit-transition-duration: 0.5s;
+}
+
+
+/* New Account Thumbnail
+*********************************************************************************************/
+.dp-icon-dropplets-mnu{
+	background-color: #ffffff !important;
+	color: #000000 !important;
+    box-shadow: 0px 0px 0px 0px #ffffff !important;
+    text-shadow: 0px 0px 0px #ffffff !important;
+	border: 1px solid #ffffff;
+	border-radius: 50%;			
+}
+.dp-icon-dropplets-mnu:hover{
+	background-color: #ffffff !important;
+	color: #1095D6 !important;
+	border: 1px solid #ebebeb;
+	border-radius: 50%;		
+}
+.dp-thumbnail img {
+	width: 40px !important;
+	height: 40px !important;
+	background-color: #ffffff !important; /* #fbfbfb; */
+	border: 1px solid #ebebeb;
+	border-radius: 50% !important;
+	padding: 4px;
+	float: right;
+	margin-right: -21px;
+	-moz-transition-duration: 0.05s;
+	-webkit-transition-duration: 0.05s;
+}
+.dp-twitterMenu:before {
+	content: "\65";
+	font-size: 16px !important;
+}
+.i18nSelect {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	position: relative;
+	background-color: #FFF;
+	border: 1px solid #E5E5E5;
+	border-radius: 3px;
+	height: 1.75em;
+}
+.btnshare{
+	margin-right: 30px;
+}
+
+body.dp-install form input[type="text"] {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    outline: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #404040;
+    text-align: center;
+    width: 258px;
+    float: left;
+    margin: 0 0 10px 10px;
+    padding: 10px 20px;
 }

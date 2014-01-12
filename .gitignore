@@ -12,9 +12,10 @@ posts/*.jpg
 
 templates/*
 !templates/simple/
+!templates/simpleI8N/
 
-plugins/*
-!plugins/index.php
+!plugins/locale/.htaccess
+
 
 posts/*
 !posts/index.php

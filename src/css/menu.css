@@ -1,0 +1,114 @@
+#btnMenu{
+	top: 0;
+	right:0;
+	position: fixed;	
+	padding-top: 6px;
+	z-index: 1000;
+	padding-bottom: 4px;	
+}
+#btnMenu button{
+	background-color:#ffffff;
+	cursor:pointer;
+	color:#5f6f81;
+	text-decoration:none;
+	border: 0px !important;
+	font-size: 26px;	
+	outline: none;	
+}
+.mnuright {
+	margin: 0px !important;	
+	background: #ffffff;
+	width: 180px;
+	top: 0;
+	right:0;
+	z-index: 1000;
+	position: fixed;
+	padding-bottom: 4px;
+	border: 1px solid #c6d0da;	
+}
+.mnuright .myButton {
+	background-color:#ffffff;
+	cursor:pointer;
+	color:#5f6f81;
+	text-decoration:none;
+	padding: 6px !important;
+	border: 0px !important;
+	font-size: 23px;
+	width: 40px;
+}
+.mnuright .myButton:hover {
+	color: #5f6f81;
+	text-decoration:none;	
+}
+.mnuright .myButton:active {
+	color: #47a3da;
+	position:relative;
+	text-decoration:none;	
+	border: 0px !important;	
+	outline: none;
+	outline-style:none;
+	box-shadow:none;
+}
+
+.mnuright h5 {
+	color: #34495E;
+	width: 100%;
+	padding-left: 6px !important;
+	margin: 0px !important;	
+	max-width: 100% !important;	
+	border-bottom: 1px solid #c6d0da;
+	font-size: 23px;
+	text-decoration:none;	
+}
+.mnuright span {
+	color: #34495E;
+	width: 100%;
+	padding-left: 6px !important;
+	margin: 0px !important;	
+	max-width: 100% !important;	
+	text-decoration:none;
+	text-align: center;
+	display: block;
+}
+.mnuright ul {
+	margin: 0 0 0px 6px !important;
+	list-style: none;
+	-webkit-margin-before: 0px;
+	-webkit-margin-after: 0px;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-padding-start: 0px;
+	line-height: 20px;
+}	
+.menu {
+	color: #5f6f81;
+	list-style: none !important;
+	border-bottom: 1px solid #c6d0da;
+	padding: 1px;
+	padding-left: -20px;
+	display: block;
+	text-decoration:none;	
+}
+.mnuright a {
+	color: #5f6f81;
+}
+.mnuright a:hover {
+	display: block;
+	color: #ffffff !important;
+	border-left: 5px solid lightgreen;
+	padding-left: 6px;
+}
+.menu:hover {
+	background: #5f6f81;
+	color: #ffffff !important;
+}
+.menu:active {
+	background: #003545;
+	color: #47a3da;
+	outline: none;
+	outline-style:none;
+	box-shadow:none;	
+}
+*:focus {
+    outline: none !important;
+   }

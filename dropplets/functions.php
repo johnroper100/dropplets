@@ -10,6 +10,14 @@ include('./dropplets/includes/phpass.php');
 include('./dropplets/includes/actions.php');
 
 /*-----------------------------------------------------------------------------------*/
+/* Include All Plugins in Plugins Directory
+/*-----------------------------------------------------------------------------------*/
+
+foreach(glob('./plugins/' . '*.php') as $plugin){
+    include_once $plugin;
+}
+
+/*-----------------------------------------------------------------------------------*/
 /* User Machine
 /*-----------------------------------------------------------------------------------*/
 
@@ -56,7 +64,7 @@ if (isset($_GET['action']))
             
                 $code = sha1(md5(rand()));
 
-                $verify_file_contents[] = "<?php";
+                $verify_file_contents[] = "<?php\n";
                 $verify_file_contents[] = "\$verification_code = \"" . $code . "\";";
                 file_put_contents($verification_file, implode("\n", $verify_file_contents));
 
@@ -106,8 +114,12 @@ if (isset($_GET['action']))
     }
     
 }
+// not show warning or error if the element is not set
+if (!(defined('LOGIN_ERROR'))) { 
+	if (!isset($login_error)) { $login_error=''; } 
+	define('LOGIN_ERROR', $login_error);
+}
 
-define('LOGIN_ERROR', $login_error);
 
 /*-----------------------------------------------------------------------------------*/
 /* Get All Posts Function
@@ -143,9 +155,11 @@ function get_all_posts($options = array()) {
                 $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
 
                 // Early return if we only want posts from a certain category
-                if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
-                    continue;
-                }
+				if (isset($options["category"])) { // not show warning or error if the element is not set
+					if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
+						continue;
+					}
+				}
 
                 // Define the post status.
                 $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
@@ -154,9 +168,9 @@ function get_all_posts($options = array()) {
                 $post_intro = Markdown($fcontents[7]);
 
                 // Define the post content
-                $post_content = Markdown(join('', array_slice($fcontents, 6, $fcontents.length -1)));
-
-                // Pull everything together for the loop.
+				$post_content = Markdown(join('', array_slice($fcontents, 6, sizeof($fcontents) -1))); // change $fcontents.length to sizeof($fcontents)
+                
+				// Pull everything together for the loop.
                 $files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_category' => $post_category, 'post_status' => $post_status, 'post_intro' => $post_intro, 'post_content' => $post_content);
                 $post_dates[] = $post_date;
                 $post_titles[] = $post_title;
@@ -168,12 +182,105 @@ function get_all_posts($options = array()) {
                 $post_contents[] = $post_content;
             }
         }
-        array_multisort($post_dates, SORT_DESC, $files);
-        return $files;
+		if (count($files)>1) {
+			array_multisort($post_dates, SORT_DESC, $files);
+			return $files;
+		} else {
+			return false;
+		}
 
     } else {
         return false;
     }
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* Get all categories for make menu
+/*-----------------------------------------------------------------------------------*/
+function get_Menu() {
+	$menu  = '<script type="text/javascript">';
+	$menu .= "function OpenWin(w, h, qUrl) {window.open(qUrl, 'Window', 'width=' + w + ',height=' + h + ',location=yes,personalbar=no,menubar=no,resizable=no,status=no,scrollbars=no,toolbar=no'); return false;}";
+	$menu .= "function changeMenu(){ $('#mnu').toggle(); $('#btnMenu').toggle(); }";
+	$menu .= "function changeCat(){ $('#mnuCat').toggle();}";    
+  	$menu .= '</script>';  
+  		$file = BLOG_PATH . "templates/" . ACTIVE_TEMPLATE . "/menu.css";
+    	if(file_exists($file)) {   
+            $menu .= '<link rel="stylesheet" href="' . BLOG_URL . 'templates/' . ACTIVE_TEMPLATE . '/menu.css" type="text/css">';
+		} else {
+			$menu .= '<link rel="stylesheet" href="' . BLOG_URL . 'bitzero/css/menu.css" type="text/css">';
+		}	 
+	$menu .= "<div id='btnMenu'><button onclick='javascript:changeMenu()' class='myButton'><i class='fa fa-list'></i></button></div>";	
+	$menu .= "<div class='mnuright' id='mnu' style='display:none;'>";
+	$menu .= "<span><button onclick='javascript:changeMenu()' class='myButton'><i class='fa fa-list'></i></button></span>";
+
+    $menu .= "<ul id='mnuPages'>";
+    //static pages listing
+    if($handle = opendir(PAGE_DIR)) {
+        $pages = array();
+        while (false !== ($entry = readdir($handle))) {
+            if(substr(strrchr($entry,'.'),1)==ltrim(FILE_EXT, '.')) {
+                // Define the post file.
+                $fcontents = file(PAGE_DIR.$entry);
+                // Define the page name.
+                $page = str_replace(array("\n", '#'), '', $fcontents[0]) . "|" . str_replace(FILE_EXT, '', $entry);
+                // Pull everything together for the loop.
+                if (in_array($page,$pages)){
+                    // value is in array - nothing to do
+                } else {
+                    $pages[] = $page;
+                }
+            }
+        }
+
+        $paglnk = array();
+        if (count($pages)>0) {
+            asort($pages);
+            foreach($pages as $lnk)
+            {
+                $paglnk = split('\|',$lnk);
+                $menu .= "<li class='menu'><a href='" . BLOG_URL . str_replace(' ','+',trim($paglnk[1])) . "'>" . trim($paglnk[0]) . "</a></li>";
+            }
+        }
+    }
+        
+    // Menu Categories
+    $menu .= "<li class='menu'><a href='javascript:changeCat()'>" . _t("Categories") . "</a></li>"; 	
+        $menu .= '<ul id="mnuCat" style="display:none;">';       
+        // listing directories
+        if($handle = opendir(POSTS_DIR)) {
+            $post_categories = array();
+            while (false !== ($entry = readdir($handle))) {
+                if(substr(strrchr($entry,'.'),1)==ltrim(FILE_EXT, '.')) {
+                    // Define the post file.
+                    $fcontents = file(POSTS_DIR.$entry);
+                    // Define the post category.
+                    $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
+                    
+                    // Pull everything together for the loop.
+
+                    if (in_array($post_category, $post_categories)){
+                        // value is in array - nothing to do
+                    } else {
+                        $post_categories[] = $post_category;
+                    }
+                }
+            }
+            if (count($post_categories)>0) {
+                asort($post_categories);
+                foreach($post_categories as $lnk)
+                {
+                    $menu .= "<li class='menu'><a href='" . BLOG_URL . "category/" . str_replace(' ','+',trim($lnk)) . "'>" . trim($lnk) . "</a></li>";
+                }
+            }
+        }
+        $menu  .= "</ul>";	
+    $menu .= "</ul>";
+	$menu  .= "<span style='text-align:center;'>";
+	$menu .= "<button onclick=\"window.location.href='" . BLOG_URL . "';\" class='myButton'><i class='fa fa-map-marker'></i></button>&nbsp;";
+	$menu .= "<button onclick=\"window.location.href='mailto:" . BLOG_EMAIL . "?subject=Contact from " . BLOG_TITLE . "';\" class='myButton'><i class='fa fa-envelope-o fa-2'></i></button>&nbsp;";
+	$menu  .= "<button onclick=\"javascript:OpenWin('600', '250','https://twitter.com/intent/tweet?text=" . BLOG_TITLE . "%20>%20" . BLOG_URL . "')\" title='" . _t('Comment on') . " Twitter' class='myButton'><i class='fa fa-comment-o'></i></button></span>";
+	$menu  .= "</div>";	
+	return $menu;
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -185,6 +292,7 @@ function get_posts_for_category($category) {
     return get_all_posts(array("category" => $category));
 }
 
+/*-----------------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 /* Get Image for a Post
 /*-----------------------------------------------------------------------------------*/
@@ -203,8 +311,6 @@ function get_post_image_url($filename)
 
     return false;
 }
-
-/*-----------------------------------------------------------------------------------*/
 /* Post Pagination
 /*-----------------------------------------------------------------------------------*/
 
@@ -304,16 +410,41 @@ function count_premium_templates($type = 'all') {
 }
 
 /*-----------------------------------------------------------------------------------*/
+/* get current Home url
+/*-----------------------------------------------------------------------------------*/
+function get_HOME(){
+    // Get the components of the current url.
+    $protocol = @( $_SERVER["HTTPS"] != 'on') ? 'http://' : 'https://';
+    $domain = $_SERVER["SERVER_NAME"];
+    $port = $_SERVER["SERVER_PORT"];
+    $path = $_SERVER["REQUEST_URI"];
+    // Check if running on alternate port.
+    if ($protocol === "https://") {
+        if ($port === 443)
+            $currentpage = $protocol . $domain;
+        else
+            $currentpage = $protocol . $domain . ":" . $port;
+    } elseif ($protocol === "http://") {
+        if ($port === 80)
+            $currentpage = $protocol . $domain;
+        else
+            $currentpage = $protocol . $domain . ":" . $port;
+    }
+    $currentpage .= $path;
+	return $currentpage;	
+}
+/*-----------------------------------------------------------------------------------*/
 /* If is Home (Could use "is_single", "is_category" as well.)
 /*-----------------------------------------------------------------------------------*/
 
 $homepage = BLOG_URL;
 
 // Get the current page.    
-$currentpage  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] : 'https://'.$_SERVER["SERVER_NAME"];
-$currentpage .= $_SERVER["REQUEST_URI"];
+// $currentpage  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] : 'https://'.$_SERVER["SERVER_NAME"];
+//$currentpage .= $_SERVER["REQUEST_URI"];
+$currentpage  = get_HOME();
 
-// If is home.
+// If is home. 
 $is_home = ($homepage==$currentpage);
 define('IS_HOME', $is_home);
 define('IS_CATEGORY', (bool)strstr($_SERVER['REQUEST_URI'], '/category/'));
@@ -322,34 +453,266 @@ define('IS_SINGLE', !(IS_HOME || IS_CATEGORY));
 /*-----------------------------------------------------------------------------------*/
 /* Get Profile Image
 /*-----------------------------------------------------------------------------------*/
-
-function get_twitter_profile_img($username) {
-	
-	// Get the cached profile image.
-    $cache = IS_CATEGORY ? '.' : '';
-    $array = split('/category/', $_SERVER['REQUEST_URI']);
-    $array = split('/', $array[1]);
-    if(count($array)!=1) $cache .= './.';
-    $cache .= './cache/';
-	$profile_image = $cache.$username.'.jpg';
-
-	// Cache the image if it doesn't already exist.
-	if (!file_exists($profile_image)) {
-	    $image_url = 'http://dropplets.com/profiles/?id='.$username.'';
-	    $image = file_get_contents($image_url);
-	    file_put_contents($cache.$username.'.jpg', $image);
+function get_myProfile_img($qImg,$qId){
+        $qImg = trim($qImg);
+        $qId = trim($qId);
+	if ($qImg == '') { // need name
+		return '';
 	}
-	
+	if ($qId == '') { // need id
+		return '';
+	}
+	try {	
+		if ($qId == null) {
+			return '';
+		}
+		$cache_image = '';
+		// Set the cached profile image.
+		switch($qImg) {
+			case "gravatar":
+					$cache_image = './cache/gravatar.jpg';
+					$image_url ="http://www.gravatar.com/avatar/" . md5(strtolower(trim($qId))) . "&s=100";
+					// to save image use this:
+					//$grav_url = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?d=" . urlencode($default) . "&s=" . $size;
+				break;
+			case "facebook":
+					$cache_image = './cache/facebook_'.$qId.'.jpg';
+					$image_url =  'https://graph.facebook.com/'.$qId.'/picture';			
+				break;
+			case "dtwitter":
+					$cache_image = './cache/twitter_d_'.$qId.'.jpg';
+					$image_url = 'http://dropplets.com/profiles/?id='.$qId.'';					
+				break;		
+			case "twitter":
+					return get_twitter_profile_imgV2($qId);					
+				break;	
+			case "tumblr":			
+				$cache_image = './cache/tumblr_' . $qId . '.png';
+				$image_url ="http://api.tumblr.com/v2/blog/" . $qId . ".tumblr.com/avatar";
+				break;
+			case "google":
+					$cache_image = './cache/gplus_'.$qId.'.jpg';
+					$image_url = 'https://profiles.google.com/s2/photos/profile/'.$qId;
+				break;
+		}
+
+		if (!file_exists($cache_image)) {
+			$image = @file_get_contents($image_url);
+			if (($image == "")||($image === FALSE)||(stripos($image,'404')>0)||(stripos($image,'status')>0)||(stripos($image,'meta')>0)||(stripos($image,'response')>0)) {
+				return '';
+			} else {
+				// Cache the image if it doesn't already exist.
+				file_put_contents($cache_image, $image);
+			} 
+		}
+	} catch (Exception $e) {
+		$cache_image = '';
+	}
+	return $cache_image;
+}
+function get_gravatar_profile_img($gvImg){
+	return get_myProfile_img("gravatar",trim($gvImg));
+}
+function get_tumblr_profile_img($tbImg){
+	return get_myProfile_img("tumblr",trim($tbImg));
+}
+function get_facebook_profile_img($fImg) {
+	return get_myProfile_img("facebook",trim($fImg));
+}
+function get_gplus_profile_img($gImg) {
+	return get_myProfile_img("google",trim($gImg));
+}
+function get_twitter_profile_img($tImg) {
+	return get_myProfile_img("dtwitter",trim($tImg));
+}
+
+function get_twitter_profile_imgV2($tImg) { // use new Twitter API
+//As you rightly pointed out, as of June 11th 2013 you can't make unauthenticated requests, 
+//or any to the 1.0 API any more, because it has been retired. 
+//So OAuth is the way to make requests to the 1.1 API.
+//https://dev.twitter.com/apps
+//https://dev.twitter.com/docs/api/1.1/get/users/lookup
+// The link below, get read-only access
+// Give your application READ access, and hit "Update" at the bottom.
+// http://stackoverflow.com/questions/12916539/simplest-php-example-for-retrieving-user-timeline-with-twitter-api-version-1-1/15314662#15314662
+    $tImg = trim($tImg);
+	if ($tImg == '') {
+		return '';
+	}
+	try {
+		$twitter_image = '';
+		if (!file_exists('./cache/twitter_'.$tImg.'.jpg')) {
+			if ((TWITTER_TOKEN != "") || (TWITTER_TOKEN != "") || (TWITTER_TOKEN != "") || (TWITTER_TOKEN != "")) {
+				$settings = array(
+					'oauth_access_token' => TWITTER_TOKEN,
+					'oauth_access_token_secret' => TWITTER_TSECRET,
+					'consumer_key' => TWITTER_CKEY,
+					'consumer_secret' => TWITTER_CSECRET
+				);	
+				/** URL for REST request, see: https://dev.twitter.com/docs/api/1.1/ **/
+				$api_call = 'https://api.twitter.com/1.1/users/show.json';
+				/** Perform a GET request and echo the response **/
+				/** Note: Set the GET field BEFORE calling buildOauth(); **/
+				$getfield = '?screen_name='.$tImg;
+				$requestMethod = 'GET';
+				/** Perform a POST request and echo the response **/
+				$twitter = new TwitterAPIExchange($settings);
+				$results = $twitter->setGetfield($getfield)->buildOauth($api_call,$requestMethod)->performRequest();			
+				if (isset($results)) {
+					$results = json_decode($results);
+					if (isset($results)) {
+						// Cache the image if it doesn't already exist.					
+						$image = str_replace('_normal', '100', $results->profile_image_url);
+						file_put_contents('./cache/twitter_'.$tImg.'.jpg', $image);
+						// Set the cached profile image.
+						$twitter_image =  './cache/twitter_'.$tImg.'.jpg';						
+					}
+				}
+			}
+		} else {
+			// Get the cached profile image.
+			$twitter_image =  './cache/twitter_'.$tImg.'.jpg';		
+		}
+	} catch (Exception $e) {
+		$twitter_image = '';
+	}
 	// Return the image URL.
-	return $profile_image;
+	return $twitter_image;
+}
+function get_profile_auto() {
+	$imageProfile = '';
+	$imgD = get_gravatar_profile_img(BLOG_EMAIL);
+	if ($imgD == './cache/gravatar.jpg') {
+		$imageProfile = $imgD;
+	} else {	
+		$imgD = get_twitter_profile_img(BLOG_TWITTER);
+		if ($imgD == './cache/twitter_d_'.BLOG_TWITTER.'.jpg') {
+			$imageProfile = $imgD;
+		} else {	
+			$imgD = get_twitter_profile_imgV2(BLOG_TWITTER);
+			if ($imgD == './cache/twitter_'.BLOG_TWITTER.'.jpg') {
+				$imageProfile = $imgD;
+			} else {
+				$imgD = get_facebook_profile_img(BLOG_FACEBOOK);
+				if ($imgD == './cache/facebook_'.BLOG_FACEBOOK.'.jpg') {
+					$imageProfile = $imgD;
+				} else {
+					$imgD = get_tumblr_profile_img(BLOG_TUMBLR);
+					if ($imgD == './cache/tumblr_'.BLOG_TUMBLR.'.png') {
+						$imageProfile = $imgD;
+					} else {				
+						$imgD = get_gplus_profile_img(BLOG_GOOGLEP);
+						if ($imgD == './cache/gplus_'.BLOG_GOOGLEP.'.jpg') {
+							$imageProfile = $imgD;
+						}	
+					}						
+				}		
+			}
+		}
+	}
+	if ($imageProfile == '') {
+		$imageProfile = './cache/dropplets.jpg';
+	}	
+	if (file_exists($imageProfile)) {
+		return BLOG_URL.str_replace(array(FILE_EXT, './'), '',$imageProfile);
+	}
+}
+
+function get_profile_img() {
+    $imgD = $imgDc = '';
+	switch(avatar_default) {
+		case "auto":
+				return get_profile_auto();
+			break;
+		case "gravatar":
+				$imgD = get_gravatar_profile_img(BLOG_EMAIL);
+				$imgDc = './cache/gravatar.jpg';
+			break;		
+		case "twitter":
+				$imgD = get_twitter_profile_img(BLOG_TWITTER);
+				$imgDc = './cache/twitter_d_'.BLOG_TWITTER.'.jpg';
+			break;
+		case "facebook":
+				$imgD = get_facebook_profile_img(BLOG_FACEBOOK);
+				$imgDc = './cache/facebook_'.BLOG_FACEBOOK.'.jpg';
+			break;
+		case "tumblr":
+				$imgD = get_tumblr_profile_img(BLOG_TUMBLR);
+				$imgDc = './cache/tumblr_'.BLOG_TUMBLR.'.png';
+			break;
+		case "google":
+				$imgD = get_gplus_profile_img(BLOG_GOOGLEP);
+				$imgDc = './cache/gplus_'.BLOG_GOOGLEP.'.jpg';
+			break;	
+		default:
+				return get_profile_auto();
+			break;		
+	}
+	$imageProfile = '';
+	if ($imgD == $imgDc) {
+		$imageProfile = $imgD;
+	}	
+	if ($imageProfile == '') {
+		$imageProfile = './cache/dropplets.jpg';
+	}	
+	if (file_exists($imageProfile)) {
+		return BLOG_URL.str_replace(array(FILE_EXT, './'), '',$imageProfile);
+	}
+}
+
+
+
+/*-----------------------------------------------------------------------------------*/
+/* defines default blog options 
+/*-----------------------------------------------------------------------------------*/
+function getPaginationAuto() {
+	if(paginationAuto == "on") { 
+		echo '<option value="on" selected>' . _t("Pagination On") . '</option>';
+        echo '<option value="off">' . _t("Pagination Off") . '</option>';        
+	} else {
+		echo '<option value="on">' . _t("Pagination On") . '</option>';    
+		echo '<option value="off" selected>' . _t("Pagination Off") . '</option>';
+	}
+}
+
+function getAvatar() {
+	$default = avatar_default;	
+	$avatares= array( 0 => "auto", 1 => "gravatar", 2 => "twitter", 3 => "facebook",4 => "tumblr", 5 => "google+" );
+	foreach($avatares as $avatar){
+		if($default == $avatar) { 
+			echo '<option value="' . str_replace('+','',$avatar) .'" selected>' . strtoupper($avatar) . '</option>'; 
+		} else {
+			echo '<option value="' . str_replace('+','',$avatar) .'">' . strtoupper($avatar) . '</option>';
+		}
+	}
+}
+
+function getLanguages() {
+	if(isset($_COOKIE['i18nLanguage'])) { 
+		$default = trim($_COOKIE['i18nLanguage']); 
+	} else {
+		$default = language_default;
+	}
+	$local = './plugins/locale/';
+	foreach(glob($local . '*.po') as $lng){
+		$lng = str_replace('.po','',str_replace($local,'',$lng));
+		if($default == $lng) { 
+			echo '<option id="' . $lng . '" value="' . $lng .'" selected>' . _t(str_replace('_','',$lng)) . '</option>'; 
+		} else {
+			echo '<option id="' . $lng . '" value="' . $lng .'">' . _t(str_replace('_','',$lng)) . '</option>';
+		}
+	}
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* Include All Plugins in Plugins Directory
+/* String limit - defines the maximum size of the fields Twitter Card and Open Graph Tags
 /*-----------------------------------------------------------------------------------*/
-
-foreach(glob('./plugins/' . '*.php') as $plugin){
-    include_once $plugin;
+function StrLimit($sStrg,$iLmt){
+	if (strlen($sStrg)>$iLmt) {
+		return substr($sStrg,0,$iLmt);
+	} else {
+		return $sStrg;
+	}
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -363,8 +726,58 @@ function get_header() { ?>
     
     <!-- Dropplets Styles -->
     <link rel="stylesheet" href="<?php echo BLOG_URL; ?>dropplets/style/style.css">
-    <link rel="shortcut icon" href="<?php echo BLOG_URL; ?>dropplets/style/images/favicon.png">
-
+	<?php
+      	$file = BLOG_PATH . "favicon.png"; // windows compatible
+    	if(file_exists($file)) {  
+			echo '<link rel="shortcut icon" href="' . BLOG_URL . 'favicon.png">';
+		} else {
+			echo '<link rel="shortcut icon" href="' . BLOG_URL . 'dropplets/style/images/favicon.png">';
+		}
+		echo "<!-- jQuery & Required Scripts -->";
+      	$file = BLOG_PATH . "bitzero/js/jquery-1.10.2.min.js"; // windows compatible
+    	if(file_exists($file)) {  
+            echo '<script src="' . BLOG_URL . 'bitzero/js/jquery-1.10.2.min.js"></script>';			
+		} else {
+			echo '<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>';
+		}
+        
+      	$file = BLOG_PATH . "bitzero/js/modernizr.custom.js"; // windows compatible
+    	if(file_exists($file)) {          
+            echo "<!-- Modernizr Script -->";        
+            echo "<script src='" . BLOG_URL . "bitzero/js/modernizr.custom.js'></script>";
+        }
+        
+        echo "<!-- Fonts Merriweather & Source Sans Pro -->";
+		$file = BLOG_PATH . "bitzero/fonts/fonts.css";
+    	if(file_exists($file)) {
+            echo "<link href='" . BLOG_URL . "bitzero/fonts/fonts.css' rel='stylesheet' type='text/css'>";        
+		} else {
+			echo "<link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,700' rel='stylesheet' type='text/css'>";
+			echo "<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>";
+		}     
+        
+		$file = BLOG_PATH  . "bitzero/font-awesome/css/font-awesome.min.css";
+    	if(file_exists($file)) {
+            echo "<!-- Fonts Awesome -->";
+            echo '<link rel="stylesheet" href="' . BLOG_URL  . 'bitzero/font-awesome/css/font-awesome.min.css">'; 
+        }        
+    ?>
+    <!-- Twitter & Tumblr Scripts -->
+    <script src="http://platform.tumblr.com/v1/share.js"></script>
+    <script id="twitter-wjs" src="http://platform.twitter.com/widgets.js"></script>
+	<!-- jQuery I8N Language Switcher -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#i18nLanguageOptions").on("change", function() {
+				$.cookies.set('i18nLanguage', $("#i18nLanguageOptions option:selected").val());
+				location.reload();
+			});					
+		});
+		function OpenWind(w, h, qUrl) {
+			window.open(qUrl, 'Window', 'width=' + w + ',height=' + h + ',location=yes,personalbar=no,menubar=no,resizable=yes,status=no,scrollbars=no,toolbar=no');
+			return false;
+		}
+	</script>
     <!-- User Header Injection -->
     <?php echo HEADER_INJECT; ?>
     
@@ -377,61 +790,70 @@ function get_header() { ?>
 /*-----------------------------------------------------------------------------------*/
 /* Dropplets Footer
 /*-----------------------------------------------------------------------------------*/
-
+// jquery moved to header
 function get_footer() { ?>
-    <!-- jQuery & Required Scripts -->
-    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    
+	<!-- Post Pagination -->   
     <?php if (!IS_SINGLE && PAGINATION_ON_OFF !== "off") { ?>
-    <!-- Post Pagination -->
-    <script>
-        var infinite = true;
-        var next_page = 2;
-        var loading = false;
-        var no_more_posts = false;
-        $(function() {
-            function load_next_page() {
-                $.ajax({
-                    url: "index.php?page=" + next_page,
-                    beforeSend: function () {
-                        $('body').append('<article class="loading-frame"><div class="row"><div class="one-quarter meta"></div><div class="three-quarters"><img src="./templates/<?php echo(ACTIVE_TEMPLATE); ?>/loading.gif" alt="Loading"></div></div></article>');
-                        $("body").animate({ scrollTop: $("body").scrollTop() + 250 }, 1000);
-                    },
-                    success: function (res) {
-                        next_page++;
-                        var result = $.parseHTML(res);
-                        var articles = $(result).filter(function() {
-                            return $(this).is('article');
-                        });
-                        if (articles.length < 2) {  //There's always one default article, so we should check if  < 2
-                            $('.loading-frame').html('You\'ve reached the end of this list.');
-                            no_more_posts = true;
-                        }  else {
-                            $('.loading-frame').remove();
-                            $('body').append(articles);
-                        }
-                        loading = false;
-                    },
-                    error: function() {
-                        $('.loading-frame').html('An error occurred while loading posts.');
-                        //keep loading equal to false to avoid multiple loads. An error will require a manual refresh
-                    }
-                });
-            }
-
-            $(window).scroll(function() {
-                var when_to_load = $(window).scrollTop() * 0.32;
-                if (infinite && (loading != true && !no_more_posts) && $(window).scrollTop() + when_to_load > ($(document).height()- $(window).height() ) ) {
-                    // Sometimes the scroll function may be called several times until the loading is set to true.
-                    // So we need to set it as soon as possible
-                    loading = true;
-                    setTimeout(load_next_page,500);
-                }
-            });
-        });
+    <script type="text/javascript">
+			var infinite = true;
+			var next_page = 1;
+			var loading = false;
+			var no_more_posts = false;
+			$(function() {
+				function load_next_page() {
+					$.ajax({
+						url: "index.php?page=" + next_page,
+						beforeSend: function () {
+							$('body').append('<article class="loading-frame"><div class="row"><div class="one-quarter meta"></div><div class="three-quarters"><?php
+                                    $file = BLOG_PATH  . "bitzero/imgs/loading.gif";
+                                    if(file_exists($file)) {
+                                        echo '<img src="' . BLOG_URL . 'bitzero/imgs/loading.gif" alt="Loading" width="80" style="margin-left:20%;float:left;">';
+									} else {
+										echo '<img src="' . BLOG_URL . 'templates/' . ACTIVE_TEMPLATE . '/loading.gif" alt="Loading" width="180" style="margin-left:20%;float:left;">';	
+									}							
+							?></div></div></article>');
+							$("body").animate({ scrollTop: $("body").scrollTop() + 250 }, 1000);
+						},
+						success: function (res) {
+							next_page++;
+							var result = $.parseHTML(res);
+							var articles = $(result).filter(function() {
+								return $(this).is('article');
+							});
+							if (articles.length < 2) {  //There's always one default article, so we should check if  < 2
+								$('.loading-frame').html(<?php _t("You've reached the end of this list."); ?>);
+								no_more_posts = true;
+							}  else {
+								$('.loading-frame').remove();
+								$('body').append(articles.slice(1));
+							}
+							loading = false;
+						},
+						error: function() {
+							$('.loading-frame').html(<?php _t("An error occurred while loading posts."); ?>);
+							//keep loading equal to false to avoid multiple loads. An error will require a manual refresh
+						}
+					});
+				}
+				$(window).scroll(function() {
+					var when_to_load = $(window).scrollTop() * 0.32;
+					if (infinite && (loading != true && !no_more_posts) && $(window).scrollTop() + when_to_load > ($(document).height()- $(window).height() ) ) {
+						// Sometimes the scroll function may be called several times until the loading is set to true.
+						// So we need to set it as soon as possible
+						loading = true;
+						setTimeout(load_next_page,500);
+					}
+				});
+			});
     </script>
-    <?php } ?>
-    
+	<?php				 
+		} 
+	?>
+	<!-- Copyright -->
+	<div style="text-align:center; font-size:11px; bottom:0; position: fixed;">
+			<?php echo BLOG_COPYRIGHT; ?> - <?php _e("Developed with:"); ?>&nbsp;&nbsp;<a class="dp-link" href="http://bit.ly/BitZero" target="_blank">BitZero</a>&nbsp;&&nbsp;<a class="dp-link" href="http://bit.ly/Dropplets" target="_blank">Dropplets</a>&nbsp;&&nbsp;
+            <a class="dp-link" href="http://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a>&nbsp;&&nbsp;<a class="dp-link" href="http://modernizr.com/" target="_blank">Modernizr</a>
+	</div>   
     <!-- Dropplets Tools -->
     <?php include('./dropplets/tools.php'); ?>
     

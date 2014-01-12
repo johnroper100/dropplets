@@ -6,6 +6,10 @@ session_start();
 $settings_file = "../config.php";
 $htaccess_file = "../.htaccess";
 $phpass_file   = '../dropplets/includes/phpass.php';
+
+// encode/decode config variables 
+include('../dropplets/encdec.php');
+
 $dir = '';
 
 // Get existing settings.
@@ -36,8 +40,29 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     if (isset($_POST["blog_twitter"])) {
         $blog_twitter = $_POST["blog_twitter"];
     }
+
+    if (isset($_POST["blog_facebook"])) {
+        $blog_facebook = $_POST["blog_facebook"];
+    }
+	if(!isset($blog_facebook)) {
+        $blog_facebook = "";
+    }	
+    if (isset($_POST["blog_googlep"])) {
+        $blog_googlep = $_POST["blog_googlep"];
+    }	
+	if(!isset($blog_googlep)) {
+        $blog_googlep = "";
+    }	
+    if (isset($_POST["blog_tumblr"])) {
+        $blog_tumblr = $_POST["blog_tumblr"];
+    }
+	if(!isset($blog_tumblr)) {
+        $blog_tumblr = "";
+    }	
+	
     if (isset($_POST["blog_url"])) {
         $blog_url = $_POST["blog_url"];
+		$blog_url = str_replace("?action=login", "",$blog_url);
     }
     if (isset($_POST["blog_title"])) {
         $blog_title = $_POST["blog_title"];
@@ -61,6 +86,31 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
         $password = $hasher->HashPassword($_POST["password"]);
     }
 
+    if (isset($_POST["consumerkey"])) {
+        $consumerkey = Encode($password,$_POST["consumerkey"]);
+    } 
+    if(!isset($consumerkey)) {
+        $consumerkey = "";
+    }	
+    if (isset($_POST["consumersecret"])) {
+        $consumersecret = Encode($password,$_POST["consumersecret"]);
+    } 
+    if(!isset($consumersecret)) {
+        $consumersecret = "";
+    }	
+    if (isset($_POST["accesstoken"])) {
+        $accesstoken = Encode($password,$_POST["accesstoken"]);
+    } 
+    if(!isset($accesstoken)) {
+        $accesstoken = "";
+    }	
+    if (isset($_POST["accesstokensecret"])) {
+		$accesstokensecret = Encode($password,$_POST["accesstokensecret"]);
+    } 
+    if(!isset($accesstokensecret)) {
+        $accesstokensecret = "";
+    }	
+
     if(!isset($header_inject)) {
         $header_inject = "";        
     }
@@ -76,7 +126,29 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     if(isset($_POST["footer_inject"])) {
         $footer_inject = addslashes($_POST["footer_inject"]);
     }
-
+	
+	if(isset($_COOKIE['i18nLanguage'])) { 
+		$language_default = trim($_COOKIE['i18nLanguage']); 
+	} else {
+		$language_default = "en_US";
+	}
+	
+	if(isset($_POST["avatar_default"])) { 
+		$avatar_default = trim($_POST["avatar_default"]); 
+	} else {
+		$avatar_default = "gravatar";
+	}	
+	
+	if(isset($_POST["copyright"])) { 
+		$copyright = trim($_POST["copyright"]) ."&nbsp;"; 
+	} else {
+		$copyright = "";
+	}	
+	
+	if(isset($_POST["paginationAuto"])) { 
+		$paginationAuto = $_POST["paginationAuto"]; 
+	}	
+    
     // Get subdirectory
     $dir .= str_replace('dropplets/save.php', '', $_SERVER["REQUEST_URI"]);
 
@@ -84,6 +156,13 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     $config[] = "<?php";
     $config[] = settings_format("blog_email", $blog_email);
     $config[] = settings_format("blog_twitter", $blog_twitter);
+    $config[] = settings_format("consumerkey", $consumerkey);
+    $config[] = settings_format("consumersecret", $consumersecret);
+    $config[] = settings_format("accesstoken", $accesstoken);	
+	$config[] = settings_format("accesstokensecret", $accesstokensecret);
+	$config[] = settings_format("blog_facebook", $blog_facebook);
+	$config[] = settings_format("blog_googlep", $blog_googlep);
+	$config[] = settings_format("blog_tumblr", $blog_tumblr);	
     $config[] = settings_format("blog_url", $blog_url);
     $config[] = settings_format("blog_title", $blog_title);
     $config[] = settings_format("meta_description", $meta_description);
@@ -93,7 +172,11 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     $config[] = settings_format("header_inject", $header_inject);
     $config[] = settings_format("footer_inject", $footer_inject);
     $config[] = settings_format("template", $template);
-    
+    $config[] = settings_format("language_default", $language_default);
+    $config[] = settings_format("avatar_default", $avatar_default);
+    $config[] = settings_format("copyright", $copyright);
+    $config[] = settings_format("paginationAuto", $paginationAuto);
+    $config[] = "?>";    
     // Create the settings file.
     file_put_contents($settings_file, implode("\n", $config));
     
@@ -111,7 +194,11 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
         $htaccess[] = "RewriteCond %{REQUEST_URI} !index\.php";
         $htaccess[] = "RewriteCond %{REQUEST_FILENAME} !-f";
         $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [NC,QSA,L]";
-    
+        $htaccess[] = "# Protect all files";
+        $htaccess[] = '<FilesMatch "\.(htaccess|gitignore|md)$>';
+        $htaccess[] = "order Allow,Deny ";
+        $htaccess[] = "Deny from all";
+        $htaccess[] = "</FilesMatch>";
         // Generate the .htaccess file.
         file_put_contents($htaccess_file, implode("\n", $htaccess));
     }

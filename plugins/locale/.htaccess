@@ -1,0 +1,5 @@
+# Protect all files
+<FilesMatch "\.(htaccess|htpasswd|ini|phps|fla|psd|log|sh|po|mo|pot)$>
+order Allow,Deny 
+Deny from all
+</FilesMatch>

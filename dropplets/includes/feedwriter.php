@@ -81,7 +81,7 @@
     */
     public function genarateFeed()
     {
-        header("Content-type: application/rss+xml; charset: utf-8");
+        header("Content-type: text/xml");
 
         $this->printHead();
         $this->printChannels();
