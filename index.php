@@ -29,9 +29,13 @@ if (empty($_GET['filename'])) {
     //Filename can be /some/blog/post-filename.md We should get the last part only
     $filename = explode('/',$_GET['filename']);
 
-    // File name could be the name of a category
-    if($filename[count($filename) - 2] == "category") {
+    // File name could be the name of a category or an author
+    $resource = $filename[count($filename) - 2];
+    if($resource == "category") {
         $category = $filename[count($filename) - 1];
+        $filename = null;
+    } else if($resource == "author"){
+        $author = $filename[count($filename) - 1];
         $filename = null;
     } else {
       
@@ -65,6 +69,8 @@ if ($filename==NULL) {
 
     if($category) {
         $all_posts = get_posts_for_category($category);
+    } else if($author) {
+        $author = get_author($author);
     } else {
         $all_posts = get_all_posts();
     }
@@ -162,6 +168,13 @@ if ($filename==NULL) {
         $page_meta = implode("\n", $get_page_meta);
 
         ob_end_clean();
+    } else if($author) {
+      // ob_start();
+
+      $page_title = $blog_title." | ".$author['name'];
+      include $author_file;
+
+      // ob_end_clean();
     } else {
         ob_start();
 
