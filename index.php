@@ -88,7 +88,7 @@ if ($filename==NULL) {
             $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post['post_title']);
 
             // Get the post author.
-            $post_author = $post['post_author'];
+            $post_author = get_author($post['post_author'], array("posts" => FALSE));
 
             // Get the post author twitter id.
             $post_author_twitter = $post['post_author_twitter'];
@@ -330,7 +330,7 @@ else {
         $post_intro = htmlspecialchars($fcontents[7]);
 
         // Get the post author.
-        $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
+        $post_author = get_author(str_replace(array("\n", '-'), '', $fcontents[1]));
 
         // Get the post author Twitter ID.
         $post_author_twitter = str_replace(array("\n", '- '), '', $fcontents[2]);
