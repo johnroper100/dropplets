@@ -7,6 +7,7 @@
 include('./dropplets/includes/feedwriter.php');
 include('./dropplets/includes/markdown.php');
 include('./dropplets/includes/phpass.php');
+include('./dropplets/includes/spyc.php');
 include('./dropplets/includes/actions.php');
 
 /*-----------------------------------------------------------------------------------*/
