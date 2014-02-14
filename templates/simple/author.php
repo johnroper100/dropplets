@@ -22,7 +22,7 @@
               <p class="meta" style="text-align: left;">
               <?php echo($post['post_date']); ?> 
               <?php if($post['post_category']): ?>
-                <a href="<?php echo($post['post_category_url']); ?>"><?php echo($post['post_category']); ?></a>
+                <a href="<?php echo($post['post_category_link']); ?>"><?php echo($post['post_category']); ?></a>
               <?php endif ?>
               </p>
             </p>

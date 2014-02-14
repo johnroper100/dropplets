@@ -344,7 +344,7 @@ function get_author($author_id, $options=array('posts' => TRUE)){
         if(trim($post['post_author']) == $author_id){
 
           $post['url'] = BLOG_URL.$blog_url.str_replace(array(FILE_EXT, POSTS_DIR), '', $post['fname']);
-          $post['post_category_url'] = BLOG_URL.'category/'.urlencode(trim(strtolower($post['post_category'])));
+          $post['post_category_link'] = BLOG_URL.'category/'.urlencode(trim(strtolower($post['post_category'])));
           array_push($author_posts, $post);
         }
       }
