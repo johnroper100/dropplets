@@ -168,7 +168,7 @@ if ($filename==NULL) {
         $page_meta = implode("\n", $get_page_meta);
 
         ob_end_clean();
-    } else if($author) {
+    } else if($author['_found']) {
       // ob_start();
 
       $page_title = $blog_title." | ".$author['name'];

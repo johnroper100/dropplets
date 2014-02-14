@@ -330,6 +330,7 @@ function get_author($author_id, $options=array('posts' => TRUE)){
   if(file_exists($author_file)){
     $author = Spyc::YAMLLoad($author_file);
     $author['handle'] = $author_id;
+    $author['_found'] = TRUE;
 
     $author['url'] = BLOG_URL."author/".$author_id;
 
@@ -354,7 +355,7 @@ function get_author($author_id, $options=array('posts' => TRUE)){
     return $author;
   }
 
-  return array("name" => $author_id, "handle" => $author_id);
+  return array("name" => $author_id, "handle" => $author_id, "_found" => FALSE);
 }
 
 
