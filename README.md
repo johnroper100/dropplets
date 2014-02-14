@@ -70,5 +70,6 @@ Eventually, we will be implementing auto-updates for the Dropplets platform, but
 
 ## Adding Authors
 To add an author create a file called `<author_handle>.yml` in the `authors/` directory and you get the following variables:
+
 1. In `templates/your_template/post.php` and `templates/your_template/posts.php` -> `$post_author`
 2. In `templates/your_template/author.php` -> `$author`
