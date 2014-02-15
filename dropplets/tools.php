@@ -90,6 +90,13 @@ if (!isset($_SESSION['user'])) { ?>
             <a class="dp-link" href="starter-post.md" download></a>
         </div>
         
+        <div class="dp-row">
+            <div class="dp-icon dp-icon-edit"></div>
+            <div class="dp-content">Upload Blog Authors</div>
+            <label class="dp-link" for="authorfiles"></label>
+            <input style="display: none;" type="file" name="authorfiles" id="authorfiles" class="authorfiles" multiple="multiple" />
+        </div>
+
         <form method="POST" action="./dropplets/save.php">
             <div class="dp-row">
                 <div class="dp-icon dp-icon-settings"></div>
@@ -341,40 +348,51 @@ if (isset($_SESSION['user'])) { ?>
 <script type="text/javascript" src="https://gumroad.com/js/gumroad.js"></script>
 <script type="text/javascript" src="<?php echo(BLOG_URL); ?>dropplets/includes/js/uploader.js"></script>
 <script type="text/javascript">
+
+    // File uploader function
+    var uploader = function(class_name){
+      $('.'+class_name).liteUploader({
+        script: './dropplets/includes/uploader.php',
+        maxSizeInBytes: 1048576,
+        typeMessage: '',
+        before: function ()
+        {
+          $('#details').html('');
+          $('#response').html('Uploading...');
+        },
+        each: function (file, errors)
+        {
+          var i, errorsDisp = '';
+
+          if (errors.length > 0)
+          {
+            $('#response').html('One or more files did not pass validation');
+
+            for (i = 0; i < errors.length; i++)
+            {
+              errorsDisp += '<br />' + errors[i].message;
+            }
+          }
+
+          $('#details').append('<p>Name: ' + file.name + ' Type: ' + file.type + ' Size:' + file.size + errorsDisp + '</p>');
+        },
+        success: function (response)
+        {
+          $('#dp-uploaded').html(response);
+          window.setTimeout(function(){location.reload()},2000)
+        }
+      });
+    }
+
     jQuery(document).ready(function($) {    
-        $('.postfiles').liteUploader(
-		{
-			script: './dropplets/includes/uploader.php',
-			maxSizeInBytes: 1048576,
-			typeMessage: '',
-			before: function ()
-			{
-				$('#details').html('');
-				$('#response').html('Uploading...');
-			},
-			each: function (file, errors)
-			{
-				var i, errorsDisp = '';
 
-				if (errors.length > 0)
-				{
-					$('#response').html('One or more files did not pass validation');
+      // Upload Post Files
+      uploader('postfiles');
 
-					for (i = 0; i < errors.length; i++)
-					{
-						errorsDisp += '<br />' + errors[i].message;
-					}
-				}
-
-				$('#details').append('<p>Name: ' + file.name + ' Type: ' + file.type + ' Size:' + file.size + errorsDisp + '</p>');
-			},
-			success: function (response)
-			{
-				$('#dp-uploaded').html(response);
-				window.setTimeout(function(){location.reload()},2000)
-			}
-		});
+      // Upload Author Files
+      uploader('authorfiles');
     });
+
 </script>
 
 <?php } ?>
