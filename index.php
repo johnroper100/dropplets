@@ -345,7 +345,7 @@ else {
         unset($file_array);
                 
         // Get the site title.
-        $page_title = trim(str_replace('# ', '', $fcontents[0]));
+        $page_title = htmlentities(trim(str_replace('# ', '', $fcontents[0])));
 
         // Generate the page description and author meta.
         $get_page_meta[] = '<meta name="description" content="' . $post_intro . '">';
