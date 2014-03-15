@@ -107,7 +107,10 @@ if (isset($_GET['action']))
     
 }
 
-define('LOGIN_ERROR', $login_error);
+if(!empty($login_error))
+{
+    define('LOGIN_ERROR', $login_error);
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Get All Posts Function
