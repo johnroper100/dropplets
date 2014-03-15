@@ -343,11 +343,13 @@ function get_twitter_profile_img($username) {
     $cache .= './cache/';
 	$profile_image = $cache.$username.'.jpg';
 
+    $profile_image_path = realpath(dirname(__FILE__)) .'/../cache/'. $username.'.jpg';
+
 	// Cache the image if it doesn't already exist.
-	if (!file_exists($profile_image)) {
+	if (!file_exists($profile_image_path)) {
 	    $image_url = 'http://dropplets.com/profiles/?id='.$username.'';
 	    $image = file_get_contents($image_url);
-	    file_put_contents($cache.$username.'.jpg', $image);
+	    file_put_contents($profile_image_path, $image);
 	}
 	
 	// Return the image URL.
