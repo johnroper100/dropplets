@@ -4,7 +4,10 @@
 /* If Logged Out, Get the Login Form
 /*-----------------------------------------------------------------------------------*/
 
-$login_error = LOGIN_ERROR;
+if (defined('LOGIN_ERROR'))
+{
+    $login_error = LOGIN_ERROR;
+}
 
 if (!isset($_SESSION['user'])) { ?>
 
