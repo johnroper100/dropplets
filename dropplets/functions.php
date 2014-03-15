@@ -146,7 +146,7 @@ function get_all_posts($options = array()) {
                 $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
 
                 // Early return if we only want posts from a certain category
-                if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
+                if(!empty($options["category"]) && $options["category"] != trim(strtolower($post_category))) {
                     continue;
                 }
 
