@@ -100,7 +100,7 @@ if ($filename==NULL) {
             $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
 
             // Get the post status.
-            $post_status = $post['post_status'];
+            $post_status = trim(strtolower($post['post_status']));
 
             // Get the post intro.
             $post_intro = $post['post_intro'];
