@@ -1,8 +1,15 @@
+<?php
+    $email = $post_author_email;
+    $default = "http://dropplets.com/favicon.png";
+    $size = 40;
+    $grav_url = "http://www.gravatar.com/avatar/".md5(strtolower(trim($email)))."?d=".urlencode($default)."&s=".$size;
+?>
+
 <article class="single <?php echo($post_status); ?>">
     <div class="row">
         <div class="one-quarter meta">
             <div class="thumbnail">
-                <img src="<?php echo($post_image); ?>" alt="<?php echo($post_title); ?>" />
+                <img src="<?php echo $grav_url; ?>" alt="<?php echo($post_title); ?>" />
             </div>
 
             <ul>

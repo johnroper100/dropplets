@@ -133,8 +133,8 @@ function get_all_posts($options = array()) {
                 // Define the post author.
                 $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
 
-                // Define the post author Twitter account.
-                $post_author_twitter = str_replace(array("\n", '- '), '', $fcontents[2]);
+                // Define the post author email account.
+                $post_author_email = str_replace(array("\n", '- '), '', $fcontents[2]);
 
                 // Define the published date.
                 $post_date = str_replace('-', '', $fcontents[3]);
@@ -157,11 +157,20 @@ function get_all_posts($options = array()) {
                 $post_content = Markdown(join('', array_slice($fcontents, 6, $fcontents.length -1)));
 
                 // Pull everything together for the loop.
-                $files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_category' => $post_category, 'post_status' => $post_status, 'post_intro' => $post_intro, 'post_content' => $post_content);
+                $files[] = array(
+                    'fname' => $entry, 
+                    'post_title' => $post_title, 
+                    'post_author' => $post_author, 
+                    'post_author_email' => $post_author_email, 
+                    'post_date' => $post_date, 
+                    'post_category' => $post_category, 
+                    'post_status' => $post_status, 
+                    'post_intro' => $post_intro, 
+                    'post_content' => $post_content);
                 $post_dates[] = $post_date;
                 $post_titles[] = $post_title;
                 $post_authors[] = $post_author;
-                $post_authors_twitter[] = $post_author_twitter;
+                $post_authors_email[] = $post_author_email;
                 $post_categories[] = $post_category;
                 $post_statuses[] = $post_status;
                 $post_intros[] = $post_intro;
@@ -183,25 +192,6 @@ function get_all_posts($options = array()) {
 function get_posts_for_category($category) {
     $category = trim(strtolower($category));
     return get_all_posts(array("category" => $category));
-}
-
-/*-----------------------------------------------------------------------------------*/
-/* Get Image for a Post
-/*-----------------------------------------------------------------------------------*/
-function get_post_image_url($filename)
-{
-    global $blog_url;
-    $supportedFormats = array( "jpg", "png", "gif" );
-    $slug = pathinfo($filename, PATHINFO_FILENAME);
-
-    foreach($supportedFormats as $fmt)
-    {
-        $imgFile = sprintf("%s%s.%s", POSTS_DIR, $slug, $fmt);
-        if (file_exists($imgFile))
-            return sprintf("%s/%s.%s", "${blog_url}posts", $slug, $fmt);
-    }
-
-    return false;
 }
 
 /*-----------------------------------------------------------------------------------*/

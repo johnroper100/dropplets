@@ -84,8 +84,8 @@ if ($filename==NULL) {
             // Get the post author.
             $post_author = $post['post_author'];
 
-            // Get the post author twitter id.
-            $post_author_twitter = $post['post_author_twitter'];
+            // Get the post author email id.
+            $post_author_email = $post['post_author_email'];
 
             // Get the published ISO date.
             $published_iso_date = $post['post_date'];
@@ -114,9 +114,6 @@ if ($filename==NULL) {
             } else {
                 $post_link = $blog_url.str_replace(FILE_EXT, '', $post['fname']);
             }
-
-            // Get the post image url.
-            $post_image = get_post_image_url( $post['fname'] ) ?: get_twitter_profile_img($post_author_twitter);
 
             if ($post_status == 'draft') continue;
 
@@ -313,8 +310,8 @@ else {
         // Get the post author.
         $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
 
-        // Get the post author Twitter ID.
-        $post_author_twitter = str_replace(array("\n", '- '), '', $fcontents[2]);
+        // Get the post author email ID.
+        $post_author_email = str_replace(array("\n", '- '), '', $fcontents[2]);
 
         // Get the published date.
         $published_iso_date = str_replace('-', '', $fcontents[3]);
@@ -333,9 +330,6 @@ else {
 
         // Get the post link.
         $post_link = $blog_url.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
-
-        // Get the post image url.
-        $post_image = get_post_image_url($filename) ?: get_twitter_profile_img($post_author_twitter);
 
         // Get the post content
         $file_array = array_slice( file($filename), 7);
@@ -356,7 +350,7 @@ else {
         $get_page_meta[] = '<meta name="twitter:site" content="' . $blog_twitter . '">';
         $get_page_meta[] = '<meta name="twitter:title" content="' . $page_title . '">';
         $get_page_meta[] = '<meta name="twitter:description" content="' . $post_intro  . '">';
-        $get_page_meta[] = '<meta name="twitter:creator" content="' . $post_author_twitter . '">';
+        $get_page_meta[] = '<meta name="twitter:creator" content="' . $post_author_email . '">';
         $get_page_meta[] = '<meta name="twitter:image:src" content="' . $post_image . '">';
         $get_page_meta[] = '<meta name="twitter:domain" content="' . $post_link . '">';
 
