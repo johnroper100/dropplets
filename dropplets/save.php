@@ -54,6 +54,9 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     if (isset($_POST["template"])) {
         $template = $_POST["template"];
     }
+    if (isset($_POST["show_market"])) {
+        $show_market = $_POST["show_market"];
+    }
 
     // There must always be a $password, but it can be changed optionally in the
     // settings, so you might not always get it in $_POST.
@@ -93,6 +96,7 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
     $config[] = settings_format("header_inject", $header_inject);
     $config[] = settings_format("footer_inject", $footer_inject);
     $config[] = settings_format("template", $template);
+    $config[] = settings_format("show_market", $show_market);
     
     // Create the settings file.
     file_put_contents($settings_file, implode("\n", $config));

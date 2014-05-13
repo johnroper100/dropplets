@@ -211,6 +211,7 @@ if (!isset($_SESSION['user'])) { ?>
             <a class="dp-link dp-toggle" href="#dp-templates"></a>
         </div>
         
+        <?php if (SHOW_MARKET) : ?>
         <div class="dp-sub-panel" id="dp-templates">
             <div class="dp-row dp-templates">
                 <?php get_installed_templates('all'); ?>
@@ -261,6 +262,7 @@ if (!isset($_SESSION['user'])) { ?>
             <div class="dp-content">Need Some Help?</div>
             <a class="dp-link" href="mailto:help@dropplets.com"></a>
         </div>
+        <?php endif; ?>
         
         <div class="dp-row">
             <div class="dp-icon dp-icon-key"></div>

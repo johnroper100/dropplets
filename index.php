@@ -449,6 +449,7 @@ else {
                 <input hidden type="text" name="blog_twitter" id="blog_twitter" value="dropplets">
                 <input hidden type="text" name="blog_url" id="blog_url" value="<?php echo($url) ?><?php if ($url == $domain) { ?>/<?php } ?>">
                 <input hidden type="text" name="template" id="template" value="simple">
+                <input hidden type="text" name="show_market" id="show_market" value="1">
                 <input hidden type="text" name="blog_title" id="blog_title" value="Welcome to Dropplets">
                 <textarea hidden name="meta_description" id="meta_description"></textarea>
                 <input hidden type="text" name="intro_title" id="intro_title" value="Welcome to Dropplets">
