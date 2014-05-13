@@ -221,7 +221,7 @@ else if ($filename == 'rss' || $filename == 'atom') {
 				$remove_metadata_from = file(rtrim(POSTS_DIR, '/').'/'.$post['fname']);
 
                 if($filename=='rss') {
-                    $item->addElement('author', str_replace('-', '', $remove_metadata_from[1]).' - ' . $blog_email);
+                    $item->addElement('author', $blog_email . ' (' . str_replace('-', '', $remove_metadata_from[1]) .')');
                     $item->addElement('guid', rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 }
 
