@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="one-quarter meta">
                     <div class="thumbnail">
-                        <img src="<?php echo get_twitter_profile_img($blog_twitter); ?>" alt="profile" />
+                        <img src="<?php echo get_twitter_profile_img(trim($blog_twitter)); ?>" alt="profile" />
                     </div>
         
                     <ul>

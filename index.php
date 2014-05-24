@@ -30,7 +30,7 @@ if (empty($_GET['filename'])) {
     $filename = explode('/',$_GET['filename']);
 
     // File name could be the name of a category
-    if($filename[count($filename) - 2] == "category") {
+    if(isset($filename[count($filename) - 2]) AND $filename[count($filename) - 2] == "category") {
         $category = $filename[count($filename) - 1];
         $filename = null;
     } else {
@@ -85,7 +85,7 @@ if ($filename==NULL) {
             $post_author = $post['post_author'];
 
             // Get the post author twitter id.
-            $post_author_twitter = $post['post_author_twitter'];
+            $post_author_twitter = trim($post['post_author_twitter']);
 
             // Get the published ISO date.
             $published_iso_date = $post['post_date'];
@@ -314,7 +314,7 @@ else {
         $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
 
         // Get the post author Twitter ID.
-        $post_author_twitter = str_replace(array("\n", '- '), '', $fcontents[2]);
+        $post_author_twitter = trim(str_replace(array("\n", '- '), '', $fcontents[2]));
 
         // Get the published date.
         $published_iso_date = str_replace('-', '', $fcontents[3]);
@@ -345,7 +345,7 @@ else {
         unset($file_array);
                 
         // Get the site title.
-        $page_title = trim(str_replace('# ', '', $fcontents[0]));
+        $page_title = htmlentities(trim(str_replace('# ', '', $fcontents[0])));
 
         // Generate the page description and author meta.
         $get_page_meta[] = '<meta name="description" content="' . $post_intro . '">';

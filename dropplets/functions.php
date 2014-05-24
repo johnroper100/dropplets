@@ -107,7 +107,10 @@ if (isset($_GET['action']))
     
 }
 
-define('LOGIN_ERROR', $login_error);
+if(!empty($login_error))
+{
+    define('LOGIN_ERROR', $login_error);
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* Get All Posts Function
@@ -143,7 +146,7 @@ function get_all_posts($options = array()) {
                 $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
 
                 // Early return if we only want posts from a certain category
-                if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
+                if(!empty($options["category"]) && $options["category"] != trim(strtolower($post_category))) {
                     continue;
                 }
 
@@ -154,7 +157,7 @@ function get_all_posts($options = array()) {
                 $post_intro = Markdown($fcontents[7]);
 
                 // Define the post content
-                $post_content = Markdown(join('', array_slice($fcontents, 6, $fcontents.length -1)));
+                $post_content = Markdown(join('', array_slice($fcontents, 6, count($fcontents) -1)));
 
                 // Pull everything together for the loop.
                 $files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_category' => $post_category, 'post_status' => $post_status, 'post_intro' => $post_intro, 'post_content' => $post_content);
@@ -326,17 +329,26 @@ function get_twitter_profile_img($username) {
 	
 	// Get the cached profile image.
     $cache = IS_CATEGORY ? '.' : '';
-    $array = split('/category/', $_SERVER['REQUEST_URI']);
-    $array = split('/', $array[1]);
+    $array = explode('/category/', $_SERVER['REQUEST_URI']);
+    if (isset($array[1]))
+    {
+        $array = explode('/', $array[1]);
+    }
+    else
+    {
+        $array[0] = NULL;
+    }
     if(count($array)!=1) $cache .= './.';
     $cache .= './cache/';
 	$profile_image = $cache.$username.'.jpg';
 
+    $profile_image_path = realpath(dirname(__FILE__)) .'/../cache/'. $username.'.jpg';
+
 	// Cache the image if it doesn't already exist.
-	if (!file_exists($profile_image)) {
+	if (!file_exists($profile_image_path)) {
 	    $image_url = 'http://dropplets.com/profiles/?id='.$username.'';
 	    $image = file_get_contents($image_url);
-	    file_put_contents($cache.$username.'.jpg', $image);
+	    file_put_contents($profile_image_path, $image);
 	}
 	
 	// Return the image URL.
