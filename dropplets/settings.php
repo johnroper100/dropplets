@@ -34,6 +34,9 @@ define('HEADER_INJECT', stripslashes($header_inject));
 define('FOOTER_INJECT', stripslashes($footer_inject));
 define('ACTIVE_TEMPLATE', $template);
 
+$use_parsedown = 'off';
+define('USE_PARSEDOWN', $use_parsedown);
+
 /*-----------------------------------------------------------------------------------*/
 /* Definitions (These Should Be Moved to "Settings")
 /*-----------------------------------------------------------------------------------*/
