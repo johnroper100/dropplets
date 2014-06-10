@@ -100,7 +100,7 @@ if ($filename==NULL) {
             $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
 
             // Get the post status.
-            $post_status = $post['post_status'];
+            $post_status = trim(strtolower($post['post_status']));
 
             // Get the post intro.
             $post_intro = $post['post_intro'];
@@ -221,7 +221,7 @@ else if ($filename == 'rss' || $filename == 'atom') {
 				$remove_metadata_from = file(rtrim(POSTS_DIR, '/').'/'.$post['fname']);
 
                 if($filename=='rss') {
-                    $item->addElement('author', str_replace('-', '', $remove_metadata_from[1]).' - ' . $blog_email);
+                    $item->addElement('author', $blog_email . ' (' . str_replace('-', '', $remove_metadata_from[1]) .')');
                     $item->addElement('guid', rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 }
 

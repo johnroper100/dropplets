@@ -307,11 +307,10 @@ function count_premium_templates($type = 'all') {
 /* If is Home (Could use "is_single", "is_category" as well.)
 /*-----------------------------------------------------------------------------------*/
 
-$homepage = BLOG_URL;
+$homepage = parse_url(BLOG_URL, PHP_URL_PATH);
 
 // Get the current page.    
-$currentpage  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] : 'https://'.$_SERVER["SERVER_NAME"];
-$currentpage .= $_SERVER["REQUEST_URI"];
+$currentpage  = $_SERVER["REQUEST_URI"];
 
 // If is home.
 $is_home = ($homepage==$currentpage);
