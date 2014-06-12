@@ -108,6 +108,8 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
         $htaccess[] = "Options +FollowSymLinks -MultiViews";
         $htaccess[] = "RewriteEngine on";
         $htaccess[] = "RewriteBase " . $dir;
+        $htaccess[] = "RewriteCond %{REQUEST_FILENAME} !-f";
+        $htaccess[] = "RewriteRule ^([^.]+)\.(jpg|jpeg|png|bmp|gif)$ posts/$1.$2 [NC,L]";
         $htaccess[] = "RewriteCond %{REQUEST_URI} !index\.php";
         $htaccess[] = "RewriteCond %{REQUEST_FILENAME} !-f";
         $htaccess[] = "RewriteRule ^(.*)$ index.php?filename=$1 [NC,QSA,L]";

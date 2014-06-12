@@ -5,9 +5,9 @@
 /*-----------------------------------------------------------------------------------*/
 
 include('./dropplets/includes/feedwriter.php');
-include('./dropplets/includes/markdown.php');
 include('./dropplets/includes/phpass.php');
 include('./dropplets/includes/actions.php');
+include('./dropplets/parser.php');
 
 /*-----------------------------------------------------------------------------------*/
 /* User Machine
@@ -114,7 +114,7 @@ define('LOGIN_ERROR', $login_error);
 /*-----------------------------------------------------------------------------------*/
 
 function get_all_posts($options = array()) {
-    global $dropplets;
+    global $dropplets, $parser;
 
     if($handle = opendir(POSTS_DIR)) {
 
@@ -128,19 +128,19 @@ function get_all_posts($options = array()) {
                 $fcontents = file(POSTS_DIR.$entry);
 
                 // Define the post title.
-                $post_title = Markdown($fcontents[0]);
+                $post_title = $parser->Parse($fcontents[0]);
 
                 // Define the post author.
-                $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
+                $post_author = clean_post_metadata($fcontents[1]);
 
                 // Define the post author Twitter account.
-                $post_author_twitter = str_replace(array("\n", '- '), '', $fcontents[2]);
+                $post_author_twitter = clean_post_metadata($fcontents[2]);
 
                 // Define the published date.
-                $post_date = str_replace('-', '', $fcontents[3]);
+                $post_date = clean_post_metadata($fcontents[3]);
 
                 // Define the post category.
-                $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
+                $post_category = clean_post_metadata($fcontents[4]);
 
                 // Early return if we only want posts from a certain category
                 if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
@@ -148,13 +148,13 @@ function get_all_posts($options = array()) {
                 }
 
                 // Define the post status.
-                $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
+                $post_status = clean_post_metadata($fcontents[5]);
 
                 // Define the post intro.
-                $post_intro = Markdown($fcontents[7]);
+                $post_intro = $parser->Parse($fcontents[7]);
 
                 // Define the post content
-                $post_content = Markdown(join('', array_slice($fcontents, 6, $fcontents.length -1)));
+                $post_content = $parser->Parse(join('', array_slice($fcontents, 6)));
 
                 // Pull everything together for the loop.
                 $files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_category' => $post_category, 'post_status' => $post_status, 'post_intro' => $post_intro, 'post_content' => $post_content);
@@ -174,6 +174,11 @@ function get_all_posts($options = array()) {
     } else {
         return false;
     }
+}
+
+function clean_post_metadata($metadata)
+{
+    return trim(str_replace(array("\n", '- '), '', $metadata));
 }
 
 /*-----------------------------------------------------------------------------------*/

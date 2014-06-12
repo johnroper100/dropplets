@@ -229,7 +229,7 @@ else if ($filename == 'rss' || $filename == 'atom') {
 				unset($remove_metadata_from[0], $remove_metadata_from[1], $remove_metadata_from[2], $remove_metadata_from[3], $remove_metadata_from[4], $remove_metadata_from[5]);
 				$remove_metadata_from = array_values($remove_metadata_from);
 
-                $item->setDescription(Markdown(implode($remove_metadata_from)));
+                $item->setDescription($parser->Parse(implode($remove_metadata_from)));
 
                 $feed->addItem($item);
                 $c++;
@@ -304,29 +304,29 @@ else {
     } else {
 
         // Get the post title.
-        $post_title = Markdown($fcontents[0]);
+        $post_title = $parser->Parse($fcontents[0]);
         $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post_title);
 
         // Get the post intro.
         $post_intro = htmlspecialchars(trim($fcontents[7]));
 
         // Get the post author.
-        $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
+        $post_author = clean_post_metadata($fcontents[1]);
 
         // Get the post author Twitter ID.
-        $post_author_twitter = str_replace(array("\n", '- '), '', $fcontents[2]);
+        $post_author_twitter = clean_post_metadata($fcontents[2]);
 
         // Get the published date.
-        $published_iso_date = str_replace('-', '', $fcontents[3]);
+        $published_iso_date = clean_post_metadata($fcontents[3]);
 
         // Generate the published date.
         $published_date = strftime($date_format, strtotime($published_iso_date));
 
         // Get the post category.
-        $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
+        $post_category = clean_post_metadata($fcontents[4]);
         
         // Get the post status.
-        $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
+        $post_status = clean_post_metadata($fcontents[5]);
         
         // Get the post category link.
         $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
@@ -339,7 +339,7 @@ else {
 
         // Get the post content
         $file_array = array_slice( file($filename), 7);
-        $post_content = Markdown(trim(implode("", $file_array)));
+        $post_content = $parser->Parse(trim(implode("", $file_array)));
 
         // free memory
         unset($file_array);
@@ -372,7 +372,7 @@ else {
         $page_meta = implode("\n\t", $get_page_meta);
 
         // Generate the post.
-        $post = Markdown(join('', $fcontents));
+        $post = $parser->Parse(join('', $fcontents));
 
         // Get the post template file.
         include $post_file;
