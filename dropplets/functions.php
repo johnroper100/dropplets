@@ -131,16 +131,16 @@ function get_all_posts($options = array()) {
                 $post_title = $parser->Parse($fcontents[0]);
 
                 // Define the post author.
-                $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
+                $post_author = clean_post_metadata($fcontents[1]);
 
                 // Define the post author Twitter account.
-                $post_author_twitter = str_replace(array("\n", '- '), '', $fcontents[2]);
+                $post_author_twitter = clean_post_metadata($fcontents[2]);
 
                 // Define the published date.
-                $post_date = str_replace('-', '', $fcontents[3]);
+                $post_date = clean_post_metadata($fcontents[3]);
 
                 // Define the post category.
-                $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
+                $post_category = clean_post_metadata($fcontents[4]);
 
                 // Early return if we only want posts from a certain category
                 if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
@@ -148,7 +148,7 @@ function get_all_posts($options = array()) {
                 }
 
                 // Define the post status.
-                $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
+                $post_status = clean_post_metadata($fcontents[5]);
 
                 // Define the post intro.
                 $post_intro = $parser->Parse($fcontents[7]);
@@ -174,6 +174,11 @@ function get_all_posts($options = array()) {
     } else {
         return false;
     }
+}
+
+function clean_post_metadata($metadata)
+{
+    return trim(str_replace(array("\n", '- '), '', $metadata));
 }
 
 /*-----------------------------------------------------------------------------------*/

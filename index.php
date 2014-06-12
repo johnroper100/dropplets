@@ -311,22 +311,22 @@ else {
         $post_intro = htmlspecialchars(trim($fcontents[7]));
 
         // Get the post author.
-        $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
+        $post_author = clean_post_metadata($fcontents[1]);
 
         // Get the post author Twitter ID.
-        $post_author_twitter = str_replace(array("\n", '- '), '', $fcontents[2]);
+        $post_author_twitter = clean_post_metadata($fcontents[2]);
 
         // Get the published date.
-        $published_iso_date = str_replace('-', '', $fcontents[3]);
+        $published_iso_date = clean_post_metadata($fcontents[3]);
 
         // Generate the published date.
         $published_date = strftime($date_format, strtotime($published_iso_date));
 
         // Get the post category.
-        $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
+        $post_category = clean_post_metadata($fcontents[4]);
         
         // Get the post status.
-        $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
+        $post_status = clean_post_metadata($fcontents[5]);
         
         // Get the post category link.
         $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
