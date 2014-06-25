@@ -72,12 +72,13 @@ if ($filename==NULL) {
     $pagination = ($pagination_on_off != "off") ? get_pagination($page,round(count($all_posts)/ $posts_per_page)) : "";
     define('PAGINATION', $pagination);
     $posts = ($pagination_on_off != "off") ? array_slice($all_posts,$offset,($posts_per_page > 0) ? $posts_per_page : null) : $all_posts;
-
+    $current_post = 0;
+    $total_posts = count($posts);
     if($posts) {
         ob_start();
         $content = '';
         foreach($posts as $post) {
-
+            $current_post++;
             // Get the post title.
             $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post['post_title']);
 
@@ -107,6 +108,12 @@ if ($filename==NULL) {
 
             // Get the post content
             $post_content = $post['post_content'];
+
+            // Set post number
+            $post_number = $current_post;
+
+            // Set the total posts
+            $post_total_posts = $total_posts;
 
             // Get the post link.
             if ($category) {
