@@ -334,7 +334,7 @@ function get_twitter_profile_img($username) {
 
 	// Cache the image if it doesn't already exist.
 	if (!file_exists($profile_image)) {
-	    $image_url = 'http://dropplets.com/profiles/?id='.$username.'';
+	    $image_url = 'https://api.twitter.com/1.1/users/show.json?screen_name='.$username.'';
 	    $image = file_get_contents($image_url);
 	    file_put_contents($cache.$username.'.jpg', $image);
 	}
