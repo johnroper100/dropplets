@@ -329,8 +329,8 @@ function get_twitter_profile_img($username) {
 	
 	// Get the cached profile image.
     $cache = IS_CATEGORY ? '.' : '';
-    $array = split('/category/', $_SERVER['REQUEST_URI']);
-    $array = split('/', $array[1]);
+    $array = explode('/category/', $_SERVER['REQUEST_URI']);
+    $array = explode('/', $array[1]);
     if(count($array)!=1) $cache .= './.';
     $cache .= './cache/';
 	$profile_image = $cache.$username.'.jpg';
