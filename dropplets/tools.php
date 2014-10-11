@@ -8,7 +8,7 @@ $login_error = LOGIN_ERROR;
 
 if (!isset($_SESSION['user'])) { ?>
 
-<div class="dp-panel-wrapper <?php if($_COOKIE['dp-panel']) { echo($_COOKIE['dp-panel']); } ?>" id="dp-dropplets">
+<div class="dp-panel-wrapper <?php if(!empty($_COOKIE['dp-panel'])) { echo($_COOKIE['dp-panel']); } ?>" id="dp-dropplets">
     <div class="dp-panel">
         <div class="dp-row profile">
             <div class="dp-icon">

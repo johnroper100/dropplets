@@ -16,6 +16,9 @@ include('./dropplets/includes/actions.php');
 // Password hashing via phpass.
 $hasher  = new PasswordHash(8,FALSE);
 
+// Define Login Error variable.
+$login_error = NULL;
+
 if (isset($_GET['action']))
 {
     $action = $_GET['action'];
@@ -143,7 +146,7 @@ function get_all_posts($options = array()) {
                 $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
 
                 // Early return if we only want posts from a certain category
-                if($options["category"] && $options["category"] != trim(strtolower($post_category))) {
+                if(!empty($options["category"]) && $options["category"] != trim(strtolower($post_category))) {
                     continue;
                 }
 
@@ -154,7 +157,7 @@ function get_all_posts($options = array()) {
                 $post_intro = Markdown($fcontents[7]);
 
                 // Define the post content
-                $post_content = Markdown(join('', array_slice($fcontents, 6, $fcontents.length -1)));
+                $post_content = Markdown(join('', array_slice($fcontents, 6, count($fcontents) -1)));
 
                 // Pull everything together for the loop.
                 $files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter, 'post_date' => $post_date, 'post_category' => $post_category, 'post_status' => $post_status, 'post_intro' => $post_intro, 'post_content' => $post_content);
@@ -329,8 +332,8 @@ function get_twitter_profile_img($username) {
 	
 	// Get the cached profile image.
     $cache = IS_CATEGORY ? '.' : '';
-    $array = split('/category/', $_SERVER['REQUEST_URI']);
-    $array = split('/', $array[1]);
+    $array = explode('/category/', $_SERVER['REQUEST_URI']);
+    $array = (count($array) > 1) ? explode('/', $array[1]) : $array;
     if(count($array)!=1) $cache .= './.';
     $cache .= './cache/';
 	$profile_image = $cache.$username.'.jpg';
