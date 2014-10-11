@@ -5,9 +5,15 @@
 /*-----------------------------------------------------------------------------------*/
 
 include('./dropplets/includes/feedwriter.php');
-include('./dropplets/includes/markdown.php');
+include('./dropplets/includes/php-markdown-lib/Michelf/MarkdownExtra.inc.php');
 include('./dropplets/includes/phpass.php');
 include('./dropplets/includes/actions.php');
+
+// Markdown wrapper
+use \Michelf\MarkdownExtra;
+function Markdown($txt) {
+    return MarkdownExtra::defaultTransform($txt);
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* User Machine
