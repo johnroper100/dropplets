@@ -323,6 +323,9 @@ define('IS_SINGLE', !(IS_HOME || IS_CATEGORY));
 /*-----------------------------------------------------------------------------------*/
 
 function get_twitter_profile_img($username) {
+
+    // Pattern for avatar loading service.
+    $avatar_service_pat = 'http://avatars.io/twitter/:username?size=large';
 	
 	// Get the cached profile image.
     $cache = IS_CATEGORY ? '.' : '';
@@ -334,7 +337,7 @@ function get_twitter_profile_img($username) {
 
 	// Cache the image if it doesn't already exist.
 	if (!file_exists($profile_image)) {
-	    $image_url = 'http://dropplets.com/profiles/?id='.$username.'';
+	    $image_url = str_replace(':username', $username, $avatar_service_pat);
 	    $image = file_get_contents($image_url);
 	    file_put_contents($cache.$username.'.jpg', $image);
 	}
