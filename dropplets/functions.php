@@ -16,6 +16,9 @@ include('./dropplets/includes/actions.php');
 // Password hashing via phpass.
 $hasher  = new PasswordHash(8,FALSE);
 
+// Define Login Error variable.
+$login_error = NULL;
+
 if (isset($_GET['action']))
 {
     $action = $_GET['action'];
