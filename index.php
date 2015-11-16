@@ -93,11 +93,11 @@ if ($filename==NULL) {
             // Generate the published date.
             $published_date = strftime($date_format, strtotime($published_iso_date));
 
-            // Get the post category.
-            $post_category = $post['post_category'];
+            // Get the post categories.
+            $post_categories = $post['post_categories'];
             
-            // Get the post category link.
-            $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
+            // Get the post categories links.
+            $post_categories_links = array_map(function($e) { return BLOG_URL.'category/'.urlencode(trim(strtolower($e))); }, $post_categories);
 
             // Get the post status.
             $post_status = trim(strtolower($post['post_status']));
@@ -109,11 +109,7 @@ if ($filename==NULL) {
             $post_content = $post['post_content'];
 
             // Get the post link.
-            if ($category) {
-                $post_link = trim(strtolower($post_category)).'/'.str_replace(FILE_EXT, '', $post['fname']);
-            } else {
-                $post_link = $blog_url.str_replace(FILE_EXT, '', $post['fname']);
-            }
+            $post_link = $blog_url.str_replace(FILE_EXT, '', $post['fname']);
 
             // Get the post image url.
             $post_image = get_post_image_url( $post['fname'] ) ?: get_twitter_profile_img($post_author_twitter);
@@ -323,13 +319,14 @@ else {
         $published_date = strftime($date_format, strtotime($published_iso_date));
 
         // Get the post category.
-        $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
+        $post_categories = explode(',', str_replace(array("\n", '-'), '', $fcontents[4]));
+        $post_categories = array_map(function($el) { return trim($el); }, $post_categories);
         
         // Get the post status.
         $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
         
-        // Get the post category link.
-        $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
+        // Get the post categories links.
+        $post_categories_links = array_map(function($e) { return BLOG_URL.'category/'.urlencode(trim(strtolower($e))); }, $post_categories);
 
         // Get the post link.
         $post_link = $blog_url.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
