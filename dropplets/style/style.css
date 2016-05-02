@@ -149,6 +149,10 @@ body.dp-install form button:hover {
     text-shadow: 0 0 15px rgba(54, 124, 49, 0.85);
 }
 
+body.dp-install form button::-moz-focus-inner {
+    border: 0;
+}
+
 #notWritable {
     font-size: 20px;
     color: red;
@@ -248,6 +252,7 @@ body.dp-install form button:hover {
     top: 10px;
     left: 10px;
     z-index: 1900;
+    border-radius: 5px;
 }
 
 #dp-dropplets-icon:hover {

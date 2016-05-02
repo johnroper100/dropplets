@@ -1,8 +1,8 @@
-# Post Title
-- Your name
-- Your twitter username (rainfall)
-- Date (2020/02/02)
-- Category
-- State (published/draft)
+# Your Post Title
+- Post Author Name (e.g. "Dropplets")
+- Post Author Twitter Handle (e.g. "dropplets")
+- Publish Date in YYYY/MM/DD Format (e.g. "2020/01/01")
+- Post Category (e.g. "Random Thoughts")
+- Post Status (e.g. "published" or "draft")
 
-This is the post text.
+Your post text starts here. 

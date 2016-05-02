@@ -6,9 +6,9 @@
             </div>
 
             <ul>
-                <li>Written by <?php echo($post_author); ?></li>
+                <li>Written by: <?php echo($post_author); ?></li>
                 <li><?php echo($published_date); ?></li>
-                <li>About <a href="<?php echo($post_category_link); ?>"><?php echo($post_category); ?></a></li>
+                <li>Category: <a href="<?php echo($post_category_link); ?>"><?php echo($post_category); ?></a></li>
                 <li></li>
             </ul>
         </div>
@@ -21,7 +21,7 @@
             <ul class="actions">
                 <li><a class="button" href="<?php echo($post_link); ?>">Continue Reading</a></li>
                 <?php if ($category) { ?>
-                <li><a class="button" href="<?php echo($blog_url); ?>">More Articles</a></li>
+                <li><a class="button" href="<?php echo($blog_url); ?>">Back</a></li>
                 <?php } ?>
             </ul>
         </div>

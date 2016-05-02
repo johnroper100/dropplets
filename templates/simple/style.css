@@ -248,7 +248,7 @@ ul.actions li {
 .thumbnail {
     background-color: #fbfbfb;
     border: 1px solid #ebebeb;
-    border-radius: 50%;
+    border-radius: 15%;
     width: 60px;
     height: 60px;
     padding: 5px;

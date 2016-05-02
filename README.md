@@ -16,7 +16,6 @@ Markdown is a text formatting syntax inspired on plain text email. It is extreme
 - [Changing Settings](#changing-settings)
 - [Changing Templates](#changing-templates)
 - [Updating Dropplets](#updating-dropplets)
-- [License](#license)
 
 ## Installation
 Dropplets is compatible with most server configurations and can be typically installed in under a minute using the few step-by-step instructions below:
@@ -45,13 +44,15 @@ Some templates include the ability to add a post image or thumbnail along with y
 
     my-first-blog-post.jpg
 
+Images can be uploaded in the admin panel
+
 Post file names are used to structure post permalinks on your blog. So, a post file saved as **my-first-blog-post.md** will result in **yoursite.com/my-first-blog-post** as the post permalink.
 
 ## Publishing Posts
 After you've finished writing your post offline, you can then publish your post using the Dropplets toolbar:
 
-1. Login to your Dropplets installation using the password you created during the installation and setup process.
-2. Click the Dropplet in your toolbar to select, upload and publish your post.
+1. Login to your Dropplets installation using the password you created during the installation.
+2. Click the Dropplet in your toolbar to select, upload and publish your posts and post images.
 
 ## Editing Posts
 Re-upload your edited post file using the steps above. Doing this will automatically overwrite the existing post and publish your new edits. To delete a post, change the **Post Status** at the top of your post file to **draft**.
@@ -64,12 +65,3 @@ To change your blog template, click the star icon in the Dropplets toolbar. This
 
 ## Updating Dropplets
 Eventually, we will be implementing auto-updates for the Dropplets platform, but until then, just replace everything but your **posts** directory and **config.php** when we release a new version of Dropplets.
-
-## License
-Copyright (c) 2013 Circa75 Media, LLC
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
