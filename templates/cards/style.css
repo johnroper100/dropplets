@@ -1,0 +1,554 @@
+/********************************************************************************************
+
+Cards v1.0.2 by Jason Schuller (Jason.sc)
+Copyright Circa75 Media, LLC (Circa75.co)
+
+*********************************************************************************************/
+
+/* Normalization
+*********************************************************************************************/
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+
+/* Setup
+*********************************************************************************************/
+
+html,body {
+    height: 100%;
+}
+
+body {
+	font-family: 'Merriweather', serif;
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 26px;
+	color: #303030;
+}
+
+/* Universal Typography
+*********************************************************************************************/
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+	color: #303030;
+	margin: 0;
+	padding: 0;
+}
+
+h1 { 
+    font-size: 34px;
+    line-height: 46px;
+    margin-bottom: 5px;
+}
+
+h2, h3  { 
+    font-size: 24px;
+    line-height: 39px;
+    margin-bottom: 5px;
+}
+
+h4, h5, h6  { 
+    font-size: 20px;
+    line-height: 32px;
+    margin-bottom: 5px;
+}
+
+
+p {
+    margin: 0 0 20px;
+}
+
+em { 
+    font-style: italic; 
+}
+
+strong { 
+    font-weight: bold; 
+}
+
+a { 
+    color: #303030;
+    text-decoration: none;
+    -moz-transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
+}
+
+a:hover, a:focus { 
+    color: #000000; 
+}
+
+/* Social Link Colors
+*********************************************************************************************/
+
+a.twitter {
+    background-color: #29b5e9;
+}
+
+a.facebook {
+    background-color: #3b5b99;
+}
+
+a.google {
+    background-color: #d74a38;
+}
+
+/* Icon Font
+*********************************************************************************************/
+
+@font-face {
+	font-family: 'clear';
+	src:url(fonts/clear.eot);
+	src:url(fonts/clear.eot?#iefix) format('embedded-opentype'),
+		url(fonts/clear.svg#share) format('svg'),
+		url(fonts/clear.woff) format('woff'),
+		url(fonts/clear.ttf) format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Header
+*********************************************************************************************/
+
+header {
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.45);
+    background-color: #ffffff;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    z-index: 300;
+    -moz-transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+header.single {
+    height: 60px;
+    bottom: -50px;
+}
+
+header.single:hover {
+    bottom: 0px;
+}
+
+header .intro {
+    text-align: center;
+    width: 80%;
+    float: left;
+    margin: 70px 0 70px 10%;
+}
+
+header .intro p {
+    margin-bottom: 25px;
+}
+
+header .intro a {
+    background-color: #57ad68;
+    font-family: "Lato", sans-serif;
+    color: #ffffff;
+    padding: 10px 20px 12px;
+    border-radius: 3px;
+}
+
+header .intro a:hover {
+    background-color: #4fa560;
+}
+
+header.home:hover {
+    bottom: 0 !important;
+}
+
+header .profile {
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.45);
+    border-radius: 50%;
+    background-color: #ffffff;
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    top: -60px;
+    z-index: 310;
+    left: 50%;
+    margin-left: -60px;
+}
+
+header.single .profile {
+    bottom: 0;
+}
+
+header .profile-mask {
+    background-color: #ffffff;
+    width: 200px;
+    height: 75px;
+    position: absolute;
+    top: 0;
+    z-index: 320;
+    left: 50%;
+    margin-left: -100px;
+}
+
+header.single .profile-mask {
+    bottom: -15px;
+}
+
+header .profile-image {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: -50px;
+    border-radius: 50%;
+    left: 50%;
+    margin-left: -50px;
+    z-index: 330;
+}
+
+header.single .profile-image {
+    bottom: 10px;
+}
+
+header .profile-image img {
+    width: 100px;
+    border-radius: 50%;
+}
+
+section {
+    width: 100%;
+    float: left;
+}
+
+section.home {
+    padding-bottom: 60px;
+}
+
+section.single {
+    padding-bottom: 10px;
+}
+
+/* Articles
+*********************************************************************************************/
+
+article {
+    width: 100%;
+    float: left;
+    position: relative;
+}
+
+article ul:nth-child(2) {
+    display: none;
+}
+
+article.full {
+    height: 100%;
+}
+
+article.intro {
+    height: 250px;
+    overflow: hidden;
+    -moz-transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
+}
+
+article.intro .shadow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 102;
+    width: 100%;
+    height: 25px;
+    box-shadow: inset 0px -15px 15px -15px rgba(0,0,0,0.45);
+}
+
+article.intro .look,
+article.full .look {
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: center center;
+    z-index: 50;
+}
+
+article.intro .look {
+    width: 50%;
+}
+
+article.full .look {
+    position: fixed;
+    width: 50%;
+}
+
+article .look img {
+    width: 100%;
+}
+
+article.intro .read {
+    width: 50%;
+    float: left;
+    margin-left: 50%;
+    padding-top: 60px;
+}
+
+article.full .read {
+    width: 50%;
+    float: left;
+    margin-left: 50%;
+    padding: 60px 0 40px;
+}
+
+article .post {
+    margin: 0 50px;
+    position: relative;
+}
+
+article .post-link {
+    background-color: rgba(255, 255, 255, 0.25);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+article .post-link:hover {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+article .profile img {
+    width: 42px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+article .meta {
+    font-family: "Lato", sans-serif;
+    color: #b3b3b1;
+    font-weight: 300;
+    font-size: 14px;
+    border-bottom: 1px dotted #f2f2f2;
+    width: 100%;
+    float: left;
+    position: relative;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+}
+
+article .meta a {
+    font-weight: normal;
+    color: #b3b3b1;
+    font-weight: 300;
+}
+
+article .share {
+    width: 81px;
+    height: 27px;
+    position: absolute;
+    top: 0px;
+    right: -10px;
+}
+
+article .share a {
+    font-family: clear;
+    line-height: 30px;
+    color: #ffffff !important;
+    text-align: center;
+    font-size: 12px;
+    line-height: 28px;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    float: left;
+    margin: 0;
+}
+
+article .share a.twitter:hover {
+    margin-left: -5px;
+    margin-right: 5px;
+}
+
+article .share a.facebook {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+article .share a.facebook:hover {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+article .share a.google:hover {
+    margin-left: 5px;
+}
+
+/* Post Typography
+*********************************************************************************************/
+
+.post h1,
+.post h2,
+.post h3,
+.post h4,
+.post h5,
+.post h6 {
+    border-bottom: 1px dotted #f2f2f2;
+}
+
+.post h1,
+.post h2 {
+    font-size: 34px;
+    line-height: 46px;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+}
+
+.post h3 {
+    ont-size: 24px;
+    line-height: 39px;
+}
+
+.post ul,
+.post ol,
+.post dl {
+    margin: 0 0 20px 30px;
+}
+
+.post ul {
+    list-style: disc;
+}
+
+.post ol {
+    list-style: decimal;
+}
+
+.post dt {
+    font-size: 16px;
+}
+
+.post dd {
+    color: #747474;
+}
+
+.post blockquote,
+.post q,
+.post pre,
+.post code {
+    background-color: #fbfbfb;
+    color: #747474;
+    padding: 8px 10px;
+}
+
+.post blockquote,
+.post pre {
+    margin-bottom: 20px;
+    padding: 15px 20px;
+}
+
+.post pre,
+.post code {
+    font-family: "Courier New", Courier, mono;
+    overflow-x: scroll;
+    line-height: 1.2;
+}
+
+.post code {
+    padding: 2px 6px;
+}
+
+.post a {
+    font-weight: bold;
+    color: #303030;
+}
+
+.post mark {
+    background-color: #fff289;
+}
+
+.post em {
+    font-weight: bold;
+}
+
+.post cite,
+.post abbr {
+    font-style: italic;
+}
+
+.post small {
+    font-size: 12px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.post sub,
+.post sup {
+    font-size: 12px;
+    display: inline-block;
+}
+
+.post table {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.post table caption {
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 1px dotted #f2f2f2;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.post thead {
+    font-weight: bold;
+}
+
+.post tr {
+    border-bottom: 1px solid #f2f2f2;
+    line-height: 2;
+}
+
+.post tfoot tr {
+    border: none;
+    font-size: 14px;
+}
+
+.post img {
+    max-width: 100%;
+    margin: 5px 0 20px;
+}
+
+.post img.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 5px;
+}
+
+.post a[href$=jpg], 
+.post a[href$=jpeg], 
+.post a[href$=jpe], 
+.post a[href$=png], 
+.post a[href$=gif] {
+	border: 0 none;
+}
+
+.post figure {
+    background-color: #fbfbfb;
+    color: #747474;
+    font-size: 14px;
+    text-align: center;
+    display: inline-block;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.post figure img {
+    margin: 0;
+}
+
+.post iframe,
+.post object,
+.post embed {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 5px 0 20px;
+}

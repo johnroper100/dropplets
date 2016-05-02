@@ -466,7 +466,11 @@ else {
                 <input type="text" name="blog_email" id="blog_email" required placeholder="Enter Your Email">
                 <input type="text" name="blog_twitter" id="blog_twitter" placeholder="Enter Your Twitter Account (Optional)">
                 <input hidden type="text" name="blog_url" id="blog_url" value="<?php echo($url) ?><?php if ($url == $domain) { ?>/<?php } ?>">
-                <input hidden type="text" name="template" id="template" value="simple">
+		<select name="template" id="template" class="selectInput">
+			<option value="none" selected>Select A Template</option>
+			<option value="simple">Simple</option>
+			<option value="cards">Cards</option>
+		</select>
                 <input type="text" name="blog_title" id="blog_title" required placeholder="Choose A Blog Title">
                 <textarea hidden name="meta_description" id="meta_description"></textarea>
                 <input hidden type="text" name="intro_title" id="intro_title" value="Welcome to Dropplets">
