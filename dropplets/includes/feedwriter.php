@@ -81,7 +81,7 @@
     */
     public function genarateFeed()
     {
-        header("Content-type: application/rss+xml; charset: utf-8");
+        header("Content-type: text/xml");
 
         $this->printHead();
         $this->printChannels();
@@ -295,7 +295,7 @@
         }
         else
         {
-            $nodeText .= (in_array($tagName, $this->CDATAEncoding))? $tagContent : htmlspecialchars($tagContent);
+            $nodeText .= (in_array($tagName, $this->CDATAEncoding))? $tagContent : htmlentities($tagContent);
         }
 
         $nodeText .= (in_array($tagName, $this->CDATAEncoding))? "]]></$tagName>" : "</$tagName>";

@@ -12,7 +12,7 @@ if (!isset($_SESSION['user'])) { ?>
     <div class="dp-panel">
         <div class="dp-row profile">
             <div class="dp-icon">
-                <img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
+                <!--<img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" />-->
             </div>
             
             <div class="dp-content">
@@ -36,14 +36,14 @@ if (!isset($_SESSION['user'])) { ?>
         <?php if (isset($login_error)) { ?>
         <div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-question"></div>
-            <div class="dp-content">Forget Your password?</div>
+            <div class="dp-content">Forget Your Password?</div>
             <a class="dp-link" href="?action=forgot" target="_blank"></a>
         </div>    
         <?php }; ?>
         
         <div class="dp-row">
             <div class="dp-icon dp-icon-dropplets"></div>
-            <div class="dp-content">What is This?</div>
+            <div class="dp-content">What Is This?</div>
             <a class="dp-link" href="http://dropplets.com" target="_blank"></a>
         </div>
     </div>
@@ -61,7 +61,7 @@ if (!isset($_SESSION['user'])) { ?>
     <div class="dp-panel">
         <div class="dp-row profile">
             <div class="dp-icon">
-                <img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
+                <!--<img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" />-->
             </div>
             
             <div class="dp-content">
@@ -76,11 +76,24 @@ if (!isset($_SESSION['user'])) { ?>
             <label class="dp-link" for="postfiles"></label>
             <input style="display: none;" type="file" name="postfiles" id="postfiles" class="postfiles" multiple="multiple" />
         </div>
+
+	<div class="dp-row">
+            <div class="dp-icon dp-icon-dropplets"></div>
+            <div class="dp-content">Publish or Update Post Images</div>
+            <label class="dp-link" for="postfiles"></label>
+            <input style="display: none;" type="file" name="postfiles" id="postfiles" class="postfiles" multiple="multiple" />
+        </div>
+
+	<div class="dp-row">
+            <div class="dp-icon dp-icon-large dp-icon-code"></div>
+            <div class="dp-content">Download Post Starter File</div>
+            <a class="dp-link" href="starter-post.md" download></a>
+        </div>
         
         <form method="POST" action="./dropplets/save.php">
             <div class="dp-row">
                 <div class="dp-icon dp-icon-settings"></div>
-                <div class="dp-content">Blog Settings</div>                
+                <div class="dp-content">Settings</div>                
                 <a class="dp-link dp-toggle collapsed" href="#dp-settings"></a>
                 <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
@@ -90,7 +103,7 @@ if (!isset($_SESSION['user'])) { ?>
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
-                        <label>Blog Password</label>
+                        <label>Password</label>
                         <input type="password" name="password" id="password" value="">
                     </div>
                 </div>
@@ -98,7 +111,7 @@ if (!isset($_SESSION['user'])) { ?>
             
             <div class="dp-row">
                 <div class="dp-icon dp-icon-profile dp-icon-large"></div>
-                <div class="dp-content">Blog Profile</div>                
+                <div class="dp-content">Your Profile</div>                
                 <a class="dp-link dp-toggle" href="#dp-profile"></a>
                 <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
@@ -108,7 +121,7 @@ if (!isset($_SESSION['user'])) { ?>
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
-                        <label>Blog Email</label>
+                        <label>Your Email</label>
                         <input type="text" name="blog_email" id="blog_email" value="<?php echo BLOG_EMAIL; ?>">
                     </div>
                 </div>
@@ -117,7 +130,7 @@ if (!isset($_SESSION['user'])) { ?>
                     <div class="dp-icon dp-icon-edit"></div>
                     
                     <div class="dp-content">
-                        <label>Blog Twitter</label>
+                        <label>Your Twitter</label>
                         <input type="text" name="blog_twitter" id="blog_twitter" value="<?php echo BLOG_TWITTER; ?>">
                     </div>
                 </div>
@@ -125,7 +138,7 @@ if (!isset($_SESSION['user'])) { ?>
             
             <div class="dp-row">
                 <div class="dp-icon dp-icon-text"></div>
-                <div class="dp-content">Blog Meta</div>                
+                <div class="dp-content">Meta</div>                
                 <a class="dp-link dp-toggle" href="#dp-meta-text"></a>
                 <button class="dp-button dp-button-submit" type="submit" name="submit" value="submit">k</button>
             </div>
@@ -245,7 +258,7 @@ if (!isset($_SESSION['user'])) { ?>
         
         <div class="dp-row">
             <div class="dp-icon dp-icon-templates"></div>
-            <div class="dp-content">All Templates</div>
+            <div class="dp-content">All Premium Templates</div>
             <a class="dp-link dp-toggle" href="#dp-all"></a>
             <span class="dp-number dp-number-dark"><?php count_premium_templates('all'); ?></span>
         </div>

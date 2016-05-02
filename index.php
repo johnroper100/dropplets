@@ -91,7 +91,7 @@ if ($filename==NULL) {
             $published_iso_date = $post['post_date'];
 
             // Generate the published date.
-            $published_date = strftime($date_format, strtotime($published_iso_date));
+            $published_date = date_format(date_create($published_iso_date), $date_format);
 
             // Get the post category.
             $post_category = $post['post_category'];
@@ -100,7 +100,7 @@ if ($filename==NULL) {
             $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
 
             // Get the post status.
-            $post_status = trim(strtolower($post['post_status']));
+            $post_status = $post['post_status'];
 
             // Get the post intro.
             $post_intro = $post['post_intro'];
@@ -116,8 +116,14 @@ if ($filename==NULL) {
             }
 
             // Get the post image url.
-            $post_image = get_post_image_url( $post['fname'] ) ?: get_twitter_profile_img($post_author_twitter);
+            $image = str_replace(array(FILE_EXT), '', POSTS_DIR.$post['fname']).'.jpg';
 
+            if (file_exists($image)) {
+                $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', POSTS_DIR.$post['fname']).'.jpg';
+            } else {
+                $post_image = get_twitter_profile_img($post_author_twitter);
+            }
+            
             if ($post_status == 'draft') continue;
 
             // Get the milti-post template file.
@@ -221,7 +227,7 @@ else if ($filename == 'rss' || $filename == 'atom') {
 				$remove_metadata_from = file(rtrim(POSTS_DIR, '/').'/'.$post['fname']);
 
                 if($filename=='rss') {
-                    $item->addElement('author', $blog_email . ' (' . str_replace('-', '', $remove_metadata_from[1]) .')');
+                    $item->addElement('author', str_replace('-', '', $remove_metadata_from[1]).' - ' . $blog_email);
                     $item->addElement('guid', rtrim($blog_url, '/').'/'.str_replace(FILE_EXT, '', $post['fname']));
                 }
 
@@ -308,7 +314,7 @@ else {
         $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post_title);
 
         // Get the post intro.
-        $post_intro = htmlspecialchars(trim($fcontents[7]));
+        $post_intro = htmlspecialchars($fcontents[7]);
 
         // Get the post author.
         $post_author = str_replace(array("\n", '-'), '', $fcontents[1]);
@@ -320,7 +326,7 @@ else {
         $published_iso_date = str_replace('-', '', $fcontents[3]);
 
         // Generate the published date.
-        $published_date = strftime($date_format, strtotime($published_iso_date));
+        $published_date = date_format(date_create($published_iso_date), $date_format);
 
         // Get the post category.
         $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
@@ -335,17 +341,29 @@ else {
         $post_link = $blog_url.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
 
         // Get the post image url.
-        $post_image = get_post_image_url($filename) ?: get_twitter_profile_img($post_author_twitter);
+        $image = str_replace(array(FILE_EXT), '', $filename).'.jpg';
 
+        if (file_exists($image)) {
+            $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', $filename).'.jpg';
+        } else {
+            $post_image = get_twitter_profile_img($post_author_twitter);
+        }
+        
         // Get the post content
-        $file_array = array_slice( file($filename), 7);
-        $post_content = Markdown(trim(implode("", $file_array)));
-
-        // free memory
-        unset($file_array);
+        $file_array = file($filename);
+        
+        unset($file_array[0]);
+        unset($file_array[1]);
+        unset($file_array[2]);
+        unset($file_array[3]);
+        unset($file_array[4]);
+        unset($file_array[5]);
+        unset($file_array[6]);
+        
+        $post_content = Markdown(implode("", $file_array));
                 
         // Get the site title.
-        $page_title = trim(str_replace('# ', '', $fcontents[0]));
+        $page_title = str_replace('# ', '', $fcontents[0]);
 
         // Generate the page description and author meta.
         $get_page_meta[] = '<meta name="description" content="' . $post_intro . '">';
@@ -369,7 +387,7 @@ else {
         $get_page_meta[] = '<meta property="og:image" content="' . $post_image . '">';
 
         // Generate all page meta.
-        $page_meta = implode("\n\t", $get_page_meta);
+        $page_meta = implode("\n", $get_page_meta);
 
         // Generate the post.
         $post = Markdown(join('', $fcontents));
@@ -407,12 +425,12 @@ else {
 
     // Check if running on alternate port.
     if ($protocol === "https://") {
-        if ($port == 443)
+        if ($port === 443)
             $url = $protocol . $domain;
         else
             $url = $protocol . $domain . ":" . $port;
     } elseif ($protocol === "http://") {
-        if ($port == 80)
+        if ($port === 80)
             $url = $protocol . $domain;
         else
             $url = $protocol . $domain . ":" . $port;
@@ -428,7 +446,7 @@ else {
     <html>
         <head>
             <meta charset="utf-8" />
-            <title>Let's Get Started</title>
+            <title>Dropplets | Let's Get Started</title>
             <link rel="stylesheet" href="./dropplets/style/style.css" />
             <link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
             <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400' rel='stylesheet' type='text/css'>
@@ -442,23 +460,23 @@ else {
                 <h2>Install Dropplets</h2>
                 <p>Welcome to an easier way to blog.</p>
                 
-                <input type="password" name="password" id="password" required placeholder="Choose Your Password">
+                <input type="password" name="password" id="password" required placeholder="Choose A Password">
                 <input type="password" name="password-confirmation" id="password-confirmation" required placeholder="Confirm Your Password" onblur="confirmPass()">
 
-                <input hidden type="text" name="blog_email" id="blog_email" value="hi@dropplets.com">
-                <input hidden type="text" name="blog_twitter" id="blog_twitter" value="dropplets">
+                <input type="text" name="blog_email" id="blog_email" required placeholder="Enter Your Email">
+                <input type="text" name="blog_twitter" id="blog_twitter" placeholder="Enter Your Twitter Account (Optional)">
                 <input hidden type="text" name="blog_url" id="blog_url" value="<?php echo($url) ?><?php if ($url == $domain) { ?>/<?php } ?>">
                 <input hidden type="text" name="template" id="template" value="simple">
-                <input hidden type="text" name="blog_title" id="blog_title" value="Welcome to Dropplets">
+                <input type="text" name="blog_title" id="blog_title" required placeholder="Choose A Blog Title">
                 <textarea hidden name="meta_description" id="meta_description"></textarea>
                 <input hidden type="text" name="intro_title" id="intro_title" value="Welcome to Dropplets">
                 <textarea hidden name="intro_text" id="intro_text">In a flooded selection of overly complex solutions, Dropplets has been created in order to deliver a much needed alternative. There is something to be said about true simplicity in the design, development and management of a blog. By eliminating all of the unnecessary elements found in typical solutions, Dropplets can focus on pure design, typography and usability. Welcome to an easier way to blog.</textarea>
 
-    		    <button type="submit" name="submit" value="submit">k</button>
+    		    <button type="submit" name="submit" value="submit">Let's Get Started!</button>
     		</form>
                 
             <?php if (!$is_writable) { ?>
-                <p style="color:red;">It seems that your config folder is not writable, please add the necessary permissions.</p>
+                <p id="notWritable">The folder that Dropplets is in is not writeable. Please give it the correct permissions before moving on.</p>
             <?php } ?>
 
             <script>

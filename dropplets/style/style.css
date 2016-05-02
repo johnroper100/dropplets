@@ -52,6 +52,11 @@ body.dp-install {
     color: #808080;
     text-align: center;
     text-rendering: optimizeLegibility;
+    background: url('images/bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 body.dp-install .dp-icon-dropplets {
@@ -64,6 +69,7 @@ body.dp-install .dp-icon-dropplets {
     height: 160px;
     float: left;
     margin: -80px 0 0 80px;
+    border-radius: 15px;
 }
 
 .dp-panel .dp-panel a.dropplets:hover,
@@ -73,19 +79,20 @@ body.dp-install .dp-icon-dropplets {
 }
 
 body.dp-install form {
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    background-color: rgba(0, 0, 0, 0.01);
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
     width: 320px;
-    height: 340px;
+    height: 512px;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     margin: -171px 0 0 -161px;
 }
 
 body.dp-install form h2 {
     font-size: 20px;
-    color: #404040;
+    color: #ff8c19;
     font-weight: normal;
     width: 320px;
     max-width: 100% !important;
@@ -96,13 +103,15 @@ body.dp-install form h2 {
 body.dp-install form p {
     width: 300px;
     float: left;
-    margin: 0 0 24px;
+    margin: 0 0 15px;
     padding: 0 10px;
+    color: white;
 }
 
-body.dp-install form input[type="password"] {
+body.dp-install form input {
     background-color: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
     outline: none;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 400;
@@ -119,25 +128,39 @@ body.dp-install form input[type="password"] {
 body.dp-install form button {
     background-color: #4ebb44;
     border: none;
-    font-family: "dropplets";
+    border-radius: 15px;
     color: #ffffff;
-    font-size: 40px;
+    font-size: 25px;
     text-align: center;
-    width: 70px;
-    height: 70px;
+    height: 55px;
     position: absolute;
-    bottom: -35px;
-    left: 160px;
+    bottom: 10px;
+    left: 95px;
     margin-left: -35px;
     cursor: pointer;
     -webkit-appearance: none;
     -moz-transition-duration: 0.1s;
     -webkit-transition-duration: 0.1s;
+    outline: none;
 }
 
 body.dp-install form button:hover {
-    box-shadow: inset 0 0 20px rgba(54, 124, 49, 0.75);
-    text-shadow: 0 0 10px rgba(54, 124, 49, 0.75);
+    box-shadow: inset 0 0 15px rgba(54, 124, 49, 0.85);
+    text-shadow: 0 0 15px rgba(54, 124, 49, 0.85);
+}
+
+#notWritable {
+    font-size: 20px;
+    color: red;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    width: 350px;
+    position: absolute;
+    bottom: 3%;
+    left: 48%;
+    margin: -0px 0 0 -161px;
+    padding: 5px;
 }
 
 /* Icon Font
