@@ -28,7 +28,7 @@ if (empty($_GET['filename'])) {
 } else if($_GET['filename'] == 'rss' || $_GET['filename'] == 'atom') {
     $filename = $_GET['filename'];
 }  else {
-    
+
     //Filename can be /some/blog/post-filename.md We should get the last part only
     $filename = explode('/',$_GET['filename']);
 
@@ -41,7 +41,7 @@ if (empty($_GET['filename'])) {
         $author = $filename[count($filename) - 1];
         $filename = null;
     } else {
-      
+
         // Individual Post
         $filename = POSTS_DIR . $filename[count($filename) - 1] . FILE_EXT;
     }
@@ -102,11 +102,11 @@ if ($filename==NULL) {
             // Generate the published date.
             $published_date = date_format(date_create($published_iso_date), $date_format);
 
-            // Get the post category.
-            $post_category = $post['post_category'];
-            
-            // Get the post category link.
-            $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
+            // Get the post categories.
+            $post_categories = $post['post_categories'];
+
+            // Get the post categories links.
+            $post_categories_links = array_map(function($e) { return BLOG_URL.'category/'.urlencode(trim(strtolower($e))); }, $post_categories);
 
             // Get the post status.
             $post_status = $post['post_status'];
@@ -118,11 +118,7 @@ if ($filename==NULL) {
             $post_content = $post['post_content'];
 
             // Get the post link.
-            if ($category) {
-                $post_link = trim(strtolower($post_category)).'/'.str_replace(FILE_EXT, '', $post['fname']);
-            } else {
-                $post_link = $blog_url.str_replace(FILE_EXT, '', $post['fname']);
-            }
+            $post_link = $blog_url.str_replace(FILE_EXT, '', $post['fname']);
 
             // Get the post image url.
             $image = str_replace(array(FILE_EXT), '', POSTS_DIR.$post['fname']).'.jpg';
@@ -132,7 +128,7 @@ if ($filename==NULL) {
             } else {
                 $post_image = get_twitter_profile_img($post_author_twitter);
             }
-            
+
             if ($post_status == 'draft') continue;
 
             // Get the milti-post template file.
@@ -300,7 +296,7 @@ else {
         // Start new buffer.
         ob_start();
 
-	      // Get the index template file.
+        // Get the index template file.
         include_once $index_file;
 
         // Cache the post on if caching is turned on.
@@ -344,14 +340,15 @@ else {
         // Generate the published date.
         $published_date = date_format(date_create($published_iso_date), $date_format);
 
-        // Get the post category.
-        $post_category = str_replace(array("\n", '-'), '', $fcontents[4]);
-        
+        // Get the post categories.
+        $post_categories = explode(',', str_replace(array("\n", '-'), '', $fcontents[4]));
+        $post_categories = array_map(function($el) { return trim($el); }, $post_categories);
+
         // Get the post status.
         $post_status = str_replace(array("\n", '- '), '', $fcontents[5]);
-        
-        // Get the post category link.
-        $post_category_link = $blog_url.'category/'.urlencode(trim(strtolower($post_category)));
+
+        // Get the post categories links.
+        $post_categories_links = array_map(function($e) { return BLOG_URL.'category/'.urlencode(trim(strtolower($e))); }, $post_categories);
 
         // Get the post link.
         $post_link = $blog_url.str_replace(array(FILE_EXT, POSTS_DIR), '', $filename);
@@ -364,10 +361,10 @@ else {
         } else {
             $post_image = get_twitter_profile_img($post_author_twitter);
         }
-        
+
         // Get the post content
         $file_array = file($filename);
-        
+
         unset($file_array[0]);
         unset($file_array[1]);
         unset($file_array[2]);
@@ -375,9 +372,9 @@ else {
         unset($file_array[4]);
         unset($file_array[5]);
         unset($file_array[6]);
-        
+
         $post_content = Markdown(implode("", $file_array));
-                
+
         // Get the site title.
         $page_title = str_replace('# ', '', $fcontents[0]);
 
@@ -453,7 +450,7 @@ else {
     }
 
     $url .= $path;
-    
+
     // Check if the install directory is writable.
     $is_writable = (TRUE == is_writable(dirname(__FILE__) . '/'));
     ?>
@@ -475,10 +472,10 @@ else {
         <body class="dp-install">
             <form method="POST" action="./dropplets/save.php">
                 <a class="dp-icon-dropplets" href="http://dropplets.com" target="_blank"></a>
-                
+
                 <h2>Install Dropplets</h2>
                 <p>Welcome to an easier way to blog.</p>
-                
+
                 <input type="password" name="password" id="password" required placeholder="Choose A Password">
                 <input type="password" name="password-confirmation" id="password-confirmation" required placeholder="Confirm Your Password" onblur="confirmPass()">
 
@@ -502,7 +499,7 @@ else {
     		    <button type="submit" name="submit" value="submit">Let's Get Started!</button>
     		</form>
 	    <?php echo $dropplets_version; ?>
-                
+
             <?php if (!$is_writable) { ?>
                 <p id="notWritable">The folder that Dropplets is in is not writeable. Please give it the correct permissions before moving on.</p>
             <?php } ?>
@@ -518,7 +515,7 @@ else {
             </script>
         </body>
     </html>
-<?php 
+<?php
 
 /*-----------------------------------------------------------------------------------*/
 /* That's All There is to It
