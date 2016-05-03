@@ -1,0 +1,23 @@
+{
+  "name": "chevrons",
+  "version": "0.1.0",
+  "description": "Theme for Dropplets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bishless/chevrons.git"
+  },
+  "keywords": [
+    "theme"
+  ],
+  "author": "Daniel Bishop",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "1f3fb1cd898b1146c6f9c0aacd9e1e730976315b",
+  "bugs": {
+    "url": "https://github.com/bishless/chevrons/issues"
+  }
+}

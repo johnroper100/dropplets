@@ -1,7 +1,6 @@
 /********************************************************************************************
 
 Simple v1.0.2 by Jason Schuller (Jason.sc)
-Copyright Circa75 Media, LLC (Circa75.co)
 
 *********************************************************************************************/
 
@@ -192,7 +191,7 @@ ul.actions li {
     font-size: 14px;
     line-height: 19px;
     font-weight: 300;
-    color: #b3b3b1;
+    color: #909090;
     text-align: right;
 }
 
@@ -210,18 +209,18 @@ ul.actions li {
 }
 
 .meta ul li span {
-    color: #ebebeb;
+    color: #d9d9d9;
 }
 
 .meta ul li:after { 
-    color: #ebebeb;
+    color: #d9d9d9;
     content: " -";
 }
 
 .meta ul li:last-child { 
     border-radius: 50%;
     background-color: #fbfbfb;
-    border: 1px solid #ebebeb;
+    border: 1px solid #d9d9d9;
     position: absolute;
     width: 10px;
     height: 10px;
@@ -264,7 +263,7 @@ ul.actions li {
 }
 
 .thumbnail img {
-    border-radius: 50%;
+    border-radius: 15%;
     width: 100%;
     height: 100%;
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Generator: Adobe Fireworks 10, Export SVG Extension by Aaron Beall (http://fireworks.abeall.com) . Version: 0.6.1  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg id="mask-roundcorners.fw-Page%201" viewBox="0 0 200 200" style="background-color:#ffffff00" version="1.1"
+	xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+	x="0px" y="0px" width="200px" height="200px"
+>
+	<g id="Layer%201">
+		<rect x="0" y="0" width="200" height="200" fill="#000000" rx="14" ry="14"/>
+	</g>
+	<g id="Layer%202">
+		<path id="Line" d="M 15 0 L 15 200 " stroke="#ff0000" stroke-width="1" fill="none"/>
+		<path id="Line2" d="M 185 0 L 185 200 " stroke="#ff0000" stroke-width="1" fill="none"/>
+		<path id="Line3" d="M 0 15 L 200 15 " stroke="#ff0000" stroke-width="1" fill="none"/>
+		<path id="Line4" d="M 0 185 L 200 185 " stroke="#ff0000" stroke-width="1" fill="none"/>
+	</g>
+</svg>

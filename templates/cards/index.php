@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         
-        <title><?php echo($page_title); ?></title>
+        <title><?php echo($blog_title); ?> | <?php echo($page_title); ?></title>
         
         <?php echo($page_meta); ?>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,6 +48,7 @@
         </section>
         
         <?php get_footer(); ?>
+	<?php echo($dropplets_version); ?>
         
         <script type="text/javascript">
             <?php if($is_home) { ?>

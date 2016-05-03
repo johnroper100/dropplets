@@ -1,0 +1,705 @@
+@import "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css";
+/*********************
+THE DEAL BREAKER - http://web-design-weekly.com/2013/04/10/why-you-scared-of-sass/
+*********************/
+/*
+Usage:
+#header {
+  width: 75%;
+  @include breakpoint(large) { width: 60%; }
+  @include breakpoint(medium) { width: 80%; }
+  @include breakpoint(small) { width: 95%; }
+}
+*/
+/*********************
+RETINA IMAGES
+*********************/
+/* mixin for retina background images */
+/**
+ * Pull Quotes Markup
+ *
+  <aside class="pull-quote">
+    <blockquote>
+      <p></p>
+    </blockquote>
+  </aside>
+ *
+ * Extend this object into your custom stylesheet.
+ *
+ */
+/* Normalization */
+/* line 2, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* line 2, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* line 2, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+body {
+  line-height: 1;
+}
+
+/* line 2, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 2, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+blockquote, q {
+  quotes: none;
+}
+
+/* line 2, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* line 2, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 5, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+body {
+  background-image: url("../images/bigwave.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-color: #236e99;
+  font-family: varela, sans-serif;
+  font-weight: 400;
+  color: #aaaaaa;
+  font-size: 16px;
+  line-height: 1.5em;
+  text-rendering: optimizeLegibility;
+}
+@media (max-width: 37.5em) {
+  /* line 5, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  body {
+    font-size: 18px;
+    background-image: none;
+  }
+}
+@media (max-width: 50em) {
+  /* line 5, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  body {
+    font-size: 16px;
+  }
+}
+@media (max-width: 64.375em) {
+  /* line 5, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  body {
+    font-size: 16px;
+  }
+}
+
+/* line 31, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 0.75em;
+  margin-bottom: 0.375em;
+  color: #c3c3c3;
+}
+
+/* line 39, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+h1 {
+  font-family: podkova, serif;
+  font-size: 59.30121px;
+  text-shadow: 1px 1px 0 #222228, 2px 2px 0 rgba(76, 164, 214, 0.3);
+}
+@media (max-width: 37.5em) {
+  /* line 39, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  h1 {
+    font-size: 2em;
+  }
+}
+
+/* line 46, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+h2 {
+  font-family: podkova, serif;
+  font-size: 36.65094px;
+  max-width: 90%;
+}
+@media (max-width: 37.5em) {
+  /* line 46, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  h2 {
+    font-size: 1.8em;
+  }
+}
+
+/* line 53, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+h3 {
+  font-size: 22.652px;
+  color: #4ca4d6;
+}
+@media (max-width: 37.5em) {
+  /* line 53, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  h3 {
+    font-size: 1.6em;
+  }
+}
+
+/* line 58, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+h4 {
+  font-size: 14px;
+  font-family: varela, sans-serif;
+}
+@media (max-width: 37.5em) {
+  /* line 58, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  h4 {
+    font-size: 1.4em;
+  }
+}
+
+/* line 63, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+h5 {
+  font-size: 14px;
+  font-family: varela, sans-serif;
+  text-transform: uppercase;
+}
+@media (max-width: 37.5em) {
+  /* line 63, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  h5 {
+    font-size: 1.2em;
+  }
+}
+
+/* line 69, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+h6 {
+  font-size: 8.65266px;
+  text-transform: uppercase;
+}
+
+/* line 74, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+ul, ol {
+  margin: 0 0 20px;
+}
+
+/* line 77, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+ol li {
+  list-style: decimal;
+}
+
+/* line 82, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+p,
+p:empty {
+  margin: 0 0 1.5em;
+}
+/* line 84, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+p + p,
+p:empty + p {
+  text-indent: 1.5em;
+  margin-top: -0.75em;
+}
+
+/* line 91, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+a,
+a h1 {
+  color: #c3c3c3;
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+/* line 97, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+a:hover, a:focus,
+a h1:hover,
+a h1:focus {
+  color: #4ca4d6;
+}
+
+/* line 102, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+i {
+  /* Make the font smoother for Chrome */
+  transform: translate3d(0, 0, 0);
+}
+
+/* line 107, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+strong {
+  font-weight: bold;
+}
+
+/* line 110, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+em {
+  font-style: italic;
+}
+
+/* line 115, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+small,
+.footnote {
+  font-size: 90%;
+  color: #5d5d5d;
+}
+
+/* line 120, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.footnote {
+  margin-top: 3em;
+  margin-bottom: 1.5em;
+}
+
+/* line 126, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+code,
+pre {
+  font-family: source-code-pro, Consolas, monospace;
+  text-rendering: optimizeLegibility;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  margin: 0 0.1em;
+}
+
+/* line 135, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+article {
+  counter-reset: figures;
+}
+/* line 138, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+article:first-of-type {
+  padding-top: 30px;
+}
+/* line 142, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+article.draft {
+  display: none;
+}
+/* line 147, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+article:last-child, article.single {
+  border-bottom: 0;
+  margin-bottom: 3em;
+}
+/* line 152, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+article .figure {
+  padding: 0.9em;
+  border: 3px solid #1b1b20;
+  background: #222228;
+  margin: 0 auto 1em;
+}
+/* line 158, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+article .figure img {
+  margin: 0 auto;
+  display: block;
+  max-width: 100%;
+}
+/* line 164, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+article .figure figcaption {
+  counter-increment: figures;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8em;
+  padding: 0.5em;
+  text-align: center;
+  color: #aaaaaa;
+}
+/* line 174, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+article .figure figcaption:before {
+  content: "Fig. " counter(figures) " | ";
+}
+
+/* line 181, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.single .post ul:first-of-type {
+  display: none;
+}
+
+/* line 189, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.aside .chevron:before {
+  background-color: #393944;
+}
+/* line 192, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.aside .chevron:after {
+  background-color: #393944;
+}
+/* line 200, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.aside h1,
+.aside .thumbnail,
+.aside .actions,
+.aside .btn {
+  display: none;
+}
+/* line 204, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.aside .post p {
+  text-align: center;
+  color: #4ca4d6;
+}
+/* line 208, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.aside .post p a {
+  color: #75b9e0;
+  border-bottom: 1px dashed #4ca4d6;
+}
+/* line 213, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.aside .post p a:hover, .aside .post p a:focus {
+  color: white;
+  border-bottom: 1px solid white;
+}
+/* line 220, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.aside .meta ul {
+  padding: 0 0 10px;
+  color: rgba(76, 164, 214, 0.6);
+}
+/* line 224, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.aside .meta ul li:first-of-type {
+  display: none;
+}
+
+/* line 230, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post {
+  margin-top: 0.75em;
+}
+/* line 240, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post p,
+.post li,
+.post small,
+.post h2,
+.post h3,
+.post h4,
+.post h5,
+.post h6 {
+  text-shadow: 1px 1px 0 #0b0b0c;
+  transform: translate3d(0, 0, 0);
+}
+/* line 246, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post p a,
+.post li a {
+  color: #c3c3c3;
+  border-bottom: 1px solid #2a2a2a;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+/* line 251, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post p a:hover,
+.post li a:hover {
+  color: #4ca4d6;
+  border-bottom: 1px solid #4ca4d6;
+  text-shadow: 0 0 2px rgba(76, 164, 214, 0.5);
+}
+/* line 258, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post ul {
+  list-style: none;
+  padding-left: 0;
+}
+/* line 262, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post ul li:before {
+  content: "\2022 \00A0";
+  color: rgba(76, 164, 214, 0.5);
+}
+/* line 268, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post sup {
+  font-size: 0.8em;
+  vertical-align: super;
+}
+/* line 272, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post sup a {
+  color: #c3c3c3;
+  border: 0;
+}
+/* line 276, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post sup a:hover {
+  color: #4ca4d6;
+  border: 0;
+}
+/* line 283, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post blockquote {
+  border-left: 5px solid rgba(76, 164, 214, 0.3);
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+/* line 290, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post blockquote:before, .post blockquote:after {
+  color: rgba(76, 164, 214, 0.3);
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.2em;
+  vertical-align: -0.4em;
+}
+/* line 298, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post blockquote:before {
+  content: open-quote;
+}
+/* line 299, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post blockquote:after {
+  content: close-quote;
+}
+/* line 301, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post blockquote p {
+  display: inline;
+  color: #4ca4d6;
+  font-size: 22.652px;
+}
+/* line 308, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post img {
+  max-width: 100%;
+}
+/* line 312, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post mark {
+  color: #b7b7b7;
+}
+/* line 315, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post .author-mark {
+  background: transparent;
+}
+/* line 318, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post .marks-highlighted {
+  padding: 0 1px;
+  color: white;
+  background-color: rgba(76, 164, 214, 0.1);
+  border-radius: 0.2em;
+  border: 1px solid rgba(76, 164, 214, 0.5);
+}
+
+/* line 329, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.post.intro h1,
+.post.intro p {
+  text-align: center;
+  max-width: 100%;
+}
+
+/* line 335, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.center {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* line 341, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+img.mask {
+  -webkit-mask-box-image: url("../images/mask-roundcorners.svg") 14 repeat;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 1.5 / 1), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx) {
+  /* line 341, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  img.mask {
+    -webkit-mask-box-image: url("../images/mask-roundcorners.svg") 14 repeat;
+  }
+}
+
+/* CSS Chevrons
+ | http://jsfiddle.net/apticknor/hyXtR/
+ |
+ | Usage:
+ | <div class="wrapper">
+ |   <div class="chevron">
+ |     content
+ |   </div>
+ | </div>
+ */
+/* line 360, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.wrapper {
+  margin: 2em auto;
+  width: 60%;
+}
+@media (max-width: 64.375em) {
+  /* line 360, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  .wrapper {
+    width: 70%;
+    margin-top: 2em;
+  }
+}
+@media (max-width: 50em) {
+  /* line 360, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  .wrapper {
+    width: 80%;
+    margin-top: 1em;
+  }
+}
+@media (max-width: 37.5em) {
+  /* line 360, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  .wrapper {
+    width: 95%;
+    margin-top: 1em;
+  }
+}
+
+/* line 377, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.chevron {
+  position: relative;
+  padding: 2em 4em 0 4em;
+}
+@media (max-width: 64.375em) {
+  /* line 377, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  .chevron {
+    padding: 2em 4em 0 4em;
+  }
+}
+@media (max-width: 50em) {
+  /* line 377, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  .chevron {
+    padding: 1em 2em 0 2em;
+  }
+}
+@media (max-width: 37.5em) {
+  /* line 377, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  .chevron {
+    padding: 1em 1em 0 1em;
+  }
+}
+/* line 384, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.chevron:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50.5%;
+  background: #222228;
+  -webkit-transform: skewY(7deg);
+  -moz-transform: skewY(7deg);
+  -ms-transform: skewY(7deg);
+  -o-transform: skewY(7deg);
+  transform: skewY(7deg);
+  z-index: -1;
+}
+/* line 396, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.chevron:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  background: #222228;
+  -webkit-transform: skewY(-7deg);
+  -moz-transform: skewY(-7deg);
+  -ms-transform: skewY(-7deg);
+  -o-transform: skewY(-7deg);
+  transform: skewY(-7deg);
+  z-index: -1;
+}
+
+/* Buttons */
+/* line 411, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.button-wrap {
+  *zoom: 1;
+}
+/* line 18, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/bourbon/addons/_clearfix.scss */
+.button-wrap:before, .button-wrap:after {
+  content: " ";
+  display: table;
+}
+/* line 23, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/bourbon/addons/_clearfix.scss */
+.button-wrap:after {
+  clear: both;
+}
+
+/* line 440, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.btn {
+  position: relative;
+  display: block;
+  font-size: 1.2em;
+  color: #393944;
+  text-align: center;
+  margin: 10px 0 5px 0;
+  padding: 10px 0 10px 0;
+  width: 100px;
+}
+/* line 450, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #16161a;
+  -webkit-transform: skewY(6deg);
+  -moz-transform: skewY(6deg);
+  -ms-transform: skewY(6deg);
+  -o-transform: skewY(6deg);
+  transform: skewY(6deg);
+  z-index: -1;
+}
+/* line 462, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.btn:hover {
+  color: #4ca4d6;
+  text-shadow: #222228 0 -1px 1px;
+}
+
+/* Meta */
+/* line 472, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.meta {
+  font-size: 0.9em;
+  line-height: 1.2em;
+  text-align: center;
+}
+/* line 478, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.meta ul {
+  width: 100%;
+  padding: 20px 0 26px;
+}
+/* line 482, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.meta ul li {
+  list-style: none;
+  display: inline-block;
+  margin: 0 1em;
+}
+/* line 489, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.meta a {
+  color: #c3c3c3;
+}
+/* line 492, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.meta a:hover {
+  color: #4ca4d6;
+}
+
+/* line 498, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.thumbnail {
+  background-color: #0b0b0c;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  padding: 6px;
+  margin: 0.5em auto;
+  -webkit-transition: all 0.05s ease-in-out;
+  -moz-transition: all 0.05s ease-in-out;
+  transition: all 0.05s ease-in-out;
+}
+@media (max-width: 37.5em) {
+  /* line 498, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+  .thumbnail {
+    display: none;
+  }
+}
+/* line 509, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.thumbnail img {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+/* Powered by Dropplets */
+/* line 519, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.powered-by {
+  border-radius: 3px;
+  background-color: black;
+  color: white;
+  font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+  font-size: 12px;
+  line-height: 27px;
+  position: fixed;
+  display: block;
+  padding: 2px 10px;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+  opacity: 0.3;
+}
+/* line 534, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.powered-by:hover {
+  color: white;
+  opacity: 0.8;
+}
+/* line 539, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
+.powered-by img {
+  height: 15px;
+  float: left;
+  margin: 5px 5px 0 -2px;
+}

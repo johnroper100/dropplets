@@ -620,3 +620,32 @@ body.dp-install form button::-moz-focus-inner {
     -moz-transition-duration: 0.5s;
     -webkit-transition-duration: 0.5s;
 }
+
+/* Powered by Dropplets
+*********************************************************************************************/
+
+.powered-by {
+    border-radius: 3px;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    font-size: 12px;
+    position: fixed;
+    display: block;
+    padding: 2px 10px;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    opacity: 0.3;
+}
+
+.powered-by:hover {
+    color: #ffffff;
+    opacity: 0.8;
+}
+
+.powered-by img {
+    height: 15px;
+    float: left;
+    margin: 5px 5px 0 -2px;
+}

@@ -1,0 +1,544 @@
+/* Normalization */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}table{border-collapse:collapse;border-spacing:0;}
+
+
+body {
+  background-image: url('#{$imagesPath}bigwave.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-color: $dark-theme;
+  // @include background-image-retina('kindajean', 'png', 147px, 147px);
+  font-family: $font-body;
+  font-weight: 400;
+  color: $body-copy-color;
+  font-size: 16px;
+  @include breakpoint(small) {
+    font-size: 18px;
+    background-image: none;
+  }
+  @include breakpoint(medium) {
+    font-size: 16px;
+  }
+  @include breakpoint(large) {
+    font-size: 16px;
+
+  }
+  line-height: $indent-val;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1;
+  margin-top: $indent-val/2;
+  margin-bottom: $indent-val/4;
+  color: $heading-color;
+}
+
+h1 {
+  font-family: $font-headings;
+  font-size: golden-ratio(14px,  3);
+  // max-width: 90%;
+  text-shadow: 1px 1px 0 $chevrons, 2px 2px 0 transparentize($theme, 0.7);
+  @include breakpoint(small) {font-size: 2em;}
+}
+h2 {
+  font-family: $font-headings;
+  font-size: golden-ratio(14px,  2);
+  // color: darken($body-copy-color, 20%);
+  max-width: 90%;
+  @include breakpoint(small) {font-size: 1.8em;}
+}
+h3 {
+  font-size: golden-ratio(14px,  1);
+  color: $theme;
+  @include breakpoint(small) {font-size: 1.6em;}
+}
+h4 {
+  font-size: golden-ratio(14px,  0);
+  font-family: $font-body;
+  @include breakpoint(small) {font-size: 1.4em;}
+}
+h5 {
+  font-size: golden-ratio(14px,  0);
+  font-family: $font-body;
+  text-transform: uppercase;
+  @include breakpoint(small) {font-size: 1.2em;}
+}
+h6 {
+  font-size: golden-ratio(14px,  -1);
+  text-transform: uppercase;
+}
+
+ul, ol {
+  margin: 0 0 20px;
+}
+ol li {
+  list-style: decimal;
+}
+
+p,
+p:empty {
+  margin: 0 0 $indent-val;
+  & + p {
+    text-indent: $indent-val;
+    margin-top: -$indent-val/2;
+  }
+}
+
+a,
+a h1 {
+  color: $link-color;
+  text-decoration: none;
+  @include transition(all 0.3s ease-in-out);
+
+  &:hover,
+  &:focus {
+    color: $link-color-hover;
+  }
+}
+
+i {
+  /* Make the font smoother for Chrome */
+  transform: translate3d(0, 0, 0);
+}
+
+strong {
+  font-weight: bold;
+}
+em {
+  font-style: italic;
+}
+
+small,
+.footnote {
+  font-size: 90%;
+  color: darken($body-copy-color, 30%);
+}
+
+.footnote {
+  margin-top: $indent-val * 2;
+  margin-bottom: $indent-val;
+}
+
+code,
+pre {
+  font-family: $font-code;
+  text-rendering: optimizeLegibility;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  margin: 0 0.1em;
+}
+
+
+article {
+  counter-reset: figures;
+
+  &:first-of-type {
+    padding-top: 30px;
+  }
+
+  &.draft {
+    display: none;
+  }
+
+  &:last-child,
+  &.single {
+    border-bottom: 0;
+    margin-bottom: 3em;
+  }
+
+  .figure {
+    padding: 0.9em;
+    border: 3px solid darken($chevrons, 3%);
+    background: $chevrons;
+    margin: 0 auto 1em;
+
+    img {
+      margin: 0 auto;
+      display: block;
+      max-width: 100%;
+    }
+
+    figcaption {
+      counter-increment: figures;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.8em;
+      padding: 0.5em;
+      text-align: center;
+      color: $body-copy-color;
+
+      &:before {
+        content: 'Fig. ' counter(figures) ' | ';
+      }
+    }
+  }
+}
+
+.single .post ul:first-of-type {
+  display: none;
+}
+
+.aside {
+
+  .chevron {
+
+    &:before {
+      background-color: lighten($chevrons, 10%);
+    }
+    &:after {
+      background-color: lighten($chevrons, 10%);
+    }
+  }
+
+  h1,
+  .thumbnail,
+  .actions,
+  .btn {
+    display: none;
+  }
+
+  .post p {
+    text-align: center;
+    color: $theme;
+
+    a {
+      color: lighten($theme, 10%);
+      border-bottom: 1px dashed $theme;
+
+      &:hover,
+      &:focus {
+        color: white;
+        border-bottom: 1px solid white;
+      }
+    }
+  }
+
+  .meta ul {
+    padding: 0 0 10px;
+    color: transparentize($theme, 0.4);
+
+    li:first-of-type {
+      display: none;
+    }
+  }
+}
+
+.post {
+  margin-top: 0.75em;
+
+  p,
+  li,
+  small,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-shadow: 1px 1px 0 darken($chevrons, 10%);
+    transform: translate3d(0, 0, 0);
+  }
+
+  p a,
+  li a {
+    color: $link-color;
+    border-bottom: 1px solid darken($body-copy-color, 50%);
+    @include transition(all 0.3s ease-in-out);
+
+    &:hover {
+      color: $link-color-hover;
+      border-bottom: 1px solid $theme;
+      text-shadow: 0 0 2px transparentize($theme, 0.5);
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+
+    li:before {
+      content:"\2022 \00A0";
+      color: transparentize($theme, 0.5);
+    }
+  }
+
+  sup {
+    font-size: 0.8em;
+    vertical-align: super;
+
+    a {
+      color: $link-color;
+      border: 0;
+
+      &:hover {
+        color: $link-color-hover;
+        border: 0;
+      }
+    }
+  }
+
+  blockquote {
+    border-left: 5px solid transparentize($theme, 0.7);
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+
+    &:before,
+    &:after {
+      color: transparentize($theme, 0.7);
+      font-size: 4em;
+      line-height: 0.1em;
+      margin-right: 0.2em;
+      vertical-align: -0.4em;
+    }
+
+    &:before { content: open-quote; }
+    &:after { content: close-quote; }
+
+    & p {
+      display: inline;
+      color: $theme;
+      font-size: golden-ratio(14px,  1);
+    }
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  mark {
+    color: lighten($body-copy-color, 5%);
+  }
+  .author-mark {
+    background: transparent;
+  }
+  .marks-highlighted {
+    padding: 0 1px;
+    color: white;
+    background-color: transparentize($theme, 0.9);
+    border-radius: 0.2em;
+    border: 1px solid transparentize($theme, 0.5);
+  }
+}
+
+.post.intro {
+  h1,
+  p {
+    text-align: center;
+    max-width: 100%;
+  }
+}
+
+.center {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+img.mask {
+  -webkit-mask-box-image: url("../images/mask-roundcorners.svg") 14 repeat;
+
+  @include hidpi(1.5) {
+    -webkit-mask-box-image: url("../images/mask-roundcorners.svg") 14 repeat;
+  }
+}
+
+/* CSS Chevrons
+ | http://jsfiddle.net/apticknor/hyXtR/
+ |
+ | Usage:
+ | <div class="wrapper">
+ |   <div class="chevron">
+ |     content
+ |   </div>
+ | </div>
+ */
+
+.wrapper {
+  margin: 2em auto;
+  width: 60%;
+  @include breakpoint(large) {
+    width: 70%;
+    margin-top: 2em;
+  }
+  @include breakpoint(medium) {
+    width: 80%;
+    margin-top: 1em;
+  }
+  @include breakpoint(small) {
+    width: 95%;
+    margin-top: 1em;
+  }
+}
+
+.chevron {
+  position: relative;
+  padding: 2em 4em 0 4em;
+  @include breakpoint(large) {padding: 2em 4em 0 4em;}
+  @include breakpoint(medium) {padding: 1em 2em 0 2em;}
+  @include breakpoint(small) {padding: 1em 1em 0 1em;}
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50.5%;
+    background: $chevrons;
+    @include transform(skewY(7deg));
+    z-index: -1;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 50%;
+    background: $chevrons;
+    @include transform(skewY(-7deg));
+    z-index: -1;
+  }
+}
+
+/* Buttons */
+
+.button-wrap {
+  @include clearfix;
+}
+
+// .btn-group {
+
+//   .btn {
+//     color: lighten($chevrons, 10%);
+//     background-color: lighten($body-copy-color, 10%);
+//     background-image: none;
+//     border: none;
+
+//     &:hover {
+//       backround-color: $body-copy-color;
+//     }
+//   }
+//   &>.btn:first-child {
+//     border-radius: none;
+//   }
+// }
+
+// ul.actions {
+//   list-style: none;
+//   margin: 0;
+//   padding: 0 0 20px 0;
+
+//   li {}
+// }
+
+.btn {
+  position: relative;
+  display: block;
+  font-size: 1.2em;
+  color: lighten($chevrons, 10%);
+  text-align: center;
+  margin: 10px 0 5px 0;
+  padding: 10px 0 10px 0;
+  width: 100px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: darken($chevrons, 5%);
+    @include transform(skewY(6deg));
+    z-index: -1;
+  }
+
+  &:hover {
+    color: $theme;
+    text-shadow: $chevrons 0 -1px 1px;
+
+  }
+}
+
+
+/* Meta */
+
+.meta {
+  font-size: 0.9em;
+  line-height: 1.2em;
+  // color: darken($body-copy-color, 40%);
+  text-align: center;
+
+  ul {
+    width: 100%;
+    padding: 20px 0 26px;
+
+    li {
+      list-style: none;
+      display: inline-block;
+      margin: 0 1em;
+    }
+  }
+
+  a {
+    color: $link-color;
+
+    &:hover {
+      color: $link-color-hover;
+    }
+  }
+}
+
+.thumbnail {
+  background-color: darken($chevrons, 10%);
+  // border: 1px solid lighten($chevrons, 10%);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  padding: 6px;
+  margin: 0.5em auto;
+  @include transition(all 0.05s ease-in-out);
+  @include breakpoint(small) { display: none; }
+
+  & img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+/* Powered by Dropplets */
+
+.powered-by {
+  border-radius: 3px;
+  background-color: black;
+  color: white;
+  font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+  font-size: 12px;
+  line-height: 27px;
+  position: fixed;
+  display: block;
+  padding: 2px 10px;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+  opacity: 0.3;
+
+  &:hover {
+    color: white;
+    opacity: 0.8;
+  }
+
+  & img {
+    height: 15px;
+    float: left;
+    margin: 5px 5px 0 -2px;
+  }
+}

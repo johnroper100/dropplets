@@ -1,4 +1,7 @@
 <?php
+$version = '1.6.5';
+
+$dropplets_version = '<a class="powered-by" href="http://www.dropplets.com">Powered by Dropplets v'.$version.'</a>';
 
 session_start();
 
@@ -451,6 +454,9 @@ else {
             <link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
             <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400' rel='stylesheet' type='text/css'>
             <link rel="shortcut icon" href="./dropplets/style/images/favicon.png">
+
+	    <script src="./dropplets/includes/js/pace.min.js"></script>
+            <link href="./dropplets/style/dataurl.css" rel="stylesheet" />
         </head>
 
         <body class="dp-install">
@@ -467,9 +473,13 @@ else {
                 <input type="text" name="blog_twitter" id="blog_twitter" placeholder="Enter Your Twitter Account (Optional)">
                 <input hidden type="text" name="blog_url" id="blog_url" value="<?php echo($url) ?><?php if ($url == $domain) { ?>/<?php } ?>">
 		<select name="template" id="template" class="selectInput">
-			<option value="none" selected>Select A Template</option>
+			<option value="simple" selected disabled>Select A Template</option>
 			<option value="simple">Simple</option>
 			<option value="cards">Cards</option>
+			<option value="blink">Blink</option>
+			<option value="chevrons">Chevrons</option>
+			<option value="citizen">Citizen</option>
+			<option value="puddle">Puddle</option>
 		</select>
                 <input type="text" name="blog_title" id="blog_title" required placeholder="Choose A Blog Title">
                 <textarea hidden name="meta_description" id="meta_description"></textarea>
@@ -478,6 +488,7 @@ else {
 
     		    <button type="submit" name="submit" value="submit">Let's Get Started!</button>
     		</form>
+	    <?php echo $dropplets_version; ?>
                 
             <?php if (!$is_writable) { ?>
                 <p id="notWritable">The folder that Dropplets is in is not writeable. Please give it the correct permissions before moving on.</p>
