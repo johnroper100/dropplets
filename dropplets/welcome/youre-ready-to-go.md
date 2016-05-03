@@ -1,5 +1,5 @@
 # This is a Sample Post
-- Dropplets
+- dropplets
 - dropplets
 - 2020/02/02
 - Posting

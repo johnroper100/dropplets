@@ -98,4 +98,5 @@ $template_dir_url = $blog_url . 'templates/' . $template . '/';
 $index_file = $template_dir . 'index.php';
 $post_file = $template_dir . 'post.php';
 $posts_file = $template_dir . 'posts.php';
+$author_file = $template_dir . 'author.php';
 $not_found_file = $template_dir . '404.php';

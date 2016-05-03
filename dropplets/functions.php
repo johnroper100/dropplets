@@ -7,6 +7,7 @@
 include('./dropplets/includes/feedwriter.php');
 include('./dropplets/includes/markdown.php');
 include('./dropplets/includes/phpass.php');
+include('./dropplets/includes/spyc.php');
 include('./dropplets/includes/actions.php');
 
 /*-----------------------------------------------------------------------------------*/
@@ -317,6 +318,46 @@ function get_twitter_profile_img($username) {
 	// Return the image URL.
 	return $profile_image;
 }
+
+/*-----------------------------------------------------------------------------------*/
+/* Get Author Info
+/*-----------------------------------------------------------------------------------*/
+
+function get_author($author_id, $options=array('posts' => TRUE)){
+  $author_id = trim($author_id);
+  $author_file = './authors/'.$author_id.'.yml';
+
+  if(file_exists($author_file)){
+    $author = Spyc::YAMLLoad($author_file);
+    $author['handle'] = $author_id;
+    $author['_found'] = TRUE;
+
+    $author['url'] = BLOG_URL."author/".$author_id;
+
+    if($author['email']){
+      $author['avatar'] = 'https://gravatar.com/avatar/'.md5($author['email']).'?s=180';
+    }
+
+    if($options["posts"]){
+      $author_posts = array();
+      foreach(get_all_posts() as $post){
+        if(trim($post['post_author']) == $author_id){
+
+          $post['url'] = BLOG_URL.$blog_url.str_replace(array(FILE_EXT, POSTS_DIR), '', $post['fname']);
+          $post['post_category_link'] = BLOG_URL.'category/'.urlencode(trim(strtolower($post['post_category'])));
+          array_push($author_posts, $post);
+        }
+      }
+
+      $author['posts'] = $author_posts;
+    }
+
+    return $author;
+  }
+
+  return array("name" => $author_id, "handle" => $author_id, "_found" => FALSE);
+}
+
 
 /*-----------------------------------------------------------------------------------*/
 /* Include All Plugins in Plugins Directory

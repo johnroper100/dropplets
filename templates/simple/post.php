@@ -6,7 +6,7 @@
             </div>
 
             <ul>
-                <li>Written by: <?php echo($post_author); ?></li>
+                <li>Written by <a href="<?php echo $post_author['url'] ?>"><?php echo $post_author['name']; ?></a></li>
                 <li><?php echo($published_date); ?></li>
                 <li>Category: <a href="<?php echo($post_category_link); ?>"><?php echo($post_category); ?></a></li>
                 <li></li>

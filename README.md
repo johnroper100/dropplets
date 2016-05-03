@@ -18,6 +18,7 @@ Markdown is a text formatting syntax inspired on plain text email. It is extreme
 - [Changing Settings](#changing-settings)
 - [Changing Templates](#changing-templates)
 - [Updating Dropplets](#updating-dropplets)
+- [Adding Authors](#adding-authors)
 
 ## Installation
 Dropplets is compatible with most server configurations and can be typically installed in under a minute using the few step-by-step instructions below:
@@ -64,6 +65,24 @@ To change your blog settings, click the gear icon in the Dropplets toolbar. This
 
 ## Changing Templates
 To change your blog template, click the star icon in the Dropplets toolbar. This will load the templates panel where you will be able to browse and change your blog template as well as purchase new premium templates.
+
+## Adding Authors
+Authors are essentially `.yml` files. To create an author create a file called `author_name.yml`, with the following contents:
+
+    name: Author Name
+    location: My Location
+
+Save it. Also make sure, your `authors/` directory is writable.
+
+Upload Author:
+
+1. Login to your Dropplets installation using the password you created during the installation and setup process.
+2. Click the Dropplet in your toolbar to select, upload blog authors.
+
+The following variables are available in the respective templates:
+
+1. In `templates/your_template/post.php` and `templates/your_template/posts.php` -> `$post_author`
+2. In `templates/your_template/author.php` -> `$author`
 
 ## Updating Dropplets
 Eventually, we will be implementing auto-updates for the Dropplets platform, but until then, just replace everything but your **posts** directory and **config.php** when we release a new version of Dropplets.
