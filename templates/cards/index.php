@@ -10,8 +10,8 @@
         
         <link rel="stylesheet" href="<?php echo($template_dir_url); ?>style.css">
         <link rel="stylesheet" href="<?php echo($template_dir_url); ?>style-mobile.css">
-        <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,700' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
         
         <?php get_header(); ?>
     </head>
