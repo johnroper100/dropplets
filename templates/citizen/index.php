@@ -10,7 +10,7 @@
         
         <link rel="stylesheet" href="<?php echo($template_dir_url); ?>normalize.css">
 		<link rel="stylesheet" href="<?php echo($template_dir_url); ?>style.css">
-        <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700,500&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700,500&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         
         <?php get_header(); ?>
     </head>
