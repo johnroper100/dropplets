@@ -4,7 +4,8 @@
 
             <ul>
                 <li><?php echo($published_date); ?></li>
-                <li><a href="<?php echo($post_category_link); ?>"><?php echo($post_category); ?></a></li>
+                <li><?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php
+echo($post_categories[$key]); ?></a> <?php endforeach; ?></li>
             </ul>
         </div>
 

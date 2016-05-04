@@ -19,9 +19,10 @@
 
         <div class="meta">
             <ul>
-                <li><i class="icon-pencil"></i> <?php echo($post_author); ?></li>
+                <li><i class="icon-pencil"></i> <a href="<?php echo($post_author['url']); ?>"><?php echo($post_author['name']); ?></a></li>
                 <li><i class="icon-calendar"></i> <?php echo($published_date); ?></li>
-                <li><a href="<?php echo($post_category_link); ?>"><i class="icon-tag"></i> <?php echo($post_category); ?></a></li>
+                <li><?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php
+echo($post_categories[$key]); ?></a> <?php endforeach; ?></li>
             </ul>
         </div>
 

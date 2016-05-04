@@ -7,7 +7,7 @@
             <hr/>
             <p>
                 <?php echo($published_date); ?><br/>
-                <?php echo($post_author); ?><br>
+                <a href="<?php echo $post_author['url'] ?>"><?php echo $post_author['name']; ?></a><br>
                 <a href="<?php echo(BLOG_URL); ?>" alt="Back to <?php echo($blog_title); ?> ">&larr; back to actual content</a> 
             </p>
             <ul class="actions">

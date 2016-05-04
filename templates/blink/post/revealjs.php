@@ -21,7 +21,7 @@
         <div class="three-quarters post">
             <h1><?php echo($post_title); ?></h1>
             <p>
-                <?php echo($post_author); ?><br>
+                <a href="<?php echo $post_author['url'] ?>"><?php echo $post_author['name']; ?></a><br>
                 <?php echo($published_date); ?><br>
                 <a href="<?php echo(BLOG_URL); ?>" alt="Back to <?php echo($blog_title); ?> ">&larr;</a>
             </p>

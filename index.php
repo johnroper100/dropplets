@@ -489,11 +489,13 @@ else {
                 <input type="text" name="blog_email" id="blog_email" required placeholder="Enter Your Email">
                 <input type="text" name="blog_twitter" id="blog_twitter" placeholder="Enter Your Twitter Account (Optional)">
                 <input hidden type="text" name="blog_url" id="blog_url" value="<?php echo($url) ?><?php if ($url == $domain) { ?>/<?php } ?>">
+		<img id="screenshotPreview" src="dropplets/style/images/choose-template.jpg">
 		<select name="template" id="template" class="selectInput">
-			<option value="simple" selected disabled>Select A Template</option>
+			<option value="simple" selected disabled>Choose A Template</option>
 			<option value="simple">Simple</option>
 			<option value="cards">Cards</option>
 			<option value="blink">Blink</option>
+			<option value="star">Star</option>
 			<option value="chevrons">Chevrons</option>
 			<option value="citizen">Citizen</option>
 			<option value="puddle">Puddle</option>
@@ -519,6 +521,13 @@ else {
             			alert('Your passwords do not match!');
             		}
             	}
+		
+		function setTemplateImage() {
+			var img = document.getElementById("screenshotPreview");
+			img.src = "templates/" + this.value + "/screenshot.jpg";
+			return false;
+		}
+		document.getElementById("template").onchange = setTemplateImage;
             </script>
         </body>
     </html>

@@ -7,7 +7,7 @@
             <h2><?php echo($post_title); ?></h2>
 
             <div class="meta">
-                Published on <?php echo($published_date); ?> by <?php echo($post_author); ?> in <?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php
+                Published on <?php echo($published_date); ?> by <a href="<?php echo($post_author['url']); ?>"><?php echo($post_author['name']); ?></a> in <?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php
 echo($post_categories[$key]); ?></a> <?php endforeach; ?>
 
                 <div class="share">

@@ -1,4 +1,6 @@
 <article class="<?php echo($post_status); ?>">
+	
+	<img id="postImage" src="<?php echo($post_image); ?>">
 
 	<header class="post-header">
 		<h1 id="post-title"><a href="<?php echo($post_link); ?>" title="<?php echo($post_title); ?>"><?php echo($post_title); ?></a></h1>

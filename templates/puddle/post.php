@@ -8,9 +8,10 @@
 
 
             <ul class="horizontal">
-                <li>Written by <?php echo($post_author); ?></li>
+                <li>Written by: <a href="<?php echo($post_author['url']); ?>"><?php echo($post_author['name']); ?></a></li>
                 <li><?php echo($published_date); ?></li>
-                <li>About <a href="<?php echo($post_category_link); ?>"><?php echo($post_category); ?></a></li>
+                <li>Category: <?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php
+echo($post_categories[$key]); ?></a> <?php endforeach; ?></li>
                 <li>
             </ul>
             <ul class="horizontal">
