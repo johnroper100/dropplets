@@ -7,7 +7,7 @@
 		<div class="post-meta">
 			<p>Published: <span><?php echo utf8_encode($published_date); ?></span></p>
 			<p>Category: <span><?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php
-echo($post_categories[$key]); ?></a> <?php endforeach; ?></span></p>
+echo($post_categories[$key]); ?></a>, <?php endforeach; ?></span></p>
 		</div>
 	</header>
 	

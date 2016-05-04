@@ -287,7 +287,7 @@ body.dp-install form button::-moz-focus-inner {
 }
 
 .dp-panel-wrapper {
-    width: 280px;
+    width: 325px;
     height: 100%;
     position: fixed;
     top: 0;
@@ -302,12 +302,12 @@ body.dp-install form button::-moz-focus-inner {
 }
 
 .dp-panel {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgb(255, 255, 255);
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-size: 13px;
     line-height: 25px;
     color: #303030;
-    width: 280px;
+    width: 325px;
     height: 100%;
     padding-right: 20px;
     overflow-y: scroll;
@@ -430,7 +430,7 @@ body.dp-install form button::-moz-focus-inner {
     float: left;
     width: 220px;
     margin: 0;
-    opacity: 0;
+    opacity: 0.25;
     font: 14px/22px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     -moz-transition-duration: 0.1s;
     -webkit-transition-duration: 0.1s;

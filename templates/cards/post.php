@@ -8,7 +8,7 @@
 
             <div class="meta">
                 Published on <?php echo($published_date); ?> by <a href="<?php echo($post_author['url']); ?>"><?php echo($post_author['name']); ?></a> in <?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php
-echo($post_categories[$key]); ?></a> <?php endforeach; ?>
+echo($post_categories[$key]); ?></a>, <?php endforeach; ?>
 
                 <div class="share">
                     <a class="twitter" href="https://twitter.com/intent/tweet?text=&quot;<?php echo($post_title); ?>&quot;%20<?php echo($post_link); ?>%20via%20&#64;<?php echo($post_author_twitter); ?>" data-dnt="true" title="Share on Twitter">t</a>

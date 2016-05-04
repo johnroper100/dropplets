@@ -2,7 +2,7 @@
 - dropplets
 - dropplets
 - 2020/02/02
-- Posting
+- Posting, Info, Getting Started
 - published
 
-Dropplets is all installed and ready to go. Life is good when there are no confusing databases or admins to worry about. Now all you have to do is publish your first post. To do that, just follow [these instructions](https://github.com/circa75/dropplets/blob/master/README.md). Or, if you already know how to use Dropplets, just publish your first post to delete this message.
+Hurray! Dropplets is installed and ready to go! Life is good when there are no confusing databases or admins to worry about. Now all you have to do is publish your first post. To do that, upload your post using the the button in the admin panel. Once you do that, this message will be replaced with all of your posts.

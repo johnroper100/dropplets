@@ -8,7 +8,8 @@
         <div class="post">
             <h2><?php echo($post_title); ?></h2>
 
-            <span class="meta"><?php echo($published_date); ?> by <a href="<?php echo($post_author['url']); ?>"><?php echo($post_author['name']); ?></a> in <?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php echo($post_categories[$key]); ?></a> <?php endforeach; ?></span>
+            <span class="meta"><?php echo($published_date); ?> by <a href="<?php echo($post_author['url']); ?>"><?php echo($post_author['name']); ?></a> in <?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php
+echo($post_categories[$key]); ?></a>, <?php endforeach; ?></span>
 
             <p><?php echo($post_intro); ?></p>
         </div>
