@@ -639,7 +639,7 @@ img.mask {
 .meta ul li {
   list-style: none;
   display: inline-block;
-  margin: 0 1em;
+  margin: 0 10px;
 }
 /* line 489, C:/Users/dbishop/Dropbox/Ampps/www/dropplets/templates/chevrons/sass/_base.scss */
 .meta a {
@@ -702,4 +702,9 @@ img.mask {
   height: 15px;
   float: left;
   margin: 5px 5px 0 -2px;
+}
+
+.title {
+	text-align: center;
+	color: black;
 }

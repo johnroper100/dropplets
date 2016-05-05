@@ -1,5 +1,6 @@
 <article class="single wrapper">
     <div class="chevron">
+	
 
         <div class="post">
             <div class="thumbnail">
@@ -19,9 +20,9 @@
 
         <div class="meta">
             <ul>
-                <li><i class="icon-pencil"></i> <a href="<?php echo($post_author['url']); ?>"><?php echo($post_author['name']); ?></a></li>
-                <li><i class="icon-calendar"></i> <?php echo($published_date); ?></li>
-                <li><?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php
+                <li>By: <i class="fa-icon-pencil"></i> <a href="<?php echo($post_author['url']); ?>"><?php echo($post_author['name']); ?></a></li>
+                <li>On: <a href="<?php echo($post_link);?>"><i class="icon-calendar"></i> <?php echo($published_date);?></a></li>
+                <li>Category: <?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php
 echo($post_categories[$key]); ?></a>, <?php endforeach; ?></li>
             </ul>
         </div>

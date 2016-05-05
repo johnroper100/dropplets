@@ -22,6 +22,7 @@
     </head>
 
     <body>
+	<a href="<?php echo($blog_url); ?>"><h1 class="title"><?php echo($blog_title); ?></h1></a>
         <?php if($is_home) { ?>
         <article class="wrapper">
             <div class="row chevron">
