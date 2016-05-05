@@ -275,11 +275,17 @@ if (!isset($_SESSION['user'])) { ?>
                 <?php get_premium_templates('all'); ?>
             </div>
         </div>
+
+	<div class="dp-row">
+            <div class="dp-icon dp-icon-large dp-icon-code"></div>
+            <div class="dp-content">Get The Latest Version Of Dropplets</div>
+            <a class="dp-link" href="https://www.github.com/Circa75/dropplets/zipball/master"></a>
+        </div>
         
         <div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-question"></div>
             <div class="dp-content">Need Some Help?</div>
-            <a class="dp-link" href="mailto:help@dropplets.com"></a>
+            <a class="dp-link" href="mailto:help@dropplets.com?subject=I%20need%20help%20using%20Dropplets"></a>
         </div>
         
         <div class="dp-row">

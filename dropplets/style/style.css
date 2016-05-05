@@ -287,7 +287,7 @@ body.dp-install form button::-moz-focus-inner {
 }
 
 .dp-panel-wrapper {
-    width: 325px;
+    width: 280px;
     height: 100%;
     position: fixed;
     top: 0;
@@ -307,7 +307,7 @@ body.dp-install form button::-moz-focus-inner {
     font-size: 13px;
     line-height: 25px;
     color: #303030;
-    width: 325px;
+    width: 280px;
     height: 100%;
     padding-right: 20px;
     overflow-y: scroll;
