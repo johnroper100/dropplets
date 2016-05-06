@@ -1,4 +1,4 @@
-@import "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css";
+@import "font-awesome.min.css";
 /*********************
 THE DEAL BREAKER - http://web-design-weekly.com/2013/04/10/why-you-scared-of-sass/
 *********************/
@@ -706,5 +706,6 @@ img.mask {
 
 .title {
 	text-align: center;
-	color: black;
+	color: white;
+	text-shadow: 3px 1px 0 #222228, 3px 3px 0 rgba(76, 164, 214, 0.3);
 }

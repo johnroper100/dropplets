@@ -9,10 +9,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="<?php echo($template_dir_url); ?>css/screen.css">
+	<link rel="stylesheet" href="<?php echo($template_dir_url); ?>css/font-awesome.min.css">
 
         <link rel="shortcut icon" href="<?php echo($blog_url); ?>/dropplets/style/images/favicon.png">
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+        <script src="<?php echo($template_dir_url); ?>js/jquery-2.1.4.min.js" ></script>
         <script src="<?php echo($template_dir_url); ?>js/min/authormarks.min.js" type="text/javascript"></script>
 
         <!-- <script src="//use.edgefonts.net/varela;source-sans-pro:n9;source-code-pro.js"></script> -->
@@ -40,9 +41,9 @@
 
                 <div class="meta">
                     <ul>
-                        <li><i class="icon-user"></i> <?php echo($blog_title); ?></li>
-                        <li><a href="mailto:<?php echo($blog_email); ?>?subject=Hello"><i class="icon-envelope"></i> <?php echo($blog_email); ?></a></li>
-                        <li><a href="http://twitter.com/<?php echo($blog_twitter); ?>"><i class="icon-twitter"></i> &#64;<?php echo($blog_twitter); ?></a></li>
+                        <li><i class="fa fa-user"></i> <?php echo($blog_title); ?></li>
+                        <li><a href="mailto:<?php echo($blog_email); ?>?subject=Hello"><i class="fa fa-envelope"></i> <?php echo($blog_email); ?></a></li>
+                        <li><a href="http://twitter.com/<?php echo($blog_twitter); ?>"><i class="fa fa-twitter"></i> &#64;<?php echo($blog_twitter); ?></a></li>
                     </ul>
                 </div>
             </div>

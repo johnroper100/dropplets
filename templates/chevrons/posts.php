@@ -11,18 +11,18 @@
             <?php echo $post_intro ?>
 
             <div class="button-wrap">
-                <a class="btn" href="<?php echo($post_link); ?>" title="Continue reading..."><i class="icon-plus-sign"></i></a>
+                <a class="btn" href="<?php echo($post_link); ?>" title="Continue reading..."><i class="fa fa-share"></i>Continue</a>
                 <?php if ($category) { ?>
-                <a class="btn" href="<?php echo($blog_url); ?>"><i class="icon-home" title="Return Home"></i></a>
+                <a class="btn" href="<?php echo($blog_url); ?>"><i class="fa fa-home" title="Return Home"></i></a>
                 <?php } ?>
             </div>
         </div>
 
         <div class="meta">
             <ul>
-                <li>By: <i class="fa-icon-pencil"></i> <a href="<?php echo($post_author['url']); ?>"><?php echo($post_author['name']); ?></a></li>
-                <li>On: <a href="<?php echo($post_link);?>"><i class="icon-calendar"></i> <?php echo($published_date);?></a></li>
-                <li>Category: <?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php
+                <li><i class="fa fa-pencil"></i> <a href="<?php echo($post_author['url']); ?>"><?php echo($post_author['name']); ?></a></li>
+                <li><i class="fa fa-calendar"></i> <a href="<?php echo($post_link);?>"><?php echo($published_date);?></a></li>
+                <li><i class="fa fa-tags"></i> <?php foreach($post_categories_links as $key => $post_category_link): ?><a href="<?php echo($post_category_link); ?>"><?php
 echo($post_categories[$key]); ?></a>, <?php endforeach; ?></li>
             </ul>
         </div>
