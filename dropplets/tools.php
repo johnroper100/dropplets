@@ -279,7 +279,7 @@ if (!isset($_SESSION['user'])) { ?>
 	<div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-code"></div>
             <div class="dp-content">Get The Latest Version Of Dropplets</div>
-            <a class="dp-link" href="https://www.github.com/Circa75/dropplets/zipball/master"></a>
+            <a class="dp-link" href="../update.php"></a>
         </div>
         
         <div class="dp-row">
