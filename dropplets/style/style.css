@@ -81,9 +81,9 @@ body.dp-install .dp-icon-dropplets {
 body.dp-install form {
     border: 1px solid rgba(0, 0, 0, 0.20);
     background-color: rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
+    border-radius: 5px;
     width: 320px;
-    height: 705px;
+    height: 712px;
     position: absolute;
     top: 33%;
     left: 50%;
@@ -97,7 +97,7 @@ body.dp-install form h2 {
     width: 320px;
     max-width: 100% !important;
     float: left;
-    margin: 24px 0 10px;
+    margin: 15px 0 10px;
 }
 
 body.dp-install form p {
@@ -111,7 +111,7 @@ body.dp-install form p {
 body.dp-install form input {
     background-color: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
+    border-radius: 5px;
     outline: none;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 400;
@@ -128,7 +128,7 @@ body.dp-install form input {
 .selectInput {
     background-color: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
+    border-radius: 5px;
     outline: none;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 400;
@@ -145,7 +145,7 @@ body.dp-install form input {
 body.dp-install form button {
     background-color: #4ebb44;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     color: #ffffff;
     font-size: 25px;
     text-align: center;
@@ -185,9 +185,8 @@ body.dp-install form button::-moz-focus-inner {
 }
 
 #screenshotPreview {
-    width: 230px;
-    height: 125px;
-    
+    width: 235px;
+    height: 139px;
     margin: 0 0 10px 10px;
     padding: 5px 5px 0 5px;
     border-radius: 10px;
@@ -278,7 +277,7 @@ body.dp-install form button::-moz-focus-inner {
     top: 10px;
     left: 10px;
     z-index: 1900;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 #dp-dropplets-icon:hover {
@@ -430,7 +429,7 @@ body.dp-install form button::-moz-focus-inner {
     float: left;
     width: 220px;
     margin: 0;
-    opacity: 0.25;
+    opacity: 0;
     font: 14px/22px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     -moz-transition-duration: 0.1s;
     -webkit-transition-duration: 0.1s;

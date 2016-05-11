@@ -490,7 +490,7 @@ else {
                 <input type="text" name="blog_twitter" id="blog_twitter" placeholder="Enter Your Twitter Account (Optional)">
                 <input hidden type="text" name="blog_url" id="blog_url" value="<?php echo($url) ?><?php if ($url == $domain) { ?>/<?php } ?>">
 		<img id="screenshotPreview" src="dropplets/style/images/choose-template.jpg">
-		<select name="template" id="template" class="selectInput">
+		<select name="template" id="template" class="selectInput" required>
 			<option value="simple" selected disabled>Choose A Template</option>
 			<option value="simple">Simple</option>
 			<option value="cards">Cards</option>

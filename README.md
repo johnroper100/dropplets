@@ -87,7 +87,7 @@ The following variables are available in the respective templates:
 2. In `templates/your_template/author.php` -> `$author`
 
 ### Updating Dropplets
-Eventually, we will be implementing auto-updates for the Dropplets platform, but until then, just replace everything but your **posts** directory and **config.php** when we release a new version of Dropplets.
+To update Dropplets, open the admin panel and click `Update Dropplets`
 
 ## Helping Out With Development
 Here are some ways that you can help out with development.

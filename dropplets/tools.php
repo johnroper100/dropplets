@@ -278,8 +278,8 @@ if (!isset($_SESSION['user'])) { ?>
 
 	<div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-code"></div>
-            <div class="dp-content">Get The Latest Version Of Dropplets</div>
-            <a class="dp-link" href="../update.php"></a>
+            <div class="dp-content">Update Dropplets</div>
+            <a class="dp-link" href="./update.php"></a>
         </div>
         
         <div class="dp-row">

@@ -115,6 +115,13 @@ if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SES
         file_put_contents($htaccess_file, implode("\n", $htaccess));
     }
 
+    $message = sprintf("Your blog has been setup at %s! Thank you for using Dropplets!", $blog_url);
+    $headers[] = "From: " . $blog_email;
+    $headers[] = "Reply-To: " . $blog_email;
+    $headers[] = "X-Mailer: PHP/" . phpversion();
+
+    mail($blog_email, $blog_title . " - Dropplets Has Been Installed!", $message, implode("\r\n", $headers));
+
     // Redirect
     header("Location: " . $blog_url);
 }
