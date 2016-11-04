@@ -53,8 +53,19 @@ if (isset($_GET['action']))
             $verification_file = "./verify.php";
 
             // If verified, allow a password reset.
-            if (!isset($_GET["verify"])) {
+            if (isset($_GET["verify"])) {
 
+                require($verification_file);
+
+                if ($_GET["verify"] === $verification_code) {
+                    $_SESSION["user"] = true;
+                    unlink($verification_file);
+                } else {
+                    $login_error = "That's not the correct recovery code!";
+                }
+            }
+            else {
+                // Generate verification token and send e-mail
                 $code = sha1(md5(rand()));
 
                 $verify_file_contents[] = "<?php";
@@ -70,18 +81,6 @@ if (isset($_GET['action']))
 
                 mail($blog_email, $blog_title . " - Recover your Dropplets Password", $message, implode("\r\n", $headers));
                 $login_error = "Details on how to recover your password have been sent to your email.";
-
-            // If not verified, display a verification error.
-            } else {
-
-                include($verification_file);
-
-                if ($_GET["verify"] == $verification_code) {
-                    $_SESSION["user"] = true;
-                    unlink($verification_file);
-                } else {
-                    $login_error = "That's not the correct recovery code!";
-                }
             }
             break;
 
