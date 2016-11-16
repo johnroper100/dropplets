@@ -1,7 +1,7 @@
 <?php
-$version = '1.6.5';
+$version = '1.6.6';
 
-$dropplets_version = '<a class="powered-by" href="http://www.dropplets.com">Powered by Dropplets v'.$version.'</a>';
+$dropplets_version = '<span class="powered-by">Powered by Dropplets v'.$version.'</span>';
 
 session_start();
 
