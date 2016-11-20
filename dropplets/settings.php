@@ -77,7 +77,7 @@ define('FILE_EXT', '.md');
 /*-----------------------------------------------------------------------------------*/
 
 //no caching if user is logged in
-if ( $_SESSION['user'] ) {
+if ( !empty($_SESSION['user']) ) {
 	$post_cache = 'off';
 	$index_cache = 'off';
 }
