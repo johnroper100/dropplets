@@ -5,10 +5,16 @@
 /*-----------------------------------------------------------------------------------*/
 
 include('./dropplets/includes/feedwriter.php');
-include('./dropplets/includes/markdown.php');
+include('./dropplets/includes/php-markdown-lib/Michelf/MarkdownExtra.inc.php');
 include('./dropplets/includes/phpass.php');
 include('./dropplets/includes/spyc.php');
 include('./dropplets/includes/actions.php');
+
+// Markdown wrapper
+use \Michelf\MarkdownExtra;
+function Markdown($txt) {
+    return MarkdownExtra::defaultTransform($txt);
+}
 
 /*-----------------------------------------------------------------------------------*/
 /* User Machine
@@ -16,6 +22,9 @@ include('./dropplets/includes/actions.php');
 
 // Password hashing via phpass.
 $hasher  = new PasswordHash(8,FALSE);
+
+// Define Login Error variable.
+$login_error = NULL;
 
 if (isset($_GET['action']))
 {
@@ -144,7 +153,7 @@ function get_all_posts($options = array()) {
                 $post_categories = array_map(function($el) { return trim($el); }, $post_categories);
 
                 // Early return if we only want posts from a certain category
-                if($options["category"] && !in_array(strtolower($options["category"]), array_map('strtolower', $post_categories))) {
+                if(!empty($options["category"]) && !in_array(strtolower($options["category"]), array_map('strtolower', $post_categories))) {
                     continue;
                 }
 
@@ -155,7 +164,7 @@ function get_all_posts($options = array()) {
                 $post_intro = Markdown($fcontents[7]);
 
                 // Define the post content
-                $post_content = Markdown(join('', array_slice($fcontents, 6, $fcontents.length -1)));
+                $post_content = Markdown(join('', array_slice($fcontents, 6, count($fcontents) -1)));
 
                 // Pull everything together for the loop.
                 $files[] = array('fname' => $entry, 'post_title' => $post_title, 'post_author' => $post_author, 'post_author_twitter' => $post_author_twitter,
@@ -306,12 +315,20 @@ define('IS_HOME', $is_home);
 
 function get_twitter_profile_img($username) {
 
+    // Pattern for avatar loading service.
+    $avatar_service_pat = 'http://avatars.io/twitter/:username?size=large';
+	
 	// Get the cached profile image.
-	$profile_image = './cache/'.$username.'.jpg';
+    $cache = IS_CATEGORY ? '.' : '';
+    $array = explode('/category/', $_SERVER['REQUEST_URI']);
+    $array = (count($array) > 1) ? explode('/', $array[1]) : $array;
+    if(count($array)!=1) $cache .= './.';
+    $cache .= './cache/';
+	$profile_image = $cache.$username.'.jpg';
 
 	// Cache the image if it doesn't already exist.
 	if (!file_exists($profile_image)) {
-	    $image_url = 'http://dropplets.com/profiles/?id='.$username.'';
+	    $image_url = str_replace(':username', $username, $avatar_service_pat);
 	    $image = file_get_contents($image_url);
 	    file_put_contents('./cache/'.$username.'.jpg', $image);
 	}
