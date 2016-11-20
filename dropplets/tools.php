@@ -224,59 +224,8 @@ if (!isset($_SESSION['user'])) { ?>
                 </div>
             </div>
         </form>
-        
-        <div class="dp-row">
-            <div class="dp-icon dp-icon-large dp-icon-grid"></div>
-            <div class="dp-content">Installed Templates</div>        
-            <a class="dp-link dp-toggle" href="#dp-templates"></a>
-        </div>
-        
-        <div class="dp-sub-panel" id="dp-templates">
-            <div class="dp-row dp-templates">
-                <?php get_installed_templates('all'); ?>
-            </div>
-        </div>
-        
-        <div class="dp-row">
-            <div class="dp-icon dp-icon-templates"></div>
-            <div class="dp-content">Featured Templates</div>
-            <a class="dp-link dp-toggle" href="#dp-featured"></a>
-            <span class="dp-number dp-number-dark"><?php count_premium_templates('featured'); ?></span>
-        </div>
-        
-        <div class="dp-sub-panel" id="dp-featured">
-            <div class="dp-row dp-templates">
-                <?php get_premium_templates('featured'); ?>
-            </div>
-        </div>
-        
-        <div class="dp-row">
-            <div class="dp-icon dp-icon-templates"></div>
-            <div class="dp-content">Popular Templates</div>
-            <a class="dp-link dp-toggle" href="#dp-popular"></a>        
-            <span class="dp-number dp-number-dark"><?php count_premium_templates('popular'); ?></span>
-        </div>
-        
-        <div class="dp-sub-panel" id="dp-popular">
-            <div class="dp-row dp-templates">
-                <?php get_premium_templates('popular'); ?>
-            </div>
-        </div>
-        
-        <div class="dp-row">
-            <div class="dp-icon dp-icon-templates"></div>
-            <div class="dp-content">All Premium Templates</div>
-            <a class="dp-link dp-toggle" href="#dp-all"></a>
-            <span class="dp-number dp-number-dark"><?php count_premium_templates('all'); ?></span>
-        </div>
-        
-        <div class="dp-sub-panel" id="dp-all">
-            <div class="dp-row dp-templates">
-                <?php get_premium_templates('all'); ?>
-            </div>
-        </div>
 
-	<div class="dp-row">
+	   <div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-code"></div>
             <div class="dp-content">Update Dropplets</div>
             <a class="dp-link" href="./update.php"></a>
