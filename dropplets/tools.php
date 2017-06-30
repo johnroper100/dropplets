@@ -234,7 +234,7 @@ if (!isset($_SESSION['user'])) { ?>
         <div class="dp-row">
             <div class="dp-icon dp-icon-large dp-icon-question"></div>
             <div class="dp-content">Need Some Help?</div>
-            <a class="dp-link" href="https://github.com/Circa75/dropplets" target="_blank"></a>
+            <a class="dp-link" href="https://github.com/Circa75/dropplets#writing-posts" target="_blank"></a>
         </div>
         
         <div class="dp-row">
