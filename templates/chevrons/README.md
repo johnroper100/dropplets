@@ -2,7 +2,7 @@
 
 # What is it?
 
-**Chevrons** is a theme for [Dropplets](http://dropplets.com/) (a simple, markdown-based blogging solution).
+**Chevrons** is a theme for [Dropplets](https://github.com/Circa75/dropplets) (a simple, markdown-based blogging solution).
 
 # Barely tested
 

@@ -44,7 +44,7 @@ if (!isset($_SESSION['user'])) { ?>
         <div class="dp-row">
             <div class="dp-icon dp-icon-dropplets"></div>
             <div class="dp-content">What Is This?</div>
-            <a class="dp-link" href="http://dropplets.com" target="_blank"></a>
+            <a class="dp-link" href="https://github.com/Circa75/dropplets" target="_blank"></a>
         </div>
     </div>
 </div>

@@ -500,7 +500,7 @@ else {
 
         <body class="dp-install">
             <form method="POST" action="./dropplets/save.php" style="margin-top: -80px !important; margin-bottom: 15px;">
-                <a class="dp-icon-dropplets" href="http://dropplets.com" target="_blank"></a>
+                <a class="dp-icon-dropplets" href="https://github.com/Circa75/dropplets" target="_blank"></a>
 
                 <h2>Install Dropplets</h2>
                 <p>Welcome to an easier way to blog.</p>
