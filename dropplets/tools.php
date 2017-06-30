@@ -300,7 +300,6 @@ if (!isset($_SESSION['user'])) { ?>
 /*-----------------------------------------------------------------------------------*/
 
 if (isset($_SESSION['user'])) { ?> 
-<script type="text/javascript" src="https://gumroad.com/js/gumroad.js"></script>
 <script type="text/javascript" src="<?php echo(BLOG_URL); ?>dropplets/includes/js/uploader.js"></script>
 <script type="text/javascript">
 
