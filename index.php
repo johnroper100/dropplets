@@ -441,7 +441,28 @@ else {
     // Get the components of the current url.
     $protocol = @( $_SERVER["HTTPS"] != 'on') ? 'http://' : 'https://';
     $domain = $_SERVER["SERVER_NAME"];
-    $port = $_SERVER["SERVER_PORT"];
+    // Check if the port number is set. According to php's documentation,
+    // in some cases Apache 2 may not return the port.
+    if (isset($_SERVER["SERVER_PORT"])) {
+        if (is_string($_SERVER["SERVER_PORT"])) {
+            // If it's a string, we should convert it to number
+            $port = intval($_SERVER["SERVER_PORT"]);
+        } elseif (is_integer($_SERVER["SERVER_PORT"])) {
+            // If it's integer, we use it
+            $port = $_SERVER["SERVER_PORT"];
+        } else {
+            // If nothing above, we should go with default port number
+            $port = 80;
+        }
+    } else {
+        // If not set, we should go with default port number
+        $port = 80;
+    }
+    // If port is string and not numeric, it will return 0
+    // Additionaly port number has a range limit
+    if ($port < 1 || $port > 65535) {
+        $port = 80;
+    }
     $path = $_SERVER["REQUEST_URI"];
 
     // Check if running on alternate port.
