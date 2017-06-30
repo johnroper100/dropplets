@@ -276,8 +276,8 @@ function get_twitter_profile_img($username) {
     // Pattern for avatar loading service.
     $avatar_service_pat = 'http://avatars.io/twitter/:username?size=large';
 	
-	// Get the cached profile image.
-    $cache = IS_CATEGORY ? '.' : '';
+	// Get the cached profile image.`
+    $cache = IS_CATEGORY ? '' : '';
     $array = explode('/category/', $_SERVER['REQUEST_URI']);
     $array = (count($array) > 1) ? explode('/', $array[1]) : $array;
     if(count($array)!=1) $cache .= './.';
