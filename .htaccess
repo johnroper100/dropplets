@@ -8,3 +8,4 @@ RewriteBase /dropplets/
 RewriteCond %{REQUEST_URI} !index\.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.php?filename=$1 [NC,QSA,L]
+DirectoryIndex index.php
