@@ -576,43 +576,6 @@ body.dp-install form button::-moz-focus-inner {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Premium Template Styles
-*********************************************************************************************/
-
-.dp-panel .dp-row.dp-templates li a.buy,
-.dp-panel .dp-row.dp-templates li a.preview {
-    height: 20px;
-    line-height: 20px;
-    position: absolute;
-    bottom: -1px;
-    color: #ffffff;
-    font-size: 11px;
-    text-align: center;
-}
-
-.dp-panel .dp-row.dp-templates li a.buy {
-    background-color: #4ebb44;
-    width: 85px;
-    left: 0;
-}
-
-.dp-panel .dp-row.dp-templates li a.buy:hover {
-    box-shadow: inset 0 0 10px rgba(54, 124, 49, 0.45);
-    text-shadow: 0 0 5px rgba(54, 124, 49, 0.45);
-}
-
-.dp-panel .dp-row.dp-templates li a.preview {
-    background-color: #1096d7;
-    font-family: "dropplets";
-    width: 40px;
-    right: 0;
-}
-
-.dp-panel .dp-row.dp-templates li a.preview:hover {
-    box-shadow: inset 0 0 10px rgba(20, 100, 140, 0.45);
-    text-shadow: 0 0 5px rgba(20, 100, 140, 0.45);
-}
-
 /* Uploader
 *********************************************************************************************/
 
