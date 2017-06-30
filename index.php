@@ -234,6 +234,7 @@ else if ($filename == 'rss' || $filename == 'atom') {
     if($posts) {
         $c=0;
         foreach($posts as $post) {
+            if ($post['post_status'] == 'draft') continue;
             if($c<$feed_max_items) {
                 $item = $feed->createNewItem();
 
