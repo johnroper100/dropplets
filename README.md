@@ -1,8 +1,6 @@
 Dropplets
 =========
 
-# Help Update and Maintain Dropplets! Look Below to See How You Can Help!
-
 Dropplets is a minimalist **Markdown** blogging platform focused on delivering just what you need in a blogging solution, but absolutely nothing you don't. When it comes to basic blogging, all you really want to do is write & publish which is where Dropplets excels. It's databaseless, so it installs on any server in just about 30 seconds. 
 
 Current version: 1.6.5
@@ -105,7 +103,7 @@ The second way you can help is by posting tutorials and/or articles about Droppl
 If you have any expirence with HTML, CSS, JAVASCRIPT, or PHP web development, you can help us out by:
 
 #### Adding Functionality
-Everyone loves new features, especially when they have the power to drasticly speed up our workflows. If you have an idea, code it and submit a pull request. 
+Everyone loves new features, especially when they have the power to drastically speed up our workflows. If you have an idea, code it and submit a pull request. 
 Or, you could help us out by reviewing and or fixing existing pull requests.
 
 #### Template Development
