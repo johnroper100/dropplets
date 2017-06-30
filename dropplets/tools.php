@@ -61,7 +61,7 @@ if (!isset($_SESSION['user'])) { ?>
     <div class="dp-panel">
         <div class="dp-row profile">
             <div class="dp-icon">
-                <!--<img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" />-->
+                <img src="<?php echo get_twitter_profile_img(BLOG_TWITTER); ?>" alt="<?php echo(BLOG_TITLE); ?>" />
             </div>
             
             <div class="dp-content">
