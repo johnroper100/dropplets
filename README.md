@@ -64,7 +64,7 @@ Re-upload your edited post file using the steps above. Doing this will automatic
 To change your blog settings, click the gear icon in the Dropplets toolbar. This will load the settings panel where you will be able to change all of your blog settings including your password.
 
 ### Changing Templates
-To change your blog template, click the star icon in the Dropplets toolbar. This will load the templates panel where you will be able to browse and change your blog template as well as purchase new premium templates.
+To change your blog template, click the star icon in the Dropplets toolbar. This will load the templates panel where you will be able to browse and change your blog template.
 
 ### Adding Authors
 Author metadata is stored in `.yml` files. To add an author, create a file called `author_name.yml`, with the following contents:
