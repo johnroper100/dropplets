@@ -67,19 +67,19 @@ To change your blog settings, click the gear icon in the Dropplets toolbar. This
 To change your blog template, click the star icon in the Dropplets toolbar. This will load the templates panel where you will be able to browse and change your blog template as well as purchase new premium templates.
 
 ### Adding Authors
-Authors are essentially `.yml` files. To create an author create a file called `author_name.yml`, with the following contents:
+Author metadata is stored in `.yml` files. To add an author, create a file called `author_name.yml`, with the following contents:
 
     name: Author Name
     location: My Location
 
-Save it. Also make sure, your `authors/` directory is writable.
+Save it in the `authors/` directory and make sure that the directory is writable.
 
 ### Uploading Authors
 
 1. Login to your Dropplets installation using the password you created during the installation and setup process.
-2. Click the Dropplet in your toolbar to select, upload blog authors.
+2. Click the Dropplet in your toolbar to select `Upload Blog Authors`.
 
-The following variables are available in the respective templates:
+The following variables are available in their respective templates:
 
 1. In `templates/your_template/post.php` and `templates/your_template/posts.php` -> `$post_author`
 2. In `templates/your_template/author.php` -> `$author`
