@@ -1,5 +1,5 @@
 <?php
-$version = '1.6.7';
+$version = '1.6.8';
 
 $dropplets_version = '<span class="powered-by">Powered by Dropplets v'.$version.'</span>';
 

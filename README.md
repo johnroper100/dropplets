@@ -3,7 +3,7 @@ Dropplets
 
 Dropplets is a minimalist **Markdown** blogging platform focused on delivering just what you need in a blogging solution, but absolutely nothing you don't. When it comes to basic blogging, all you really want to do is write & publish which is where Dropplets excels. It's databaseless, so it installs on any server in just about 30 seconds. 
 
-Current version: 1.6.7
+Current version: 1.6.8
 
 ## What's Markdown?
 Markdown is a text formatting syntax inspired by plain text email. It's extremely simple, memorizable and visually lightweight so as not to hinder reading.
