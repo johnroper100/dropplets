@@ -371,7 +371,7 @@ function get_header() { ?>
 
 function get_footer() { ?>
     <!-- jQuery & Required Scripts -->
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="<?php echo BLOG_URL; ?>dropplets/includes/js/jquery-3.2.1.min.js"></script>
 
     <?php if (PAGINATION_ON_OFF !== "off") { ?>
     <!-- Post Pagination -->

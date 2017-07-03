@@ -13,7 +13,6 @@
 
         <link rel="shortcut icon" href="<?php echo($blog_url); ?>/dropplets/style/images/favicon.png">
 
-        <script src="<?php echo($template_dir_url); ?>js/jquery-2.1.4.min.js" ></script>
         <script src="<?php echo($template_dir_url); ?>js/min/authormarks.min.js" type="text/javascript"></script>
 
         <!-- <script src="//use.edgefonts.net/varela;source-sans-pro:n9;source-code-pro.js"></script> -->

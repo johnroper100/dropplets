@@ -263,7 +263,7 @@ if (!isset($_SESSION['user'])) { ?>
         $(".dp-open").click(function(){
             var myelement = $(this).attr("href")
             $(myelement).animate({left:"0"}, 200);
-            $.cookies.set('dp-panel', 'open');
+            cookies.set('dp-panel', 'open');
             $("body").css({ overflowY: 'hidden' });
             return false;
         });
@@ -271,7 +271,7 @@ if (!isset($_SESSION['user'])) { ?>
         $(".dp-close").click(function(){
             var myelement = $(this).attr("href")
             $(myelement).animate({left:"-300px"}, 200);
-            $.cookies.set('dp-panel', 'closed');
+            cookies.set('dp-panel', 'closed');
             $("body").css({ overflowY: 'auto' });
             return false;
         });

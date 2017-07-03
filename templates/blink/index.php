@@ -17,8 +17,7 @@
         <link rel="stylesheet" href="<?php echo($template_dir_url); ?>revealjs/reveal.min-bink.css">
         <?php } ?>
         
-	<link rel="shortcut icon" href="<?php echo($template_dir_url); ?>custom/favicon.png">
-	<script src="jquery-1.10.2.min.js"></script>        
+	<link rel="shortcut icon" href="<?php echo($template_dir_url); ?>custom/favicon.png">      
         <?php get_header(); ?>
     </head>
 
