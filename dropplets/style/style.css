@@ -157,8 +157,7 @@ body.dp-install form button {
 }
 
 body.dp-install form button:hover {
-    box-shadow: 0 0 15px rgba(54, 124, 49, 0.85);
-    text-shadow: 0 0 15px rgba(54, 124, 49, 0.85);
+    background-color: rgb(54, 124, 49);
 }
 
 body.dp-install form button::-moz-focus-inner {
@@ -274,8 +273,7 @@ body.dp-install form button::-moz-focus-inner {
 }
 
 #dp-dropplets-icon:hover {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
+    background-color: #666666;
 }
 
 .dp-panel-wrapper {
@@ -500,8 +498,7 @@ body.dp-install form button::-moz-focus-inner {
 .dp-panel .dp-row.dp-editable input[type="submit"]:hover,
 .dp-panel .dp-row.dp-editable button:hover,
 .dp-panel .dp-row .dp-button:hover {
-    box-shadow: 0 0 10px rgba(54, 124, 49, 0.65);
-    text-shadow: 0 0 5px rgba(54, 124, 49, 0.65);
+    background-color: rgb(54, 124, 49);
 }
 
 .dp-panel .dp-row a.dp-button.dp-button-dark,
@@ -512,8 +509,7 @@ body.dp-install form button::-moz-focus-inner {
 }
 
 .dp-panel .dp-row a.dp-button.dp-button-dark:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.65);
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.65);
+    background-color: #666666;
 }
 
 .dp-panel .dp-row .dp-number.dp-number-dark {
