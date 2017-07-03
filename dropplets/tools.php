@@ -169,6 +169,18 @@ if (!isset($_SESSION['user'])) { ?>
                     </div>
                 </div>
             </div>
+
+            <div class="dp-row">
+                <div class="dp-icon dp-icon-large dp-icon-grid"></div>
+                <div class="dp-content">Installed Templates</div>
+                <a class="dp-link dp-toggle" href="#dp-templates"></a>
+            </div>
+            
+            <div class="dp-sub-panel" id="dp-templates">
+                <div class="dp-row dp-templates">
+                    <?php get_installed_templates('all'); ?>
+                </div>
+            </div>
             
             <div class="dp-row">
                 <div class="dp-icon dp-icon-text"></div>
