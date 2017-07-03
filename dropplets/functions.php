@@ -271,10 +271,10 @@ define('IS_HOME', $is_home);
 /* Get Profile Image
 /*-----------------------------------------------------------------------------------*/
 
-function get_twitter_profile_img($username) {
+function get_gravatar_profile_img($username) {
 
     // Pattern for avatar loading service.
-    $avatar_service_pat = 'http://avatars.io/twitter/:username?size=large';
+    $avatar_service_pat = 'https://www.gravatar.com/avatar/:username';
 	
 	// Get the cached profile image.`
     $cache = IS_CATEGORY ? '' : '';
@@ -286,7 +286,7 @@ function get_twitter_profile_img($username) {
 
 	// Cache the image if it doesn't already exist.
 	if (!file_exists($profile_image)) {
-	    $image_url = str_replace(':username', $username, $avatar_service_pat);
+	    $image_url = str_replace(':username', md5( strtolower( trim( $username) ) ), $avatar_service_pat);
 	    $image = file_get_contents($image_url);
 	    file_put_contents('./cache/'.$username.'.jpg', $image);
 	}

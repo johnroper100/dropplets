@@ -19,7 +19,7 @@
 	
 		<div id="container">
 			<header id="site">
-				<div id="site-logo"><a href="<?php echo($blog_url); ?>" title="<?php echo($blog_title); ?>"><img src="<?php echo get_twitter_profile_img($blog_twitter); ?>" /></a></div>
+				<div id="site-logo"><a href="<?php echo($blog_url); ?>" title="<?php echo($blog_title); ?>"><img src="<?php echo get_gravatar_profile_img($blog_email); ?>" /></a></div>
 				<h1 id="site-header"><a href="<?php echo($blog_url); ?>" title="<?php echo($blog_title); ?>"><?php echo($blog_title); ?></a></h1>
 			</header>
 			

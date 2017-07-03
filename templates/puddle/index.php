@@ -63,9 +63,9 @@
                             <!--<li><span><?php echo($blog_title); ?></span></li>-->
                             <span><a href="mailto:<?php echo($blog_email); ?>?subject=Hello"><?php echo($blog_email); ?></a></span>
                             <div class="thumbnail">
-                                <img src="<?php echo get_twitter_profile_img($blog_twitter); ?>" alt="profile" />
+                                <img src="<?php echo get_gravatar_profile_img($blog_email); ?>" alt="profile" />
                             </div>
-                            <span><a href="http://twitter.com/<?php echo($blog_twitter); ?>">&#64;<?php echo($blog_twitter); ?></a></span>
+                            <span><a href="http://twitter.com/<?php echo($blog_email); ?>">&#64;<?php echo($blog_twitter); ?></a></span>
                         </div>
 
                         <p class="three-quarters"><?php echo($intro_text); ?></p>

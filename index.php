@@ -133,7 +133,7 @@ if ($filename==NULL) {
             if (file_exists($image)) {
                 $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', POSTS_DIR.$post['fname']).'.jpg';
             } else {
-                $post_image = get_twitter_profile_img($post_author_twitter);
+                $post_image = get_gravatar_profile_img($post_author_email);
             }
 
             if ($post_status == 'draft') continue;
@@ -147,7 +147,8 @@ if ($filename==NULL) {
         // Get the site title
         $page_title = $blog_title;
 
-        $blog_image = 'https://api.twitter.com/1/users/profile_image?screen_name='.$blog_twitter.'&size=bigger';
+        $blog_image = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $blog_email ) ) ) . "&s=40";
+
 
         // Get the page description and author meta.
         $get_page_meta[] = '<meta name="description" content="' . $meta_description . '">';
@@ -367,7 +368,7 @@ else {
         if (file_exists($image)) {
             $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', $filename).'.jpg';
         } else {
-            $post_image = get_twitter_profile_img($post_author_twitter);
+            $post_image = get_gravatar_profile_img($post_author_email);
         }
 
         // Get the post content

@@ -29,7 +29,7 @@
 
                 <div class="post intro">
                     <div class="thumbnail">
-                        <img src="<?php echo get_twitter_profile_img($blog_twitter); ?>" alt="profile" />
+                        <img src="<?php echo get_gravatar_profile_img($blog_email); ?>" alt="profile" />
                     </div>
                     <h1><?php echo($intro_title); ?></h1>
 
