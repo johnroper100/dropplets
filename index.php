@@ -511,13 +511,12 @@ else {
                 <input type="password" name="password" id="password" required placeholder="Choose A Password">
                 <input type="password" name="password-confirmation" id="password-confirmation" required placeholder="Confirm Your Password" onblur="confirmPass()">
 
-                <input type="text" name="blog_email" id="blog_email" placeholder="Enter Your Email">
-                <input type="text" name="blog_twitter" id="blog_twitter" placeholder="Enter Your Twitter Account (Optional)">
+                <input required type="text" name="blog_email" id="blog_email" placeholder="Enter Your Email">
+                <input hidden type="text" name="blog_twitter" id="blog_twitter" placeholder="Enter Your Twitter Account (Optional)">
                 <input hidden type="text" name="blog_url" id="blog_url" value="<?php echo($url) ?><?php if ($url == $domain) { ?>/<?php } ?>">
                 <img id="screenshotPreview" src="dropplets/style/images/choose-template.jpg">
-                <select name="template" id="template" class="selectInput" required>
-                    <option value="simple" selected disabled>Choose A Template</option>
-                    <option value="simple">Simple</option>
+                <select required name="template" id="template" class="selectInput" required>
+                    <option value="simple" selected>Simple</option>
                     <option value="cards">Cards</option>
                     <option value="blink">Blink</option>
                     <option value="star">Star</option>
@@ -528,7 +527,6 @@ else {
                 <textarea hidden name="meta_description" id="meta_description"></textarea>
                 <input hidden type="text" name="intro_title" id="intro_title" value="Welcome to Dropplets">
                 <textarea hidden name="intro_text" id="intro_text">In a flooded selection of overly complex solutions, Dropplets has been created in order to deliver a much needed alternative. There is something to be said about true simplicity in the design, development and management of a blog. By eliminating all of the unnecessary elements found in typical solutions, Dropplets can focus on pure design, typography and usability. Welcome to an easier way to blog.</textarea>
-
     		    <button type="submit" name="submit" value="submit">Let's Get Started!</button>
     		</form>
 	    <?php echo $dropplets_version; ?>
