@@ -6,7 +6,7 @@ Dropplets is a minimalist **Markdown** blogging platform focused on delivering j
 Current version: 1.6.7
 
 ## What's Markdown?
-Markdown is a text formatting syntax inspired on plain text email. It is extremely simple, memorizable and visually lightweight on artifacts so as not to hinder reading.
+Markdown is a text formatting syntax inspired by plain text email. It's extremely simple, memorizable and visually lightweight so as not to hinder reading.
 
 > The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it's been marked up with tags or formatting instructions.
 
@@ -23,7 +23,7 @@ Markdown is a text formatting syntax inspired on plain text email. It is extreme
 ### Installation
 Dropplets is compatible with most server configurations and can be typically installed in under a minute using the few step-by-step instructions below:
 
-1. Download the latest **release** and then extract the downloaded zip file.
+1. Download the latest release or current master branch and then extract the downloaded zip file.
 3. Upload the entire contents of the extracted zip file to your web server wherever you want Dropplets to be installed. 
 4. Pull up your site in any modern web browser (e.g. if you uploaded Dropplets to **yoursite.com**, load **yoursite.com** in your browser to finish the installation), then create and confirm your password.
 
@@ -33,7 +33,7 @@ With Dropplets, you write your posts offline (using the text or Markdown editor 
     # Your Post Title
     - Post Author Name (e.g. "Dropplets")
     - Post Author Twitter Handle (e.g. "dropplets")
-    - Publish Date in YYYY/MM/DD Format (e.g. "2013/04/28")
+    - Publish Date in YYYY/MM/DD Format (e.g. "2017/04/28")
     - Post Categories (e.g. "Random Thoughts, Other Thoughts")
     - Post Status (e.g. "published" or "draft")
 
