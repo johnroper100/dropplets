@@ -85,7 +85,7 @@ if (!isset($_SESSION['user'])) { ?>
         </div>
 
 	<div class="dp-row">
-            <div class="dp-icon dp-icon-large dp-icon-code"></div>
+            <div class="dp-icon dp-icon-code"></div>
             <div class="dp-content">Download Post Starter File</div>
             <a class="dp-link" href="starter-post.md" download></a>
         </div>
@@ -238,7 +238,7 @@ if (!isset($_SESSION['user'])) { ?>
         </form>
 
 	   <div class="dp-row">
-            <div class="dp-icon dp-icon-large dp-icon-code"></div>
+            <div class="dp-icon dp-icon-code"></div>
             <div class="dp-content">Update Dropplets</div>
             <a class="dp-link" href="./update.php"></a>
         </div>
