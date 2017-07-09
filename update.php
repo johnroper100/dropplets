@@ -11,18 +11,19 @@ if ($archive->extract(PCLZIP_OPT_PATH, 'update') == 0) {
     die("Error while extracting the update: ".$archive->errorInfo(true)." please first try setting your directory permissions to either 775 or 777 and then if that does not work, make an issue on the Dropplets GitHub page.");
 }
 
-rename("update/dropplets", "dropplets");
-rename("update/plugins", "plugins");
-rename("update/templates/simple", "templates/simple");
-rename("update/templates/blink", "templates/blink");
-rename("update/templates/cards", "templates/cards");
-rename("update/templates/chevrons", "templates/chevrons");
-rename("update/templates/citizen", "templates/citizen");
-rename("update/templates/puddle", "templates/puddle");
-rename("update/templates/star", "templates/star");
-rename("update/index.php", "index.php");
-rename("update/README.md", "README.md");
-rename("update/License", "License");
+rename("update/dropplets-master/dropplets", "dropplets");
+rename("update/dropplets-master/plugins", "plugins");
+rename("update/dropplets-master/templates/simple", "templates/simple");
+rename("update/dropplets-master/templates/blink", "templates/blink");
+rename("update/dropplets-master/templates/cards", "templates/cards");
+rename("update/dropplets-master/templates/chevrons", "templates/chevrons");
+rename("update/dropplets-master/templates/citizen", "templates/citizen");
+rename("update/dropplets-master/templates/puddle", "templates/puddle");
+rename("update/dropplets-master/templates/star", "templates/star");
+rename("update/dropplets-master/index.php", "index.php");
+rename("update/dropplets-master/update.php", "update.php");
+rename("update/dropplets-master/README.md", "README.md");
+rename("update/dropplets-master/License", "License");
 
 $message = sprintf("Your site at %s has been updated to use the latest version of Dropplets!", $blog_url);
 $headers[] = "From: " . $blog_email;
