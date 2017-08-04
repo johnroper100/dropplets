@@ -133,7 +133,7 @@ if ($filename==NULL) {
             if (file_exists($image)) {
                 $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', POSTS_DIR.$post['fname']).'.jpg';
             } else {
-                $post_image = get_gravatar_profile_img($post_author_email);
+                $post_image = get_gravatar_profile_img($post_author["email"]);
             }
 
             if ($post_status == 'draft') continue;
