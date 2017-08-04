@@ -368,7 +368,7 @@ else {
         if (file_exists($image)) {
             $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', $filename).'.jpg';
         } else {
-            $post_image = get_gravatar_profile_img($post_author_email);
+            $post_image = get_gravatar_profile_img($post_author["email"]);
         }
 
         // Get the post content
