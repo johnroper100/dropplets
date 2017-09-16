@@ -133,7 +133,7 @@ if ($filename==NULL) {
             if (file_exists($image)) {
                 $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', POSTS_DIR.$post['fname']).'.jpg';
             } else {
-                $post_image = get_gravatar_profile_img($post_author_email);
+                $post_image = get_gravatar_profile_img($post_author["email"]);
             }
 
             if ($post_status == 'draft') continue;
@@ -320,7 +320,7 @@ else {
     } else if (file_exists($cachefile)) {
 
         // Define site title
-        $page_title = str_replace('# ', '', $fcontents[0]);
+        $page_title = trim(str_replace('#', '', $fcontents[0]));
 
         // Get the cached post.
         include $cachefile;
@@ -368,7 +368,7 @@ else {
         if (file_exists($image)) {
             $post_image = $blog_url.str_replace(array(FILE_EXT, './'), '', $filename).'.jpg';
         } else {
-            $post_image = get_gravatar_profile_img($post_author_email);
+            $post_image = get_gravatar_profile_img($post_author["email"]);
         }
 
         // Get the post content
@@ -385,7 +385,7 @@ else {
         $post_content = Markdown(implode("", $file_array));
 
         // Get the site title.
-        $page_title = str_replace('# ', '', $fcontents[0]);
+        $page_title = trim(str_replace('#', '', $fcontents[0]));
 
         // Generate the page description and author meta.
         $get_page_meta[] = '<meta name="description" content="' . $post_intro . '">';
