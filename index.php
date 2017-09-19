@@ -335,7 +335,7 @@ else {
         $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post_title);
 
         // Get the post intro.
-        $post_intro = htmlspecialchars($fcontents[7]);
+        $post_intro = trim(htmlspecialchars($fcontents[7]));
 
         // Get the post author.
         $post_author = get_author(str_replace(array("\n", '-'), '', $fcontents[1]));
@@ -389,7 +389,7 @@ else {
 
         // Generate the page description and author meta.
         $get_page_meta[] = '<meta name="description" content="' . $post_intro . '">';
-        $get_page_meta[] = '<meta name="author" content="' . $post_author . '">';
+        $get_page_meta[] = '<meta name="author" content="' . $post_author['name'] . '">';
 
         // Generate the Twitter card.
         $get_page_meta[] = '<meta name="twitter:card" content="summary">';
