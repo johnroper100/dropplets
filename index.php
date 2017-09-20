@@ -320,7 +320,7 @@ else {
     } else if (file_exists($cachefile)) {
 
         // Define site title
-        $page_title = str_replace('# ', '', $fcontents[0]);
+        $page_title = trim(str_replace('#', '', $fcontents[0]));
 
         // Get the cached post.
         include $cachefile;
@@ -335,7 +335,7 @@ else {
         $post_title = str_replace(array("\n",'<h1>','</h1>'), '', $post_title);
 
         // Get the post intro.
-        $post_intro = htmlspecialchars($fcontents[7]);
+        $post_intro = trim(htmlspecialchars($fcontents[7]));
 
         // Get the post author.
         $post_author = get_author(str_replace(array("\n", '-'), '', $fcontents[1]));
@@ -385,11 +385,11 @@ else {
         $post_content = Markdown(implode("", $file_array));
 
         // Get the site title.
-        $page_title = str_replace('# ', '', $fcontents[0]);
+        $page_title = trim(str_replace('#', '', $fcontents[0]));
 
         // Generate the page description and author meta.
         $get_page_meta[] = '<meta name="description" content="' . $post_intro . '">';
-        $get_page_meta[] = '<meta name="author" content="' . $post_author . '">';
+        $get_page_meta[] = '<meta name="author" content="' . $post_author['name'] . '">';
 
         // Generate the Twitter card.
         $get_page_meta[] = '<meta name="twitter:card" content="summary">';
