@@ -66,6 +66,17 @@ To change your blog settings, click the gear icon in the Dropplets toolbar. This
 ### Changing Templates
 To change your blog template, click the star icon in the Dropplets toolbar. This will load the templates panel where you will be able to browse and change your blog template.
 
+### Adding Highlight-js
+Now you can choose Highlight styles from config.php. By default we use 'monokai-sublime' template. View the [available styles](https://highlightjs.org/static/demo/). You just need to specify the language to highlight.
+
+    ```javascript
+      console.log('value: '+value);
+    ```
+
+The CDN-hosted package doesn't have all the languages. Otherwise it'd be too big. If you don't see the language you need in the "Common" section, it can be added manually by header inject config var:
+
+    $header_inject = '<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>';
+
 ### Adding Authors
 Author metadata is stored in `.yml` files. To add an author, create a file called `author_name.yml`, with the following contents:
 
