@@ -356,6 +356,14 @@ function get_header() { ?>
     <link rel="stylesheet" href="<?php echo BLOG_URL; ?>dropplets/style/style.css">
     <link rel="shortcut icon" href="<?php echo BLOG_URL; ?>dropplets/style/images/favicon.png">
 
+    <!-- highlight.js script and styles -->
+    <?php if(HIGHLIGHTJS_STYLE): ?>
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/<?php echo HIGHLIGHTJS_STYLE ?>.min.css">
+    <?php else: ?>
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css">
+    <?php endif ?>
+    <script defer src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" onload="hljs.initHighlightingOnLoad();"></script>'
+
     <!-- User Header Injection -->
     <?php echo HEADER_INJECT; ?>
 

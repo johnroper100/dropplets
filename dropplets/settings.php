@@ -33,6 +33,7 @@ define('INTRO_TEXT', $intro_text);
 define('HEADER_INJECT', stripslashes($header_inject));
 define('FOOTER_INJECT', stripslashes($footer_inject));
 define('ACTIVE_TEMPLATE', $template);
+define('HIGHLIGHTJS_STYLE', $highlightjs_style);
 
 /*-----------------------------------------------------------------------------------*/
 /* Definitions (These Should Be Moved to "Settings")
