@@ -41,9 +41,9 @@
                 <body>
                     <img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" />
                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                        <input type="text" name="blogName" placeholder="Blog Name:" required /><br>
-                        <input type="text" name="blogAuthor" placeholder="Author Name:" required /><br>
-                        <input type="password" name="blogPassword" placeholder="Management Password:" required /><br>
+                        <input type="text" name="blogName" placeholder="Blog Name:" required />
+                        <input type="text" name="blogAuthor" placeholder="Author Name:" required />
+                        <input type="password" name="blogPassword" placeholder="Management Password:" required />
                         <input type="hidden" name="form" value="setup" required />
                         <input class="btn" type="submit" value="Finish Setup" />
                     </form>

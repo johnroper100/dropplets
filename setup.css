@@ -11,14 +11,16 @@ h1, h2, h3 {
 }
 input {
     border: none;
+    margin: 0 auto;
     background-color: #fff;
     outline: none;
     color: #495057;
     border-bottom: solid 3px #ADB5BD;
     width: 40vw;
     font-size: 1.25rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
     line-height: 200%;
+    display: block;
 }
 ::-webkit-input-placeholder {
     color: #adb5bd;
@@ -42,8 +44,8 @@ input {
 }
 .headerLogo {
     height: 25vh;
-    margin-top: 3.5rem;
-    margin-bottom: 3.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
 }
 .btn {
     border: none;
