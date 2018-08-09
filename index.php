@@ -45,7 +45,7 @@
                         <input type="text" name="blogAuthor" placeholder="Author Name:" /><br>
                         <input type="password" name="blogPassword" placeholder="Management Password:" /><br>
                         <input type="hidden" name="form" value="setup">
-                        <input type="submit" value="Submit">
+                        <input class="btn" type="submit" value="Finish Setup">
                     </form>
                 </body>
                 <?php
