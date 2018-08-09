@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
 <?php
-    // Create the required .htaccess if it dosen't already exist
+    // Create the required .htaccess if it dosen't already exist.
     if (!file_exists(".htaccess")) {
         $htaccess = fopen(".htaccess", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
         $htaccess_content = "<IfModule mod_rewrite.c>\n\tRewriteEngine On\n\tRewriteBase /\n\tRewriteCond %{REQUEST_FILENAME} !-f\n\tRewriteCond %{REQUEST_FILENAME} !-d\n\tRewriteCond %{REQUEST_FILENAME} !-l\n\tRewriteRule .* index.php [L,QSA]\n</IfModule>";
         fwrite($htaccess, $htaccess_content);
         fclose($htaccess);
     }
-    // Get the url parameters
+    // Get the url parameters.
     $URI = parse_url($_SERVER['REQUEST_URI']);
     $URI_parts = explode('/', $URI['path']);
+    // If a form is submitted, process it. Otherwise, show the main web page.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Setup form submitted, create config.ini.
         if (test_input($_POST["form"]) == "setup") {
             if (!file_exists("config.ini")) {
                 if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
@@ -29,7 +31,7 @@
             echo("The form could not be submitted. Please try again later.");
         }
     } else {
-        // If the config file exists, show the blog. If not, show the setup page
+        // If the url is setup, check for config and then show the setup page.
         if ($URI_parts[1] and $URI_parts[1] == 'setup') {
             if (!file_exists("config.ini")) {
                 ?>
@@ -53,6 +55,7 @@
                 echo("Setup has already been completed!");
             }
         } else {
+            // If the config exists, read it and display the blog.
             if (file_exists("config.ini")) {
                 $config = parse_ini_file("config.ini");
                 ?>
