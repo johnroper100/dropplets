@@ -36,9 +36,10 @@
                 <head>
                     <title>Dropplets | Setup</title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
-                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/main.css" />
+                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
                 </head>
                 <body>
+                    <img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" />
                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                         <input type="text" name="blogName" placeholder="Blog Name" /><br>
                         <input type="text" name="blogAuthor" placeholder="Author Name" /><br>
