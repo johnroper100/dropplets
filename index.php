@@ -15,15 +15,17 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (test_input($_POST["form"]) == "setup") {
-            if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"])){
-                $config_content = "blogName=".$_POST["blogName"]."\nblogAuthor=".$_POST["blogAuthor"];
-                echo($config_content);
+            if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
+                $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
+                $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogPassword=".$password_hash;
+                $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
+                fwrite($config, $config_content);
+                fclose($config);
+                header("Location: /");
             }
-            //$config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
-            //fwrite($config, $config_content);
-            //fclose($config);
+        } else {
+            echo("The form could not be submitted. Please try again later.");
         }
-        //header("Location: /");
     } else {
         // If the config file exists, show the blog. If not, show the setup page
         if ($URI_parts[1] and $URI_parts[1] == 'setup') {
@@ -34,8 +36,9 @@
                 </head>
                 <body>
                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                        <input type="text" name="blogName" placeholder="Blog Name" value="hi"/><br>
-                        <input type="text" name="blogAuthor" placeholder="Author Name" value="hi"/><br>
+                        <input type="text" name="blogName" placeholder="Blog Name" /><br>
+                        <input type="text" name="blogAuthor" placeholder="Author Name" /><br>
+                        <input type="password" name="blogPassword" placeholder="Access Password" /><br>
                         <input type="hidden" name="form" value="setup">
                         <input type="submit" value="Submit">
                     </form>
