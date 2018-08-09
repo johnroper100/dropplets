@@ -47,8 +47,8 @@ input {
 }
 .btn {
     border: none;
-    border-radius: 50%;
+    border-radius: 2rem;
     background-color: #40C057;
-    font-weight: 500;
+    font-weight: 600;
     color: #F8F9FA;
 }
