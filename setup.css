@@ -5,6 +5,7 @@ body {
     font-weight: 400;
     color: #495057;
     background-color: #fff;
+    text-align: center;
 }
 
 h1, h2, h3 {
@@ -14,5 +15,11 @@ h1, h2, h3 {
 input {
     border: none;
     outline: none;
-    color: #ADB5BD;
+    color: #495057;
+    border-bottom: solid 3px #ADB5BD;
+    width: 55vw;
+}
+
+input::placeholder {
+    color: #adb5bd;
 }
