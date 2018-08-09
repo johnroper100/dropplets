@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i');
-
 body {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400;
@@ -7,11 +6,9 @@ body {
     background-color: #fff;
     text-align: center;
 }
-
 h1, h2, h3 {
     color: #343a40;
 }
-
 input {
     border: none;
     outline: none;
@@ -19,7 +16,23 @@ input {
     border-bottom: solid 3px #ADB5BD;
     width: 55vw;
 }
-
-input::placeholder {
-    color: #adb5bd;
+::-webkit-input-placeholder {
+    color: #495057;
+}
+:-moz-placeholder {
+    color: #495057;
+    opacity: 1;
+}
+::-moz-placeholder {
+    color: #495057;
+    opacity: 1;
+}
+:-ms-input-placeholder {
+    color: #495057;
+}
+::-ms-input-placeholder {
+    color: #495057;
+}
+::placeholder {
+    color: #495057;
 }
