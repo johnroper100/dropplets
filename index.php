@@ -52,6 +52,15 @@
         } else {
             if (file_exists("config.ini")) {
                 $config = parse_ini_file("config.ini");
+                ?>
+                <head>
+                    <title><?php $config['blogName'] ?> | Home</title>
+                    <link href="#" type="text/css" rel="stylesheet">
+                </head>
+                <body>
+                <h1>hi</h1>
+                </body>
+                <?php
                 echo("you have made it home");
             } else {
                 header("Location: /setup");
