@@ -35,6 +35,8 @@
                 ?>
                 <head>
                     <title>Dropplets | Setup</title>
+                    <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
+                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/main.css" />
                 </head>
                 <body>
                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
@@ -55,7 +57,8 @@
                 ?>
                 <head>
                     <title><?php echo($config['blogName']) ?> | Home</title>
-                    <link href="https://github.com/johnroper100/dropplets/raw/2.0/test.css" type="text/css" rel="stylesheet" />
+                    <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
+                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/main.css" />
                 </head>
                 <body>
                 <h1>hi</h1>
