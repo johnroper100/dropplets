@@ -17,6 +17,8 @@ input {
     border-bottom: solid 3px #ADB5BD;
     width: 55vw;
     font-size: 1.25rem;
+    margin-bottom: 2rem;
+    line-height: 200%;
 }
 ::-webkit-input-placeholder {
     color: #adb5bd;
