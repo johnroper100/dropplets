@@ -11,28 +11,30 @@ h1, h2, h3 {
 }
 input {
     border: none;
+    background-color: #fff;
     outline: none;
     color: #495057;
     border-bottom: solid 3px #ADB5BD;
     width: 55vw;
+    font-size: 1.25rem;
 }
 ::-webkit-input-placeholder {
-    color: #495057;
+    color: #adb5bd;
 }
 :-moz-placeholder {
-    color: #495057;
+    color: #adb5bd;
     opacity: 1;
 }
 ::-moz-placeholder {
-    color: #495057;
+    color: #adb5bd;
     opacity: 1;
 }
 :-ms-input-placeholder {
-    color: #495057;
+    color: #adb5bd;
 }
 ::-ms-input-placeholder {
-    color: #495057;
+    color: #adb5bd;
 }
 ::placeholder {
-    color: #495057;
+    color: #adb5bd;
 }
