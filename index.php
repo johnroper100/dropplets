@@ -15,24 +15,18 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (test_input($_POST["form"]) == "setup") {
-            $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
-            $config_content = "hi";
-            fwrite($config, $config_content);
-            fclose($config);
+            if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"])){
+                $config_content = "blogName=".$_POST["blogName"]."\nblogAuthor=".$_POST["blogAuthor"];
+                echo($config_content);
+            }
+            //$config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
+            //fwrite($config, $config_content);
+            //fclose($config);
         }
-        header("Location: /");
-        exit;
+        //header("Location: /");
     } else {
         // If the config file exists, show the blog. If not, show the setup page
-        if ($URI_parts[1] != 'setup') {
-            if (file_exists("config")) {
-                $config = parse_ini_file("config");
-                exit;
-            } else {
-                header("Location: /setup");
-                exit;
-            }
-        } else {
+        if ($URI_parts[1] and $URI_parts[1] == 'setup') {
             if (!file_exists("config.ini")) {
                 ?>
                 <head>
@@ -40,17 +34,21 @@
                 </head>
                 <body>
                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                        <input type="text" name="blogName" placeholder="Blog Name"><br>
-                        <input type="text" name="authorName" placeholder="Author Name"><br>
+                        <input type="text" name="blogName" placeholder="Blog Name" value="hi"/><br>
+                        <input type="text" name="blogAuthor" placeholder="Author Name" value="hi"/><br>
                         <input type="hidden" name="form" value="setup">
                         <input type="submit" value="Submit">
                     </form>
                 </body>
                 <?php
-            } else {
-                header("Location: /");
-                exit;
             }
+        } else {
+            if (file_exists("config.ini")) {
+                $config = parse_ini_file("config.ini");
+                echo("you have made it home");
+            } else {
+                header("Location: /setup");
+            } 
         }
     }
 
