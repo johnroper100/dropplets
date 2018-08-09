@@ -54,8 +54,8 @@
                 $config = parse_ini_file("config.ini");
                 ?>
                 <head>
-                    <title><?php $config['blogName'] ?> | Home</title>
-                    <link href="#" type="text/css" rel="stylesheet">
+                    <title><?php echo($config['blogName']) ?> | Home</title>
+                    <link href="https://github.com/johnroper100/dropplets/raw/2.0/test.css" type="text/css" rel="stylesheet" />
                 </head>
                 <body>
                 <h1>hi</h1>
