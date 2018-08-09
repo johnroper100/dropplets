@@ -8,20 +8,22 @@
         fwrite($htaccess, $htaccess_content);
         fclose($htaccess);
     }
-
     // Get the url parameters
     $URI = parse_url($_SERVER['REQUEST_URI']);
     $URI_parts = explode('/', $URI['path']);
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (test_input($_POST["form"]) == "setup") {
-            if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
-                $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
-                $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogPassword=".$password_hash;
-                $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
-                fwrite($config, $config_content);
-                fclose($config);
-                header("Location: /");
+            if (!file_exists("config.ini")) {
+                if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
+                    $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
+                    $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogPassword=".$password_hash;
+                    $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
+                    fwrite($config, $config_content);
+                    fclose($config);
+                    header("Location: /");
+                }
+            } else {
+                echo("Setup has already been completed!");
             }
         } else {
             echo("The form could not be submitted. Please try again later.");
@@ -44,6 +46,8 @@
                     </form>
                 </body>
                 <?php
+            } else {
+                echo("Setup has already been completed!");
             }
         } else {
             if (file_exists("config.ini")) {
@@ -54,7 +58,6 @@
             } 
         }
     }
-
     function test_input($data) {
         $data = trim($data);
         $data = stripslashes($data);
