@@ -34,7 +34,7 @@
             $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
             fwrite($config, $config_content);
             fclose($config);
-            header("Location: ");
+            header("Location: /");
         } else if (test_input($_POST["form"]) == "upload") {
             if (file_exists("config.ini")) {
                 if(isset($_POST["blogPost"]) and isset($_POST["blogPassword"])){
