@@ -15,17 +15,16 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Setup form submitted, create config.ini.
         if (test_input($_POST["form"]) == "setup") {
-            // If the config does not exist, create it. If it does, update it.
-            if (!file_exists("config.ini")) {
-                if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
+            // Check that the form items are there.
+            if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogCopyright"]) and isset($_POST["blogPassword"])){
+                // If the config does not exist, create it. If it does, update it.
+                if (!file_exists("config.ini")) {
                     $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
-                    $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogPassword=".$password_hash;
-                }
-            } else {
-                $config = parse_ini_file("config.ini");
-                if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
+                    $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogCopyright=".test_input($_POST["blogCopyright"])."\nblogPassword=".$password_hash;
+                } else {
+                    $config = parse_ini_file("config.ini");
                     if (password_verify(test_input($_POST["blogPassword"]), $config['blogPassword'])) {
-                        $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogPassword=".$config['blogPassword'];
+                        $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogCopyright=".test_input($_POST["blogCopyright"])."\nblogPassword=".$config['blogPassword'];
                     } else {
                         echo("Management password not correct!");
                         exit;
@@ -38,13 +37,14 @@
             header("Location: ");
         } else if (test_input($_POST["form"]) == "upload") {
             if (file_exists("config.ini")) {
-                if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
-                    $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
-                    $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogPassword=".$password_hash;
-                    $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
-                    fwrite($config, $config_content);
-                    fclose($config);
-                    header("Location: ");
+                if(isset($_POST["blogPost"]) and isset($_POST["blogPassword"])){
+                    $config = parse_ini_file("config.ini");
+                    if (password_verify(test_input($_POST["blogPassword"]), $config['blogPassword'])) {
+                        echo("Still to be done");
+                    } else {
+                        echo("Management password not correct!");
+                        exit;
+                    }
                 }
             } else {
                 header("Location: setup");
@@ -71,6 +71,7 @@
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <input type="text" name="blogName" placeholder="Blog Name:" required value="<?php echo($config['blogName']) ?>"/>
                     <input type="text" name="blogAuthor" placeholder="Author Name:" required value="<?php echo($config['blogAuthor']) ?>" />
+                    <input type="text" name="blogCopyright" placeholder="Copyright:" required value="<?php echo($config['blogCopyright']) ?>" />
                     <input type="password" name="blogPassword" placeholder="Management Password:" required />
                     <input type="hidden" name="form" value="setup" required />
                     <input class="btn" type="submit" value="Finish Setup" />
