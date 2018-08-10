@@ -71,7 +71,7 @@
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <input type="text" name="blogName" placeholder="Blog Name:" required value="<?php echo($config['blogName']) ?>"/>
                     <input type="text" name="blogAuthor" placeholder="Author Name:" required value="<?php echo($config['blogAuthor']) ?>" />
-                    <input type="text" name="blogCopyright" placeholder="Copyright:" required value="<?php echo($config['blogCopyright']) ?>" />
+                    <input type="text" name="blogCopyright" placeholder="Copyright Message:" required value="<?php echo($config['blogCopyright']) ?>" />
                     <input type="password" name="blogPassword" placeholder="Management Password:" required />
                     <input type="hidden" name="form" value="setup" required />
                     <input class="btn" type="submit" value="Finish Setup" />
