@@ -57,6 +57,8 @@
         if ($URI_parts[1] and $URI_parts[1] == 'setup') {
             if (file_exists("config.ini")) {
                 $config = parse_ini_file("config.ini");
+            } else {
+                $config = NULL;
             }
             ?>
             <head>
