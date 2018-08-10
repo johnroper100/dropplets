@@ -22,6 +22,11 @@ input {
     line-height: 200%;
     display: block;
 }
+input:focus:required:invalid {
+    border: none;
+    outline: none;
+    border-bottom: solid 2px #fa5252;
+}
 ::-webkit-input-placeholder {
     color: #adb5bd;
 }
