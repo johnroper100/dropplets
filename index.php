@@ -27,6 +27,19 @@
             } else {
                 echo("Setup has already been completed!");
             }
+        } else if (test_input($_POST["form"]) == "upload") {
+            if (file_exists("config.ini")) {
+                if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
+                    $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
+                    $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogPassword=".$password_hash;
+                    $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
+                    fwrite($config, $config_content);
+                    fclose($config);
+                    header("Location: /");
+                }
+            } else {
+                header("Location: /setup");
+            }
         } else {
             echo("The form could not be submitted. Please try again later.");
         }
@@ -65,7 +78,7 @@
                 </head>
                 <body>
                     <img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" />
-                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
                         <input type="file" name="blogPost" placeholder="Post File:" required />
                         <input type="password" name="blogPassword" placeholder="Management Password:" required />
                         <input type="hidden" name="form" value="upload" required />
