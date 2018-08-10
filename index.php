@@ -99,6 +99,8 @@
             } else {
                 header("Location: setup");
             }
+        } else if ($URI_parts[1] and $URI_parts[1] == 'version') {
+            echo("Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License");
         } else {
             // If the config exists, read it and display the blog.
             if (file_exists("config.ini")) {
