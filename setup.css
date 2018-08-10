@@ -56,3 +56,9 @@ input {
     height: 3rem;
     margin-top: 2.5rem;
 }
+
+.btn:hover {
+    color: #495057;
+    background-color: #2f9e44;
+    cursor: pointer;
+}
