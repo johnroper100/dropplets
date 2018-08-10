@@ -27,6 +27,11 @@ input:focus:required:invalid {
     outline: none;
     border-bottom: solid 2px #fa5252;
 }
+input:required:valid {
+    border: none;
+    outline: none;
+    border-bottom: solid 2px #ADB5BD;
+}
 ::-webkit-input-placeholder {
     color: #adb5bd;
 }
