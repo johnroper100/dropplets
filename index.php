@@ -35,7 +35,7 @@
             $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
             fwrite($config, $config_content);
             fclose($config);
-            header("Location: /");
+            header("Location: ");
         } else if (test_input($_POST["form"]) == "upload") {
             if (file_exists("config.ini")) {
                 if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
@@ -44,10 +44,10 @@
                     $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
                     fwrite($config, $config_content);
                     fclose($config);
-                    header("Location: /");
+                    header("Location: ");
                 }
             } else {
-                header("Location: /setup");
+                header("Location: setup");
             }
         } else {
             echo("The form could not be submitted. Please try again later.");
@@ -97,7 +97,7 @@
                 </body>
                 <?php
             } else {
-                header("Location: /setup");
+                header("Location: setup");
             }
         } else {
             // If the config exists, read it and display the blog.
@@ -115,7 +115,7 @@
                 <?php
                 echo("you have made it home");
             } else {
-                header("Location: /setup");
+                header("Location: setup");
             } 
         }
     }
