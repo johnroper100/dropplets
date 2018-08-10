@@ -15,29 +15,27 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Setup form submitted, create config.ini.
         if (test_input($_POST["form"]) == "setup") {
+            // If the config does not exist, create it. If it does, update it.
             if (!file_exists("config.ini")) {
                 if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
                     $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
                     $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogPassword=".$password_hash;
-                    $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
-                    fwrite($config, $config_content);
-                    fclose($config);
-                    header("Location: /");
                 }
             } else {
                 $config = parse_ini_file("config.ini");
                 if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
                     if (password_verify(test_input($_POST["blogPassword"]), $config['blogPassword'])) {
                         $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogPassword=".$config['blogPassword'];
-                        $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
-                        fwrite($config, $config_content);
-                        fclose($config);
-                        header("Location: /");
                     } else {
                         echo("Management password not correct!");
+                        exit;
                     }
                 }
             }
+            $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
+            fwrite($config, $config_content);
+            fclose($config);
+            header("Location: /");
         } else if (test_input($_POST["form"]) == "upload") {
             if (file_exists("config.ini")) {
                 if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
