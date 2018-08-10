@@ -25,7 +25,18 @@
                     header("Location: /");
                 }
             } else {
-                echo("Setup has already been completed!");
+                $config = parse_ini_file("config.ini");
+                if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"])){
+                    if (password_verify(test_input($_POST["blogPassword"]), $config['blogPassword'])) {
+                        $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogPassword=".$config['blogPassword'];
+                        $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
+                        fwrite($config, $config_content);
+                        fclose($config);
+                        header("Location: /");
+                    } else {
+                        echo("Management password not correct!");
+                    }
+                }
             }
         } else if (test_input($_POST["form"]) == "upload") {
             if (file_exists("config.ini")) {
@@ -46,27 +57,26 @@
     } else {
         // If the url is setup, check for config and then show the setup page.
         if ($URI_parts[1] and $URI_parts[1] == 'setup') {
-            if (!file_exists("config.ini")) {
-                ?>
-                <head>
-                    <title>Dropplets | Setup</title>
-                    <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
-                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
-                </head>
-                <body>
-                    <img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" />
-                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                        <input type="text" name="blogName" placeholder="Blog Name:" required />
-                        <input type="text" name="blogAuthor" placeholder="Author Name:" required />
-                        <input type="password" name="blogPassword" placeholder="Management Password:" required />
-                        <input type="hidden" name="form" value="setup" required />
-                        <input class="btn" type="submit" value="Finish Setup" />
-                    </form>
-                </body>
-                <?php
-            } else {
-                echo("Setup has already been completed!");
+            if (file_exists("config.ini")) {
+                $config = parse_ini_file("config.ini");
             }
+            ?>
+            <head>
+                <title>Dropplets | Setup</title>
+                <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
+                <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
+            </head>
+            <body>
+                <img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" />
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                    <input type="text" name="blogName" placeholder="Blog Name:" required value="<?php echo($config['blogName']) ?>"/>
+                    <input type="text" name="blogAuthor" placeholder="Author Name:" required value="<?php echo($config['blogAuthor']) ?>" />
+                    <input type="password" name="blogPassword" placeholder="Management Password:" required />
+                    <input type="hidden" name="form" value="setup" required />
+                    <input class="btn" type="submit" value="Finish Setup" />
+                </form>
+            </body>
+            <?php
         } else if ($URI_parts[1] and $URI_parts[1] == 'upload') {
             if (file_exists("config.ini")) {
                 $config = parse_ini_file("config.ini");
