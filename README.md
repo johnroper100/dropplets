@@ -23,6 +23,6 @@ Run locally with `php -S localhost:3100 index.php`
 
 Design Mockups - https://www.figma.com/file/S4yjDmgoos5rs3CAsR7Hg5sU/Dropplets-v2.0?node-id=1%3A2
 
-https://yeun.github.io/open-color/
+Color Palette - https://yeun.github.io/open-color/
 
-https://rawgit.com/
+Dependency Hosting - https://rawgit.com/
