@@ -10,6 +10,10 @@ Run locally with `php -S localhost:3100 index.php`
 - Quick password-only access
 - Database-less platform
 
+## Installation
+
+- Simply use the `Latest Version` link above to download `index.php`. Copy it to a folder on your server.
+
 ## Requirements
 
 - Make sure `index.php` has execution permission
