@@ -1,4 +1,4 @@
-Dropplets
+Dropplets - [Download Latest Version](https://github.com/johnroper100/dropplets/raw/2.0/index.php)
 =========
 
 Run locally with `php -S localhost:3100 index.php`
