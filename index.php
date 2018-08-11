@@ -13,32 +13,32 @@
     $URI_parts = explode('/', $URI['path']);
     // If a form is submitted, process it. Otherwise, show the main web page.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Setup form submitted, create config.ini.
+        // Setup form submitted, create config.php.
         if (test_input($_POST["form"]) == "setup") {
             // Check that the form items are there.
             if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogCopyright"]) and isset($_POST["blogPassword"])){
                 // If the config does not exist, create it. If it does, update it.
-                if (!file_exists("config.ini")) {
+                if (!file_exists("config.php")) {
                     $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
-                    $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogCopyright=".test_input($_POST["blogCopyright"])."\nblogPassword=".$password_hash;
+                    $config_content = '<?php\n$blogName="'.test_input($_POST["blogName"]).'";\n$blogAuthor="'.test_input($_POST["blogAuthor"]).'";\n$blogCopyright="'.test_input($_POST["blogCopyright"]).'";\n$blogPassword="'.$password_hash.'";\n?>';
                 } else {
-                    $config = parse_ini_file("config.ini");
+                    $config = parse_ini_file("config.php");
                     if (password_verify(test_input($_POST["blogPassword"]), $config['blogPassword'])) {
-                        $config_content = "blogName=".test_input($_POST["blogName"])."\nblogAuthor=".test_input($_POST["blogAuthor"])."\nblogCopyright=".test_input($_POST["blogCopyright"])."\nblogPassword=".$config['blogPassword'];
+                        $config_content = '<?php\n$blogName="'.test_input($_POST["blogName"]).'";\n$blogAuthor="'.test_input($_POST["blogAuthor"]).'";\n$blogCopyright="'.test_input($_POST["blogCopyright"]).'";\n$blogPassword="'.$config['blogPassword'].'"\n?>';
                     } else {
                         echo("Management password not correct!");
                         exit;
                     }
                 }
             }
-            $config = fopen("config.ini", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
+            $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
             fwrite($config, $config_content);
             fclose($config);
             header("Location: /");
         } else if (test_input($_POST["form"]) == "upload") {
-            if (file_exists("config.ini")) {
+            if (file_exists("config.php")) {
                 if(isset($_POST["blogPost"]) and isset($_POST["blogPassword"])){
-                    $config = parse_ini_file("config.ini");
+                    $config = parse_ini_file("config.php");
                     if (password_verify(test_input($_POST["blogPassword"]), $config['blogPassword'])) {
                         echo("Still to be done");
                     } else {
@@ -55,8 +55,8 @@
     } else {
         // If the url is setup, check for config and then show the setup page.
         if ($URI_parts[1] and $URI_parts[1] == 'setup') {
-            if (file_exists("config.ini")) {
-                $config = parse_ini_file("config.ini");
+            if (file_exists("config.php")) {
+                $config = parse_ini_file("config.php");
             } else {
                 $config = NULL;
             }
@@ -79,8 +79,8 @@
             </body>
             <?php
         } else if ($URI_parts[1] and $URI_parts[1] == 'upload') {
-            if (file_exists("config.ini")) {
-                $config = parse_ini_file("config.ini");
+            if (file_exists("config.php")) {
+                $config = parse_ini_file("config.php");
                 ?>
                 <head>
                     <title><?php echo($config['blogName']) ?> | Upload Post</title>
@@ -104,8 +104,8 @@
             echo("Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License");
         } else {
             // If the config exists, read it and display the blog.
-            if (file_exists("config.ini")) {
-                $config = parse_ini_file("config.ini");
+            if (file_exists("config.php")) {
+                $config = parse_ini_file("config.php");
                 ?>
                 <head>
                     <title><?php echo($config['blogName']) ?> | Home</title>
