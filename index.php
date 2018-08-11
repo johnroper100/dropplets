@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php
+    include 'config.php';
     // Create the required .htaccess if it dosen't already exist.
     if (!file_exists(".htaccess")) {
         $htaccess = fopen(".htaccess", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
@@ -22,9 +23,9 @@
                     $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
                     $config_content = '<?php\n$blogName="'.test_input($_POST["blogName"]).'";\n$blogAuthor="'.test_input($_POST["blogAuthor"]).'";\n$blogCopyright="'.test_input($_POST["blogCopyright"]).'";\n$blogPassword="'.$password_hash.'";\n?>';
                 } else {
-                    $config = parse_ini_file("config.php");
-                    if (password_verify(test_input($_POST["blogPassword"]), $config['blogPassword'])) {
-                        $config_content = '<?php\n$blogName="'.test_input($_POST["blogName"]).'";\n$blogAuthor="'.test_input($_POST["blogAuthor"]).'";\n$blogCopyright="'.test_input($_POST["blogCopyright"]).'";\n$blogPassword="'.$config['blogPassword'].'"\n?>';
+
+                    if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
+                        $config_content = '<?php\n$blogName="'.test_input($_POST["blogName"]).'";\n$blogAuthor="'.test_input($_POST["blogAuthor"]).'";\n$blogCopyright="'.test_input($_POST["blogCopyright"]).'";\n$blogPassword="'.$blogPassword.'"\n?>';
                     } else {
                         echo("Management password not correct!");
                         exit;
@@ -38,8 +39,8 @@
         } else if (test_input($_POST["form"]) == "upload") {
             if (file_exists("config.php")) {
                 if(isset($_POST["blogPost"]) and isset($_POST["blogPassword"])){
-                    $config = parse_ini_file("config.php");
-                    if (password_verify(test_input($_POST["blogPassword"]), $config['blogPassword'])) {
+
+                    if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
                         echo("Still to be done");
                     } else {
                         echo("Management password not correct!");
@@ -55,11 +56,11 @@
     } else {
         // If the url is setup, check for config and then show the setup page.
         if ($URI_parts[1] and $URI_parts[1] == 'setup') {
-            if (file_exists("config.php")) {
-                $config = parse_ini_file("config.php");
-            } else {
-                $config = NULL;
-            }
+
+ 
+     
+
+
             ?>
             <head>
                 <title>Dropplets | Setup</title>
@@ -80,7 +81,7 @@
             <?php
         } else if ($URI_parts[1] and $URI_parts[1] == 'upload') {
             if (file_exists("config.php")) {
-                $config = parse_ini_file("config.php");
+
                 ?>
                 <head>
                     <title><?php echo($config['blogName']) ?> | Upload Post</title>
@@ -105,7 +106,7 @@
         } else {
             // If the config exists, read it and display the blog.
             if (file_exists("config.php")) {
-                $config = parse_ini_file("config.php");
+
                 ?>
                 <head>
                     <title><?php echo($config['blogName']) ?> | Home</title>
