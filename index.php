@@ -111,8 +111,25 @@
             <?php } else {
                 header("Location: setup");
             }
-        } else if ($URI_parts[1] and $URI_parts[2] and $URI_parts[1] == 'posts') {
-            echo("post $URI_parts[2] will be on this page");
+        } else if ($URI_parts[1] and $URI_parts[1] == 'posts' and $URI_parts[2]) {
+            // If the config exists, read it and display the blog.
+            if (file_exists("config.php")) {
+                include "posts/post$URI_parts[2].php";
+                ?>
+                <head>
+                    <title><?php echo($blogName); ?> | <?php echo($postTitle); ?></title>
+                    <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
+                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/main.css" />
+                </head>
+                <body>
+                    <a href="/"><h1><?php echo($blogName); ?></h1></a>
+                    <h2><?php echo($postTitle); ?></h2>
+                    <h3><?php echo($postDate); ?></h3>
+                    <div class="postContent"><?php echo($postContent); ?></div>
+                </body>
+            <?php } else {
+                header("Location: setup");
+            }
         } else if ($URI_parts[1] and $URI_parts[1] == 'version') {
             echo("Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License");
         } else {
@@ -124,22 +141,22 @@
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/main.css" />
                 </head>
                 <body>
-                <h1><?php echo($blogName); ?></h1>
-                <div class="posts">
-                <?php
-                $k = 1;
-                $posts = glob('posts/*.{php}', GLOB_BRACE);
-                foreach($posts as $post) {
-                  include $post;
-                  echo("<div class=\"post\"><a href=\"posts/$k\"><h2>$postTitle</h2></a><h3>$postDate</h3><div class=\"postContent\">$postContent</div></div>");
-                    $k++;
-                }
-                ?>
-                </div>
+                    <h1><?php echo($blogName); ?></h1>
+                    <div class="posts">
+                    <?php
+                    $k = 1;
+                    $posts = glob('posts/*.{php}', GLOB_BRACE);
+                    foreach($posts as $post) {
+                    include $post;
+                    echo("<div class=\"post\"><a href=\"posts/$k\"><h2>$postTitle</h2></a><h3>$postDate</h3><div class=\"postContent\">$postContent</div></div>");
+                        $k++;
+                    }
+                    ?>
+                    </div>
                 </body>
             <?php } else {
                 header("Location: setup");
-            } 
+            }
         }
     }
     function test_input($data) {
