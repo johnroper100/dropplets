@@ -118,7 +118,7 @@
             </head>
             <body>
                 <img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" />
-                <h3>Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License</h3>
+                <h3>Dropplets v2.0 Alpha - Licensed Under the GPL 3.0 License</h3>
             </body>
         <?php } else if ($URI_parts[1] and $URI_parts[1] == 'posts' and $URI_parts[2]) {
             // If the config exists, read it and display the blog.
