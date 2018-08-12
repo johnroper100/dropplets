@@ -107,11 +107,20 @@
                         <input class="btn" type="submit" value="Publish New Post" />
                     </form>
                 </body>
-                
             <?php } else {
                 header("Location: setup");
             }
-        } else if ($URI_parts[1] and $URI_parts[1] == 'posts' and $URI_parts[2]) {
+        } else if ($URI_parts[1] and $URI_parts[1] == 'version') { ?>
+            <head>
+                <title><?php echo($blogName); ?> | New Post</title>
+                <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
+                <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
+            </head>
+            <body>
+                <img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" />
+                <h3>Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License</h3>
+            </body>
+        <?php } else if ($URI_parts[1] and $URI_parts[1] == 'posts' and $URI_parts[2]) {
             // If the config exists, read it and display the blog.
             if (file_exists("config.php")) {
                 include "posts/post$URI_parts[2].php";
@@ -130,9 +139,7 @@
             <?php } else {
                 header("Location: setup");
             }
-        } else if ($URI_parts[1] and $URI_parts[1] == 'version') {
-            echo("Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License");
-        } else {
+         } else {
             // If the config exists, read it and display the blog.
             if (file_exists("config.php")) { ?>
                 <head>
