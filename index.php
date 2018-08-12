@@ -52,7 +52,7 @@
                         $post_content = "<?php\n\$postTitle='".test_input($_POST["blogPostTitle"])."';\n\$postContent='".test_input($_POST["blogPostContent"])."';\n\$postDate='".date("F jS, Y")."';\n?>";
                         $k = 1;
                         while(!$result){
-                            if(!file_exists("post$k.php"))
+                            if(!file_exists("posts/post$k.php"))
                                 $result = "post$k.php";
                             $k++;
                         }
@@ -123,6 +123,15 @@
                 </head>
                 <body>
                 <h1>Homepage</h1>
+                <ul>
+                <?php
+                $posts = glob('posts/*.{php}', GLOB_BRACE);
+                foreach($posts as $post) {
+                  include $post;
+                  echo("<li>".$postTitle." - ".$postDate."</li>");
+                }
+                ?>
+                </ul>
                 </body>
             <?php } else {
                 header("Location: setup");
