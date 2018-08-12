@@ -9,7 +9,7 @@ body {
 h1, h2, h3 {
     color: #343a40;
 }
-input {
+input, textarea {
     border: none;
     margin: 0 auto;
     background-color: #fff;

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <?php
-    if (!include 'config.php') {
+    if (file_exists("config.php")) {
+        include 'config.php';
+    } else {
         $blogName = NULL;
         $blogAuthor = NULL;
         $blogCopyright = NULL;
@@ -40,10 +42,9 @@
             fwrite($config, $config_content);
             fclose($config);
             header("Location: /");
-        } else if (test_input($_POST["form"]) == "upload") {
+        } else if (test_input($_POST["form"]) == "post") {
             if (file_exists("config.php")) {
-                if(isset($_POST["blogPost"]) and isset($_POST["blogPassword"])){
-
+                if(isset($_POST["blogPostTitle"]) and isset($_POST["blogPostContent"]) and isset($_POST["blogPassword"])){
                     if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
                         echo("Still to be done");
                     } else {
@@ -78,21 +79,22 @@
                 </form>
             </body>
             <?php
-        } else if ($URI_parts[1] and $URI_parts[1] == 'upload') {
+        } else if ($URI_parts[1] and $URI_parts[1] == 'post') {
             if (file_exists("config.php")) {
                 ?>
                 <head>
-                    <title><?php echo($blogName) ?> | Upload Post</title>
+                    <title><?php echo($blogName) ?> | New Post</title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
                 </head>
                 <body>
                     <img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" />
-                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
-                        <input type="file" name="blogPost" placeholder="Post File:" required />
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                        <input type="text" name="blogPostTitle" placeholder="Post Title:" required />
+                        <textarea name="blogPostContent" placeholder="Post Content:" required></textarea>
                         <input type="password" name="blogPassword" placeholder="Management Password:" required />
-                        <input type="hidden" name="form" value="upload" required />
-                        <input class="btn" type="submit" value="Upload Post" />
+                        <input type="hidden" name="form" value="post" required />
+                        <input class="btn" type="submit" value="Publish New Post" />
                     </form>
                 </body>
                 <?php
