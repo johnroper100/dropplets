@@ -60,8 +60,7 @@
         }
     } else {
         // If the url is setup, check for config and then show the setup page.
-        if ($URI_parts[1] and $URI_parts[1] == 'setup') {
-            ?>
+        if ($URI_parts[1] and $URI_parts[1] == 'setup') { ?>
             <head>
                 <title>Dropplets | Setup</title>
                 <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
@@ -78,10 +77,8 @@
                     <input class="btn" type="submit" value="Finish Setup" />
                 </form>
             </body>
-            <?php
-        } else if ($URI_parts[1] and $URI_parts[1] == 'post') {
-            if (file_exists("config.php")) {
-                ?>
+        <?php } else if ($URI_parts[1] and $URI_parts[1] == 'post') {
+            if (file_exists("config.php")) { ?>
                 <head>
                     <title><?php echo($blogName) ?> | New Post</title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
@@ -97,27 +94,24 @@
                         <input class="btn" type="submit" value="Publish New Post" />
                     </form>
                 </body>
-                <?php
-            } else {
+                
+            <?php } else {
                 header("Location: setup");
             }
         } else if ($URI_parts[1] and $URI_parts[1] == 'version') {
             echo("Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License");
         } else {
             // If the config exists, read it and display the blog.
-            if (file_exists("config.php")) {
-                ?>
+            if (file_exists("config.php")) { ?>
                 <head>
                     <title><?php echo($blogName) ?> | Home</title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/main.css" />
                 </head>
                 <body>
-                <h1>hi</h1>
+                <h1>Homepage</h1>
                 </body>
-                <?php
-                echo("you have made it home");
-            } else {
+            <?php } else {
                 header("Location: setup");
             } 
         }
