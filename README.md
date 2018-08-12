@@ -10,7 +10,7 @@ Change settings at `http://(your url)/setup`
 ## Project Goals
 
 - Application made up of only one file
-- Simple single-file upload form
+- Simple post publishing form
 - Quick password-only access
 - Database-less platform
 - Works even when the user has disabled JavaScript
