@@ -3,6 +3,10 @@ Dropplets v2.0 Beta - [Latest Version](https://github.com/johnroper100/dropplets
 
 Run locally with `php -S localhost:3100 index.php`
 
+Add a new post at `http://(your url)/post`
+
+Change settings at `http://(your url)/setup`
+
 ## Project Goals
 
 - Application made up of only one file
