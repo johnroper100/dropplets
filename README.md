@@ -9,7 +9,7 @@ Run locally with `php -S localhost:3100 index.php`
 - Simple single-file upload form
 - Quick password-only access
 - Database-less platform
-- Works even when the user has disabled CSS and JavaScript
+- Works even when the user has disabled JavaScript
 
 ## Installation
 
