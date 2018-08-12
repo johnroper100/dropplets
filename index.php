@@ -82,9 +82,9 @@
             <body>
                 <img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" />
                 <form method="post" action="setup">
-                    <input type="text" name="blogName" placeholder="Blog Name:" required value="<?php echo($blogName) ?>"/>
-                    <input type="text" name="blogAuthor" placeholder="Author Name:" required value="<?php echo($blogAuthor) ?>" />
-                    <input type="text" name="blogCopyright" placeholder="Copyright Message:" required value="<?php echo($blogCopyright) ?>" />
+                    <input type="text" name="blogName" placeholder="Blog Name:" required value="<?php echo($blogName); ?>"/>
+                    <input type="text" name="blogAuthor" placeholder="Author Name:" required value="<?php echo($blogAuthor); ?>" />
+                    <input type="text" name="blogCopyright" placeholder="Copyright Message:" required value="<?php echo($blogCopyright); ?>" />
                     <input type="password" name="blogPassword" placeholder="Management Password:" required />
                     <input type="hidden" name="form" value="setup" required />
                     <input class="btn" type="submit" value="Finish Setup" />
@@ -93,7 +93,7 @@
         <?php } else if ($URI_parts[1] and $URI_parts[1] == 'post') {
             if (file_exists("config.php")) { ?>
                 <head>
-                    <title><?php echo($blogName) ?> | New Post</title>
+                    <title><?php echo($blogName); ?> | New Post</title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
                 </head>
@@ -117,12 +117,12 @@
             // If the config exists, read it and display the blog.
             if (file_exists("config.php")) { ?>
                 <head>
-                    <title><?php echo($blogName) ?> | Home</title>
+                    <title><?php echo($blogName); ?> | Home</title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/main.css" />
                 </head>
                 <body>
-                <h1>Homepage</h1>
+                <h1><?php echo($blogName); ?></h1>
                 <ul>
                 <?php
                 $posts = glob('posts/*.{php}', GLOB_BRACE);
