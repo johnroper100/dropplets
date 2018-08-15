@@ -131,10 +131,12 @@
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/main.css" />
                 </head>
                 <body>
-                    <a href="/"><h1><?php echo($blogName); ?></h1></a>
-                    <h2><?php echo($postTitle); ?></h2>
-                    <h3><?php echo($postDate); ?></h3>
-                    <div class="postContent"><?php echo($postContent); ?></div>
+                    <div id="header">
+                        <a id="siteTitleLink" href="/"><h1 id="siteTitle"><?php echo($blogName); ?></h1></a>
+                    </div>
+                    <h2 id="postTitle"><?php echo($postTitle); ?></h2>
+                    <h3 id="postSubtitle"><?php echo($postDate); ?></h3>
+                    <div id="postContent"><?php echo($postContent); ?></div>
                 </body>
             <?php } else {
                 header("Location: setup");
@@ -148,7 +150,9 @@
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/main.css" />
                 </head>
                 <body>
-                    <h1><?php echo($blogName); ?></h1>
+                    <div id="header">
+                        <h1 id="siteTitle"><?php echo($blogName); ?></h1>
+                    </div>
                     <div class="posts">
                     <?php
  
@@ -157,7 +161,7 @@
                     while($index) {
                     include $posts[--$index];
                     $num = --$index;
-                    echo("<div class=\"post\"><a href=\"posts/$num\"><h2>$postTitle</h2></a><h3>$postDate</h3><div class=\"postContent\">$postContent</div></div>");
+                    echo("<div class=\"post\"><a href=\"posts/$num\"><h2 id=\"postTitle\">$postTitle</h2></a><h3 id=\"postSubtitle\">$postDate</h3><div id=\"postContent\">$postContent</div></div>");
 
                     }
                     ?>
