@@ -151,12 +151,14 @@
                     <h1><?php echo($blogName); ?></h1>
                     <div class="posts">
                     <?php
-                    $k = 1;
+ 
                     $posts = glob('posts/*.{php}', GLOB_BRACE);
-                    foreach($posts as $post) {
-                    include $post;
-                    echo("<div class=\"post\"><a href=\"posts/$k\"><h2>$postTitle</h2></a><h3>$postDate</h3><div class=\"postContent\">$postContent</div></div>");
-                        $k++;
+                    $index = count($posts);
+                    while($index) {
+                    include $posts[--$index];
+                    $num = --$index;
+                    echo("<div class=\"post\"><a href=\"posts/$num\"><h2>$postTitle</h2></a><h3>$postDate</h3><div class=\"postContent\">$postContent</div></div>");
+
                     }
                     ?>
                     </div>
