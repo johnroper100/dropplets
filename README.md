@@ -14,6 +14,7 @@ Change settings at `http://(your url)/setup`
 - Quick password-only access
 - Database-less platform
 - Works even when the user has disabled JavaScript
+- Under 500 lines of code
 
 ## Installation
 
