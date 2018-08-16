@@ -154,17 +154,15 @@
                         <h1 id="siteTitle"><?php echo($blogName); ?></h1>
                     </div>
                     <div class="posts">
-                    <?php
- 
-                    $posts = glob('posts/*.{php}', GLOB_BRACE);
-                    $index = count($posts);
-                    while($index) {
-                    include $posts[--$index];
-                    $num = --$index;
-                    echo("<div class=\"post\"><a href=\"posts/$num\"><h2 id=\"postTitle\">$postTitle</h2></a><h3 id=\"postSubtitle\">$postDate</h3><div id=\"postContent\">$postContent</div></div>");
-
-                    }
-                    ?>
+                        <?php
+                        $posts = glob('posts/*.{php}', GLOB_BRACE);
+                        $index = count($posts);
+                        while($index) {
+                            include $posts[--$index];
+                            $num = --$index;
+                            echo("<div class=\"post\"><a href=\"posts/$num\"><h2 id=\"postTitle\">$postTitle</h2></a><h3 id=\"postSubtitle\">$postDate</h3><div id=\"postContent\">$postContent</div></div>");
+                        }
+                        ?>
                     </div>
                 </body>
             <?php } else {
