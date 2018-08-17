@@ -87,6 +87,10 @@
                     <input type="text" name="blogAuthor" placeholder="Author Name:" required value="<?php echo($blogAuthor); ?>" />
                     <input type="text" name="blogCopyright" placeholder="Copyright Message:" required value="<?php echo($blogCopyright); ?>" />
                     <input type="password" name="blogPassword" placeholder="Management Password:" required />
+                    <select name="blogStyleType">
+                        <option value="default" default>Use Default Stylesheet</option>
+                        <option value="custom">Use Custom Stylesheet</option>
+                    </select>
                     <input type="hidden" name="form" value="setup" required />
                     <input class="btn" type="submit" value="Finish Setup" />
                 </form>
