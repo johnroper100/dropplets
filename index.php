@@ -189,6 +189,9 @@
                         }
                         ?>
                     </div>
+                    <div id="footer">
+                        <p class="footerText"><?php echo($blogCopyright); ?></p>
+                    </div>
                 </body>
             <?php } else {
                 header("Location: setup");
