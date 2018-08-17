@@ -19,7 +19,7 @@ input, textarea, select {
     border-bottom: solid 2px #ADB5BD;
     width: 40vw;
     font-size: 1.25rem;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
     line-height: 200%;
     display: block;
 }
@@ -54,9 +54,9 @@ input:required:valid {
     color: #adb5bd;
 }
 .headerLogo {
-    height: 25vh;
+    height: 20vh;
     margin-top: 2.5rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
 }
 .btn {
     border: none;
