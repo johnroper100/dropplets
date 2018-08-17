@@ -38,10 +38,10 @@
                 if (!file_exists("config.php")) {
                     $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
                     
-                    $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$password_hash."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n?>";
+                    $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$password_hash."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n\$headerInject='';\n\$footerInject='';\n?>";
                 } else {
                     if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
-                        $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$blogPassword."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n?>";
+                        $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$blogPassword."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n\$headerInject='".$headerInject."';\n\$footerInject='".$footerInject."';\n?>";
                     } else {
                         echo("Management password not correct!");
                         exit;
@@ -81,7 +81,9 @@
         }
     } else {
         // If the url is setup, check for config and then show the setup page.
-        if ($URI_parts[1] and $URI_parts[1] == 'setup') { ?>
+        if ($URI_parts[1] and $URI_parts[1] == 'setup') { 
+            if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
+        ?>
             <head>
                 <title>Dropplets | Setup</title>
                 <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
@@ -154,6 +156,7 @@
                     <title><?php echo($blogName); ?> | <?php echo($postTitle); ?></title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
                     <link type="text/css" rel="stylesheet" href="<?php echo($blogStyleSheet); ?>" />
+                    <?php echo($headerInject); ?>
                 </head>
                 <body>
                     <div id="header">
@@ -162,6 +165,10 @@
                     <h2 id="postTitle"><?php echo($postTitle); ?></h2>
                     <h3 id="postSubtitle"><?php echo($postDate); ?></h3>
                     <div id="postContent"><?php echo($postContent); ?></div>
+                    <div id="footer">
+                        <p class="footerText"><?php echo($blogCopyright); ?></p>
+                    </div>
+                    <?php echo($footerInject); ?>
                 </body>
             <?php } else {
                 header("Location: setup");
@@ -173,6 +180,7 @@
                     <title><?php echo($blogName); ?> | Home</title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
                     <link type="text/css" rel="stylesheet" href="<?php echo($blogStyleSheet); ?>" />
+                    <?php echo($headerInject); ?>
                 </head>
                 <body>
                     <div id="header">
@@ -192,6 +200,7 @@
                     <div id="footer">
                         <p class="footerText"><?php echo($blogCopyright); ?></p>
                     </div>
+                    <?php echo($footerInject); ?>
                 </body>
             <?php } else {
                 header("Location: setup");
