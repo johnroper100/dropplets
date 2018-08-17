@@ -19,7 +19,7 @@ input, textarea, select {
     border-bottom: solid 2px #ADB5BD;
     width: 40vw;
     font-size: 1.25rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.175rem;
     line-height: 200%;
     display: block;
 }
@@ -54,7 +54,7 @@ input:required:valid {
     color: #adb5bd;
 }
 .headerLogo {
-    height: 20vh;
+    height: 19.2vh;
     margin-top: 2.5rem;
     margin-bottom: 1.5rem;
 }
@@ -65,7 +65,7 @@ input:required:valid {
     font-weight: 600;
     color: #F8F9FA;
     height: 3rem;
-    margin-top: 2.5rem;
+    margin-top: 1.75rem;
 }
 
 .btn:hover {

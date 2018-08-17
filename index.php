@@ -27,14 +27,21 @@
         // Setup form submitted, create config.php.
         if (test_input($_POST["form"]) == "setup") {
             // Check that the form items are there.
-            if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogCopyright"]) and isset($_POST["blogPassword"])){
+            if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogCopyright"]) and isset($_POST["blogPassword"]) and isset($_POST["blogStyleType"])){
+                // Get the stylesheet link (placed here to be used in both the if config.php and if not)
+                if (test_input($_POST["blogStyleType"]) == "default") {
+                    $blogStyleSheet = "https://rawgit.com/johnroper100/dropplets/2.0/setup.css";
+                } else {
+                    $blogStyleSheet = test_input($_POST["blogStyleSheet"]);
+                }
                 // If the config does not exist, create it. If it does, update it.
                 if (!file_exists("config.php")) {
                     $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
-                    $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$password_hash."';\n?>";
+                    
+                    $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$password_hash."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n?>";
                 } else {
                     if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
-                        $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$blogPassword."'\n?>";
+                        $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$blogPassword."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n?>";
                     } else {
                         echo("Management password not correct!");
                         exit;
@@ -86,11 +93,12 @@
                     <input type="text" name="blogName" placeholder="Blog Name:" required value="<?php echo($blogName); ?>"/>
                     <input type="text" name="blogAuthor" placeholder="Author Name:" required value="<?php echo($blogAuthor); ?>" />
                     <input type="text" name="blogCopyright" placeholder="Copyright Message:" required value="<?php echo($blogCopyright); ?>" />
-                    <input type="password" name="blogPassword" placeholder="Management Password:" required />
                     <select name="blogStyleType">
-                        <option value="default" default>Use Default Stylesheet</option>
-                        <option value="custom">Use Custom Stylesheet</option>
+        <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use Default Stylesheet</option>
+                        <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>Use Custom Stylesheet</option>
                     </select>
+                    <input type="url" name="blogStyleSheet" placeholder="Custom Stylesheet Link:" value="<?php if ($blogStyleType == 'custom') { echo($blogStyleSheet); } ?>" />
+                    <input type="password" name="blogPassword" placeholder="Management Password:" required />
                     <input type="hidden" name="form" value="setup" required />
                     <input class="btn" type="submit" value="Finish Setup" />
                 </form>
