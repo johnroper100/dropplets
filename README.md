@@ -10,6 +10,7 @@ Change settings at `http://(your url)/setup`
 ## Project Goals
 
 - Application made up of only one file
+- 30 second install and setup
 - Simple post publishing form
 - Quick password-only access
 - Database-less platform
@@ -29,6 +30,6 @@ Change settings at `http://(your url)/setup`
 
 Design Mockups - https://www.figma.com/file/S4yjDmgoos5rs3CAsR7Hg5sU/Dropplets-v2.0?node-id=1%3A2
 
-Color Palette - https://yeun.github.io/open-color/
+Color Palette (backend and default theme) - https://yeun.github.io/open-color/
 
 Dependency Hosting - https://rawgit.com/
