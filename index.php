@@ -157,7 +157,7 @@
                     <div class="posts">
                         <?php
                         $posts = array_reverse(glob('posts/*.{php}', GLOB_BRACE));
-                        $index = count($posts);
+                        $index = count($posts)+1;
                         foreach($posts as $post) {
                             include $post;
                             $index--;
