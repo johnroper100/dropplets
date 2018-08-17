@@ -19,7 +19,7 @@ Change settings at `http://(your url)/setup`
 
 ## Installation
 
-- Simply use the `Latest Version` link above to download `index.php`. Copy it to a folder on your server.
+Simply use the `Latest Version` link above to download `index.php`. Copy it to a folder on your server.
 
 ## Requirements
 
