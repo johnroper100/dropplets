@@ -1,11 +1,13 @@
 Dropplets v2.0 Beta - [Latest Version](https://github.com/johnroper100/dropplets/raw/2.0/index.php)
 ======================================
 
-Run locally with `php -S localhost:3100 index.php`
+Change settings at `http://(your url)/setup`
 
 Add a new post at `http://(your url)/post`
 
-Change settings at `http://(your url)/setup`
+View current version at `http://(your url)/version`
+
+Run locally with `php -S localhost:3100 index.php`
 
 ## Project Goals
 
