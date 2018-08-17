@@ -164,7 +164,7 @@
                     </div>
                     <h2 id="postTitle"><?php echo($postTitle); ?></h2>
                     <h3 id="postSubtitle"><?php echo($postDate); ?></h3>
-                    <div id="postContent"><?php echo($postContent); ?></div>
+                    <div id="postContent"><?php echo(Slimdown::render($postContent)); ?></div>
                     <div id="footer">
                         <p class="footerText"><?php echo($blogCopyright); ?></p>
                     </div>
@@ -193,7 +193,7 @@
                         foreach($posts as $post) {
                             include $post;
                             $index--;
-                            echo("<div class=\"post\"><a href=\"posts/$index\"><h2 id=\"postTitle\">$postTitle</h2></a><h3 id=\"postSubtitle\">$postDate</h3><div id=\"postContent\">$postContent</div></div>");
+                            echo("<div class=\"post\"><a href=\"posts/$index\"><h2 id=\"postTitle\">$postTitle</h2></a><h3 id=\"postSubtitle\">$postDate</h3><div id=\"postContent\">".substr(Slimdown::render($postContent), 0, 250)."</div></div>");
                         }
                         ?>
                     </div>
@@ -212,6 +212,64 @@
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
+    }
+    class Slimdown {
+        public static $rules = array (
+            '/(#+)(.*)/' => 'self::header',                           // headers
+            '/\[([^\[]+)\]\(([^\)]+)\)/' => '<a href=\'\2\'>\1</a>',  // links
+            '/\n\*(.*)/' => 'self::ul_list',                          // ul lists
+            '/(\*\*|__)(.*?)\1/' => '<strong>\2</strong>',            // bold
+            '/(\*|_)(.*?)\1/' => '<em>\2</em>',                       // emphasis
+            '/\~\~(.*?)\~\~/' => '<del>\1</del>',                     // del
+            '/\:\"(.*?)\"\:/' => '<q>\1</q>',                         // quote
+            '/`(.*?)`/' => '<code>\1</code>',                         // inline code
+            '/\n[0-9]+\.(.*)/' => 'self::ol_list',                    // ol lists
+            '/\n(&gt;|\>)(.*)/' => 'self::blockquote ',               // blockquotes
+            '/\n-{5,}/' => "\n<hr />",                                // horizontal rule
+            '/\n([^\n]+)\n/' => 'self::para',                         // add paragraphs
+            '/<\/ul>\s?<ul>/' => '',                                  // fix extra ul
+            '/<\/ol>\s?<ol>/' => '',                                  // fix extra ol
+            '/<\/blockquote><blockquote>/' => "\n"                    // fix extra blockquote
+        );
+        private static function para ($regs) {
+            $line = $regs[1];
+            $trimmed = trim ($line);
+            if (preg_match ('/^<\/?(ul|ol|li|h|p|bl)/', $trimmed)) {
+                return "\n" . $line . "\n";
+            }
+            return sprintf ("\n<p>%s</p>\n", $trimmed);
+        }
+        private static function ul_list ($regs) {
+            $item = $regs[1];
+            return sprintf ("\n<ul>\n\t<li>%s</li>\n</ul>", trim ($item));
+        }
+        private static function ol_list ($regs) {
+            $item = $regs[1];
+            return sprintf ("\n<ol>\n\t<li>%s</li>\n</ol>", trim ($item));
+        }
+        private static function blockquote ($regs) {
+            $item = $regs[2];
+            return sprintf ("\n<blockquote>%s</blockquote>", trim ($item));
+        }
+        private static function header ($regs) {
+            list ($tmp, $chars, $header) = $regs;
+            $level = strlen ($chars);
+            return sprintf ('<h%d>%s</h%d>', $level, trim ($header), $level);
+        }
+        /**
+         * Render some Markdown into HTML.
+         */
+        public static function render ($text) {
+            $text = "\n" . $text . "\n";
+            foreach (self::$rules as $regex => $replacement) {
+                if (is_callable ( $replacement)) {
+                    $text = preg_replace_callback ($regex, $replacement, $text);
+                } else {
+                    $text = preg_replace ($regex, $replacement, $text);
+                }
+            }
+            return trim ($text);
+        }
     }
 ?>
 </html>
