@@ -51,6 +51,7 @@
                     if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
                         $post_content = "<?php\n\$postTitle='".test_input($_POST["blogPostTitle"])."';\n\$postContent='".test_input($_POST["blogPostContent"])."';\n\$postDate='".date("F jS, Y")."';\n?>";
                         $k = 1;
+                        $result = NULL;
                         while(!$result){
                             if(!file_exists("posts/post$k.php"))
                                 $result = "post$k.php";
@@ -155,12 +156,12 @@
                     </div>
                     <div class="posts">
                         <?php
-                        $posts = glob('posts/*.{php}', GLOB_BRACE);
+                        $posts = array_reverse(glob('posts/*.{php}', GLOB_BRACE));
                         $index = count($posts);
-                        while($index) {
-                            include $posts[--$index];
-                            $num = --$index;
-                            echo("<div class=\"post\"><a href=\"posts/$num\"><h2 id=\"postTitle\">$postTitle</h2></a><h3 id=\"postSubtitle\">$postDate</h3><div id=\"postContent\">$postContent</div></div>");
+                        foreach($posts as $post) {
+                            include $post;
+                            $index--;
+                            echo("<div class=\"post\"><a href=\"posts/$index\"><h2 id=\"postTitle\">$postTitle</h2></a><h3 id=\"postSubtitle\">$postDate</h3><div id=\"postContent\">$postContent</div></div>");
                         }
                         ?>
                     </div>
