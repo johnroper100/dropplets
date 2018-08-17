@@ -30,7 +30,7 @@
             if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogCopyright"]) and isset($_POST["blogPassword"]) and isset($_POST["blogStyleType"])){
                 // Get the stylesheet link (placed here to be used in both the if config.php and if not)
                 if (test_input($_POST["blogStyleType"]) == "default") {
-                    $blogStyleSheet = "https://rawgit.com/johnroper100/dropplets/2.0/setup.css";
+                    $blogStyleSheet = "https://rawgit.com/johnroper100/dropplets/2.0/main.css";
                 } else {
                     $blogStyleSheet = test_input($_POST["blogStyleSheet"]);
                 }
@@ -94,7 +94,7 @@
                     <input type="text" name="blogAuthor" placeholder="Author Name:" required value="<?php echo($blogAuthor); ?>" />
                     <input type="text" name="blogCopyright" placeholder="Copyright Message:" required value="<?php echo($blogCopyright); ?>" />
                     <select name="blogStyleType">
-        <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use Default Stylesheet</option>
+                        <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use Default Stylesheet</option>
                         <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>Use Custom Stylesheet</option>
                     </select>
                     <input type="url" name="blogStyleSheet" placeholder="Custom Stylesheet Link:" value="<?php if ($blogStyleType == 'custom') { echo($blogStyleSheet); } ?>" />
@@ -141,7 +141,7 @@
                 <head>
                     <title><?php echo($blogName); ?> | <?php echo($postTitle); ?></title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
-                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/main.css" />
+                    <link type="text/css" rel="stylesheet" href="<?php echo($blogStyleSheet); ?>" />
                 </head>
                 <body>
                     <div id="header">
@@ -160,7 +160,7 @@
                 <head>
                     <title><?php echo($blogName); ?> | Home</title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
-                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/main.css" />
+                    <link type="text/css" rel="stylesheet" href="<?php echo($blogStyleSheet); ?>" />
                 </head>
                 <body>
                     <div id="header">
