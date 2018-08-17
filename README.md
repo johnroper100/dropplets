@@ -1,4 +1,4 @@
-Dropplets v2.0 Alpha - [Latest Version](https://github.com/johnroper100/dropplets/raw/2.0/index.php)
+Dropplets v2.0 Beta - [Latest Version](https://github.com/johnroper100/dropplets/raw/2.0/index.php)
 ======================================
 
 Run locally with `php -S localhost:3100 index.php`
