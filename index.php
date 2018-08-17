@@ -93,15 +93,27 @@
                     <input type="text" name="blogName" placeholder="Blog Name:" required value="<?php echo($blogName); ?>"/>
                     <input type="text" name="blogAuthor" placeholder="Author Name:" required value="<?php echo($blogAuthor); ?>" />
                     <input type="text" name="blogCopyright" placeholder="Copyright Message:" required value="<?php echo($blogCopyright); ?>" />
-                    <select name="blogStyleType">
+                    <select name="blogStyleType" onchange="showStyleInput(this);">
                         <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use Default Stylesheet</option>
                         <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>Use Custom Stylesheet</option>
                     </select>
-                    <input type="url" name="blogStyleSheet" placeholder="Custom Stylesheet Link:" value="<?php if ($blogStyleType == 'custom') { echo($blogStyleSheet); } ?>" />
+                    <input id="blogStyleSheet" type="url" name="blogStyleSheet" placeholder="Custom Stylesheet Link:" value="<?php if ($blogStyleType == 'custom') { echo($blogStyleSheet); } ?>" />
                     <input type="password" name="blogPassword" placeholder="Management Password:" required />
                     <input type="hidden" name="form" value="setup" required />
                     <input class="btn" type="submit" value="Finish Setup" />
                 </form>
+                <script>
+                    <?php if ($blogStyleType == 'default') { ?>
+                        document.getElementById("blogStyleSheet").style.display = "none";
+                    <?php } ?>
+                    function showStyleInput(that) {
+                        if (that.value == "custom") {
+                            document.getElementById("blogStyleSheet").style.display = "block";
+                        } else {
+                            document.getElementById("blogStyleSheet").style.display = "none";
+                        }
+                    }
+                </script>
             </body>
         <?php } else if ($URI_parts[1] and $URI_parts[1] == 'post') {
             if (file_exists("config.php")) { ?>
