@@ -28,6 +28,12 @@ Simply use the `Latest Version` link above to download `index.php`. Copy it to a
 - Make sure `index.php` has execution permission
 - Make sure `index.php` can write to the folder containing it
 
+## TODO
+
+- Finish built-in styling
+- Add cuatom styling support for posts
+- Add update button in settings
+
 ## Resources
 
 Design Mockups - https://www.figma.com/file/S4yjDmgoos5rs3CAsR7Hg5sU/Dropplets-v2.0?node-id=1%3A2
