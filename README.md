@@ -33,6 +33,7 @@ Simply use the `Latest Version` link above to download `index.php`. Copy it to a
 - Finish built-in styling
 - Add cuatom styling support for posts
 - Add update button in settings
+- Write documentation
 
 ## Resources
 
