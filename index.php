@@ -56,7 +56,7 @@
             if (file_exists("config.php")) {
                 if(isset($_POST["blogPostTitle"]) and isset($_POST["blogPostContent"]) and isset($_POST["blogPassword"])){
                     if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
-                        $post_content = "<?php\n\$postTitle='".test_input($_POST["blogPostTitle"])."';\n\$postContent='".test_input($_POST["blogPostContent"])."';\n\$postDate='".date("F jS, Y")."';\n?>";
+                        $post_content = "<?php\n\$postTitle='".test_input($_POST["blogPostTitle"])."';\n\$postContent='".$_POST["blogPostContent"]."';\n\$postDate='".date("F jS, Y")."';\n?>";
                         $k = 1;
                         $result = NULL;
                         while(!$result){
