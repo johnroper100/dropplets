@@ -129,10 +129,27 @@
                     <form method="post" action="post">
                         <input type="text" name="blogPostTitle" placeholder="Post Title:" required />
                         <textarea name="blogPostContent" placeholder="Post Content:" required></textarea>
+                        <select name="blogPostStyleType" onchange="showStyleInput(this);">
+                            <option value="default" selected>Use Default Stylesheet</option>
+                            <option value="custom">Use Custom Stylesheet</option>
+                        </select>
+                        <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="Custom Stylesheet Link:" />
                         <input type="password" name="blogPassword" placeholder="Management Password:" required />
                         <input type="hidden" name="form" value="post" required />
                         <input class="btn" type="submit" value="Publish New Post" />
                     </form>
+                    <script>
+               
+                        document.getElementById("blogPostStyleSheet").style.display = "none";
+
+                    function showStyleInput(that) {
+                        if (that.value == "custom") {
+                            document.getElementById("blogPostStyleSheet").style.display = "block";
+                        } else {
+                            document.getElementById("blogPostStyleSheet").style.display = "none";
+                        }
+                    }
+                </script>
                 </body>
             <?php } else {
                 header("Location: setup");
