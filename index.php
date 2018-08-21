@@ -83,6 +83,20 @@
             } else {
                 header("Location: setup");
             }
+        } else if (test_input($_POST["form"]) == "update") {
+            if (file_exists("config.php")) {
+                if(isset($_POST["blogPassword"])){
+                    if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
+                        file_put_contents("index.php", fopen("https://rawgit.com/johnroper100/dropplets/2.0/index.php", 'r'));
+                        header("Location: /");
+                    } else {
+                        echo("Management password not correct!");
+                        exit;
+                    }
+                }
+            } else {
+                header("Location: setup");
+            }
         } else {
             echo("The form could not be submitted. Please try again later.");
         }
@@ -172,6 +186,20 @@
             <body>
                 <a href="https://github.com/johnroper100/dropplets/tree/2.0"><img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" /></a>
                 <h3>Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License</h3>
+            </body>
+        <?php } else if ($URI_parts[1] and $URI_parts[1] == 'update') { ?>
+            <head>
+                <title><?php echo($blogName); ?> | Update</title>
+                <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
+                <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
+            </head>
+            <body>
+                <a href="https://github.com/johnroper100/dropplets/tree/2.0"><img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" /></a>
+                <form method="post" action="post">
+                    <input type="password" name="blogPassword" placeholder="Management Password:" required />
+                    <input type="hidden" name="form" value="update" required />
+                    <input class="btn" type="submit" value="Update Dropplets" />
+                </form>
             </body>
         <?php } else if ($URI_parts[1] and $URI_parts[1] == 'posts' and $URI_parts[2]) {
             // If the config exists, read it and display the blog.
