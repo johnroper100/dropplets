@@ -54,9 +54,9 @@ input:required:valid {
     color: #adb5bd;
 }
 .headerLogo {
-    height: 19.2vh;
+    height: 20vh;
     margin-top: 2.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
 }
 .btn {
     border: none;
