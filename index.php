@@ -31,17 +31,19 @@
                 // Get the stylesheet link (placed here to be used in both the if config.php and if not)
                 if (test_input($_POST["blogStyleType"]) == "default") {
                     $blogStyleSheet = "https://rawgit.com/johnroper100/dropplets/2.0/main.css";
+                    $blogPostStyleSheet = "https://rawgit.com/johnroper100/dropplets/2.0/main.css";
                 } else {
                     $blogStyleSheet = test_input($_POST["blogStyleSheet"]);
+                    $blogPostStyleSheet = test_input($_POST["blogPostStyleSheet"]);
                 }
                 // If the config does not exist, create it. If it does, update it.
                 if (!file_exists("config.php")) {
                     $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
                     
-                    $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$password_hash."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n\$headerInject='';\n\$footerInject='';\n?>";
+                    $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$password_hash."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n\$blogPostStyleSheet='".$blogPostStyleSheet."';\n\$headerInject='';\n\$footerInject='';\n?>";
                 } else {
                     if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
-                        $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$blogPassword."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n\$headerInject='".$headerInject."';\n\$footerInject='".$footerInject."';\n?>";
+                        $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$blogPassword."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n\$blogPostStyleSheet='".$blogPostStyleSheet."';\n\$headerInject='".$headerInject."';\n\$footerInject='".$footerInject."';\n?>";
                     } else {
                         echo("Management password not correct!");
                         exit;
@@ -54,9 +56,14 @@
             header("Location: /");
         } else if (test_input($_POST["form"]) == "post") {
             if (file_exists("config.php")) {
-                if(isset($_POST["blogPostTitle"]) and isset($_POST["blogPostContent"]) and isset($_POST["blogPassword"])){
+                if(isset($_POST["blogPostTitle"]) and isset($_POST["blogPostContent"]) and isset($_POST["blogPassword"]) and isset($_POST["blogPostStyleType"])){
                     if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
-                        $post_content = "<?php\n\$postTitle='".test_input($_POST["blogPostTitle"])."';\n\$postContent='".$_POST["blogPostContent"]."';\n\$postDate='".date("F jS, Y")."';\n?>";
+                        if (test_input($_POST["blogPostStyleType"]) == "default") {
+                            $postStyleSheet = $blogPostStyleSheet;
+                        } else {
+                            $postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
+                        }
+                        $post_content = "<?php\n\$postTitle='".test_input($_POST["blogPostTitle"])."';\n\$postContent='".$_POST["blogPostContent"]."';\n\$postDate='".date("F jS, Y")."';\n\$postStyleSheet='".$postStyleSheet."';\n?>";
                         $k = 1;
                         $result = NULL;
                         while(!$result){
@@ -96,10 +103,11 @@
                     <input type="text" name="blogAuthor" placeholder="Author Name:" required value="<?php echo($blogAuthor); ?>" />
                     <input type="text" name="blogCopyright" placeholder="Copyright Message:" required value="<?php echo($blogCopyright); ?>" />
                     <select name="blogStyleType" onchange="showStyleInput(this);">
-                        <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use Default Stylesheet</option>
-                        <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>Use Custom Stylesheet</option>
+                        <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use Default Stylesheets</option>
+                        <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>Use Custom Stylesheets</option>
                     </select>
                     <input id="blogStyleSheet" type="url" name="blogStyleSheet" placeholder="Custom Stylesheet Link:" value="<?php if ($blogStyleType == 'custom') { echo($blogStyleSheet); } ?>" />
+                    <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="Custom Post Stylesheet Link:" value="<?php if ($blogStyleType == 'custom') { echo($blogPostStyleSheet); } ?>" />
                     <input type="password" name="blogPassword" placeholder="Management Password:" required />
                     <input type="hidden" name="form" value="setup" required />
                     <input class="btn" type="submit" value="Finish Setup" />
@@ -107,12 +115,15 @@
                 <script>
                     <?php if ($blogStyleType == 'default') { ?>
                         document.getElementById("blogStyleSheet").style.display = "none";
+                        document.getElementById("blogPostStyleSheet").style.display = "none";
                     <?php } ?>
                     function showStyleInput(that) {
                         if (that.value == "custom") {
                             document.getElementById("blogStyleSheet").style.display = "block";
+                            document.getElementById("blogPostStyleSheet").style.display = "block";
                         } else {
                             document.getElementById("blogStyleSheet").style.display = "none";
+                            document.getElementById("blogPostStyleSheet").style.display = "none";
                         }
                     }
                 </script>
@@ -139,9 +150,7 @@
                         <input class="btn" type="submit" value="Publish New Post" />
                     </form>
                     <script>
-               
-                        document.getElementById("blogPostStyleSheet").style.display = "none";
-
+                    document.getElementById("blogPostStyleSheet").style.display = "none";
                     function showStyleInput(that) {
                         if (that.value == "custom") {
                             document.getElementById("blogPostStyleSheet").style.display = "block";
@@ -172,7 +181,7 @@
                 <head>
                     <title><?php echo($blogName); ?> | <?php echo($postTitle); ?></title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
-                    <link type="text/css" rel="stylesheet" href="<?php echo($blogStyleSheet); ?>" />
+                    <link type="text/css" rel="stylesheet" href="<?php echo($postStyleSheet); ?>" />
                     <?php echo($headerInject); ?>
                 </head>
                 <body>
