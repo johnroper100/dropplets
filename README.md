@@ -7,6 +7,8 @@ Add a new post at `http://(your url)/post`
 
 View current version at `http://(your url)/version`
 
+Update to latest version at `http://(your url)/update`
+
 Run locally with `php -S localhost:3100 index.php`
 
 ## Project Goals
