@@ -31,7 +31,6 @@ Simply use the `Latest Version` link above to download `index.php`. Copy it to a
 ## TODO
 
 - Finish built-in styling
-- Add custom styling support for posts
 - Add dropplets update button in settings
 - Write documentation
 
