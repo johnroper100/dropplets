@@ -104,8 +104,7 @@
         }
     } else {
         // If the url is setup, check for config and then show the setup page.
-        if ($URI_parts[0] and $URI_parts[0
-] == 'setup') { 
+        if ($URI_parts[0] and $URI_parts[0] == 'setup') { 
             if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
         ?>
             <head>
