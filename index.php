@@ -23,7 +23,7 @@
     $URI = parse_url($_SERVER['REQUEST_URI']);
     $URI_parts = explode('/', $URI['path']);
 
-    $URI_parts = array_slice(explode('/', rtrim($URI['path'], '/')), -1);
+    $URI_parts = array_reverse(explode('/', rtrim($URI['path'], '/')));
     // If a form is submitted, process it. Otherwise, show the main web page.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Setup form submitted, create config.php.
