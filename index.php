@@ -22,6 +22,8 @@
     // Get the url parameters.
     $URI = parse_url($_SERVER['REQUEST_URI']);
     $URI_parts = explode('/', $URI['path']);
+
+    $URI_parts = array_slice(explode('/', rtrim($URI['path'], '/')), -1);
     // If a form is submitted, process it. Otherwise, show the main web page.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Setup form submitted, create config.php.
@@ -102,7 +104,8 @@
         }
     } else {
         // If the url is setup, check for config and then show the setup page.
-        if ($URI_parts[1] and $URI_parts[1] == 'setup') { 
+        if ($URI_parts[0] and $URI_parts[0
+] == 'setup') { 
             if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
         ?>
             <head>
@@ -142,7 +145,7 @@
                     }
                 </script>
             </body>
-        <?php } else if ($URI_parts[1] and $URI_parts[1] == 'post') {
+        <?php } else if ($URI_parts[1] and $URI_parts[0] == 'post') {
             if (file_exists("config.php")) { ?>
                 <head>
                     <title><?php echo($blogName); ?> | New Post</title>
@@ -177,7 +180,7 @@
             <?php } else {
                 header("Location: setup");
             }
-        } else if ($URI_parts[1] and $URI_parts[1] == 'version') { ?>
+        } else if ($URI_parts[1] and $URI_parts[0] == 'version') { ?>
             <head>
                 <title><?php echo($blogName); ?> | New Post</title>
                 <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
@@ -201,10 +204,10 @@
                     <input class="btn" type="submit" value="Update Dropplets" />
                 </form>
             </body>
-        <?php } else if ($URI_parts[1] and $URI_parts[1] == 'posts' and $URI_parts[2]) {
+        <?php } else if ($URI_parts[2] and $URI_parts[1] == 'posts' and $URI_parts[0]) {
             // If the config exists, read it and display the blog.
             if (file_exists("config.php")) {
-                include "posts/post$URI_parts[2].php";
+                include "posts/post$URI_parts[0].php";
                 ?>
                 <head>
                     <title><?php echo($blogName); ?> | <?php echo($postTitle); ?></title>
