@@ -144,7 +144,7 @@
                     }
                 </script>
             </body>
-        <?php } else if ($URI_parts[1] and $URI_parts[0] == 'post') {
+        <?php } else if ($URI_parts[0] and $URI_parts[0] == 'post') {
             if (file_exists("config.php")) { ?>
                 <head>
                     <title><?php echo($blogName); ?> | New Post</title>
@@ -179,7 +179,7 @@
             <?php } else {
                 header("Location: setup");
             }
-        } else if ($URI_parts[1] and $URI_parts[0] == 'version') { ?>
+        } else if ($URI_parts[0] and $URI_parts[0] == 'version') { ?>
             <head>
                 <title><?php echo($blogName); ?> | New Post</title>
                 <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
@@ -189,7 +189,7 @@
                 <a href="https://github.com/johnroper100/dropplets/tree/2.0"><img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" /></a>
                 <h3>Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License</h3>
             </body>
-        <?php } else if ($URI_parts[1] and $URI_parts[1] == 'update') { ?>
+        <?php } else if ($URI_parts[0] and $URI_parts[0] == 'update') { ?>
             <head>
                 <title><?php echo($blogName); ?> | Update</title>
                 <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
@@ -203,7 +203,7 @@
                     <input class="btn" type="submit" value="Update Dropplets" />
                 </form>
             </body>
-        <?php } else if ($URI_parts[2] and $URI_parts[1] == 'posts' and $URI_parts[0]) {
+        <?php } else if ($URI_parts[1] and $URI_parts[1] == 'posts' and $URI_parts[0]) {
             // If the config exists, read it and display the blog.
             if (file_exists("config.php")) {
                 include "posts/post$URI_parts[0].php";
