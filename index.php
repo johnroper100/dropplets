@@ -212,19 +212,19 @@
                     <title><?php echo($blogName); ?> | <?php echo($postTitle); ?></title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
                     <link type="text/css" rel="stylesheet" href="<?php echo($postStyleSheet); ?>" />
-                    <?php echo($headerInject); ?>
                 </head>
                 <body>
                     <div id="header">
                         <a id="siteTitleLink" href="/"><h1 id="siteTitle"><?php echo($blogName); ?></h1></a>
+                        <?php echo($headerInject); ?>
                     </div>
                     <h2 id="postTitle"><?php echo($postTitle); ?></h2>
                     <h3 id="postSubtitle"><?php echo($postDate); ?></h3>
                     <div id="postContent"><?php echo(Slimdown::render($postContent)); ?></div>
                     <div id="footer">
+                        <?php echo($footerInject); ?>
                         <p class="footerText"><?php echo($blogCopyright); ?></p>
                     </div>
-                    <?php echo($footerInject); ?>
                 </body>
             <?php } else {
                 header("Location: setup");
@@ -236,11 +236,11 @@
                     <title><?php echo($blogName); ?> | Home</title>
                     <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
                     <link type="text/css" rel="stylesheet" href="<?php echo($blogStyleSheet); ?>" />
-                    <?php echo($headerInject); ?>
                 </head>
                 <body>
                     <div id="header">
                         <h1 id="siteTitle"><?php echo($blogName); ?></h1>
+                        <?php echo($headerInject); ?>
                     </div>
                     <div class="posts">
                         <?php
@@ -254,9 +254,9 @@
                         ?>
                     </div>
                     <div id="footer">
+                        <?php echo($footerInject); ?>
                         <p class="footerText"><?php echo($blogCopyright); ?></p>
                     </div>
-                    <?php echo($footerInject); ?>
                 </body>
             <?php } else {
                 header("Location: setup");
