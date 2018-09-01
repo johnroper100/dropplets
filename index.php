@@ -167,19 +167,29 @@
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
                 </head>
                 <body>
-                    <a href="https://github.com/johnroper100/dropplets/tree/2.0"><img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" /></a>
-                    <form method="post" action="post">
-                        <input type="text" name="blogPostTitle" placeholder="Post Title:" required />
-                        <textarea name="blogPostContent" placeholder="Post Content:" required></textarea>
-                        <select name="blogPostStyleType" onchange="showStyleInput(this);">
-                            <option value="default" selected>Use Default Stylesheet</option>
-                            <option value="custom">Use Custom Stylesheet</option>
-                        </select>
-                        <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="Custom Stylesheet Link:" />
-                        <input type="password" name="blogPassword" placeholder="Management Password:" required />
-                        <input type="hidden" name="form" value="post" required />
-                        <input class="btn" type="submit" value="Publish New Post" />
-                    </form>
+                    <main>
+                        <div class="setupHeader">
+                            <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span> </a>
+                        </div>
+                        <h1>Time to write your prose</h1>
+                        <form method="post" action="post">
+                            <fieldset>
+                                <input type="text" name="blogPostTitle" class="blogPostTitle" placeholder="The post title" required />
+                                <textarea name="blogPostContent" placeholder="Write your post here, you can use HTML" required></textarea>
+                            </fieldset>
+                            <fieldset>
+                                <p class="details">You can personnalise the style of your post here</p>
+                                <select name="blogPostStyleType" onchange="showStyleInput(this);">
+                                    <option value="default" selected>Use Default Stylesheet</option>
+                                    <option value="custom">Use a custom stylesheet</option>
+                                </select>
+                                <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="Custom stylesheet link" />
+                            </fieldset>
+                            <input type="password" name="blogPassword" placeholder="Management Password:" required />
+                            <input type="hidden" name="form" value="post" required />
+                            <input class="btn" type="submit" value="Publish New Post" />
+                        </form>
+                    </main>
                     <script>
                     document.getElementById("blogPostStyleSheet").style.display = "none";
                     function showStyleInput(that) {
@@ -201,8 +211,12 @@
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
             </head>
             <body>
-                <a href="https://github.com/johnroper100/dropplets/tree/2.0"><img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" /></a>
-                <h3>Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License</h3>
+                <main>
+                    <div class="setupHeader">
+                       <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span> </a>
+                    </div>
+                    <h3>Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License</h3>
+                </main>
             </body>
         <?php } else if ($URI_parts[0] and $URI_parts[0] == 'update') { ?>
             <head>
@@ -211,12 +225,20 @@
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
             </head>
             <body>
-                <a href="https://github.com/johnroper100/dropplets/tree/2.0"><img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" /></a>
-                <form method="post" action="post">
-                    <input type="password" name="blogPassword" placeholder="Management Password:" required />
-                    <input type="hidden" name="form" value="update" required />
-                    <input class="btn" type="submit" value="Update Dropplets" />
-                </form>
+                <main>
+                    <div class="setupHeader">
+                        <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span> </a>
+                    </div>
+                    <h1>Update</h1>
+                    <form method="post" action="post">
+                        <fieldset>
+                            <legend>Type your password to update your blog</legend>
+                            <input type="password" name="blogPassword" placeholder="Management password" required />
+                        </fieldset>
+                        <input type="hidden" name="form" value="update" required />
+                        <input class="btn" type="submit" value="Update Dropplets" />
+                    </form>
+                </main>
             </body>
         <?php } else if ($URI_parts[1] and $URI_parts[1] == 'posts' and $URI_parts[0]) {
             // If the config exists, read it and display the blog.
