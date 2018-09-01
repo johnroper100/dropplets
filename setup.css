@@ -97,6 +97,7 @@ input.btn{
     color: #40c057;
     border-radius: 4px;
     cursor: pointer;
+    background: #fff;
 }
 input.btn:hover{
     background: #40c057;
