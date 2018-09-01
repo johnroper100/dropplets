@@ -109,25 +109,40 @@
         ?>
             <head>
                 <title>Dropplets | Setup</title>
-                <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
+                <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
                 <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
             </head>
             <body>
-                <a href="https://github.com/johnroper100/dropplets/tree/2.0"><img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" /></a>
+                <main>
+                <div class="setupHeader">
+                <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span> </a>
+                </div>
+                <h1>Let's create your blog</h1>
                 <form method="post" action="setup">
-                    <input type="text" name="blogName" placeholder="Blog Name:" required value="<?php echo($blogName); ?>"/>
-                    <input type="text" name="blogAuthor" placeholder="Author Name:" required value="<?php echo($blogAuthor); ?>" />
-                    <input type="text" name="blogCopyright" placeholder="Copyright Message:" required value="<?php echo($blogCopyright); ?>" />
+                    <fieldset>
+                    <legend>First, some details</legend>
+                    <input type="text" name="blogName" placeholder="Give a name to your blog" required value="<?php echo($blogName); ?>"/>
+                    <input type="text" name="blogAuthor" placeholder="Who's the author ?" required value="<?php echo($blogAuthor); ?>" />
+                    <input type="text" name="blogCopyright" placeholder="Write a copyright message" required value="<?php echo($blogCopyright); ?>" />
+                    </fieldset>
+
+                    <fieldset>
+                    <legend>Second step, choose your style</legend> 
                     <select name="blogStyleType" onchange="showStyleInput(this);">
-                        <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use Default Stylesheets</option>
-                        <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>Use Custom Stylesheets</option>
+                        <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>The default one</option>
+                        <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>I want my own style !</option>
                     </select>
-                    <input id="blogStyleSheet" type="url" name="blogStyleSheet" placeholder="Custom Stylesheet Link:" value="<?php if ($blogStyleType == 'custom') { echo($blogStyleSheet); } ?>" />
-                    <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="Custom Post Stylesheet Link:" value="<?php if ($blogStyleType == 'custom') { echo($blogPostStyleSheet); } ?>" />
-                    <input type="password" name="blogPassword" placeholder="Management Password:" required />
+                    <input id="blogStyleSheet" type="url" name="blogStyleSheet" placeholder="URL to your template" value="<?php if ($blogStyleType == 'custom') { echo($blogStyleSheet); } ?>" />
+                    <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="URL to your template post style" value="<?php if ($blogStyleType == 'custom') { echo($blogPostStyleSheet); } ?>" />
+                    </fieldset>
+                    <fieldset>
+                    <legend>Last but not least, the password</legend> 
+                    <input type="password" name="blogPassword" placeholder="Choose your password" required />
+                    </fieldset>
                     <input type="hidden" name="form" value="setup" required />
-                    <input class="btn" type="submit" value="Finish Setup" />
+                    <input class="btn" type="submit" value="Create your blog" />
                 </form>
+                </main>
                 <script>
                     <?php if ($blogStyleType == 'default') { ?>
                         document.getElementById("blogStyleSheet").style.display = "none";
@@ -148,8 +163,8 @@
             if (file_exists("config.php")) { ?>
                 <head>
                     <title><?php echo($blogName); ?> | New Post</title>
-                    <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
+                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
                 </head>
                 <body>
                     <a href="https://github.com/johnroper100/dropplets/tree/2.0"><img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" /></a>
@@ -182,8 +197,8 @@
         } else if ($URI_parts[0] and $URI_parts[0] == 'version') { ?>
             <head>
                 <title><?php echo($blogName); ?> | New Post</title>
-                <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
-                <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
+                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
+                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
             </head>
             <body>
                 <a href="https://github.com/johnroper100/dropplets/tree/2.0"><img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" /></a>
@@ -192,8 +207,8 @@
         <?php } else if ($URI_parts[0] and $URI_parts[0] == 'update') { ?>
             <head>
                 <title><?php echo($blogName); ?> | Update</title>
-                <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
-                <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
+                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
+                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
             </head>
             <body>
                 <a href="https://github.com/johnroper100/dropplets/tree/2.0"><img src="https://rawgit.com/johnroper100/dropplets/2.0/logo.svg" class="headerLogo" /></a>
@@ -210,21 +225,21 @@
                 ?>
                 <head>
                     <title><?php echo($blogName); ?> | <?php echo($postTitle); ?></title>
-                    <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
+                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
                     <link type="text/css" rel="stylesheet" href="<?php echo($postStyleSheet); ?>" />
+                    <?php echo($headerInject); ?>
                 </head>
                 <body>
                     <div id="header">
                         <a id="siteTitleLink" href="/"><h1 id="siteTitle"><?php echo($blogName); ?></h1></a>
-                        <?php echo($headerInject); ?>
                     </div>
                     <h2 id="postTitle"><?php echo($postTitle); ?></h2>
                     <h3 id="postSubtitle"><?php echo($postDate); ?></h3>
                     <div id="postContent"><?php echo(Slimdown::render($postContent)); ?></div>
                     <div id="footer">
-                        <?php echo($footerInject); ?>
                         <p class="footerText"><?php echo($blogCopyright); ?></p>
                     </div>
+                    <?php echo($footerInject); ?>
                 </body>
             <?php } else {
                 header("Location: setup");
@@ -234,13 +249,13 @@
             if (file_exists("config.php")) { ?>
                 <head>
                     <title><?php echo($blogName); ?> | Home</title>
-                    <link type="text/css" rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
+                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
                     <link type="text/css" rel="stylesheet" href="<?php echo($blogStyleSheet); ?>" />
+                    <?php echo($headerInject); ?>
                 </head>
                 <body>
                     <div id="header">
                         <h1 id="siteTitle"><?php echo($blogName); ?></h1>
-                        <?php echo($headerInject); ?>
                     </div>
                     <div class="posts">
                         <?php
@@ -254,9 +269,9 @@
                         ?>
                     </div>
                     <div id="footer">
-                        <?php echo($footerInject); ?>
                         <p class="footerText"><?php echo($blogCopyright); ?></p>
                     </div>
+                    <?php echo($footerInject); ?>
                 </body>
             <?php } else {
                 header("Location: setup");
