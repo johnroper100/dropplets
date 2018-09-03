@@ -252,16 +252,20 @@
                     <?php echo($headerInject); ?>
                 </head>
                 <body>
-                    <div id="header">
-                        <a id="siteTitleLink" href="/"><h1 id="siteTitle"><?php echo($blogName); ?></h1></a>
-                    </div>
-                    <h2 id="postTitle"><?php echo($postTitle); ?></h2>
-                    <h3 id="postSubtitle"><?php echo($postDate); ?></h3>
-                    <div id="postContent"><?php echo(Slimdown::render($postContent)); ?></div>
-                    <div id="footer">
-                        <p class="footerText"><?php echo($blogCopyright); ?></p>
-                    </div>
-                    <?php echo($footerInject); ?>
+                    <main id="postPage">
+                        <header>
+                            <a id="siteTitleLink" href="/">➜</a>
+                        </header>
+                        <div id="postTitleDate">
+                            <h1 id="postTitle"><?php echo($postTitle); ?></h1>
+                            <span id="postSubtitle"><?php echo($postDate); ?></span>
+                        </div>
+                        <div id="postContent"><?php echo(Slimdown::render($postContent)); ?></div>
+                        <div id="footer">
+                            <p class="footerText"><?php echo($blogCopyright); ?></p>
+                        </div>
+                        <?php echo($footerInject); ?>
+                    </main>
                 </body>
             <?php } else {
                 header("Location: setup");
@@ -276,24 +280,26 @@
                     <?php echo($headerInject); ?>
                 </head>
                 <body>
-                    <div id="header">
-                        <h1 id="siteTitle"><?php echo($blogName); ?></h1>
-                    </div>
-                    <div class="posts">
-                        <?php
-                        $posts = array_reverse(glob('posts/*.{php}', GLOB_BRACE));
-                        $index = count($posts)+1;
-                        foreach($posts as $post) {
-                            include $post;
-                            $index--;
-                            echo("<div class=\"post\"><a href=\"posts/$index\"><h2 id=\"postTitle\">$postTitle</h2></a><h3 id=\"postSubtitle\">$postDate</h3><div id=\"postContent\">".substr(Slimdown::render($postContent), 0, 250)."</div></div>");
-                        }
-                        ?>
-                    </div>
-                    <div id="footer">
-                        <p class="footerText"><?php echo($blogCopyright); ?></p>
-                    </div>
-                    <?php echo($footerInject); ?>
+                    <main id="index">
+                        <header>
+                            <h1 id="siteTitle"><?php echo($blogName); ?></h1>
+                        </header>
+                        <div class="posts">
+                            <?php
+                            $posts = array_reverse(glob('posts/*.{php}', GLOB_BRACE));
+                            $index = count($posts)+1;
+                            foreach($posts as $post) {
+                                include $post;
+                                $index--;
+                                echo("<div class=\"post\"><h2 id=\"postTitle\"><a href=\"posts/$index\">$postTitle</a></h2><span id=\"postSubtitle\">$postDate</span><div id=\"postContent\">".substr(Slimdown::render($postContent), 0, 250)."</div></div>");
+                            }
+                            ?>
+                        </div>
+                        <div id="footer">
+                            <p class="footerText"><?php echo($blogCopyright); ?></p>
+                        </div>
+                        <?php echo($footerInject); ?>
+                    </main>
                 </body>
             <?php } else {
                 header("Location: setup");
