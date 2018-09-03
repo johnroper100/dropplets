@@ -11,8 +11,8 @@ header{border-top: 5px solid #40c057;}
 #postSubtitle{display: block;font-weight:500;font-size:15px;color:#AAB8C2;margin:20px 0;}
 #footer {text-align: center;font-size:14px;color:#AAB8C2;margin:40px 0;}
 /* ========== Index ========== */
-main#index h1#siteTitle{margin:50px;}
-main#index div.posts{width:65vw;margin:0 auto;}
+main#index h1#siteTitle{margin-top: 100px;margin-bottom: 20px;}
+main#index div.posts{width:65vw;margin:65px auto;}
 main#index div.post{position: relative;margin: 40px 0;padding:5px 20px;}
 main#index div.post::after{content:''; border-left:2px solid #40c057;position:absolute;height:0;left:0;top:0;}
 main#index div.post:hover::after{content:'';height:100%;transition: all .5s ease-in-out;}
