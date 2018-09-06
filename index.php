@@ -185,7 +185,9 @@
                                 </select>
                                 <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="Custom stylesheet link" />
                             </fieldset>
-                            <input type="password" name="blogPassword" placeholder="Management Password:" required />
+                            <fieldset>
+                                <input type="password" name="blogPassword" placeholder="Management Password:" required />
+                            </fieldset>
                             <input type="hidden" name="form" value="post" required />
                             <input class="btn" type="submit" value="Publish New Post" />
                         </form>
