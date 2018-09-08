@@ -242,7 +242,7 @@
                     </form>
                 </main>
             </body>
-        <?php } else if ($URI_parts[1] and $URI_parts[1] == 'posts' and $URI_parts[0]) {
+        <?php } else if (count($URI_parts) == 2 and $URI_parts[1] == 'posts' and $URI_parts[0]) {
             // If the config exists, read it and display the blog.
             if (file_exists("config.php")) {
                 include "posts/post$URI_parts[0].php";
@@ -318,6 +318,7 @@
         public static $rules = array (
             '/(#+)(.*)/' => 'self::header',                           // headers
             '/\[([^\[]+)\]\(([^\)]+)\)/' => '<a href=\'\2\'>\1</a>',  // links
+            '/(?:!\[(.*?)\]\((.*?)\))/' => '<img src=\'\2\'>\1</img>',  // links
             '/\n\*(.*)/' => 'self::ul_list',                          // ul lists
             '/(\*\*|__)(.*?)\1/' => '<strong>\2</strong>',            // bold
             '/(\*|_)(.*?)\1/' => '<em>\2</em>',                       // emphasis
