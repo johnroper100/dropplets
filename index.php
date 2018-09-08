@@ -12,7 +12,7 @@
     // Create the required .htaccess if it dosen't already exist.
     if (!file_exists(".htaccess")) {
         $htaccess = fopen(".htaccess", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
-        $htaccess_content = "<IfModule mod_rewrite.c>\n\tRewriteEngine On\n\tRewriteBase /\n\tRewriteCond %{REQUEST_FILENAME} !-f\n\tRewriteCond %{REQUEST_FILENAME} !-d\n\tRewriteCond %{REQUEST_FILENAME} !-l\n\tRewriteRule .* [L,QSA]\n</IfModule>";
+        $htaccess_content = "<IfModule mod_rewrite.c>\n\tRewriteEngine On\n\tRewriteCond %{REQUEST_FILENAME} !-f\n\tRewriteCond %{REQUEST_FILENAME} !-d\n\tRewriteCond %{REQUEST_FILENAME} !-l\n\tRewriteRule ^(.*)$ index.php?/$1 [L,QSA]\n</IfModule>";
         fwrite($htaccess, $htaccess_content);
         fclose($htaccess);
     }
@@ -120,24 +120,24 @@
                 <h1>Let's create your blog</h1>
                 <form method="post" action="setup">
                     <fieldset>
-                    <legend>First, some details</legend>
+                    <legend>First, some details:</legend>
                     <input type="text" name="blogName" placeholder="Give a name to your blog" required value="<?php echo($blogName); ?>"/>
                     <input type="text" name="blogAuthor" placeholder="Who's the author ?" required value="<?php echo($blogAuthor); ?>" />
                     <input type="text" name="blogCopyright" placeholder="Write a copyright message" required value="<?php echo($blogCopyright); ?>" />
                     </fieldset>
 
                     <fieldset>
-                    <legend>Second step, choose your style</legend> 
+                    <legend>Second step, choose your stylesheet:</legend> 
                     <select name="blogStyleType" onchange="showStyleInput(this);">
-                        <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>The default one</option>
-                        <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>I want my own style !</option>
+                        <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use the default one</option>
+                        <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>I want my own style!</option>
                     </select>
-                    <input id="blogStyleSheet" type="url" name="blogStyleSheet" placeholder="URL to your template" value="<?php if ($blogStyleType == 'custom') { echo($blogStyleSheet); } ?>" />
-                    <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="URL to your template post style" value="<?php if ($blogStyleType == 'custom') { echo($blogPostStyleSheet); } ?>" />
+                    <input id="blogStyleSheet" type="url" name="blogStyleSheet" placeholder="URL to your homepage stylesheet" value="<?php if ($blogStyleType == 'custom') { echo($blogStyleSheet); } ?>" />
+                    <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="URL to your post stylesheet" value="<?php if ($blogStyleType == 'custom') { echo($blogPostStyleSheet); } ?>" />
                     </fieldset>
                     <fieldset>
-                    <legend>Last but not least, the password</legend> 
-                    <input type="password" name="blogPassword" placeholder="Choose your password" required />
+                    <legend>Last but not least, the password:</legend> 
+                    <input type="password" name="blogPassword" placeholder="Choose a good password" required />
                     </fieldset>
                     <input type="hidden" name="form" value="setup" required />
                     <input class="btn" type="submit" value="Create your blog" />
