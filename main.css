@@ -2,7 +2,8 @@
 /* ========== General ========== */
 body{font-family:'Montserrat',sans-serif;font-weight: 300;color: #777;background: #fff;font-size: 16px;}
 h1, h2, h3,h4,h5,h6{color: #303549;font-weight: 700;margin: 20px 0;}
-h1{text-transform: uppercase;font-size: 28px;text-align:center;}
+h1{text-transform: uppercase;font-size: 28px;}
+.siteTitle {text-align:center;}
 h2{font-size: 24px;}
 h3{font-size: 20px;}
 h4{font-size:18px;}
