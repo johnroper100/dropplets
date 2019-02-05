@@ -37,8 +37,8 @@ Simply use the `Latest Version` link above to download `index.php`. Copy it to a
 
 ## Resources
 
-Design Mockups - https://www.figma.com/file/S4yjDmgoos5rs3CAsR7Hg5sU/Dropplets-v2.0?node-id=1%3A2
+Dependency Hosting - https://www.jsdelivr.com
 
 Color Palette (backend and default theme) - https://yeun.github.io/open-color/
 
-Dependency Hosting - https://rawgit.com/
+Previous Design Mockups - https://www.figma.com/file/S4yjDmgoos5rs3CAsR7Hg5sU/Dropplets-v2.0?node-id=1%3A2

@@ -109,8 +109,8 @@
         ?>
             <head>
                 <title>Dropplets | Setup</title>
-                <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
-                <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
+                <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+                <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
             </head>
             <body>
                 <main>
@@ -163,8 +163,8 @@
             if (file_exists("config.php")) { ?>
                 <head>
                     <title><?php echo($blogName); ?> | New Post</title>
-                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
-                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
+                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
                 </head>
                 <body>
                     <main>
@@ -209,8 +209,8 @@
         } else if ($URI_parts[0] and $URI_parts[0] == 'version') { ?>
             <head>
                 <title><?php echo($blogName); ?> | Dropplets Version</title>
-                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
-                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
+                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
             </head>
             <body>
                 <main>
@@ -223,8 +223,8 @@
         <?php } else if ($URI_parts[0] and $URI_parts[0] == 'update') { ?>
             <head>
                 <title><?php echo($blogName); ?> | Update</title>
-                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
-                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
+                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
             </head>
             <body>
                 <main>
@@ -249,7 +249,7 @@
                 ?>
                 <head>
                     <title><?php echo($blogName); ?> | <?php echo($postTitle); ?></title>
-                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
+                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
                     <link type="text/css" rel="stylesheet" href="<?php echo($postStyleSheet); ?>" />
                     <?php echo($headerInject); ?>
                 </head>
@@ -277,7 +277,7 @@
             if (file_exists("config.php")) { ?>
                 <head>
                     <title><?php echo($blogName); ?> | Home</title>
-                    <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
+                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
                     <link type="text/css" rel="stylesheet" href="<?php echo($blogStyleSheet); ?>" />
                     <?php echo($headerInject); ?>
                 </head>
