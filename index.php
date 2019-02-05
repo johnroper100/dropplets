@@ -175,7 +175,7 @@
                         <form method="post" action="post">
                             <fieldset>
                                 <input type="text" name="blogPostTitle" class="blogPostTitle" placeholder="The post title" required />
-                                <textarea name="blogPostContent" placeholder="Write your post here, you can use HTML" required></textarea>
+                                <textarea name="blogPostContent" placeholder="Write your post here, you can use Markdown and HTML" required></textarea>
                             </fieldset>
                             <fieldset>
                                 <p class="details">You can personnalise the style of your post here</p>
