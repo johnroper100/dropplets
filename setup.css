@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:200,700');
-body{font-family:'Montserrat',sans-serif;font-weight: 200;color: #303549;background: #FFF;font-size: 16px;}
+body{font-family:'Montserrat',sans-serif;font-weight: 200;color: #343a40;background: #FFF;font-size: 16px;}
 main{width: 50vw;margin: 50px auto;box-shadow: 0 0 5px 2px rgba(102,102,102,.2);border-radius: 4px;padding: 50px;}
 div.setupHeader{padding: 30px;text-align: center;}
 div.setupHeader a{font-size: 25px;text-transform: uppercase;text-decoration: none;line-height: 35px;color: #40c057;}
 span.headerLogo{background: url('https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/logo.svg') center center;background-size: cover;color: grey;display: inline-block;width: 25px;height: 35px;vertical-align: sub;}
 span.droppletsName{padding-left:20px;}
-h1, h2, h3{color: #000;font-weight: 700;text-align: center;margin: 30px 0;}
+h1, h2, h3{color: #212529;font-weight: 700;text-align: center;margin: 30px 0;}
 h1{text-transform: uppercase;font-size: 28px;margin: 30px 0 50px 0;}
 fieldset{padding: 20px;border: none;margin-bottom: 30px;font-weight: 200;}
 legend{font-size: 20px;}
-input, textarea, select{font-family:'Montserrat',sans-serif;font-size: 16px;color: #303549;font-weight: 200;display: block;width: 100%;padding: 7px 15px;border: none;border-left: solid 2px;margin: 20px 0;transition: all .3s ease-in-out;outline: none;}
+input, textarea, select{font-family:'Montserrat',sans-serif;font-size: 16px;color: #343a40;font-weight: 200;display: block;width: 100%;padding: 7px 15px;border: none;border-left: solid 2px;margin: 20px 0;transition: all .3s ease-in-out;outline: none;}
 select{background: white;height: 40px;border: solid 1px;}
 textarea{height: 500px;}
-::-webkit-input-placeholder {color: #AAB8C2;font-size: 16px;}
-::-moz-placeholder {color: #AAB8C2;font-size: 16px;}
-:-ms-input-placeholder {color: #AAB8C2;font-size: 16px;}
-:-moz-placeholder {color: #AAB8C2;font-size: 16px;}
-::placeholder{color: #AAB8C2;font-size: 16px;}
+::-webkit-input-placeholder {color: #adb5bd;font-size: 16px;}
+::-moz-placeholder {color: #adb5bd;font-size: 16px;}
+:-ms-input-placeholder {color: #adb5bd;font-size: 16px;}
+:-moz-placeholder {color: #adb5bd;font-size: 16px;}
+::placeholder{color: #adb5bd;font-size: 16px;}
 input:focus:required:invalid {border: none;outline: none;border-left: solid 2px #fa5252;}
 input:required:valid {border: none;outline: none;border-left: solid 2px #40c057;}
 input.btn{padding: 10px 15px;border: solid 1px #40c057;width: 200px;margin: 0 auto;color: #40c057;border-radius: 4px;cursor: pointer;background: white;}
 input.btn:hover{background: #40c057;color: white;box-shadow: 0 0 5px 2px rgba(102,102,102,.2);transition: all .3s ease-in-out;}
 input.blogPostTitle{font-weight:200;font-size:18px;}
-p.details{color: #AAB8C2;}
+p.details{color: #adb5bd;}
