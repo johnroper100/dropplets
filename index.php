@@ -208,7 +208,7 @@
             }
         } else if ($URI_parts[0] and $URI_parts[0] == 'version') { ?>
             <head>
-                <title><?php echo($blogName); ?> | New Post</title>
+                <title><?php echo($blogName); ?> | Dropplets Version</title>
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/setup.css" />
                     <link type="text/css" rel="stylesheet" href="https://rawgit.com/johnroper100/dropplets/2.0/reset.css" />
             </head>
@@ -242,7 +242,7 @@
                     </form>
                 </main>
             </body>
-        <?php } else if (count($URI_parts) == 2 and $URI_parts[1] == 'posts' and $URI_parts[0]) {
+        <?php } else if (count($URI_parts) == 3 and $URI_parts[1] == 'posts' and $URI_parts[0]) {
             // If the config exists, read it and display the blog.
             if (file_exists("config.php")) {
                 include "posts/post$URI_parts[0].php";
