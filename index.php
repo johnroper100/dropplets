@@ -32,8 +32,8 @@
             if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogCopyright"]) and isset($_POST["blogPassword"]) and isset($_POST["blogStyleType"])){
                 // Get the stylesheet link (placed here to be used in both the if config.php and if not)
                 if (test_input($_POST["blogStyleType"]) == "default") {
-                    $blogStyleSheet = "https://rawgit.com/johnroper100/dropplets/2.0/main.css";
-                    $blogPostStyleSheet = "https://rawgit.com/johnroper100/dropplets/2.0/main.css";
+                    $blogStyleSheet = "https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/main.css";
+                    $blogPostStyleSheet = "https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/main.css";
                 } else {
                     $blogStyleSheet = test_input($_POST["blogStyleSheet"]);
                     $blogPostStyleSheet = test_input($_POST["blogPostStyleSheet"]);
@@ -89,7 +89,7 @@
             if (file_exists("config.php")) {
                 if(isset($_POST["blogPassword"])){
                     if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
-                        file_put_contents("index.php", fopen("https://rawgit.com/johnroper100/dropplets/2.0/index.php", 'r'));
+                        file_put_contents("index.php", fopen("https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/index.php", 'r'));
                         header("Location: /");
                     } else {
                         echo("Management password not correct!");
