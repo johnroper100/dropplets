@@ -30,11 +30,6 @@ Simply use the `Latest Version` link above to download `index.php`. Copy it to a
 - Make sure `index.php` has execution permission
 - Make sure `index.php` can write to the folder containing it
 
-## TODO
-
-- Finish built-in styling
-- Write documentation
-
 ## Resources
 
 Dependency Hosting - https://www.jsdelivr.com
