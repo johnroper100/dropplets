@@ -209,8 +209,8 @@
         } else if ($URI_parts[0] and $URI_parts[0] == 'version') { ?>
             <head>
                 <title><?php echo($blogName); ?> | Dropplets Version</title>
-                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
-                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+                <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+                <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
             </head>
             <body>
                 <main>
@@ -223,8 +223,8 @@
         <?php } else if ($URI_parts[0] and $URI_parts[0] == 'update') { ?>
             <head>
                 <title><?php echo($blogName); ?> | Update</title>
-                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
-                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+                <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+                <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
             </head>
             <body>
                 <main>
