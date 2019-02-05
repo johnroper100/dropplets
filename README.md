@@ -25,6 +25,8 @@ Run locally with `php -S localhost:3100 index.php`
 
 Simply use the `Latest Version` link above to download `index.php`. Copy it to a folder on your server.
 
+If you are using nginx, also download the `.htaccess4nginx` file. This holds the nginx rewrite rules.
+
 ## Requirements
 
 - Make sure `index.php` has execution permission
@@ -35,5 +37,3 @@ Simply use the `Latest Version` link above to download `index.php`. Copy it to a
 Dependency Hosting - https://www.jsdelivr.com
 
 Color Palette (backend and default theme) - https://yeun.github.io/open-color/
-
-Previous Design Mockups - https://www.figma.com/file/S4yjDmgoos5rs3CAsR7Hg5sU/Dropplets-v2.0?node-id=1%3A2
