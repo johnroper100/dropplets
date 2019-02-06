@@ -154,7 +154,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
                 <select name="blogStyleType" onchange="showStyleInput(this);">
                     <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use the
                         default one</option>
-                    <option value="zen" <?php if ($blogStyleType == 'zen') { ?>selected<?php } ?>>Use zen one</option>
+                    <option value="zen" <?php if ($blogStyleType == 'zen') { ?>selected<?php } ?>>Use the zen one</option>
                     <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>I want my own
                         style!</option>
                 </select>
