@@ -40,4 +40,4 @@ main#index #postContent{margin-top:25px;}
 main#postPage #postTitle{font-size:36px;}
 main#postPage #postContent{margin-top:40px;}
 /* ========== Footer ========== */
-footer{grid-area: 2/2/3/3;justify-self: end;font-size:12px;}
+#footer{grid-area: 2/2/3/3;justify-self: end;font-size:12px;}
