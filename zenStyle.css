@@ -37,7 +37,7 @@ main#index div.post h2#postTitle a::after{content:'';position: absolute;left:0;t
 main#index #postSubtitle{font-size:16px;font-weight:700;margin-top:5px;color:#777;}
 main#index #postContent{margin-top:25px;}
 /* ========== Post Page ========== */
-main#postPage #postTitle{font-size:36px;}
-main#postPage #postContent{margin-top:40px;}
+main#postPage #postTitle{font-size:36px;grid-area:2/1/3/2;}
+main#postPage #postContent{margin-top:40px;grid-area:2/2/3/3;}
 /* ========== Footer ========== */
-#footer{grid-area: 2/2/3/3;justify-self: end;font-size:12px;}
+#footer{grid-area: 2/2/3/3;justify-self: end;font-size:12px;text-align:center;}
