@@ -71,11 +71,21 @@ $post_content =
 $k = 1;
 $result = NULL;
 while(!$result){
-if(!file_exists("posts/post$k.php"))
-$result = "post$k.php";
+if (!file_exists("posts/".date("Y"))) {
+mkdir("posts/".date("Y"));
+}
+if (!file_exists("posts/".date("Y")."/".date("d"))) {
+mkdir("posts/".date("Y")."/".date("d"));
+}
+if (!file_exists("posts/".date("Y")."/".date("d")."/".date("m"))) {
+mkdir("posts/".date("Y")."/".date("d")."/".date("m"));
+}
+if(!file_exists("posts/".date("Y")."/".date("d")."/".date("m")."/$k.php"))
+$result = "$k.php";
 $k++;
 }
-$post = fopen("posts/".$result, 'w') or die("Unable to set up needed files! Please make sure index.php has write
+$post = fopen("posts/".date("Y")."/".date("d")."/".date("m")."/".$result, 'w') or die("Unable to set up needed files!
+Please make sure index.php has write
 permissions and that the folder it is in has write permissions.");
 fwrite($post, $post_content);
 fclose($post);
@@ -286,10 +296,10 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 </body>
 
 </html>
-<?php } else if (count($URI_parts) == 3 and $URI_parts[1] == 'posts' and $URI_parts[0]) {
+<?php } else if (count($URI_parts) == 6 and $URI_parts[4] == 'posts' and $URI_parts[0] and $URI_parts[1] and $URI_parts[2] and $URI_parts[3]) {
             // If the config exists, read it and display the blog.
             if (file_exists("config.php")) {
-                include "posts/post$URI_parts[0].php";
+                include "posts/$URI_parts[3]/$URI_parts[2]/$URI_parts[1]/$URI_parts[0].php";
                 ?>
 <!DOCTYPE html>
 <html>
@@ -342,12 +352,16 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
         </header>
         <div class="posts">
             <?php
-                            $posts = array_reverse(glob('posts/*.{php}', GLOB_BRACE));
-                            $index = count($posts)+1;
-                            foreach($posts as $post) {
-                                include $post;
-                                $index--;
-                                echo("<div class=\"post\"><h2 id=\"postTitle\"><a href=\"posts/$index\">$postTitle</a></h2><span id=\"postSubtitle\">$postDate</span><div id=\"postContent\">".substr(Slimdown::render($postContent), 0, 250)."</div></div>");
+                            $it = new RecursiveDirectoryIterator("posts");
+                            $display = Array ( 'php' );
+                            foreach(new RecursiveIteratorIterator($it) as $file)
+                            {
+                                if (in_array(strtolower(array_pop(explode('.', $file))), $display)) {
+                                    include $file;
+                                    $paths = explode('/', $file);
+                                    echo("<div class=\"post\"><h2 id=\"postTitle\"><a href=\"posts/$paths[1]/$paths[2]/$paths[3]/".str_replace('.php', '', $paths[4])."\">$postTitle</a></h2><span id=\"postSubtitle\">$postDate</span><div id=\"postContent\">".substr(Slimdown::render($postContent), 0, 250)."</div></div>");
+                                }
+                                   
                             }
                             ?>
         </div>
