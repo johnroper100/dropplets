@@ -32,6 +32,9 @@
                 if (test_input($_POST["blogStyleType"]) == "default") {
                     $blogStyleSheet = "https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/main.css";
                     $blogPostStyleSheet = "https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/main.css";
+                } else if (test_input($_POST["blogStyleType"]) == "zen") {
+                    $blogStyleSheet = "https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/zenStyle.css";
+                    $blogPostStyleSheet = "https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/zenStyle.css";
                 } else {
                     $blogStyleSheet = test_input($_POST["blogStyleSheet"]);
                     $blogPostStyleSheet = test_input($_POST["blogPostStyleSheet"]);
@@ -151,6 +154,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
                 <select name="blogStyleType" onchange="showStyleInput(this);">
                     <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use the
                         default one</option>
+                    <option value="zen" <?php if ($blogStyleType == 'zen') { ?>selected<?php } ?>>Use zen one</option>
                     <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>I want my own
                         style!</option>
                 </select>
@@ -170,7 +174,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
         </form>
     </main>
     <script>
-    <?php if ($blogStyleType == 'default') { ?>
+    <?php if ($blogStyleType == 'default' or $blogStyleType == 'zen') { ?>
     document.getElementById("blogStyleSheet").style.display = "none";
     document.getElementById("blogPostStyleSheet").style.display = "none";
     <?php } ?>
