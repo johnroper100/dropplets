@@ -68,9 +68,7 @@ $postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
 }
 $post_content =
 "<?php\n\$postTitle='".test_input($_POST["blogPostTitle"])."';\n\$postContent='".$_POST["blogPostContent"]."';\n\$postDate='".date("F jS, Y")."';\n\$postStyleSheet='".$postStyleSheet."';\n?>";
-$k = 1;
-$result = NULL;
-while(!$result){
+
 if (!file_exists("posts/".date("Y"))) {
 mkdir("posts/".date("Y"));
 }
@@ -80,9 +78,10 @@ mkdir("posts/".date("Y")."/".date("d"));
 if (!file_exists("posts/".date("Y")."/".date("d")."/".date("m"))) {
 mkdir("posts/".date("Y")."/".date("d")."/".date("m"));
 }
-if(!file_exists("posts/".date("Y")."/".date("d")."/".date("m")."/$k.php"))
-$result = "$k.php";
-$k++;
+if(!file_exists("posts/".date("Y")."/".date("d")."/".date("m")."/".urlencode(test_input($_POST["blogPostTitle"])).".php")){
+$result = urlencode(test_input($_POST["blogPostTitle"])).".php";
+} else {
+header("Location: /post");
 }
 $post = fopen("posts/".date("Y")."/".date("d")."/".date("m")."/".$result, 'w') or die("Unable to set up needed files!
 Please make sure index.php has write
