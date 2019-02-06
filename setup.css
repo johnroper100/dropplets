@@ -12,14 +12,14 @@ legend{font-size: 20px;}
 input, textarea, select{font-family:'Montserrat',sans-serif;font-size: 16px;color: #343a40;font-weight: 200;display: block;width: 100%;padding: 7px 15px;border: none;border-left: solid 2px;margin: 20px 0;transition: all .3s ease-in-out;outline: none;}
 select{background: white;height: 40px;border: solid 1px;}
 textarea{height: 500px;}
-::-webkit-input-placeholder {color: #adb5bd;font-size: 16px;}
-::-moz-placeholder {color: #adb5bd;font-size: 16px;}
-:-ms-input-placeholder {color: #adb5bd;font-size: 16px;}
-:-moz-placeholder {color: #adb5bd;font-size: 16px;}
-::placeholder{color: #adb5bd;font-size: 16px;}
+::-webkit-input-placeholder {color: #868e96;font-size: 16px;}
+::-moz-placeholder {color: #868e96;font-size: 16px;}
+:-ms-input-placeholder {color: #868e96;font-size: 16px;}
+:-moz-placeholder {color: #868e96;font-size: 16px;}
+::placeholder{color: #868e96;font-size: 16px;}
 input:focus:required:invalid {border: none;outline: none;border-left: solid 2px #fa5252;}
 input:required:valid {border: none;outline: none;border-left: solid 2px #40c057;}
 input.btn{padding: 10px 15px;border: solid 1px #40c057;width: 200px;margin: 0 auto;color: #40c057;border-radius: 4px;cursor: pointer;background: white;}
 input.btn:hover{background: #40c057;color: white;box-shadow: 0 0 5px 2px rgba(102,102,102,.2);transition: all .3s ease-in-out;}
 input.blogPostTitle{font-weight:200;font-size:18px;}
-p.details{color: #adb5bd;}
+p.details{color: #868e96;}
