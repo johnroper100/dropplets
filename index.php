@@ -55,7 +55,7 @@ $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please
 permissions and that the folder it is in has write permissions.");
 fwrite($config, $config_content);
 fclose($config);
-header("Location: /");
+header("Location: ".dirname($_SERVER['REQUEST_URI']));
 } else if (test_input($_POST["form"]) == "post") {
 if (file_exists("config.php")) {
 if(isset($_POST["blogPostTitle"]) and isset($_POST["blogPostContent"]) and isset($_POST["blogPassword"]) and
@@ -88,7 +88,7 @@ Please make sure index.php has write
 permissions and that the folder it is in has write permissions.");
 fwrite($post, $post_content);
 fclose($post);
-header("Location: /");
+header("Location: ".dirname($_SERVER['REQUEST_URI']));
 } else {
 echo("Management password not correct!");
 exit;
@@ -102,7 +102,7 @@ if (file_exists("config.php")) {
 if(isset($_POST["blogPassword"])){
 if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
 file_put_contents("index.php", fopen("https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/index.php", 'r'));
-header("Location: /");
+header("Location: ".dirname($_SERVER['REQUEST_URI']));
 } else {
 echo("Management password not correct!");
 exit;
@@ -116,7 +116,7 @@ echo("The form could not be submitted. Please try again later.");
 }
 } else {
 // If the url is setup, check for config and then show the setup page.
-if ($URI_parts[0] and $URI_parts[0] == 'setup') {
+if (count($URI_parts) >= 1 and $URI_parts[0] and $URI_parts[0] == 'setup') {
 if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 ?>
 <!DOCTYPE html>
@@ -188,7 +188,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 </body>
 
 </html>
-<?php } else if ($URI_parts[0] and $URI_parts[0] == 'post') {
+<?php } else if (count($URI_parts) >= 1 and $URI_parts[0] and $URI_parts[0] == 'post') {
             if (file_exists("config.php")) { ?>
 <!DOCTYPE html>
 <html>
@@ -245,7 +245,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 <?php } else {
                 header("Location: setup");
             }
-        } else if ($URI_parts[0] and $URI_parts[0] == 'version') { ?>
+        } else if (count($URI_parts) >= 1 and $URI_parts[0] and $URI_parts[0] == 'version') { ?>
 <!DOCTYPE html>
 <html>
 
@@ -295,7 +295,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 </body>
 
 </html>
-<?php } else if (count($URI_parts) == 6 and $URI_parts[4] == 'posts' and $URI_parts[0] and $URI_parts[1] and $URI_parts[2] and $URI_parts[3]) {
+<?php } else if (count($URI_parts) >= 6 and $URI_parts[4] == 'posts' and $URI_parts[0] and $URI_parts[1] and $URI_parts[2] and $URI_parts[3]) {
             // If the config exists, read it and display the blog.
             if (file_exists("config.php")) {
                 include "posts/$URI_parts[3]/$URI_parts[2]/$URI_parts[1]/$URI_parts[0].php";
