@@ -29,8 +29,7 @@ If you are using nginx, also download the `.htaccess4nginx` file. This holds the
 
 ## Requirements
 
-- Make sure `index.php` has execution permission
-- Make sure `index.php` can write to the folder containing it
+Make sure `index.php` has execution permission and can write to the folder containing it.
 
 ## Resources
 

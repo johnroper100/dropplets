@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <?php
     if (file_exists("config.php")) {
         include 'config.php';
@@ -43,251 +41,307 @@
                     $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
                     
                     $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$password_hash."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n\$blogPostStyleSheet='".$blogPostStyleSheet."';\n\$headerInject='';\n\$footerInject='';\n?>";
-                } else {
-                    if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
-                        $config_content = "<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$blogPassword."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n\$blogPostStyleSheet='".$blogPostStyleSheet."';\n\$headerInject='".$headerInject."';\n\$footerInject='".$footerInject."';\n?>";
-                    } else {
-                        echo("Management password not correct!");
-                        exit;
-                    }
-                }
-            }
-            $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
-            fwrite($config, $config_content);
-            fclose($config);
-            header("Location: /");
-        } else if (test_input($_POST["form"]) == "post") {
-            if (file_exists("config.php")) {
-                if(isset($_POST["blogPostTitle"]) and isset($_POST["blogPostContent"]) and isset($_POST["blogPassword"]) and isset($_POST["blogPostStyleType"])){
-                    if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
-                        if (test_input($_POST["blogPostStyleType"]) == "default") {
-                            $postStyleSheet = $blogPostStyleSheet;
-                        } else {
-                            $postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
-                        }
-                        $post_content = "<?php\n\$postTitle='".test_input($_POST["blogPostTitle"])."';\n\$postContent='".$_POST["blogPostContent"]."';\n\$postDate='".date("F jS, Y")."';\n\$postStyleSheet='".$postStyleSheet."';\n?>";
-                        $k = 1;
-                        $result = NULL;
-                        while(!$result){
-                            if(!file_exists("posts/post$k.php"))
-                                $result = "post$k.php";
-                            $k++;
-                        }
-                        $post = fopen("posts/".$result, 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
-                        fwrite($post, $post_content);
-                        fclose($post);
-                        header("Location: /");
-                    } else {
-                        echo("Management password not correct!");
-                        exit;
-                    }
-                }
-            } else {
-                header("Location: setup");
-            }
-        } else if (test_input($_POST["form"]) == "update") {
-            if (file_exists("config.php")) {
-                if(isset($_POST["blogPassword"])){
-                    if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
-                        file_put_contents("index.php", fopen("https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/index.php", 'r'));
-                        header("Location: /");
-                    } else {
-                        echo("Management password not correct!");
-                        exit;
-                    }
-                }
-            } else {
-                header("Location: setup");
-            }
-        } else {
-            echo("The form could not be submitted. Please try again later.");
-        }
-    } else {
-        // If the url is setup, check for config and then show the setup page.
-        if ($URI_parts[0] and $URI_parts[0] == 'setup') { 
-            if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
-        ?>
-            <head>
-                <title>Dropplets | Setup</title>
-                <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
-                <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
-            </head>
-            <body>
-                <main>
-                <div class="setupHeader">
-                <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span> </a>
-                </div>
-                <h1>Let's create your blog</h1>
-                <form method="post" action="setup">
-                    <fieldset>
-                    <legend>First, some details:</legend>
-                    <input type="text" name="blogName" placeholder="Give a name to your blog" required value="<?php echo($blogName); ?>"/>
-                    <input type="text" name="blogAuthor" placeholder="Who's the author ?" required value="<?php echo($blogAuthor); ?>" />
-                    <input type="text" name="blogCopyright" placeholder="Write a copyright message" required value="<?php echo($blogCopyright); ?>" />
-                    </fieldset>
+} else {
+if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
+$config_content =
+"<?php\n\$blogName='".test_input($_POST["blogName"])."';\n\$blogAuthor='".test_input($_POST["blogAuthor"])."';\n\$blogCopyright='".test_input($_POST["blogCopyright"])."';\n\$blogPassword='".$blogPassword."';\n\$blogStyleType='".test_input($_POST["blogStyleType"])."';\n\$blogStyleSheet='".$blogStyleSheet."';\n\$blogPostStyleSheet='".$blogPostStyleSheet."';\n\$headerInject='".$headerInject."';\n\$footerInject='".$footerInject."';\n?>";
+} else {
+echo("Management password not correct!");
+exit;
+}
+}
+}
+$config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write
+permissions and that the folder it is in has write permissions.");
+fwrite($config, $config_content);
+fclose($config);
+header("Location: /");
+} else if (test_input($_POST["form"]) == "post") {
+if (file_exists("config.php")) {
+if(isset($_POST["blogPostTitle"]) and isset($_POST["blogPostContent"]) and isset($_POST["blogPassword"]) and
+isset($_POST["blogPostStyleType"])){
+if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
+if (test_input($_POST["blogPostStyleType"]) == "default") {
+$postStyleSheet = $blogPostStyleSheet;
+} else {
+$postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
+}
+$post_content =
+"<?php\n\$postTitle='".test_input($_POST["blogPostTitle"])."';\n\$postContent='".$_POST["blogPostContent"]."';\n\$postDate='".date("F jS, Y")."';\n\$postStyleSheet='".$postStyleSheet."';\n?>";
+$k = 1;
+$result = NULL;
+while(!$result){
+if(!file_exists("posts/post$k.php"))
+$result = "post$k.php";
+$k++;
+}
+$post = fopen("posts/".$result, 'w') or die("Unable to set up needed files! Please make sure index.php has write
+permissions and that the folder it is in has write permissions.");
+fwrite($post, $post_content);
+fclose($post);
+header("Location: /");
+} else {
+echo("Management password not correct!");
+exit;
+}
+}
+} else {
+header("Location: setup");
+}
+} else if (test_input($_POST["form"]) == "update") {
+if (file_exists("config.php")) {
+if(isset($_POST["blogPassword"])){
+if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
+file_put_contents("index.php", fopen("https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/index.php", 'r'));
+header("Location: /");
+} else {
+echo("Management password not correct!");
+exit;
+}
+}
+} else {
+header("Location: setup");
+}
+} else {
+echo("The form could not be submitted. Please try again later.");
+}
+} else {
+// If the url is setup, check for config and then show the setup page.
+if ($URI_parts[0] and $URI_parts[0] == 'setup') {
+if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
+?>
+<!DOCTYPE html>
+<html>
 
-                    <fieldset>
-                    <legend>Second step, choose your stylesheet:</legend> 
-                    <select name="blogStyleType" onchange="showStyleInput(this);">
-                        <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use the default one</option>
-                        <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>I want my own style!</option>
-                    </select>
-                    <input id="blogStyleSheet" type="url" name="blogStyleSheet" placeholder="URL to your homepage stylesheet" value="<?php if ($blogStyleType == 'custom') { echo($blogStyleSheet); } ?>" />
-                    <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="URL to your post stylesheet" value="<?php if ($blogStyleType == 'custom') { echo($blogPostStyleSheet); } ?>" />
-                    </fieldset>
-                    <fieldset>
-                    <legend>Last but not least, the password:</legend> 
-                    <input type="password" name="blogPassword" placeholder="Choose a good password" required />
-                    </fieldset>
-                    <input type="hidden" name="form" value="setup" required />
-                    <input class="btn" type="submit" value="Create your blog" />
-                </form>
-                </main>
-                <script>
-                    <?php if ($blogStyleType == 'default') { ?>
-                        document.getElementById("blogStyleSheet").style.display = "none";
-                        document.getElementById("blogPostStyleSheet").style.display = "none";
-                    <?php } ?>
-                    function showStyleInput(that) {
-                        if (that.value == "custom") {
-                            document.getElementById("blogStyleSheet").style.display = "block";
-                            document.getElementById("blogPostStyleSheet").style.display = "block";
-                        } else {
-                            document.getElementById("blogStyleSheet").style.display = "none";
-                            document.getElementById("blogPostStyleSheet").style.display = "none";
-                        }
-                    }
-                </script>
-            </body>
-        <?php } else if ($URI_parts[0] and $URI_parts[0] == 'post') {
+<head>
+    <title>Dropplets | Setup</title>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+</head>
+
+<body>
+    <main>
+        <div class="setupHeader">
+            <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span
+                    class="droppletsName">Dropplets</span> </a>
+        </div>
+        <h1>Let's create your blog</h1>
+        <form method="post" action="setup">
+            <fieldset>
+                <legend>First, some details:</legend>
+                <input type="text" name="blogName" placeholder="Give a name to your blog" required
+                    value="<?php echo($blogName); ?>" />
+                <input type="text" name="blogAuthor" placeholder="Who's the author ?" required
+                    value="<?php echo($blogAuthor); ?>" />
+                <input type="text" name="blogCopyright" placeholder="Write a copyright message" required
+                    value="<?php echo($blogCopyright); ?>" />
+            </fieldset>
+
+            <fieldset>
+                <legend>Second step, choose your stylesheet:</legend>
+                <select name="blogStyleType" onchange="showStyleInput(this);">
+                    <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use the
+                        default one</option>
+                    <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>I want my own
+                        style!</option>
+                </select>
+                <input id="blogStyleSheet" type="url" name="blogStyleSheet"
+                    placeholder="URL to your homepage stylesheet"
+                    value="<?php if ($blogStyleType == 'custom') { echo($blogStyleSheet); } ?>" />
+                <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet"
+                    placeholder="URL to your post stylesheet"
+                    value="<?php if ($blogStyleType == 'custom') { echo($blogPostStyleSheet); } ?>" />
+            </fieldset>
+            <fieldset>
+                <legend>Last but not least, the password:</legend>
+                <input type="password" name="blogPassword" placeholder="Choose a good password" required />
+            </fieldset>
+            <input type="hidden" name="form" value="setup" required />
+            <input class="btn" type="submit" value="Create your blog" />
+        </form>
+    </main>
+    <script>
+    <?php if ($blogStyleType == 'default') { ?>
+    document.getElementById("blogStyleSheet").style.display = "none";
+    document.getElementById("blogPostStyleSheet").style.display = "none";
+    <?php } ?>
+
+    function showStyleInput(that) {
+        if (that.value == "custom") {
+            document.getElementById("blogStyleSheet").style.display = "block";
+            document.getElementById("blogPostStyleSheet").style.display = "block";
+        } else {
+            document.getElementById("blogStyleSheet").style.display = "none";
+            document.getElementById("blogPostStyleSheet").style.display = "none";
+        }
+    }
+    </script>
+</body>
+
+</html>
+<?php } else if ($URI_parts[0] and $URI_parts[0] == 'post') {
             if (file_exists("config.php")) { ?>
-                <head>
-                    <title><?php echo($blogName); ?> | New Post</title>
-                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
-                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
-                </head>
-                <body>
-                    <main>
-                        <div class="setupHeader">
-                            <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span> </a>
-                        </div>
-                        <h1>Time to write your prose</h1>
-                        <form method="post" action="post">
-                            <fieldset>
-                                <input type="text" name="blogPostTitle" class="blogPostTitle" placeholder="The post title" required />
-                                <textarea name="blogPostContent" placeholder="Write your post here, you can use Markdown and HTML" required></textarea>
-                            </fieldset>
-                            <fieldset>
-                                <p class="details">You can personnalise the style of your post here</p>
-                                <select name="blogPostStyleType" onchange="showStyleInput(this);">
-                                    <option value="default" selected>Use Default Stylesheet</option>
-                                    <option value="custom">Use a custom stylesheet</option>
-                                </select>
-                                <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="Custom stylesheet link" />
-                            </fieldset>
-                            <fieldset>
-                                <input type="password" name="blogPassword" placeholder="Management Password:" required />
-                            </fieldset>
-                            <input type="hidden" name="form" value="post" required />
-                            <input class="btn" type="submit" value="Publish New Post" />
-                        </form>
-                    </main>
-                    <script>
-                    document.getElementById("blogPostStyleSheet").style.display = "none";
-                    function showStyleInput(that) {
-                        if (that.value == "custom") {
-                            document.getElementById("blogPostStyleSheet").style.display = "block";
-                        } else {
-                            document.getElementById("blogPostStyleSheet").style.display = "none";
-                        }
-                    }
-                </script>
-                </body>
-            <?php } else {
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><?php echo($blogName); ?> | New Post</title>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+</head>
+
+<body>
+    <main>
+        <div class="setupHeader">
+            <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span
+                    class="droppletsName">Dropplets</span> </a>
+        </div>
+        <h1>Time to write your prose</h1>
+        <form method="post" action="post">
+            <fieldset>
+                <input type="text" name="blogPostTitle" class="blogPostTitle" placeholder="The post title" required />
+                <textarea name="blogPostContent" placeholder="Write your post here, you can use Markdown and HTML"
+                    required></textarea>
+            </fieldset>
+            <fieldset>
+                <p class="details">You can personnalise the style of your post here</p>
+                <select name="blogPostStyleType" onchange="showStyleInput(this);">
+                    <option value="default" selected>Use Default Stylesheet</option>
+                    <option value="custom">Use a custom stylesheet</option>
+                </select>
+                <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet"
+                    placeholder="Custom stylesheet link" />
+            </fieldset>
+            <fieldset>
+                <input type="password" name="blogPassword" placeholder="Management Password:" required />
+            </fieldset>
+            <input type="hidden" name="form" value="post" required />
+            <input class="btn" type="submit" value="Publish New Post" />
+        </form>
+    </main>
+    <script>
+    document.getElementById("blogPostStyleSheet").style.display = "none";
+
+    function showStyleInput(that) {
+        if (that.value == "custom") {
+            document.getElementById("blogPostStyleSheet").style.display = "block";
+        } else {
+            document.getElementById("blogPostStyleSheet").style.display = "none";
+        }
+    }
+    </script>
+</body>
+
+</html>
+<?php } else {
                 header("Location: setup");
             }
         } else if ($URI_parts[0] and $URI_parts[0] == 'version') { ?>
-            <head>
-                <title><?php echo($blogName); ?> | Dropplets Version</title>
-                <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
-                <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
-            </head>
-            <body>
-                <main>
-                    <div class="setupHeader">
-                       <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span> </a>
-                    </div>
-                    <h3>Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License</h3>
-                </main>
-            </body>
-        <?php } else if ($URI_parts[0] and $URI_parts[0] == 'update') { ?>
-            <head>
-                <title><?php echo($blogName); ?> | Update</title>
-                <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
-                <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
-            </head>
-            <body>
-                <main>
-                    <div class="setupHeader">
-                        <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span> </a>
-                    </div>
-                    <h1>Update</h1>
-                    <form method="post" action="post">
-                        <fieldset>
-                            <legend>Type your password to update your blog</legend>
-                            <input type="password" name="blogPassword" placeholder="Management password" required />
-                        </fieldset>
-                        <input type="hidden" name="form" value="update" required />
-                        <input class="btn" type="submit" value="Update Dropplets" />
-                    </form>
-                </main>
-            </body>
-        <?php } else if (count($URI_parts) == 3 and $URI_parts[1] == 'posts' and $URI_parts[0]) {
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><?php echo($blogName); ?> | Dropplets Version</title>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+</head>
+
+<body>
+    <main>
+        <div class="setupHeader">
+            <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span
+                    class="droppletsName">Dropplets</span> </a>
+        </div>
+        <h3>Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License</h3>
+    </main>
+</body>
+
+</html>
+<?php } else if ($URI_parts[0] and $URI_parts[0] == 'update') { ?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><?php echo($blogName); ?> | Update</title>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+</head>
+
+<body>
+    <main>
+        <div class="setupHeader">
+            <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span
+                    class="droppletsName">Dropplets</span> </a>
+        </div>
+        <h1>Update</h1>
+        <form method="post" action="post">
+            <fieldset>
+                <legend>Type your password to update your blog</legend>
+                <input type="password" name="blogPassword" placeholder="Management password" required />
+            </fieldset>
+            <input type="hidden" name="form" value="update" required />
+            <input class="btn" type="submit" value="Update Dropplets" />
+        </form>
+    </main>
+</body>
+
+</html>
+<?php } else if (count($URI_parts) == 3 and $URI_parts[1] == 'posts' and $URI_parts[0]) {
             // If the config exists, read it and display the blog.
             if (file_exists("config.php")) {
                 include "posts/post$URI_parts[0].php";
                 ?>
-                <head>
-                    <title><?php echo($blogName); ?> | <?php echo($postTitle); ?></title>
-                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
-                    <link type="text/css" rel="stylesheet" href="<?php echo($postStyleSheet); ?>" />
-                    <?php echo($headerInject); ?>
-                </head>
-                <body>
-                    <main id="postPage">
-                        <header>
-                            <a id="siteTitleLink" href="/">➜</a>
-                        </header>
-                        <div id="postTitleDate">
-                            <h1 id="postTitle"><?php echo($postTitle); ?></h1>
-                            <span id="postSubtitle"><?php echo($postDate); ?></span>
-                        </div>
-                        <div id="postContent"><?php echo(Slimdown::render($postContent)); ?></div>
-                        <div id="footer">
-                            <p class="footerText"><?php echo($blogCopyright); ?></p>
-                        </div>
-                        <?php echo($footerInject); ?>
-                    </main>
-                </body>
-            <?php } else {
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><?php echo($blogName); ?> | <?php echo($postTitle); ?></title>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo($postStyleSheet); ?>" />
+    <?php echo($headerInject); ?>
+</head>
+
+<body>
+    <main id="postPage">
+        <header>
+            <a id="siteTitleLink" href="/">➜</a>
+        </header>
+        <div id="postTitleDate">
+            <h1 id="postTitle"><?php echo($postTitle); ?></h1>
+            <span id="postSubtitle"><?php echo($postDate); ?></span>
+        </div>
+        <div id="postContent"><?php echo(Slimdown::render($postContent)); ?></div>
+        <div id="footer">
+            <p class="footerText"><?php echo($blogCopyright); ?></p>
+        </div>
+        <?php echo($footerInject); ?>
+    </main>
+</body>
+
+</html>
+<?php } else {
                 header("Location: setup");
             }
          } else {
             // If the config exists, read it and display the blog.
             if (file_exists("config.php")) { ?>
-                <head>
-                    <title><?php echo($blogName); ?> | Home</title>
-                    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
-                    <link type="text/css" rel="stylesheet" href="<?php echo($blogStyleSheet); ?>" />
-                    <?php echo($headerInject); ?>
-                </head>
-                <body>
-                    <main id="index">
-                        <header>
-                            <h1 id="siteTitle"><?php echo($blogName); ?></h1>
-                        </header>
-                        <div class="posts">
-                            <?php
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><?php echo($blogName); ?> | Home</title>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo($blogStyleSheet); ?>" />
+    <?php echo($headerInject); ?>
+</head>
+
+<body>
+    <main id="index">
+        <header>
+            <h1 id="siteTitle"><?php echo($blogName); ?></h1>
+        </header>
+        <div class="posts">
+            <?php
                             $posts = array_reverse(glob('posts/*.{php}', GLOB_BRACE));
                             $index = count($posts)+1;
                             foreach($posts as $post) {
@@ -296,14 +350,16 @@
                                 echo("<div class=\"post\"><h2 id=\"postTitle\"><a href=\"posts/$index\">$postTitle</a></h2><span id=\"postSubtitle\">$postDate</span><div id=\"postContent\">".substr(Slimdown::render($postContent), 0, 250)."</div></div>");
                             }
                             ?>
-                        </div>
-                        <div id="footer">
-                            <p class="footerText"><?php echo($blogCopyright); ?></p>
-                        </div>
-                        <?php echo($footerInject); ?>
-                    </main>
-                </body>
-            <?php } else {
+        </div>
+        <div id="footer">
+            <p class="footerText"><?php echo($blogCopyright); ?></p>
+        </div>
+        <?php echo($footerInject); ?>
+    </main>
+</body>
+
+</html>
+<?php } else {
                 header("Location: setup");
             }
         }
@@ -374,4 +430,3 @@
         }
     }
 ?>
-</html>
