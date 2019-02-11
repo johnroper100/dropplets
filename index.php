@@ -100,6 +100,47 @@ exit;
 } else {
 header("Location: setup");
 }
+}else if (test_input($_POST["form"]) == "postUpload") {
+if (file_exists("config.php")) {
+if(isset($_POST["blogPostTitle"]) and isset($_POST["blogPostFile"]) and isset($_POST["blogPassword"]) and
+isset($_POST["blogPostStyleType"])){
+if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
+if (test_input($_POST["blogPostStyleType"]) == "default") {
+$postStyleSheet = $blogPostStyleSheet;
+} else {
+$postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
+}
+$post_content =
+"<?php\n\$postTitle='".test_input($_POST["blogPostTitle"])."';\n\$postContent='".$_POST["blogPostFile"]."';\n\$postDate='".date("F jS, Y")."';\n\$postStyleSheet='".$postStyleSheet."';\n?>";
+
+if (!file_exists("posts/".date("Y"))) {
+mkdir("posts/".date("Y"));
+}
+if (!file_exists("posts/".date("Y")."/".date("d"))) {
+mkdir("posts/".date("Y")."/".date("d"));
+}
+if (!file_exists("posts/".date("Y")."/".date("d")."/".date("m"))) {
+mkdir("posts/".date("Y")."/".date("d")."/".date("m"));
+}
+if(!file_exists("posts/".date("Y")."/".date("d")."/".date("m")."/".urlencode(test_input($_POST["blogPostTitle"])).".php")){
+$result = urlencode(test_input($_POST["blogPostTitle"])).".php";
+} else {
+header("Location: /post");
+}
+$post = fopen("posts/".date("Y")."/".date("d")."/".date("m")."/".$result, 'w') or die("Unable to set up needed files!
+Please make sure index.php has write
+permissions and that the folder it is in has write permissions.");
+fwrite($post, $post_content);
+fclose($post);
+header("Location: ".dirname($_SERVER['REQUEST_URI']));
+} else {
+echo("Management password not correct!");
+exit;
+}
+}
+} else {
+header("Location: setup");
+}
 } else if (test_input($_POST["form"]) == "update") {
 if (file_exists("config.php")) {
 if(isset($_POST["blogPassword"])){
@@ -281,7 +322,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
             <fieldset>
                 <input type="password" name="blogPassword" placeholder="Management Password:" required />
             </fieldset>
-            <input type="hidden" name="form" value="post" required />
+            <input type="hidden" name="form" value="postUpload" required />
             <input class="btn" type="submit" value="Publish New Post" />
         </form>
     </main>
