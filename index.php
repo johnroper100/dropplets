@@ -134,7 +134,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 <body>
     <main>
         <div class="setupHeader">
-            <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span
+            <a href="https://github.com/johnroper100/dropplets"><span class="headerLogo"></span><span
                     class="droppletsName">Dropplets</span> </a>
         </div>
         <h1>Let's create your blog</h1>
@@ -206,7 +206,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 <body>
     <main>
         <div class="setupHeader">
-            <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span
+            <a href="https://github.com/johnroper100/dropplets"><span class="headerLogo"></span><span
                     class="droppletsName">Dropplets</span> </a>
         </div>
         <h1>Time to write your prose</h1>
@@ -262,7 +262,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 <body>
     <main>
         <div class="setupHeader">
-            <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span
+            <a href="https://github.com/johnroper100/dropplets"><span class="headerLogo"></span><span
                     class="droppletsName">Dropplets</span> </a>
         </div>
         <h3>Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License</h3>
@@ -283,7 +283,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 <body>
     <main>
         <div class="setupHeader">
-            <a href="https://github.com/johnroper100/dropplets/tree/2.0"><span class="headerLogo"></span><span
+            <a href="https://github.com/johnroper100/dropplets"><span class="headerLogo"></span><span
                     class="droppletsName">Dropplets</span> </a>
         </div>
         <h1>Update</h1>
