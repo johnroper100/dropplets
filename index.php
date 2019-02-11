@@ -213,7 +213,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
         <form method="post" action="post">
             <fieldset>
                 <input type="text" name="blogPostTitle" class="blogPostTitle" placeholder="The post title" required />
-                <textarea name="blogPostContent" placeholder="Write your post here, you can use Markdown and HTML"
+                <textarea name="blogPostContent" placeholder="Write your post here, you can use Markdown"
                     required></textarea>
             </fieldset>
             <fieldset>
