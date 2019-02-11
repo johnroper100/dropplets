@@ -246,6 +246,59 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 </body>
 
 </html>
+<?php }} else if (count($URI_parts) >= 1 and $URI_parts[0] and $URI_parts[0] == 'postUpload') {
+            if (file_exists("config.php")) { ?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><?php echo($blogName); ?> | New Post Upload</title>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+</head>
+
+<body>
+    <main>
+        <div class="setupHeader">
+            <a href="https://github.com/johnroper100/dropplets"><span class="headerLogo"></span><span
+                    class="droppletsName">Dropplets</span> </a>
+        </div>
+        <h1>Time to write your prose</h1>
+        <form method="post" action="post">
+            <fieldset>
+                <input type="text" name="blogPostTitle" class="blogPostTitle" placeholder="The post title" required />
+                <input type="file" name="blogPostFile" class="blogPostFile" placeholder="The post file" required />
+            </fieldset>
+            <fieldset>
+                <p class="details">You can personnalise the style of your post here</p>
+                <select name="blogPostStyleType" onchange="showStyleInput(this);">
+                    <option value="default" selected>Use Default Stylesheet</option>
+                    <option value="custom">Use a custom stylesheet</option>
+                </select>
+                <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet"
+                    placeholder="Custom stylesheet link" />
+            </fieldset>
+            <fieldset>
+                <input type="password" name="blogPassword" placeholder="Management Password:" required />
+            </fieldset>
+            <input type="hidden" name="form" value="post" required />
+            <input class="btn" type="submit" value="Publish New Post" />
+        </form>
+    </main>
+    <script>
+    document.getElementById("blogPostStyleSheet").style.display = "none";
+
+    function showStyleInput(that) {
+        if (that.value == "custom") {
+            document.getElementById("blogPostStyleSheet").style.display = "block";
+        } else {
+            document.getElementById("blogPostStyleSheet").style.display = "none";
+        }
+    }
+    </script>
+</body>
+
+</html>
 <?php } else {
                 header("Location: setup");
             }
