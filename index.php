@@ -30,11 +30,11 @@
             if(isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogCopyright"]) and isset($_POST["blogPassword"]) and isset($_POST["blogStyleType"])){
                 // Get the stylesheet link (placed here to be used in both the if config.php and if not)
                 if (test_input($_POST["blogStyleType"]) == "default") {
-                    $blogStyleSheet = "https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/main.css";
-                    $blogPostStyleSheet = "https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/main.css";
+                    $blogStyleSheet = "https://raw.githack.com/johnroper100/dropplets/2.0/main.css";
+                    $blogPostStyleSheet = "https://raw.githack.com/johnroper100/dropplets/2.0/main.css";
                 } else if (test_input($_POST["blogStyleType"]) == "zen") {
-                    $blogStyleSheet = "https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/zenStyle.css";
-                    $blogPostStyleSheet = "https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/zenStyle.css";
+                    $blogStyleSheet = "https://raw.githack.com/johnroper100/dropplets/2.0/zenStyle.css";
+                    $blogPostStyleSheet = "https://raw.githack.com/johnroper100/dropplets/2.0/zenStyle.css";
                 } else {
                     $blogStyleSheet = test_input($_POST["blogStyleSheet"]);
                     $blogPostStyleSheet = test_input($_POST["blogPostStyleSheet"]);
@@ -104,7 +104,7 @@ header("Location: setup");
 if (file_exists("config.php")) {
 if(isset($_POST["blogPassword"])){
 if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
-file_put_contents("index.php", fopen("https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/index.php", 'r'));
+file_put_contents("index.php", fopen("https://raw.githack.com/johnroper100/dropplets/2.0/index.php", 'r'));
 header("Location: ".dirname($_SERVER['REQUEST_URI']));
 } else {
 echo("Management password not correct!");
@@ -127,8 +127,8 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 
 <head>
     <title>Dropplets | Setup</title>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+    <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/2.0/setup.css" />
 </head>
 
 <body>
@@ -199,8 +199,8 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 
 <head>
     <title><?php echo($blogName); ?> | New Post</title>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+    <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/2.0/setup.css" />
 </head>
 
 <body>
@@ -253,8 +253,8 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 
 <head>
     <title><?php echo($blogName); ?> | New Post Upload</title>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+    <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/2.0/setup.css" />
 </head>
 
 <body>
@@ -308,8 +308,8 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 
 <head>
     <title><?php echo($blogName); ?> | Dropplets Version</title>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+    <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/2.0/setup.css" />
 </head>
 
 <body>
@@ -329,8 +329,8 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 
 <head>
     <title><?php echo($blogName); ?> | Update</title>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/setup.css" />
+    <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/2.0/setup.css" />
 </head>
 
 <body>
@@ -362,7 +362,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 
 <head>
     <title><?php echo($blogName); ?> | <?php echo($postTitle); ?></title>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/2.0/reset.css" />
     <link type="text/css" rel="stylesheet" href="<?php echo($postStyleSheet); ?>" />
     <?php echo($headerInject); ?>
 </head>
@@ -396,7 +396,7 @@ if (!isset($blogStyleType)) { $blogStyleType = 'default'; }
 
 <head>
     <title><?php echo($blogName); ?> | Home</title>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/johnroper100/dropplets@2.0/reset.css" />
+    <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/2.0/reset.css" />
     <link type="text/css" rel="stylesheet" href="<?php echo($blogStyleSheet); ?>" />
     <?php echo($headerInject); ?>
 </head>

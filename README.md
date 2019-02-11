@@ -33,6 +33,6 @@ Make sure `index.php` has execution permission and can write to the folder conta
 
 ## Resources
 
-Dependency Hosting - https://www.jsdelivr.com
+Dependency Hosting - https://raw.githack.com/
 
 Color Palette (backend and default theme) - https://yeun.github.io/open-color/
