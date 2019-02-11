@@ -38,7 +38,7 @@ main#index #postSubtitle{font-size:16px;font-weight:700;margin-top:5px;color:#77
 main#index #postContent{margin-top:25px;}
 /* ========== Post Page ========== */
 main#postPage #postTitle{font-size:36px;}
-main#postPage #postContent{margin-top:40px;}
+main#postPage #postContent{margin-top:40px;grid-area: 2/2/3/3;}
 main#postPage #siteTitleLink::before{transform: rotate(180deg);}
 /* ========== Footer ========== */
-#footer{grid-area: 2/2/3/3;justify-self: end;font-size:12px;}
+#footer{grid-area: 3/2/3/3;justify-self: end;font-size:12px;}
