@@ -2,10 +2,10 @@
     if (file_exists("config.php")) {
         include 'config.php';
     } else {
-        $blogName = NULL;
-        $blogAuthor = NULL;
-        $blogCopyright = NULL;
-        $blogPassword = NULL;
+        $blogName = null;
+        $blogAuthor = null;
+        $blogCopyright = null;
+        $blogPassword = null;
     }
     // Create the required .htaccess if it dosen't already exist.
     if (!file_exists(".htaccess")) {
