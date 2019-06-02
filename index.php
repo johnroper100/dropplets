@@ -473,7 +473,7 @@ function test_input($data)
 {
     $data = trim($data);
     $data = stripslashes($data);
-    $data = htmlspecialchars($data);
+    $data = htmlspecialchars($data, ENT_QUOTES);
     return $data;
 }
 class Slimdown
@@ -489,7 +489,7 @@ class Slimdown
         '/\:\"(.*?)\"\:/' => '<q>\1</q>',                         // quote
         '/`(.*?)`/' => '<code>\1</code>',                         // inline code
         '/\n[0-9]+\.(.*)/' => 'self::ol_list',                    // ol lists
-        '/\n(&gt;|\>)(.*)/' => 'self::blockquote ',               // blockquotes
+        '/\n(&gt;|\>)(.*)/' => 'self::blockquote',               // blockquotes
         '/\n-{5,}/' => "\n<hr />",                                // horizontal rule
         '/\n([^\n]+)\n/' => 'self::para',                         // add paragraphs
         '/<\/ul>\s?<ul>/' => '',                                  // fix extra ul
