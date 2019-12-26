@@ -4,6 +4,14 @@ export default {
   mode: 'universal',
 
   /*
+   ** Permet de définir l'adresse du serveur en local
+   */
+  server: {
+    // port: 8000, // par défaut: 3000
+    // host: '192.168.1.49' // host: '0.0.0.0' // par défaut: localhost
+  },
+
+  /*
    ** Headers of the page
    */
   head: {
