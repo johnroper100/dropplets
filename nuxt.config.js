@@ -2,6 +2,8 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   mode: 'universal',
+  srcDir: 'src',
+  buildDir: 'functions/.nuxt',
 
   /*
    ** Permet de définir l'adresse du serveur en local
@@ -126,6 +128,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    extractCSS: true,
     extend(config, ctx) {}
   }
 }
