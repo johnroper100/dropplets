@@ -11,12 +11,14 @@ $ yarn install
 # serve with hot reload at localhost:3000
 $ yarn dev
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+# serve with firebase functions
+$ yarn build:firebase
+$ yarn start:firebase
 
-# generate static project
-$ yarn generate
+# deploy project on Firebase Hosting
+$ yarn build:firebase
+$ yarn deploy
+
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
@@ -58,3 +60,7 @@ Et là, ça devrait compiler normalement.
 
 - [Github](https://github.com/lupas/nuxt-fire)
 - [Documentation](https://nuxtfire.netlify.com/)
+
+### Deploy Nuxt on Firebase 🚀
+
+- [Tuto](https://dev.to/kiritchoukc/deploy-nuxt-on-firebase-4ad8)
