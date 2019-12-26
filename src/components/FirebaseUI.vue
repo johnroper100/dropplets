@@ -52,4 +52,4 @@ export default {
   }
 }
 </script>
-<style src="~/node_modules/firebaseui/dist/firebaseui.css"></style>
+<style src="~~/node_modules/firebaseui/dist/firebaseui.css"></style>

@@ -21,6 +21,11 @@ $ yarn generate
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
+## Trucs important
+
+- `~` or `@` for [srcDir](https://nuxtjs.org/api/configuration-srcdir)
+- `~~` or `@@` for [rootDir](https://nuxtjs.org/api/configuration-rootdir)
+
 ------
 
 ## Création d'un nouveau projet
