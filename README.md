@@ -42,3 +42,14 @@ $ yarn add -D core-js@2 @babel/runtime-corejs2
 ```
 
 Et là, ça devrait compiler normalement.
+
+------
+
+## Liens important
+
+> Pour éviter de galérer, voici la liste des liens qui sont importants pour le projet.
+
+### Librarie Nuxt Fire 🔥
+
+- [Github](https://github.com/lupas/nuxt-fire)
+- [Documentation](https://nuxtfire.netlify.com/)
