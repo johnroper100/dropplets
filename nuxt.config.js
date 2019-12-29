@@ -112,7 +112,8 @@ export default {
               onSuccessAction: 'handleSuccessfulAuthentication',
               ssr: true
             }
-          }
+          },
+          firestore: true
         }
       }
     ]
