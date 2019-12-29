@@ -1,51 +1,104 @@
 # Spaceship 🚀🪐
 
-> My stellar Nuxt.js project
+<p align="center">
+  <img height="300px" src="https://firebasestorage.googleapis.com/v0/b/bento-vince.appspot.com/o/spaceshipGithub.png?alt=media&token=eaa4013a-581e-4d68-a6a3-3b0bf66849a0"/>
+</p>
 
-## Build Setup
+<p align="center">
+  <a href="https://gitmoji.carloscuesta.me/"><img src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square"/></a>
+</p>
+
+> Template repository for create quickly new universal web app (SSR) with VueJs, Nuxt, all Firebase tools like authentification and deploy on Firebase Hosting in seconds 🚀
+
+## ✨ Demo
+
+👉 https://bento-vince.web.app/
+
+## ❤ This is made for you
+
+These libraries and tools are already setup:
+
+- 🤘 Vue
+- ☄ Nuxt
+- 📱 PWA
+- 👤 Firebase Auth (and server side verification)
+- 🔥 [Nuxt-Fire](https://github.com/lupas/nuxt-fire) : all Firebase tools in Nuxt
+- 🏠 Firebase Hosting deployment
+- 🌍 Google App Engine deployment
+- 💄 Prettier : code formatting rules
+- 🚨 Eslint : control code quality
+- ✅ Jest (testing)
+
+## 🚀 Get started
+
+### 🍺 Let's started
 
 ``` bash
+# clone Spaceship 🚀🪐 repository
+$ git clone https://github.com/EBfVince/Spaceship.git MyAwesomeProject
+$ cd MyAwesomeProject
+
 # install dependencies
 $ yarn
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# serve with firebase functions
-$ yarn build:firebase
-$ yarn start:firebase
-
-# deploy project on Firebase Hosting
-$ yarn build:firebase
-$ yarn deploy
-
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+### 👨‍🔧 Configuring the project
 
-Si `yarn build:firebase` met une erreur à la fin du process, le contournement que j'ai trouvé est :
+- Create a Firebase project. For more informations, [see here](https://firebase.google.com/)
+- Open `package.json` file. Replace the `name` with your project name.
+- Open `nuxt.config.js` file. On the top of the file, replace the `firebaseConfig` values by yours.
+- That's it 🎉🍻
 
-- Aller dans `functions/package.json`
-- Remplacer la ligne `"node": "10"` par `"node": ">=10"`
-- Relancer `yarn build:firebase`
-- Quand la commande est finie, remettre ligne sur `"node": "10"`
-- Continuer le process
+### 💻 Serve locally
 
-## Changer le nom du projet
+``` bash
+# serve with hot reload at localhost:3000
+$ yarn dev
+```
 
-- Ouvrir package.json
-- Changer la ligne `"name"`
+### 🔥 Serve locally with Firebase
 
-## Changer les configs Firebase 🔥 du projet
+> Spaceship 🚀🪐 is using NodeJS 10 for running the project with Firebase functions. To make it work properly, you need to install and use NodeJS 10. See [NVM](https://github.com/coreybutler/nvm-windows) for using multiple versions of Node on the same computer
 
-- Ouvrir `nuxt.config.js`
-- Ctrl+f de `nuxt-fire`
-- Remplacer les valeurs par celles du [projet Firebase](https://firebase.google.com/docs/web/setup)
+``` bash
+# serve with firebase functions at localhost:5000
+$ yarn build:firebase
+$ yarn start:firebase
+```
+
+## 🚀 Easy Deploy
+
+### 🔥 Deploy on Firebase
+
+``` bash
+# deploy on Firebase functions and hosting
+$ yarn build:firebase
+$ yarn deploy
+```
+
+### 👩‍🚀 Deploy on Google App Engine
+
+The `[project-id]` is the project ID of your Google Cloud project.
+
+``` bash
+# deploy on Firebase functions and hosting
+$ yarn build
+$ gcloud app deploy app.yaml --project [project-id]
+```
+
+Made with ❤ by EBfStudio and Vince
+
+-----
 
 ## Trucs important
 
 - `~` or `@` for [srcDir](https://nuxtjs.org/api/configuration-srcdir)
 - `~~` or `@@` for [rootDir](https://nuxtjs.org/api/configuration-rootdir)
+
+## Firebase Authentification
+
+Il faut faire vérifier son nom de domaine par Firebase Auth.
+Voir ici : https://console.firebase.google.com/u/0/project/[project-id]/authentication/providers
 
 ## Liens important
 
