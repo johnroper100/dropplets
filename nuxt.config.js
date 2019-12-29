@@ -10,7 +10,19 @@ export default {
    */
   server: {
     // port: 8000, // par défaut: 3000
-    // host: '192.168.1.49' // host: '0.0.0.0' // par défaut: localhost
+    // host: '0.0.0.0' // par défaut: localhost
+  },
+
+  /**
+   * Permet de configurer la librairie PWA
+   * Workbox crée automatiquement un service worker (sw.js)
+   * Pour ajouter le service worker du plugin nuxt-fire, il faut l'ajouter ici
+   */
+  pwa: {
+    workbox: {
+      /* workbox options */
+      importScripts: ['firebase-auth-sw.js']
+    }
   },
 
   /*
@@ -71,13 +83,13 @@ export default {
       'nuxt-fire',
       {
         config: {
-          apiKey: '***REMOVED***',
-          authDomain: '***REMOVED***',
-          databaseURL: '***REMOVED***',
-          projectId: '***REMOVED***',
-          storageBucket: '***REMOVED***.appspot.com',
-          messagingSenderId: '***REMOVED***',
-          appId: '1:***REMOVED***:web:f2a4223fcbff6f078b6c9e',
+          apiKey: 'AIzaSyC3qpcRaVJVT63YMfIMgNJKRsmtPmEB6VM',
+          authDomain: 'bento-vince.firebaseapp.com',
+          databaseURL: 'https://bento-vince.firebaseio.com',
+          projectId: 'bento-vince',
+          storageBucket: 'bento-vince.appspot.com',
+          messagingSenderId: '419042376123',
+          appId: '1:419042376123:web:f2a4223fcbff6f078b6c9e',
           measurementId: '<measurementId>'
         },
         services: {
@@ -120,6 +132,12 @@ export default {
       }
     }
   },
+
+  /**
+   * Permet de faire tourner du code avant que la page soit rendue
+   * ATTENTION : Avec Firebase Hosting ce code n'est pas exécuté !!!
+   */
+  serverMiddleware: [],
 
   /*
    ** Build configuration
