@@ -18,12 +18,7 @@ export default {
    * Permet de sauver l'utilisateur dans le state qu'on il vient de se connecter
    */
   handleSuccessfulAuthentication({ commit }, { authUser }) {
-    // Install servicerWorker if supported on sign-in/sign-up page.
-    if (process.browser && 'serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/firebase-auth-sw.js', { scope: '/' })
-    }
     commit('SET_AUTH_USER', { authUser })
-
     console.log('handleSuccessfulAuthentication fait ✅')
   },
 

@@ -10,7 +10,19 @@ export default {
    */
   server: {
     // port: 8000, // par défaut: 3000
-    // host: '192.168.1.49' // host: '0.0.0.0' // par défaut: localhost
+    // host: '0.0.0.0' // par défaut: localhost
+  },
+
+  /**
+   * Permet de configurer la librairie PWA
+   * Workbox crée automatiquement un service worker (sw.js)
+   * Pour ajouter le service worker du plugin nuxt-fire, il faut l'ajouter ici
+   */
+  pwa: {
+    workbox: {
+      /* workbox options */
+      importScripts: ['firebase-auth-sw.js']
+    }
   },
 
   /*
@@ -120,6 +132,12 @@ export default {
       }
     }
   },
+
+  /**
+   * Permet de faire tourner du code avant que la page soit rendue
+   * ATTENTION : Avec Firebase Hosting ce code n'est pas exécuté !!!
+   */
+  serverMiddleware: [],
 
   /*
    ** Build configuration
