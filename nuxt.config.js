@@ -1,5 +1,17 @@
 import colors from 'vuetify/es5/util/colors'
 
+// Firebase settings
+const firebaseConfig = {
+  apiKey: 'AIzaSyC3qpcRaVJVT63YMfIMgNJKRsmtPmEB6VM',
+  authDomain: 'bento-vince.firebaseapp.com',
+  databaseURL: 'https://bento-vince.firebaseio.com',
+  projectId: 'bento-vince',
+  storageBucket: 'bento-vince.appspot.com',
+  messagingSenderId: '419042376123',
+  appId: '1:419042376123:web:f2a4223fcbff6f078b6c9e',
+  measurementId: 'todo'
+}
+
 export default {
   mode: 'universal',
   srcDir: 'src',
@@ -21,6 +33,7 @@ export default {
   pwa: {
     workbox: {
       /* workbox options */
+      dev: true,
       importScripts: ['firebase-auth-sw.js']
     }
   },
@@ -83,14 +96,14 @@ export default {
       'nuxt-fire',
       {
         config: {
-          apiKey: 'AIzaSyC3qpcRaVJVT63YMfIMgNJKRsmtPmEB6VM',
-          authDomain: 'bento-vince.firebaseapp.com',
-          databaseURL: 'https://bento-vince.firebaseio.com',
-          projectId: 'bento-vince',
-          storageBucket: 'bento-vince.appspot.com',
-          messagingSenderId: '419042376123',
-          appId: '1:419042376123:web:f2a4223fcbff6f078b6c9e',
-          measurementId: '<measurementId>'
+          apiKey: firebaseConfig.apiKey,
+          authDomain: firebaseConfig.authDomain,
+          databaseURL: firebaseConfig.databaseURL,
+          projectId: firebaseConfig.projectId,
+          storageBucket: firebaseConfig.storageBucket,
+          messagingSenderId: firebaseConfig.messagingSenderId,
+          appId: firebaseConfig.appId,
+          measurementId: firebaseConfig.measurementId
         },
         services: {
           auth: {

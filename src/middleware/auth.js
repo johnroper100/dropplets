@@ -1,10 +1,9 @@
-export default function({ store, error }) {
+export default function({ store, redirect }) {
   if (!store.state.authUser) {
-    // redirect('/')
-    error({
+    redirect('/connexion')
+    /* error({
       message: 'You are not connected',
       statusCode: 403
-    })
+    }) */
   }
-  console.log('auth.js fait ✅', store.state)
 }

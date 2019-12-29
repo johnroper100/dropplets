@@ -3,7 +3,6 @@ const JWTDecode = require('jwt-decode')
 const functions = require('firebase-functions')
 const { Nuxt } = require('nuxt')
 const express = require('express')
-// const config = require('../nuxt.config.js')
 
 const app = express()
 
@@ -34,27 +33,7 @@ async function handleRequest(req, res) {
   if (req.headers.authorization) {
     // On initialise Firebase si c'est pas déjà fait
     if (!admin.apps.length) {
-      const options = {
-        config: {
-          apiKey: 'AIzaSyC3qpcRaVJVT63YMfIMgNJKRsmtPmEB6VM',
-          authDomain: 'bento-vince.firebaseapp.com',
-          databaseURL: 'https:\u002F\u002Fbento-vince.firebaseio.com',
-          projectId: 'bento-vince',
-          storageBucket: 'bento-vince.appspot.com',
-          messagingSenderId: '419042376123',
-          appId: '1:419042376123:web:f2a4223fcbff6f078b6c9e',
-          measurementId: '\u003CmeasurementId\u003E'
-        },
-        services: {
-          auth: {
-            initialize: {
-              onSuccessAction: 'handleSuccessfulAuthentication',
-              ssr: true
-            }
-          }
-        }
-      }
-      admin.initializeApp(options.config)
+      admin.initializeApp()
     }
 
     // Parse the injected ID token from the request header.

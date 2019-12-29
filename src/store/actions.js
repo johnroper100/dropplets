@@ -10,7 +10,6 @@ export default {
         authUser: ssrVerifiedAuthUser
       })
     }
-    console.log('nuxtServerInit fait ✅')
   },
 
   /**
@@ -19,7 +18,6 @@ export default {
    */
   handleSuccessfulAuthentication({ commit }, { authUser }) {
     commit('SET_AUTH_USER', { authUser })
-    console.log('handleSuccessfulAuthentication fait ✅')
   },
 
   /**
