@@ -83,12 +83,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLoggedIn: 'isLoggedIn'
+      isLoggedIn: 'auth/isLoggedIn'
     })
   },
   methods: {
     logout() {
-      this.$store.dispatch('signOut').then(() => {
+      this.$store.dispatch('auth/signOut').then(() => {
         console.log('logged out 📴')
       })
     }

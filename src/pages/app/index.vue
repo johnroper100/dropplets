@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     authUser() {
-      return this.$store.state.authUser
+      return this.$store.state.auth.authUser
     }
   },
   mounted() {
@@ -36,6 +36,6 @@ export default {
         })
       })
   },
-  middleware: 'auth'
+  middleware: 'securePage'
 }
 </script>
