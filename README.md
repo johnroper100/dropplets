@@ -1,7 +1,7 @@
 # Spaceship 🚀🪐
 
 <p align="center">
-  <img height="500px" src="https://firebasestorage.googleapis.com/v0/b/bento-vince.appspot.com/o/spaceshipGithub.png?alt=media&token=eaa4013a-581e-4d68-a6a3-3b0bf66849a0"/>
+  <img src="https://firebasestorage.googleapis.com/v0/b/bento-vince.appspot.com/o/spaceshipGithub.png?alt=media&token=eaa4013a-581e-4d68-a6a3-3b0bf66849a0"/>
 </p>
 
 <p align="center">
