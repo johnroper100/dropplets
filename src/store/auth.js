@@ -47,8 +47,8 @@ export const actions = {
   /**
    * Permet de déconnecter l'utilisateur et remettre le state à l'initial
    */
-  signOut({ commit }) {
-    this.$fireAuth
+  signOut({ commit }, ctx) {
+    ctx.$fireAuth
       .signOut()
       .then(() => {
         commit('resetStore')
@@ -57,7 +57,5 @@ export const actions = {
         console.error('Erreur', err)
         alert(err)
       })
-
-    console.log('signOut fait ✅')
   }
 }

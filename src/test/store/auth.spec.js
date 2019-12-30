@@ -1,3 +1,4 @@
+import testAction from '../util/testAction'
 import { state, mutations, getters, actions } from '@/store/auth'
 
 describe('state', () => {
@@ -74,7 +75,18 @@ describe('getters', () => {
 })
 
 describe('actions', () => {
-  test('signOut', () => {
-    // actions.signOut
+  test('signOut', (done) => {
+    // done.$fireAuth = jest.fn()
+    const context = {
+      $fireAuth: {
+        signOut() {
+          return new Promise((resolve) => {
+            resolve('resolved')
+          })
+        }
+      }
+    }
+    // const state = { user: null }
+    testAction(actions.signOut, context, {}, [{ type: 'resetStore' }], done)
   })
 })
