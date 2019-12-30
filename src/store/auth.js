@@ -1,23 +1,31 @@
-export const state = () => ({
-  authUser: null
-})
+function initialState() {
+  return {
+    user: null
+  }
+}
+
+export const state = initialState
 
 export const mutations = {
   /**
    * Permet de réinitialiser le state a sa version d'origine
    * Utile quand on déconnecte un utilisateur
    */
-  resetStore(sta) {
-    Object.assign(sta, this.state)
+  resetStore(state) {
+    // acquire initial state
+    const s = initialState()
+    Object.keys(s).forEach((key) => {
+      state[key] = s[key]
+    })
   },
 
   /**
    * Permet de set les infos du user dans le state
    */
-  setAuthUser(state, { authUser }) {
-    state.authUser = {
-      uid: authUser.uid,
-      email: authUser.email
+  setUser(state, user) {
+    state.user = {
+      uid: user.uid,
+      email: user.email
     }
   }
 }
@@ -28,7 +36,7 @@ export const getters = {
    */
   isLoggedIn: (state) => {
     try {
-      return state.authUser.uid !== null
+      return state.user.uid !== null
     } catch (err) {
       return false
     }

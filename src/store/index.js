@@ -6,7 +6,7 @@ export const actions = {
   nuxtServerInit({ commit }, ctx) {
     const ssrVerifiedAuthUser = ctx.res.verifiedFireAuthUser
     if (ssrVerifiedAuthUser) {
-      commit('auth/setAuthUser', { authUser: ssrVerifiedAuthUser })
+      commit('auth/setUser', ssrVerifiedAuthUser)
     }
   },
 
@@ -15,6 +15,6 @@ export const actions = {
    * Permet de sauver l'utilisateur dans le state qu'on il vient de se connecter
    */
   handleSuccessfulAuthentication({ commit }, { authUser }) {
-    commit('auth/setAuthUser', { authUser })
+    commit('auth/setUser', authUser)
   }
 }
