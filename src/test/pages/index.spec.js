@@ -1,7 +1,10 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
+import Vue from 'vue'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Index from '@/pages/index.vue'
+
+Vue.use(Vuetify)
 
 const factory = (isLoggedIn) => {
   const localVue = createLocalVue()
