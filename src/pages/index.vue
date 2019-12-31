@@ -52,10 +52,16 @@
           </a>
         </v-card-text>
         <v-card-actions>
-          <v-btn v-if="!isLoggedIn" color="primary" nuxt to="/connexion">
+          <v-btn
+            v-if="!isLoggedIn"
+            color="primary"
+            nuxt
+            to="/connexion"
+            class="btnLoginOut"
+          >
             Connexion
           </v-btn>
-          <v-btn v-else @click="logout" color="primary">
+          <v-btn v-else @click="logout" color="primary" class="btnLoginOut">
             Déconnexion
           </v-btn>
           <v-spacer />

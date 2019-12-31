@@ -1,4 +1,3 @@
-import testAction from '../util/testAction'
 import { state, mutations, getters, actions } from '@/store/auth'
 
 describe('state', () => {
@@ -75,8 +74,11 @@ describe('getters', () => {
 })
 
 describe('actions', () => {
-  test('signOut', (done) => {
-    // done.$fireAuth = jest.fn()
+  test('signOut no error', async () => {
+    // mocking
+    const commit = jest.fn((path) => {
+      expect(path).toBe('resetStore')
+    })
     const context = {
       $fireAuth: {
         signOut() {
@@ -86,7 +88,39 @@ describe('actions', () => {
         }
       }
     }
-    // const state = { user: null }
-    testAction(actions.signOut, context, {}, [{ type: 'resetStore' }], done)
+    // run
+    await actions.signOut({ commit }, context)
+    // assert result
+    expect.assertions(2)
+    expect(commit.mock.calls.length).toBe(1)
+  })
+
+  test('signOut error', async () => {
+    // mocking
+    const commit = jest.fn()
+    const error = { message: 'Test bro', code: 42 }
+    const context = {
+      $fireAuth: {
+        signOut() {
+          return new Promise((resolve) => {
+            // eslint-disable-next-line no-throw-literal
+            throw error
+          })
+        }
+      }
+    }
+    global.console.error = (p1, p2) => {
+      expect(p1).toBe('Erreur')
+    }
+    global.alert = (yo) => {
+      expect(yo).toEqual(error)
+    }
+
+    // run
+    await actions.signOut({ commit }, context)
+
+    // assert result
+    expect.assertions(3)
+    expect(commit.mock.calls.length).toBe(0)
   })
 })
