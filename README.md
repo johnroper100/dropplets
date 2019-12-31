@@ -12,7 +12,7 @@
 
 ## ✨ Demo
 
-👉 https://bento-vince.web.app/
+👉 <https://bento-vince.web.app/>
 
 ## ❤ This is made for you
 
@@ -98,7 +98,7 @@ Made with ❤ by EBfStudio and Vince
 ## Firebase Authentification
 
 Il faut faire vérifier son nom de domaine par Firebase Auth.
-Voir ici : https://console.firebase.google.com/u/0/project/[project-id]/authentication/providers
+Voir ici : <https://console.firebase.google.com/u/0/project/[project-id]/authentication/providers>
 
 ## Liens important
 
@@ -113,7 +113,7 @@ Voir ici : https://console.firebase.google.com/u/0/project/[project-id]/authenti
 
 - [Tuto](https://dev.to/kiritchoukc/deploy-nuxt-on-firebase-4ad8)
 
-------
+-----
 
 ## Création d'un nouveau projet
 
