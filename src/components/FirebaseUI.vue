@@ -40,7 +40,7 @@ export default {
     }
   },
   methods: {
-    signInResult() {
+    signInResult(authResult, redirectUrl) {
       this.openAppPage()
       return false
     },

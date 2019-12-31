@@ -1,3 +1,5 @@
+import UsersDB from '@/firebase/users-db'
+
 function initialState() {
   return {
     user: null
@@ -44,6 +46,12 @@ export const getters = {
 }
 
 export const actions = {
+  async signIn({ commit }, user) {
+    const userFromFirebase = await new UsersDB(this.$fireStore).read(user.uid)
+    console.log('boby', userFromFirebase)
+    commit('setUser', user)
+  },
+
   /**
    * Permet de déconnecter l'utilisateur et remettre le state à l'initial
    */

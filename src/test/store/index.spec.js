@@ -37,14 +37,17 @@ describe('actions', () => {
 
   test('handleSuccessfulAuthentication', () => {
     // mocking
-    const commit = jest.fn((path, payload) => {
-      expect(path).toBe('auth/setUser')
+    const dispatch = jest.fn((path, payload) => {
+      expect(path).toBe('auth/signIn')
       expect(payload).toBe('salut')
     })
     const user = 'salut'
     // run
-    actions.handleSuccessfulAuthentication({ commit }, { authUser: user })
+    actions.handleSuccessfulAuthentication(
+      { store: { dispatch } },
+      { authUser: user }
+    )
     // assert result
-    expect(commit.mock.calls.length).toBe(1)
+    expect(dispatch.mock.calls.length).toBe(1)
   })
 })

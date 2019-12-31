@@ -14,7 +14,7 @@ export const actions = {
    * Est appelé par la librarie nuxt-fire
    * Permet de sauver l'utilisateur dans le state qu'on il vient de se connecter
    */
-  handleSuccessfulAuthentication({ commit }, { authUser }) {
-    commit('auth/setUser', authUser)
+  handleSuccessfulAuthentication({ dispatch }, { authUser }) {
+    dispatch('auth/signIn', authUser)
   }
 }
