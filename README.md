@@ -8,7 +8,7 @@
   <a href="https://gitmoji.carloscuesta.me/"><img src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square"/></a>
 </p>
 
-> Template repository for create quickly new universal web app (SSR) with VueJs, Nuxt, all Firebase tools like authentification and deploy on Firebase Hosting in seconds 🚀
+> Template repository for quickly creating new universal web app (SSR) with VueJs, Nuxt, and Firebase, and deploying it on Firebase Hosting within seconds 🚀
 
 ## ✨ Demo
 
@@ -31,7 +31,7 @@ These libraries and tools are already setup:
 
 ## 🚀 Get started
 
-### 🍺 Let's started
+### 🍺 Let's start
 
 ``` bash
 # clone Spaceship 🚀🪐 repository
@@ -44,10 +44,10 @@ $ yarn
 
 ### 👨‍🔧 Configuring the project
 
-- Create a Firebase project. For more informations, [see here](https://firebase.google.com/)
+- Create a Firebase project. For more informations, [see here](https://firebase.google.com/).
 - Open `package.json` file. Replace the `name` with your project name.
 - Open `nuxt.config.js` file. On the top of the file, replace the `firebaseConfig` values by yours.
-- That's it 🎉🍻
+- That's it ! 🎉🍻
 
 ### 💻 Serve locally
 
@@ -58,7 +58,7 @@ $ yarn dev
 
 ### 🔥 Serve locally with Firebase
 
-> Spaceship 🚀🪐 is using NodeJS 10 for running the project with Firebase functions. To make it work properly, you need to install and use NodeJS 10. See [NVM](https://github.com/coreybutler/nvm-windows) for using multiple versions of Node on the same computer
+> Spaceship 🚀🪐 is using NodeJS 10 in order to run the project with Firebase functions. To make it work properly, you need to install and use NodeJS 10. See [NVM](https://github.com/coreybutler/nvm-windows) for using multiple versions of Node on the same computer.
 
 ``` bash
 # serve with firebase functions at localhost:5000
@@ -90,28 +90,28 @@ Made with ❤ by EBfStudio and Vince
 
 -----
 
-## Trucs important
+## Important stuff
 
 - `~` or `@` for [srcDir](https://nuxtjs.org/api/configuration-srcdir)
 - `~~` or `@@` for [rootDir](https://nuxtjs.org/api/configuration-rootdir)
 
-## Firebase Authentification
+## Firebase Authentication
 
-Il faut faire vérifier son nom de domaine par Firebase Auth.
-Voir ici : <https://console.firebase.google.com/u/0/project/[project-id]/authentication/providers>
+Domain names need to be verified by Firebase Auth.
+See here : <https://console.firebase.google.com/u/0/project/[project-id]/authentication/providers>
 
-## Liens important
+## Important links
 
-> Pour éviter de galérer, voici la liste des liens qui sont importants pour le projet.
+> Here are some pages you should check to avoid struggling with your project.
 
-### Librarie Nuxt Fire 🔥
+### Nuxt Fire 🔥
 
 - [Github](https://github.com/lupas/nuxt-fire)
 - [Documentation](https://nuxtfire.netlify.com/)
 
 ### Deploy Nuxt on Firebase 🚀
 
-- [Tuto](https://dev.to/kiritchoukc/deploy-nuxt-on-firebase-4ad8)
+- [Tutorial](https://dev.to/kiritchoukc/deploy-nuxt-on-firebase-4ad8)
 
 -----
 
