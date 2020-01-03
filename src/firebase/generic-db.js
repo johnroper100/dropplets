@@ -16,7 +16,7 @@ export default class GenericDB {
    */
   async create(data, id = null) {
     const collectionRef = this.fireStore.collection(this.collectionPath)
-    const serverTimestamp = firebase.FieldValue.serverTimestamp()
+    const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp()
 
     const dataToCreate = {
       ...data,
