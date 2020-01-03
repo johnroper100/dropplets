@@ -1,7 +1,9 @@
+import { isNil } from 'lodash'
 import UsersDB from '@/firebase/users-db'
 
 function initialState() {
   return {
+    authUser: null,
     user: null
   }
 }
@@ -22,12 +24,21 @@ export const mutations = {
   },
 
   /**
-   * Permet de set les infos du user dans le state
+   * Permet de set les infos du authUser dans le state
    */
+  seAuthUser(state, authUser) {
+    state.authUser = {
+      uid: authUser.uid,
+      email: authUser.email
+    }
+  },
+
   setUser(state, user) {
     state.user = {
-      uid: user.uid,
-      email: user.email
+      id: user.id,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL
     }
   }
 }
@@ -38,7 +49,7 @@ export const getters = {
    */
   isLoggedIn: (state) => {
     try {
-      return state.user.uid !== null
+      return state.authUser.id !== null
     } catch (err) {
       return false
     }
@@ -46,17 +57,24 @@ export const getters = {
 }
 
 export const actions = {
-  async signIn({ commit }, user) {
-    const userFromFirebase = await new UsersDB(this.$fireStore).read(user.uid)
-    console.log('boby', userFromFirebase)
+  async signIn({ commit }, firebaseAuthUser) {
+    commit('seAuthUser', firebaseAuthUser)
+
+    const db = new UsersDB(this.$fireStore)
+    const userFromFirebase = await db.read(firebaseAuthUser.uid)
+
+    const user = isNil(userFromFirebase)
+      ? await db.createUser(firebaseAuthUser)
+      : userFromFirebase
+
     commit('setUser', user)
   },
 
   /**
    * Permet de déconnecter l'utilisateur et remettre le state à l'initial
    */
-  signOut({ commit }, ctx) {
-    ctx.$fireAuth
+  signOut({ commit }) {
+    this.$fireAuth
       .signOut()
       .then(() => {
         commit('resetStore')

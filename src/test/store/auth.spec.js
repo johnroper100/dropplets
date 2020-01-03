@@ -4,6 +4,7 @@ describe('state', () => {
   test('initial state', () => {
     // expected initial state
     const s = {
+      authUser: null,
       user: null
     }
     expect(state()).toEqual(s)
@@ -32,15 +33,19 @@ describe('mutations', () => {
     }
     // apply mutation
     const u = {
-      uid: 'uid',
+      id: 'uid',
       email: 'email',
+      displayName: 'Jean Bon',
+      photoURL: 'url',
       autre: 'autre'
     }
     mutations.setUser(state, u)
     // assert result
     const expected = {
-      uid: 'uid',
-      email: 'email'
+      id: 'uid',
+      email: 'email',
+      displayName: 'Jean Bon',
+      photoURL: 'url'
     }
     expect(state.user).toEqual(expected)
   })
@@ -61,7 +66,7 @@ describe('getters', () => {
   test('isLoggedIn user set', () => {
     // mock state
     const state = {
-      user: {
+      authUser: {
         uid: 'uid',
         email: 'email'
       }
@@ -79,17 +84,15 @@ describe('actions', () => {
     const commit = jest.fn((path) => {
       expect(path).toBe('resetStore')
     })
-    const context = {
-      $fireAuth: {
-        signOut() {
-          return new Promise((resolve) => {
-            resolve('resolved')
-          })
-        }
+    actions.$fireAuth = {
+      signOut() {
+        return new Promise((resolve) => {
+          resolve('resolved')
+        })
       }
     }
     // run
-    await actions.signOut({ commit }, context)
+    await actions.signOut({ commit })
     // assert result
     expect.assertions(2)
     expect(commit.mock.calls.length).toBe(1)
@@ -99,16 +102,15 @@ describe('actions', () => {
     // mocking
     const commit = jest.fn()
     const error = { message: 'Test bro', code: 42 }
-    const context = {
-      $fireAuth: {
-        signOut() {
-          return new Promise((resolve) => {
-            // eslint-disable-next-line no-throw-literal
-            throw error
-          })
-        }
+    actions.$fireAuth = {
+      signOut() {
+        return new Promise((resolve) => {
+          // eslint-disable-next-line no-throw-literal
+          throw error
+        })
       }
     }
+
     global.console.error = (p1, p2) => {
       expect(p1).toBe('Erreur')
     }
@@ -117,7 +119,7 @@ describe('actions', () => {
     }
 
     // run
-    await actions.signOut({ commit }, context)
+    await actions.signOut({ commit })
 
     // assert result
     expect.assertions(3)

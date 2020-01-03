@@ -3,10 +3,10 @@ export const actions = {
    * Cette méthode est appellée à chaque initialisation de Vuex
    * Elle permet de mettre en place l'utilisateur connecté quand on reload la page
    */
-  nuxtServerInit({ commit }, ctx) {
+  nuxtServerInit({ dispatch }, ctx) {
     const ssrVerifiedAuthUser = ctx.res.verifiedFireAuthUser
     if (ssrVerifiedAuthUser) {
-      commit('auth/setUser', ssrVerifiedAuthUser)
+      dispatch('auth/signIn', ssrVerifiedAuthUser)
     }
   },
 

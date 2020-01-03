@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "dev-debug": "node --inspect node_modules/.bin/nuxt",
     "build": "nuxt build",
     "build:firebase": "yarn clean && yarn build && yarn copy && cd \"functions\" && yarn",
     "start": "nuxt start",
@@ -33,7 +34,7 @@
     "global": "^4.4.0",
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.11.0",
-    "nuxt-fire": "^3.5.3"
+    "nuxt-fire": "^3.5.4"
   },
   "devDependencies": {
     "@babel/runtime-corejs2": "^7.7.7",

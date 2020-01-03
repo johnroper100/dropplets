@@ -24,7 +24,7 @@
     "global": "^4.4.0",
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.11.0",
-    "nuxt-fire": "^3.5.3"
+    "nuxt-fire": "^3.5.4"
   },
   "devDependencies": {
     "eslint-plugin-promise": "^4.0.1",

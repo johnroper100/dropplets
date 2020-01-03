@@ -4,4 +4,11 @@
         "MD014": false,
         "MD033": false
     },
+    "javascript.implicitProjectConfig.checkJs": true,
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    }
 }

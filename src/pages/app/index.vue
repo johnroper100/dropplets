@@ -20,13 +20,13 @@ export default {
   },
   computed: {
     authUser() {
-      return this.$store.state.auth.authUser
+      return this.$store.state.auth.user
     }
   },
   mounted() {
-    this.$fireStore
+    /* this.$fireStore
       .collection('users')
-      .doc(this.authUser.uid)
+      .doc(this.authUser.id)
       .collection('products')
       .get()
       .then((snap) => {
@@ -34,7 +34,7 @@ export default {
         snap.forEach((doc) => {
           this.messages.push(doc)
         })
-      })
+      }) */
   },
   middleware: 'securePage'
 }
