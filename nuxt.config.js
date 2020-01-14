@@ -9,7 +9,7 @@ const firebaseConfig = {
   storageBucket: 'bento-vince.appspot.com',
   messagingSenderId: '419042376123',
   appId: '1:419042376123:web:f2a4223fcbff6f078b6c9e',
-  measurementId: 'todo'
+  measurementId: 'G-VL64YPQL57'
 }
 
 export default {
