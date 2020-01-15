@@ -33,7 +33,7 @@ export default {
   pwa: {
     workbox: {
       /* workbox options */
-      dev: true,
+      // dev: true,
       importScripts: ['firebase-auth-sw.js']
     }
   },
@@ -92,31 +92,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    [
-      'nuxt-fire',
-      {
-        config: {
-          apiKey: firebaseConfig.apiKey,
-          authDomain: firebaseConfig.authDomain,
-          databaseURL: firebaseConfig.databaseURL,
-          projectId: firebaseConfig.projectId,
-          storageBucket: firebaseConfig.storageBucket,
-          messagingSenderId: firebaseConfig.messagingSenderId,
-          appId: firebaseConfig.appId,
-          measurementId: firebaseConfig.measurementId
-        },
-        services: {
-          auth: {
-            // Experimental Feature, use with caution.
-            initialize: {
-              onSuccessAction: 'handleSuccessfulAuthentication',
-              ssr: true
-            }
-          },
-          firestore: true
-        }
-      }
-    ]
+    'nuxt-fire'
   ],
 
   /*
@@ -144,6 +120,33 @@ export default {
           success: colors.green.accent3
         }
       }
+    }
+  },
+
+  /*
+   ** Nuxt Fire configuration
+   ** https://github.com/lupas/nuxt-fire
+   */
+  fire: {
+    config: {
+      apiKey: firebaseConfig.apiKey,
+      authDomain: firebaseConfig.authDomain,
+      databaseURL: firebaseConfig.databaseURL,
+      projectId: firebaseConfig.projectId,
+      storageBucket: firebaseConfig.storageBucket,
+      messagingSenderId: firebaseConfig.messagingSenderId,
+      appId: firebaseConfig.appId,
+      measurementId: firebaseConfig.measurementId
+    },
+    services: {
+      auth: {
+        // Experimental Feature, use with caution.
+        initialize: {
+          onSuccessAction: 'handleSuccessfulAuthentication',
+          ssr: true
+        }
+      },
+      firestore: true
     }
   },
 
