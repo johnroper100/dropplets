@@ -61,7 +61,7 @@
           >
             Connexion
           </v-btn>
-          <v-btn v-else @click="logout" color="primary" class="btnLoginOut">
+          <v-btn v-else color="primary" class="btnLoginOut" @click="logout">
             Déconnexion
           </v-btn>
           <v-spacer />

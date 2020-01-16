@@ -3,7 +3,7 @@
     <client-only>
       <p>Bonjour {{ authUser }}</p>
       <ul>
-        <li v-for="message in messages" v-bind:key="message.id">
+        <li v-for="message in messages" :key="message.id">
           {{ message.data().name }}
         </li>
       </ul>
