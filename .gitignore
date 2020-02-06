@@ -93,3 +93,5 @@ src/static/firebase-auth-sw.js
 .firebase
 
 public
+
+.yarn

@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     authUser() {
-      return this.$store.state.auth.user
+      return this.$store.state.auth.authUser
     }
   },
   mounted() {
