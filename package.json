@@ -24,32 +24,35 @@
     "deploy": "firebase deploy --only functions,hosting"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.9.3",
-    "@nuxtjs/pwa": "^3.0.0-0",
-    "@nuxtjs/vuetify": "^1.10.1",
-    "firebase": "^7.6.2",
-    "firebase-admin": "^8.9.1",
+    "@nuxtjs/axios": "^5.9.5",
+    "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "firebase": "^7.8.0",
+    "firebase-admin": "^8.9.2",
     "firebase-tools": "^7.12.1",
     "firebaseui": "^4.4.0",
     "global": "^4.4.0",
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.11.0",
-    "nuxt-fire": "^3.5.4"
+    "nuxt-fire": "^3.5.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
     "@babel/runtime-corejs2": "^7.8.3",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.1.0",
+    "@nuxtjs/vuetify": "^1.10.3",
     "@vue/test-utils": "^1.0.0-beta.30",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "core-js": "2",
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-nuxt": ">=0.4.2",
-    "eslint-plugin-prettier": "^3.0.1",
-    "jest": "^24.9.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-nuxt": "^0.5.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "prettier": "^1.19.1",
-    "vue-jest": "^4.0.0-0"
+    "vue": "^2.6.4",
+    "vue-jest": "^3.0.5",
+    "vue-template-compiler": "^2.6.11"
   }
 }

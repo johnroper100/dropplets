@@ -1,5 +1,3 @@
-import colors from 'vuetify/es5/util/colors'
-
 // Firebase settings
 const firebaseConfig = {
   apiKey: 'AIzaSyC3qpcRaVJVT63YMfIMgNJKRsmtPmEB6VM',
@@ -108,7 +106,7 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      /* dark: true,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -119,7 +117,7 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
         }
-      }
+      } */
     }
   },
 
