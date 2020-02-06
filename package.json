@@ -50,6 +50,7 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-nuxt": "^0.5.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^25.1.0",
     "prettier": "^1.19.1",
     "vue": "^2.6.4",
     "vue-jest": "^3.0.5",
