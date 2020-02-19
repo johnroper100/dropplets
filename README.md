@@ -1,4 +1,4 @@
-Dropplets v2.0 Beta - [Latest Version](https://github.com/johnroper100/dropplets/raw/2.0/index.php)
+Dropplets v2.0 - [Latest Version](https://github.com/johnroper100/dropplets/raw/2.0/index.php)
 ======================================
 
 Change settings at `http://(your url)/setup`
@@ -19,7 +19,7 @@ Run locally with `php -S localhost:3100 index.php`
 - Quick password-only access
 - Database-less platform
 - Works even when the user has disabled JavaScript
-- Under 500 lines of code
+- Under 2500 lines of code
 
 ## Installation
 

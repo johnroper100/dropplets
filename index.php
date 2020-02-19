@@ -366,7 +366,7 @@ permissions and that the folder it is in has write permissions.");
                 <div class="setupHeader">
                     <a href="https://github.com/johnroper100/dropplets"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span> </a>
                 </div>
-                <h3>Dropplets v2.0 Beta - Licensed Under the GPL 3.0 License</h3>
+                <h3>Dropplets v2.0 - Licensed Under the GPL 3.0 License</h3>
             </main>
         </body>
 
