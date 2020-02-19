@@ -5,6 +5,8 @@ Change settings at `http://(your url)/setup`
 
 Add a new post at `http://(your url)/post`
 
+Upload a new post at `http://(your url)/postUpload`
+
 View current version at `http://(your url)/version`
 
 Update to latest version at `http://(your url)/update`
