@@ -41,6 +41,7 @@ if (shapeSpace_check_https() == true) {
 } else {
     $SITE_HOME = "http://".$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];
 }
+$SITE_HOME = str_replace("/index.php", "", $SITE_HOME);
 
 $URI_parts = array_reverse(explode('/', rtrim($URI['path'], '/')));
 // If a form is submitted, process it. Otherwise, show the main web page.
