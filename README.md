@@ -1,4 +1,4 @@
-Dropplets v2.0 - [Latest Version](https://github.com/johnroper100/dropplets/raw/2.0/index.php)
+Dropplets v2.0 - [Latest Version](https://github.com/johnroper100/dropplets/raw/master/index.php)
 ======================================
 
 Change settings at `http://(your url)/setup`
