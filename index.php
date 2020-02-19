@@ -28,8 +28,19 @@ $dir = $_SERVER['SERVER_NAME'];
 for ($i = 0; $i < count($parts) - 1; $i++) {
     $dir .= $parts[$i] . "/";
 }
-
-$SITE_HOME = $_SERVER['SERVER_NAME'] + $dir;
+function shapeSpace_check_https() {
+	
+	if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443) {
+		
+		return true; 
+	}
+	return false;
+}
+if (shapeSpace_check_https() == true) {
+    $SITE_HOME = "https://".$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];
+} else {
+    $SITE_HOME = "http://".$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];
+}
 
 $URI_parts = array_reverse(explode('/', rtrim($URI['path'], '/')));
 // If a form is submitted, process it. Otherwise, show the main web page.
@@ -77,7 +88,7 @@ permissions and that the folder it is in has write permissions.");
             ) {
                 if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
                     if (test_input($_POST["blogPostStyleType"]) == "default") {
-                        $postStyleSheet = $blogPostStyleSheet;
+                        $postStyleSheet = "";
                     } else {
                         $postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
                     }
@@ -120,7 +131,7 @@ permissions and that the folder it is in has write permissions.");
             ) {
                 if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
                     if (test_input($_POST["blogPostStyleType"]) == "default") {
-                        $postStyleSheet = $blogPostStyleSheet;
+                        $postStyleSheet = "";
                     } else {
                         $postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
                     }
@@ -207,7 +218,7 @@ permissions and that the folder it is in has write permissions.");
                         <select name="blogStyleType" onchange="showStyleInput(this);">
                             <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use the
                                 default one</option>
-                            <!--<option value="zen" <?php if ($blogStyleType == 'zen') { ?>selected<?php } ?>>Use the zen one</option>-->
+                            <option value="zen" <?php if ($blogStyleType == 'zen') { ?>selected<?php } ?>>Use the zen one</option>
                             <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>I want my own
                                 style!</option>
                         </select>
@@ -410,7 +421,11 @@ permissions and that the folder it is in has write permissions.");
             <head>
                 <title><?php echo ($blogName); ?> | <?php echo ($postTitle); ?></title>
                 <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/reset.css" />
+                <?php if ($postStyleSheet == "") { ?>
+                <link type="text/css" rel="stylesheet" href="<?php echo ($blogPostStyleSheet); ?>" />
+                <?php } else { ?>
                 <link type="text/css" rel="stylesheet" href="<?php echo ($postStyleSheet); ?>" />
+                <?php } ?>
                 <?php echo ($headerInject); ?>
             </head>
 
