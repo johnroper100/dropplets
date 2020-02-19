@@ -27,7 +27,7 @@ Run locally with `php -S localhost:3100 index.php`
 
 Simply use the `Latest Version` link above to download `index.php`. Copy it to a folder on your server.
 
-If you are using nginx, also download the `.htaccess4nginx` file. This holds the nginx rewrite rules.
+If you are using nginx, use the rewrite rules that can be found in `.htaccess4nginx`.
 
 ## Requirements
 
