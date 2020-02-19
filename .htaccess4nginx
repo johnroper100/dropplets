@@ -1,16 +1,5 @@
-#ignored: "-" thing used or unknown variable in regex/rew 
-if ($uri !~* "^action=logout"){
-	set $rule_1 1$rule_1;
-}
-if ($uri !~* "^action=login"){
-	set $rule_1 2$rule_1;
-}
-if ($uri !~ "index.php"){
-	set $rule_1 3$rule_1;
-}
-if (!-f $request_filename){
-	set $rule_1 4$rule_1;
-}
-if ($rule_1 = "4321"){
-	rewrite ^/(.*)$ /index.php?filename=$1 last;
+location / {
+  if (!-e $request_filename){
+    rewrite ^(.*)$ /index.php?/$1 break;
+  }
 }
