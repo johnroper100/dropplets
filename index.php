@@ -28,18 +28,19 @@ $dir = $_SERVER['SERVER_NAME'];
 for ($i = 0; $i < count($parts) - 1; $i++) {
     $dir .= $parts[$i] . "/";
 }
-function shapeSpace_check_https() {
-	
-	if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443) {
-		
-		return true; 
-	}
-	return false;
+function shapeSpace_check_https()
+{
+
+    if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443) {
+
+        return true;
+    }
+    return false;
 }
 if (shapeSpace_check_https() == true) {
-    $SITE_HOME = "https://".$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];
+    $SITE_HOME = "https://" . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'];
 } else {
-    $SITE_HOME = "http://".$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];
+    $SITE_HOME = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'];
 }
 $SITE_HOME = str_replace("/index.php", "", $SITE_HOME);
 
@@ -94,7 +95,7 @@ permissions and that the folder it is in has write permissions.");
                         $postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
                     }
                     $post_content =
-                        "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . $_POST["blogPostContent"] . "';\n\$postDate='" . date("F jS, Y") . "';\n\$postStyleSheet='" . $postStyleSheet . "';\n?>";
+                        "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . test_input($_POST["blogPostContent"]) . "';\n\$postDate='" . date("F jS, Y") . "';\n\$postStyleSheet='" . $postStyleSheet . "';\n?>";
 
                     if (!file_exists("posts/" . date("Y"))) {
                         mkdir("posts/" . date("Y"));
@@ -137,7 +138,7 @@ permissions and that the folder it is in has write permissions.");
                         $postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
                     }
                     $post_content =
-                        "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . $_POST["blogPostFile"] . "';\n\$postDate='" . date("F jS, Y") . "';\n\$postStyleSheet='" . $postStyleSheet . "';\n?>";
+                        "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . test_input($_POST["blogPostFile"]) . "';\n\$postDate='" . date("F jS, Y") . "';\n\$postStyleSheet='" . $postStyleSheet . "';\n?>";
 
                     if (!file_exists("posts/" . date("Y"))) {
                         mkdir("posts/" . date("Y"));
@@ -423,9 +424,9 @@ permissions and that the folder it is in has write permissions.");
                 <title><?php echo ($blogName); ?> | <?php echo ($postTitle); ?></title>
                 <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/reset.css" />
                 <?php if ($postStyleSheet == "") { ?>
-                <link type="text/css" rel="stylesheet" href="<?php echo ($blogPostStyleSheet); ?>" />
+                    <link type="text/css" rel="stylesheet" href="<?php echo ($blogPostStyleSheet); ?>" />
                 <?php } else { ?>
-                <link type="text/css" rel="stylesheet" href="<?php echo ($postStyleSheet); ?>" />
+                    <link type="text/css" rel="stylesheet" href="<?php echo ($postStyleSheet); ?>" />
                 <?php } ?>
                 <?php echo ($headerInject); ?>
             </head>
@@ -499,7 +500,7 @@ function test_input($data)
 {
     $data = trim($data);
     $data = stripslashes($data);
-    $data = htmlspecialchars($data, ENT_QUOTES);
+    $data = htmlentities($data, ENT_QUOTES);
     return $data;
 }
 class Parsedown
