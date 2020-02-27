@@ -11,6 +11,10 @@ If you are using nginx, use the rewrite rules that can be found in `.htaccess4ng
 
 You can run locally with `php -S localhost:3100 index.php`
 
+#### Requirements
+
+Make sure `index.php` has execution permission and can write to the folder containing it.
+
 ### Manage Your Website
 
 - Change settings at `http://(your url)/setup`
@@ -32,10 +36,6 @@ You can run locally with `php -S localhost:3100 index.php`
 - Database-less platform
 - Works even when the user has disabled JavaScript
 - Under 2500 lines of code
-
-## Requirements
-
-Make sure `index.php` has execution permission and can write to the folder containing it.
 
 ## Resources
 
