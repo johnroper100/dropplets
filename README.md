@@ -23,9 +23,9 @@ Make sure `index.php` has execution permission and can write to the folder conta
 
 - Upload a new post at `http://(your url)/postUpload`
 
-- View current version at `http://(your url)/version`
+- View the current Dropplets version at `http://(your url)/version`
 
-- Update to latest version at `http://(your url)/update`
+- Update to the latest version of Dropplets at `http://(your url)/update`
 
 ## Project Goals:
 
