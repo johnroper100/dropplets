@@ -1,9 +1,9 @@
 Dropplets v2.0 - [Latest Version](https://github.com/johnroper100/dropplets/raw/master/index.php)
 ======================================
 
-## How To Use Dropplets
+## How To Use Dropplets:
 
-### Installation
+### Installation:
 
 Simply use the `Latest Version` link above to download `index.php`. Copy it to a folder on your server.
 
@@ -11,11 +11,11 @@ If you are using nginx, use the rewrite rules that can be found in `.htaccess4ng
 
 You can run locally with `php -S localhost:3100 index.php`
 
-#### Requirements
+#### Requirements:
 
 Make sure `index.php` has execution permission and can write to the folder containing it.
 
-### Manage Your Website
+### Manage Your Website:
 
 - Change settings at `http://(your url)/setup`
 
@@ -27,7 +27,7 @@ Make sure `index.php` has execution permission and can write to the folder conta
 
 - Update to latest version at `http://(your url)/update`
 
-## Project Goals
+## Project Goals:
 
 - Application made up of only one file
 - 30 second install and setup
@@ -37,7 +37,7 @@ Make sure `index.php` has execution permission and can write to the folder conta
 - Works even when the user has disabled JavaScript
 - Under 2500 lines of code
 
-## Resources
+## Resources:
 
 Dependency Hosting - https://raw.githack.com/
 
