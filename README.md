@@ -1,17 +1,27 @@
 Dropplets v2.0 - [Latest Version](https://github.com/johnroper100/dropplets/raw/master/index.php)
 ======================================
 
-Change settings at `http://(your url)/setup`
+## How To Use Dropplets
 
-Add a new post at `http://(your url)/post`
+### Installation
 
-Upload a new post at `http://(your url)/postUpload`
+Simply use the `Latest Version` link above to download `index.php`. Copy it to a folder on your server.
 
-View current version at `http://(your url)/version`
+If you are using nginx, use the rewrite rules that can be found in `.htaccess4nginx`.
 
-Update to latest version at `http://(your url)/update`
+You can run locally with `php -S localhost:3100 index.php`
 
-Run locally with `php -S localhost:3100 index.php`
+### Manage Your Website
+
+- Change settings at `http://(your url)/setup`
+
+- Add a new post at `http://(your url)/post`
+
+- Upload a new post at `http://(your url)/postUpload`
+
+- View current version at `http://(your url)/version`
+
+- Update to latest version at `http://(your url)/update`
 
 ## Project Goals
 
@@ -22,12 +32,6 @@ Run locally with `php -S localhost:3100 index.php`
 - Database-less platform
 - Works even when the user has disabled JavaScript
 - Under 2500 lines of code
-
-## Installation
-
-Simply use the `Latest Version` link above to download `index.php`. Copy it to a folder on your server.
-
-If you are using nginx, use the rewrite rules that can be found in `.htaccess4nginx`.
 
 ## Requirements
 
