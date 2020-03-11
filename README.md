@@ -10,10 +10,6 @@
 
 > Template repository for quickly creating new universal web app (SSR) with VueJs, Nuxt, and Firebase, and deploying it on Firebase Hosting within seconds 🚀
 
-## ✨ Demo
-
-👉 <https://bento-vince.web.app/>
-
 ## ❤ This is made for you
 
 These libraries and tools are already setup:
