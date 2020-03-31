@@ -31,8 +31,8 @@ export default {
   pwa: {
     workbox: {
       /* workbox options */
-      // dev: true,
-      importScripts: ['firebase-auth-sw.js']
+      dev: true,
+      importScripts: ['/firebase-auth-sw.js']
     }
   },
 
@@ -90,7 +90,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    'nuxt-fire'
+    '@nuxtjs/firebase'
   ],
 
   /*
@@ -125,7 +125,7 @@ export default {
    ** Nuxt Fire configuration
    ** https://github.com/lupas/nuxt-fire
    */
-  fire: {
+  firebase: {
     config: {
       apiKey: firebaseConfig.apiKey,
       authDomain: firebaseConfig.authDomain,
@@ -140,9 +140,9 @@ export default {
       auth: {
         // Experimental Feature, use with caution.
         initialize: {
-          onSuccessAction: 'handleSuccessfulAuthentication',
-          ssr: true
-        }
+          onAuthStateChangedAction: 'onAuthStateChangedMutation'
+        },
+        ssr: true
       },
       firestore: true
     }

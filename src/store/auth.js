@@ -22,13 +22,11 @@ export const mutations = {
   /**
    * Permet de set les infos du authUser dans le state
    */
-  seAuthUser(state, authUser) {
+  setAuthUser(state, authUser) {
     state.authUser = {
-      uid: authUser.user_id,
+      uid: authUser.uid,
       email: authUser.email,
-      displayName: authUser.displayName,
-      photoURL: authUser.picture,
-      admin: authUser.admin
+      displayName: authUser.displayName
     }
   }
 }
@@ -47,8 +45,9 @@ export const getters = {
 }
 
 export const actions = {
-  signIn({ commit }, firebaseAuthUser) {
-    commit('seAuthUser', firebaseAuthUser)
+  signIn({ commit, dispatch }, { authUser, claims }) {
+    commit('setAuthUser', authUser)
+    // await dispatch('user/loadUser', null, { root: true })
   },
 
   /**

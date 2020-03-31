@@ -3,10 +3,11 @@ export const actions = {
    * Cette méthode est appellée à chaque initialisation de Vuex
    * Elle permet de mettre en place l'utilisateur connecté quand on reload la page
    */
-  nuxtServerInit({ dispatch }, ctx) {
-    const ssrVerifiedAuthUserClaims = ctx.res.verifiedFireAuthUserClaims
-    if (ssrVerifiedAuthUserClaims) {
-      dispatch('auth/signIn', ssrVerifiedAuthUserClaims)
+  async nuxtServerInit({ dispatch }, { res }) {
+    if (res.locals && res.locals.user && res.locals.user.allClaims) {
+      const authUser = res.locals.user
+      const claims = res.locals.user.allClaims
+      await dispatch('auth/signIn', { authUser, claims })
     }
   },
 
@@ -17,9 +18,11 @@ export const actions = {
    * On va récupérer le userClaims pour avoir les claims
    * https://firebase.google.com/docs/auth/admin/custom-claims#propagate_custom_claims_to_the_client
    */
-  handleSuccessfulAuthentication({ dispatch }, { authUser }) {
-    this.$fireAuth.currentUser.getIdTokenResult().then((result) => {
-      dispatch('auth/signIn', result.claims)
-    })
+  onAuthStateChangedMutation({ dispatch }, { authUser, claims }) {
+    if (authUser && claims) {
+      dispatch('auth/signIn', { authUser, claims })
+    } else {
+      // TODO faire la déconnexion
+    }
   }
 }
