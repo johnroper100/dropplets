@@ -14,8 +14,8 @@ if (!file_exists(".htaccess")) {
     fwrite($htaccess, $htaccess_content);
     fclose($htaccess);
 }
-if (!file_exists("p")) {
-    mkdir("p");
+if (!file_exists("posts")) {
+    mkdir("posts");
 }
 $Parsedown = new Parsedown();
 
@@ -97,12 +97,12 @@ permissions and that the folder it is in has write permissions.");
                     $post_content =
                         "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . test_input($_POST["blogPostContent"]) . "';\n\$postDate=" . time() . ";\n\$postStyleSheet='" . $postStyleSheet . "';\n?>";
 
-                    if (!file_exists("p/" . create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php")) {
+                    if (!file_exists("posts/" . create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php")) {
                         $result = create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php";
                     } else {
                         header("Location: /post");
                     }
-                    $post = fopen("p/" . $result, 'w') or die("Unable to set up needed files!
+                    $post = fopen("posts/" . $result, 'w') or die("Unable to set up needed files!
 Please make sure index.php has write
 permissions and that the folder it is in has write permissions.");
                     fwrite($post, $post_content);
@@ -131,12 +131,12 @@ permissions and that the folder it is in has write permissions.");
                     $post_content =
                         "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . test_input($_POST["blogPostFile"]) . "';\n\$postDate=" . time() . ";\n\$postStyleSheet='" . $postStyleSheet . "';\n?>";
 
-                    if (!file_exists("p/" . create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php")) {
+                    if (!file_exists("posts/" . create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php")) {
                         $result = create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php";
                     } else {
                         header("Location: /post");
                     }
-                    $post = fopen("p/" . $result, 'w') or die("Unable to set up needed files!
+                    $post = fopen("posts/" . $result, 'w') or die("Unable to set up needed files!
 Please make sure index.php has write
 permissions and that the folder it is in has write permissions.");
                     fwrite($post, $post_content);
@@ -394,10 +394,10 @@ permissions and that the folder it is in has write permissions.");
         </body>
 
         </html>
-        <?php } else if (count($URI_parts) >= 3 and $URI_parts[1] == 'p' and $URI_parts[0]) {
+        <?php } else if (count($URI_parts) >= 3 and $URI_parts[1] == 'posts' and $URI_parts[0]) {
         // If the config exists, read it and display the blog.
         if (file_exists("config.php")) {
-            include "p/$URI_parts[0].php";
+            include "posts/$URI_parts[0].php";
         ?>
             <!DOCTYPE html>
             <html>
@@ -454,17 +454,17 @@ permissions and that the folder it is in has write permissions.");
                     </header>
                     <div class="posts">
                         <?php
-                        if ($dh = opendir('p')) {
+                        if ($dh = opendir('posts')) {
                             $posts = array();
                             while (($file = readdir($dh)) !== false) {
                                 if ($file != '.' or '..') {
-                                    include 'p/'.$file;
+                                    include 'posts/'.$file;
                                     $posts[$postDate] = array('title' => $postTitle, 'date' => $postDate, 'content' => $postContent);
                                 }
                             }
                             arsort($posts);
                             foreach ($posts as $post) {
-                                echo ("<div class=\"post\"><h2 id=\"postTitle\"><a href=\"p/" . str_replace('.php', '', create_slug($post[title])) . "\">$post[title]</a></h2><span id=\"postSubtitle\">" . date('F j, Y, g:i a', $post[date]) . "</span><div id=\"postContent\">" . substr($Parsedown->text($post[content]), 0, 250) . "</div></div>");
+                                echo ("<div class=\"post\"><h2 id=\"postTitle\"><a href=\"posts/" . str_replace('.php', '', create_slug($post[title])) . "\">$post[title]</a></h2><span id=\"postSubtitle\">" . date('F j, Y, g:i a', $post[date]) . "</span><div id=\"postContent\">" . substr($Parsedown->text($post[content]), 0, 250) . "</div></div>");
                             }
                             closedir($fh);
                         }
