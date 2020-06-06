@@ -95,23 +95,14 @@ permissions and that the folder it is in has write permissions.");
                         $postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
                     }
                     $post_content =
-                        "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . test_input($_POST["blogPostContent"]) . "';\n\$postDate='" . date("F jS, Y") . "';\n\$postStyleSheet='" . $postStyleSheet . "';\n?>";
+                        "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . test_input($_POST["blogPostContent"]) . "';\n\$postDate=" . time() . ";\n\$postStyleSheet='" . $postStyleSheet . "';\n?>";
 
-                    if (!file_exists("posts/" . date("Y"))) {
-                        mkdir("posts/" . date("Y"));
-                    }
-                    if (!file_exists("posts/" . date("Y") . "/" . date("m"))) {
-                        mkdir("posts/" . date("Y") . "/" . date("m"));
-                    }
-                    if (!file_exists("posts/" . date("Y") . "/" . date("m") . "/" . date("d"))) {
-                        mkdir("posts/" . date("Y") . "/" . date("m") . "/" . date("d"));
-                    }
-                    if (!file_exists("posts/" . date("Y") . "/" . date("m") . "/" . date("d") . "/" . urlencode(test_input($_POST["blogPostTitle"])) . ".php")) {
-                        $result = urlencode(test_input($_POST["blogPostTitle"])) . ".php";
+                    if (!file_exists("posts/" . create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php")) {
+                        $result = create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php";
                     } else {
                         header("Location: /post");
                     }
-                    $post = fopen("posts/" . date("Y") . "/" . date("m") . "/" . date("d") . "/" . $result, 'w') or die("Unable to set up needed files!
+                    $post = fopen("posts/" . $result, 'w') or die("Unable to set up needed files!
 Please make sure index.php has write
 permissions and that the folder it is in has write permissions.");
                     fwrite($post, $post_content);
@@ -138,23 +129,14 @@ permissions and that the folder it is in has write permissions.");
                         $postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
                     }
                     $post_content =
-                        "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . test_input($_POST["blogPostFile"]) . "';\n\$postDate='" . date("F jS, Y") . "';\n\$postStyleSheet='" . $postStyleSheet . "';\n?>";
+                        "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . test_input($_POST["blogPostFile"]) . "';\n\$postDate=" . time() . ";\n\$postStyleSheet='" . $postStyleSheet . "';\n?>";
 
-                    if (!file_exists("posts/" . date("Y"))) {
-                        mkdir("posts/" . date("Y"));
-                    }
-                    if (!file_exists("posts/" . date("Y") . "/" . date("m"))) {
-                        mkdir("posts/" . date("Y") . "/" . date("m"));
-                    }
-                    if (!file_exists("posts/" . date("Y") . "/" . date("m") . "/" . date("d"))) {
-                        mkdir("posts/" . date("Y") . "/" . date("m") . "/" . date("d"));
-                    }
-                    if (!file_exists("posts/" . date("Y") . "/" . date("d") . "/" . date("m") . "/" . urlencode(test_input($_POST["blogPostTitle"])) . ".php")) {
-                        $result = urlencode(test_input($_POST["blogPostTitle"])) . ".php";
+                    if (!file_exists("posts/" . create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php")) {
+                        $result = create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php";
                     } else {
                         header("Location: /post");
                     }
-                    $post = fopen("posts/" . date("Y") . "/" . date("m") . "/" . date("d") . "/" . $result, 'w') or die("Unable to set up needed files!
+                    $post = fopen("posts/" . $result, 'w') or die("Unable to set up needed files!
 Please make sure index.php has write
 permissions and that the folder it is in has write permissions.");
                     fwrite($post, $post_content);
@@ -412,10 +394,10 @@ permissions and that the folder it is in has write permissions.");
         </body>
 
         </html>
-        <?php } else if (count($URI_parts) >= 6 and $URI_parts[4] == 'posts' and $URI_parts[0] and $URI_parts[1] and $URI_parts[2] and $URI_parts[3]) {
+        <?php } else if (count($URI_parts) >= 3 and $URI_parts[1] == 'posts' and $URI_parts[0]) {
         // If the config exists, read it and display the blog.
         if (file_exists("config.php")) {
-            include "posts/$URI_parts[3]/$URI_parts[2]/$URI_parts[1]/$URI_parts[0].php";
+            include "posts/$URI_parts[0].php";
         ?>
             <!DOCTYPE html>
             <html>
@@ -438,7 +420,7 @@ permissions and that the folder it is in has write permissions.");
                     </header>
                     <div id="postTitleDate">
                         <h1 id="postTitle"><?php echo ($postTitle); ?></h1>
-                        <span id="postSubtitle"><?php echo ($postDate); ?></span>
+                        <span id="postSubtitle"><?php echo (date("F j, Y, g:i a", $postDate)); ?></span>
                     </div>
                     <div id="postContent"><?php echo ($Parsedown->text($postContent)); ?></div>
                     <div id="footer">
@@ -472,14 +454,19 @@ permissions and that the folder it is in has write permissions.");
                     </header>
                     <div class="posts">
                         <?php
-                        $it = new RecursiveDirectoryIterator("posts");
-                        $display = array('php');
-                        foreach (new RecursiveIteratorIterator($it) as $file) {
-                            if (in_array(strtolower(array_pop(explode('.', $file))), $display)) {
-                                include $file;
-                                $paths = explode('/', $file);
-                                echo ("<div class=\"post\"><h2 id=\"postTitle\"><a href=\"posts/$paths[1]/$paths[2]/$paths[3]/" . str_replace('.php', '', $paths[4]) . "\">$postTitle</a></h2><span id=\"postSubtitle\">$postDate</span><div id=\"postContent\">" . substr($Parsedown->text($postContent), 0, 250) . "</div></div>");
+                        if ($dh = opendir('posts')) {
+                            $posts = array();
+                            while (($file = readdir($dh)) !== false) {
+                                if ($file != '.' or '..') {
+                                    include 'posts/'.$file;
+                                    $posts[$postDate] = array('title' => $postTitle, 'date' => $postDate, 'content' => $postContent);
+                                }
                             }
+                            arsort($posts);
+                            foreach ($posts as $post) {
+                                echo ("<div class=\"post\"><h2 id=\"postTitle\"><a href=\"posts/" . str_replace('.php', '', create_slug($post[title])) . "\">$post[title]</a></h2><span id=\"postSubtitle\">" . date('F j, Y, g:i a', $post[date]) . "</span><div id=\"postContent\">" . substr($Parsedown->text($post[content]), 0, 250) . "</div></div>");
+                            }
+                            closedir($fh);
                         }
                         ?>
                     </div>
@@ -502,6 +489,11 @@ function test_input($data)
     $data = stripslashes($data);
     $data = htmlentities($data, ENT_QUOTES);
     return $data;
+}
+function create_slug($string)
+{
+    $slug=strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $string));
+    return $slug;
 }
 class Parsedown
 {
