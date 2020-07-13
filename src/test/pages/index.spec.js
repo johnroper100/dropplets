@@ -36,11 +36,11 @@ const factory = (isLoggedIn) => {
 describe('Connection / deconnection button', () => {
   test('connection', () => {
     const wrapper = factory(true)
-    expect(wrapper.find('.btnLoginOut').text()).toEqual('Déconnexion')
+    expect(wrapper.find('.btnLoginOut').text()).toEqual('Logout')
   })
 
   test('logout', () => {
     const wrapper = factory(false)
-    expect(wrapper.find('.btnLoginOut').text()).toEqual('Connexion')
+    expect(wrapper.find('.btnLoginOut').text()).toEqual('Login')
   })
 })
