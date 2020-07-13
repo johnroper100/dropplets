@@ -1,7 +1,7 @@
 <template>
   <div>
     <client-only>
-      <p>Bonjour {{ authUser }}</p>
+      <p>Hello {{ authUser }}</p>
       <ul>
         <li v-for="message in messages" :key="message.id">
           {{ message.data().name }}
