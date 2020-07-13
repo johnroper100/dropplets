@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.9.5",
-    "@nuxtjs/firebase": "^5.0.6",
+    "@nuxtjs/firebase": "6.1.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "firebase": "^7.8.0",
     "firebase-admin": "^8.9.2",
