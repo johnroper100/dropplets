@@ -56,13 +56,13 @@
             v-if="!isLoggedIn"
             color="primary"
             nuxt
-            to="/connexion"
+            to="/login"
             class="btnLoginOut"
           >
-            Connexion
+            Login
           </v-btn>
           <v-btn v-else color="primary" class="btnLoginOut" @click="logout">
-            Déconnexion
+            Logout
           </v-btn>
           <v-spacer />
           <v-btn color="secondary" nuxt to="/app">
