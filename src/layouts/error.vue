@@ -3,8 +3,8 @@
     <h1 v-if="error.statusCode === 404">
       {{ pageNotFound }}
     </h1>
-    <h1 v-else>
-      {{ otherError }}
+    <h1 v-else-if="error.statusCode === 403">
+      {{ pageSecured }}
     </h1>
     <NuxtLink to="/">
       Home page
@@ -24,6 +24,7 @@ export default {
   data() {
     return {
       pageNotFound: '404 Not Found',
+      pageSecured: 'This is a secured page ! You need to login before.',
       otherError: 'An error occurred'
     }
   },
