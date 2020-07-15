@@ -1,13 +1,11 @@
 <template>
   <div>
-    <client-only>
-      <p>Hello {{ authUser }}</p>
-      <ul>
-        <li v-for="message in messages" :key="message.id">
-          {{ message.data().name }}
-        </li>
-      </ul>
-    </client-only>
+    <p>Hello {{ authUser.displayName }}</p>
+    <ul>
+      <li v-for="message in messages" :key="message.id">
+        {{ message.data().name }}
+      </li>
+    </ul>
   </div>
 </template>
 
