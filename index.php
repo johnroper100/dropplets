@@ -28,16 +28,10 @@ $dir = $_SERVER['SERVER_NAME'];
 for ($i = 0; $i < count($parts) - 1; $i++) {
     $dir .= $parts[$i] . "/";
 }
-function shapeSpace_check_https()
-{
-
-    if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443) {
-
-        return true;
-    }
-    return false;
+function shapeSpace_check_https() {
+    return ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443);
 }
-if (shapeSpace_check_https() == true) {
+if (shapeSpace_check_https()) {
     $SITE_HOME = "https://" . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'];
 } else {
     $SITE_HOME = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'];
@@ -208,7 +202,7 @@ permissions and that the folder it is in has write permissions.");
                         </select>
                         <input id="blogStyleSheet" type="url" name="blogStyleSheet" placeholder="URL to your homepage stylesheet" value="<?php if ($blogStyleType == 'custom') {
                                                                                                                                                 echo ($blogStyleSheet);
-                                                                                                                                            } ?>" />
+                                                                                                                                            }  ?>" />
                         <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="URL to your post stylesheet" value="<?php if ($blogStyleType == 'custom') {
                                                                                                                                                     echo ($blogPostStyleSheet);
                                                                                                                                                 } ?>" />
