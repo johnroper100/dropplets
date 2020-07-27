@@ -464,7 +464,7 @@ permissions and that the folder it is in has write permissions.");
                             }
                             arsort($posts);
                             foreach ($posts as $post) {
-                                echo ("<div class=\"post\"><h2 id=\"postTitle\"><a href=\"posts/" . str_replace('.php', '', create_slug($post[title])) . "\">$post[title]</a></h2><span id=\"postSubtitle\">" . date('F j, Y, g:i a', $post[date]) . "</span><div id=\"postContent\">" . substr($Parsedown->text($post[content]), 0, 250) . "</div></div>");
+                                echo ("<div class=\"post\"><h2 id=\"postTitle\"><a href=\"posts/" . str_replace('.php', '', create_slug($post[title])) . "\">$post[title]</a></h2><span id=\"postSubtitle\">" . date('F j, Y, g:i a', $post[date]) . "</span><div id=\"postContent\">" . $Parsedown->text(substr($post[content], 0, 250) . "...") . "</div></div>");
                             }
                             closedir($fh);
                         }
