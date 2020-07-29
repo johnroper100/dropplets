@@ -4,12 +4,12 @@ if (file_exists("config.php")) {
 } else {
     $blogName = null;
     $blogAuthor = null;
-    $blogCopyright = null;
+    $blogFooter = null;
     $blogPassword = null;
 }
 // Create the required .htaccess if it dosen't already exist.
 if (!file_exists(".htaccess")) {
-    $htaccess = fopen(".htaccess", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions.");
+    $htaccess = fopen(".htaccess", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usually 755.");
     $htaccess_content = "<IfModule mod_rewrite.c>\n\tRewriteEngine On\n\tRewriteCond %{REQUEST_FILENAME} !-f\n\tRewriteCond %{REQUEST_FILENAME} !-d\n\tRewriteCond %{REQUEST_FILENAME} !-l\n\tRewriteRule ^(.*)$ index.php?/$1 [L,QSA]\n</IfModule>";
     fwrite($htaccess, $htaccess_content);
     fclose($htaccess);
@@ -28,7 +28,8 @@ $dir = $_SERVER['SERVER_NAME'];
 for ($i = 0; $i < count($parts) - 1; $i++) {
     $dir .= $parts[$i] . "/";
 }
-function shapeSpace_check_https() {
+function shapeSpace_check_https()
+{
     return ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443);
 }
 if (shapeSpace_check_https()) {
@@ -44,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Setup form submitted, create config.php.
     if (test_input($_POST["form"]) == "setup") {
         // Check that the form items are there.
-        if (isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogCopyright"]) and isset($_POST["blogPassword"]) and isset($_POST["blogStyleType"])) {
+        if (isset($_POST["blogName"]) and isset($_POST["blogAuthor"]) and isset($_POST["blogPassword"]) and isset($_POST["blogStyleType"])) {
             // Get the stylesheet link (placed here to be used in both the if config.php and if not)
             if (test_input($_POST["blogStyleType"]) == "default") {
                 $blogStyleSheet = "https://raw.githack.com/johnroper100/dropplets/master/main.css";
@@ -60,11 +61,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (!file_exists("config.php")) {
                 $password_hash = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
 
-                $config_content = "<?php\n\$blogName='" . test_input($_POST["blogName"]) . "';\n\$blogAuthor='" . test_input($_POST["blogAuthor"]) . "';\n\$blogCopyright='" . test_input($_POST["blogCopyright"]) . "';\n\$blogPassword='" . $password_hash . "';\n\$blogStyleType='" . test_input($_POST["blogStyleType"]) . "';\n\$blogStyleSheet='" . $blogStyleSheet . "';\n\$blogPostStyleSheet='" . $blogPostStyleSheet . "';\n\$headerInject='';\n\$footerInject='';\n?>";
+                $config_content = "<?php\n\$blogName='" . test_input($_POST["blogName"]) . "';\n\$blogAuthor='" . test_input($_POST["blogAuthor"]) . "';\n\$blogFooter='" . test_input($_POST["blogFooter"]) . "';\n\$blogPassword='" . $password_hash . "';\n\$blogStyleType='" . test_input($_POST["blogStyleType"]) . "';\n\$blogStyleSheet='" . $blogStyleSheet . "';\n\$blogPostStyleSheet='" . $blogPostStyleSheet . "';\n\$headerInject='';\n\$footerInject='';\n?>";
             } else {
                 if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
                     $config_content =
-                        "<?php\n\$blogName='" . test_input($_POST["blogName"]) . "';\n\$blogAuthor='" . test_input($_POST["blogAuthor"]) . "';\n\$blogCopyright='" . test_input($_POST["blogCopyright"]) . "';\n\$blogPassword='" . $blogPassword . "';\n\$blogStyleType='" . test_input($_POST["blogStyleType"]) . "';\n\$blogStyleSheet='" . $blogStyleSheet . "';\n\$blogPostStyleSheet='" . $blogPostStyleSheet . "';\n\$headerInject='" . $headerInject . "';\n\$footerInject='" . $footerInject . "';\n?>";
+                        "<?php\n\$blogName='" . test_input($_POST["blogName"]) . "';\n\$blogAuthor='" . test_input($_POST["blogAuthor"]) . "';\n\$blogFooter='" . test_input($_POST["blogFooter"]) . "';\n\$blogPassword='" . $blogPassword . "';\n\$blogStyleType='" . test_input($_POST["blogStyleType"]) . "';\n\$blogStyleSheet='" . $blogStyleSheet . "';\n\$blogPostStyleSheet='" . $blogPostStyleSheet . "';\n\$headerInject='" . $headerInject . "';\n\$footerInject='" . $footerInject . "';\n?>";
                 } else {
                     echo ("Management password not correct!");
                     exit;
@@ -72,24 +73,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
         $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write
-permissions and that the folder it is in has write permissions.");
+permissions and that the folder it is in has write permissions. This is usally 755.");
         fwrite($config, $config_content);
         fclose($config);
         header("Location: " . dirname($_SERVER['REQUEST_URI']));
     } else if (test_input($_POST["form"]) == "post") {
         if (file_exists("config.php")) {
             if (
-                isset($_POST["blogPostTitle"]) and isset($_POST["blogPostContent"]) and isset($_POST["blogPassword"]) and
-                isset($_POST["blogPostStyleType"])
+                isset($_POST["blogPostTitle"]) and isset($_POST["blogPostContent"]) and isset($_POST["blogPassword"])
             ) {
                 if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
-                    if (test_input($_POST["blogPostStyleType"]) == "default") {
-                        $postStyleSheet = "";
-                    } else {
-                        $postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
-                    }
                     $post_content =
-                        "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . test_input($_POST["blogPostContent"]) . "';\n\$postDate=" . time() . ";\n\$postStyleSheet='" . $postStyleSheet . "';\n?>";
+                        "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . test_input($_POST["blogPostContent"]) . "';\n\$postDate=" . time() . ";\n?>";
 
                     if (!file_exists("posts/" . create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php")) {
                         $result = create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php";
@@ -98,7 +93,7 @@ permissions and that the folder it is in has write permissions.");
                     }
                     $post = fopen("posts/" . $result, 'w') or die("Unable to set up needed files!
 Please make sure index.php has write
-permissions and that the folder it is in has write permissions.");
+permissions and that the folder it is in has write permissions. This is usually 755.");
                     fwrite($post, $post_content);
                     fclose($post);
                     header("Location: " . dirname($_SERVER['REQUEST_URI']));
@@ -113,17 +108,11 @@ permissions and that the folder it is in has write permissions.");
     } else if (test_input($_POST["form"]) == "postUpload") {
         if (file_exists("config.php")) {
             if (
-                isset($_POST["blogPostTitle"]) and isset($_POST["blogPostFile"]) and isset($_POST["blogPassword"]) and
-                isset($_POST["blogPostStyleType"])
+                isset($_POST["blogPostTitle"]) and isset($_POST["blogPostFile"]) and isset($_POST["blogPassword"])
             ) {
                 if (password_verify(test_input($_POST["blogPassword"]), $blogPassword)) {
-                    if (test_input($_POST["blogPostStyleType"]) == "default") {
-                        $postStyleSheet = "";
-                    } else {
-                        $postStyleSheet = test_input($_POST["blogPostStyleSheet"]);
-                    }
                     $post_content =
-                        "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . test_input($_POST["blogPostFile"]) . "';\n\$postDate=" . time() . ";\n\$postStyleSheet='" . $postStyleSheet . "';\n?>";
+                        "<?php\n\$postTitle='" . test_input($_POST["blogPostTitle"]) . "';\n\$postContent='" . test_input($_POST["blogPostFile"]) . "';\n\$postDate=" . time() . ";\n?>";
 
                     if (!file_exists("posts/" . create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php")) {
                         $result = create_slug(urlencode(test_input($_POST["blogPostTitle"]))) . ".php";
@@ -132,7 +121,7 @@ permissions and that the folder it is in has write permissions.");
                     }
                     $post = fopen("posts/" . $result, 'w') or die("Unable to set up needed files!
 Please make sure index.php has write
-permissions and that the folder it is in has write permissions.");
+permissions and that the folder it is in has write permissions. This is usually 755.");
                     fwrite($post, $post_content);
                     fclose($post);
                     header("Location: " . dirname($_SERVER['REQUEST_URI']));
@@ -172,23 +161,31 @@ permissions and that the folder it is in has write permissions.");
         <html>
 
         <head>
-            <title>Dropplets | Setup</title>
-            <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/reset.css" />
+            <?php if (empty($blogName)) { ?>
+                <title>Dropplets | Setup</title>
+            <?php } else { ?>
+                <title><?php echo ($blogName); ?> | Setup</title>
+            <?php } ?>
+            <link type="text/css" rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css" />
             <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/setup.css" />
         </head>
 
         <body>
             <main>
                 <div class="setupHeader">
-                    <a href="https://github.com/johnroper100/dropplets"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span> </a>
+                    <a href="https://github.com/johnroper100/dropplets"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span></a>
                 </div>
-                <h1>Let's create your blog</h1>
+                <?php if (empty($blogName)) { ?>
+                    <h1>Let's create your blog</h1>
+                <?php } else { ?>
+                    <h1>Edit your blog's settings</h1>
+                <?php } ?>
                 <form method="post" action="setup">
                     <fieldset>
                         <legend>First, some details:</legend>
-                        <input type="text" name="blogName" placeholder="Give a name to your blog" required value="<?php echo ($blogName); ?>" />
-                        <input type="text" name="blogAuthor" placeholder="Who's the author ?" required value="<?php echo ($blogAuthor); ?>" />
-                        <input type="text" name="blogCopyright" placeholder="Write a copyright message" required value="<?php echo ($blogCopyright); ?>" />
+                        <input type="text" name="blogName" placeholder="Enter your blog's name" required value="<?php echo ($blogName); ?>" />
+                        <input type="text" name="blogAuthor" placeholder="Enter your blog's default author" required value="<?php echo ($blogAuthor); ?>" />
+                        <input type="text" name="blogFooter" placeholder="Enter an optional footer message" value="<?php echo ($blogFooter); ?>" />
                     </fieldset>
 
                     <fieldset>
@@ -196,9 +193,8 @@ permissions and that the folder it is in has write permissions.");
                         <select name="blogStyleType" onchange="showStyleInput(this);">
                             <option value="default" <?php if ($blogStyleType == 'default') { ?>selected<?php } ?>>Use the
                                 default one</option>
-                            <option value="zen" <?php if ($blogStyleType == 'zen') { ?>selected<?php } ?>>Use the zen one</option>
-                            <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>I want my own
-                                style!</option>
+                            <!--<option value="zen" <?php if ($blogStyleType == 'zen') { ?>selected<?php } ?>>Use the zen one</option>-->
+                            <option value="custom" <?php if ($blogStyleType == 'custom') { ?>selected<?php } ?>>Use your own stylesheet</option>
                         </select>
                         <input id="blogStyleSheet" type="url" name="blogStyleSheet" placeholder="URL to your homepage stylesheet" value="<?php if ($blogStyleType == 'custom') {
                                                                                                                                                 echo ($blogStyleSheet);
@@ -208,11 +204,20 @@ permissions and that the folder it is in has write permissions.");
                                                                                                                                                 } ?>" />
                     </fieldset>
                     <fieldset>
-                        <legend>Last but not least, the password:</legend>
-                        <input type="password" name="blogPassword" placeholder="Choose a good password" required />
+                        <?php if (empty($blogName)) { ?>
+                            <legend>Last but not least, the password:</legend>
+                            <input type="password" name="blogPassword" placeholder="Choose a good password" required />
+                        <?php } else { ?>
+                            <legend>Type your password to update your blog:</legend>
+                            <input type="password" name="blogPassword" placeholder="Management password" required />
+                        <?php } ?>
                     </fieldset>
                     <input type="hidden" name="form" value="setup" required />
-                    <input class="btn" type="submit" value="Create your blog" />
+                    <?php if (empty($blogName)) { ?>
+                        <input class="btn" type="submit" value="Create Your Blog" />
+                    <?php } else { ?>
+                        <input class="btn" type="submit" value="Update Your Blog" />
+                    <?php } ?>
                 </form>
             </main>
             <script>
@@ -241,7 +246,7 @@ permissions and that the folder it is in has write permissions.");
 
             <head>
                 <title><?php echo ($blogName); ?> | New Post</title>
-                <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/reset.css" />
+                <link type="text/css" rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css" />
                 <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/setup.css" />
             </head>
 
@@ -255,33 +260,12 @@ permissions and that the folder it is in has write permissions.");
                         <fieldset>
                             <input type="text" name="blogPostTitle" class="blogPostTitle" placeholder="The post title" required />
                             <textarea name="blogPostContent" placeholder="Write your post here, you can use Markdown" required></textarea>
-                        </fieldset>
-                        <fieldset>
-                            <p class="details">You can personnalise the style of your post here</p>
-                            <select name="blogPostStyleType" onchange="showStyleInput(this);">
-                                <option value="default" selected>Use Default Stylesheet</option>
-                                <option value="custom">Use a custom stylesheet</option>
-                            </select>
-                            <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="Custom stylesheet link" />
-                        </fieldset>
-                        <fieldset>
-                            <input type="password" name="blogPassword" placeholder="Management Password:" required />
+                            <input type="password" name="blogPassword" placeholder="Management password" required />
                         </fieldset>
                         <input type="hidden" name="form" value="post" required />
                         <input class="btn" type="submit" value="Publish New Post" />
                     </form>
                 </main>
-                <script>
-                    document.getElementById("blogPostStyleSheet").style.display = "none";
-
-                    function showStyleInput(that) {
-                        if (that.value == "custom") {
-                            document.getElementById("blogPostStyleSheet").style.display = "block";
-                        } else {
-                            document.getElementById("blogPostStyleSheet").style.display = "none";
-                        }
-                    }
-                </script>
             </body>
 
             </html>
@@ -293,7 +277,7 @@ permissions and that the folder it is in has write permissions.");
 
             <head>
                 <title><?php echo ($blogName); ?> | New Post Upload</title>
-                <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/reset.css" />
+                <link type="text/css" rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css" />
                 <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/setup.css" />
             </head>
 
@@ -307,66 +291,25 @@ permissions and that the folder it is in has write permissions.");
                         <fieldset>
                             <input type="text" name="blogPostTitle" class="blogPostTitle" placeholder="The post title" required />
                             <input type="file" name="blogPostFile" class="blogPostFile" placeholder="The post file" required />
-                        </fieldset>
-                        <fieldset>
-                            <p class="details">You can personnalise the style of your post here</p>
-                            <select name="blogPostStyleType" onchange="showStyleInput(this);">
-                                <option value="default" selected>Use Default Stylesheet</option>
-                                <option value="custom">Use a custom stylesheet</option>
-                            </select>
-                            <input id="blogPostStyleSheet" type="url" name="blogPostStyleSheet" placeholder="Custom stylesheet link" />
-                        </fieldset>
-                        <fieldset>
-                            <input type="password" name="blogPassword" placeholder="Management Password:" required />
+                            <input type="password" name="blogPassword" placeholder="Management password" required />
                         </fieldset>
                         <input type="hidden" name="form" value="postUpload" required />
                         <input class="btn" type="submit" value="Publish New Post" />
                     </form>
                 </main>
-                <script>
-                    document.getElementById("blogPostStyleSheet").style.display = "none";
-
-                    function showStyleInput(that) {
-                        if (that.value == "custom") {
-                            document.getElementById("blogPostStyleSheet").style.display = "block";
-                        } else {
-                            document.getElementById("blogPostStyleSheet").style.display = "none";
-                        }
-                    }
-                </script>
             </body>
 
             </html>
         <?php } else {
             header("Location: setup");
         }
-    } else if (count($URI_parts) >= 1 and $URI_parts[0] and $URI_parts[0] == 'version') { ?>
-        <!DOCTYPE html>
-        <html>
-
-        <head>
-            <title><?php echo ($blogName); ?> | Dropplets Version</title>
-            <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/reset.css" />
-            <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/setup.css" />
-        </head>
-
-        <body>
-            <main>
-                <div class="setupHeader">
-                    <a href="https://github.com/johnroper100/dropplets"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span> </a>
-                </div>
-                <h3>Dropplets v2.0 - Licensed Under the GPL 3.0 License</h3>
-            </main>
-        </body>
-
-        </html>
-    <?php } else if ($URI_parts[0] and $URI_parts[0] == 'update') { ?>
+    } else if ($URI_parts[0] and $URI_parts[0] == 'update') { ?>
         <!DOCTYPE html>
         <html>
 
         <head>
             <title><?php echo ($blogName); ?> | Update</title>
-            <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/reset.css" />
+            <link type="text/css" rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css" />
             <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/setup.css" />
         </head>
 
@@ -376,9 +319,10 @@ permissions and that the folder it is in has write permissions.");
                     <a href="https://github.com/johnroper100/dropplets"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span> </a>
                 </div>
                 <h1>Update</h1>
+                <h2>The current Dropplets version is: <b>v2.1</b></h2>
                 <form method="post" action="post">
                     <fieldset>
-                        <legend>Type your password to update your blog</legend>
+                        <legend>Type your password to update your blog:</legend>
                         <input type="password" name="blogPassword" placeholder="Management password" required />
                     </fieldset>
                     <input type="hidden" name="form" value="update" required />
@@ -391,41 +335,46 @@ permissions and that the folder it is in has write permissions.");
         <?php } else if (count($URI_parts) >= 3 and $URI_parts[1] == 'posts' and $URI_parts[0]) {
         // If the config exists, read it and display the blog.
         if (file_exists("config.php")) {
-            include "posts/$URI_parts[0].php";
+            if (file_exists("posts/$URI_parts[0].php")) {
+                include "posts/$URI_parts[0].php";
         ?>
-            <!DOCTYPE html>
-            <html>
+                <!DOCTYPE html>
+                <html>
 
-            <head>
-                <title><?php echo ($blogName); ?> | <?php echo ($postTitle); ?></title>
-                <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/reset.css" />
-                <?php if ($postStyleSheet == "") { ?>
+                <head>
+                    <title><?php echo ($blogName); ?> | <?php echo ($postTitle); ?></title>
+                    <link type="text/css" rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css" />
                     <link type="text/css" rel="stylesheet" href="<?php echo ($blogPostStyleSheet); ?>" />
-                <?php } else { ?>
-                    <link type="text/css" rel="stylesheet" href="<?php echo ($postStyleSheet); ?>" />
-                <?php } ?>
-                <?php echo ($headerInject); ?>
-            </head>
+                    <?php echo ($headerInject); ?>
+                </head>
 
-            <body>
-                <main id="postPage">
-                    <header>
-                        <a id="siteTitleLink" href="<?php echo ($SITE_HOME); ?>">➜</a>
-                    </header>
-                    <div id="postTitleDate">
-                        <h1 id="postTitle"><?php echo ($postTitle); ?></h1>
-                        <span id="postSubtitle"><?php echo (date("F j, Y, g:i a", $postDate)); ?></span>
-                    </div>
-                    <div id="postContent"><?php echo ($Parsedown->text($postContent)); ?></div>
-                    <div id="footer">
-                        <p class="footerText"><?php echo ($blogCopyright); ?></p>
-                    </div>
-                    <?php echo ($footerInject); ?>
-                </main>
-            </body>
+                <body>
+                    <main id="postPage">
+                        <header>
+                            <a id="siteTitleLink" href="<?php echo ($SITE_HOME); ?>">➜</a>
+                        </header>
+                        <div id="postTitleDate">
+                            <h1 id="postTitle"><?php echo ($postTitle); ?></h1>
+                            <span id="postSubtitle"><?php echo (date("F j, Y, g:i a", $postDate)); ?></span>
+                        </div>
+                        <div id="postContent"><?php echo ($Parsedown->text($postContent)); ?></div>
+                        <?php if (!empty($blogFooter)) { ?>
+                            <div id="footer">
+                                <p class="footerText"><?php echo ($blogFooter); ?></p>
+                            </div>
+                        <?php } ?>
+                        <?php echo ($footerInject); ?>
+                    </main>
+                </body>
 
-            </html>
-        <?php } else {
+                </html>
+            <?php
+            } else {
+            ?>
+                The post you were looking for can't be found.
+            <?php
+            }
+        } else {
             header("Location: setup");
         }
     } else {
@@ -436,7 +385,7 @@ permissions and that the folder it is in has write permissions.");
 
             <head>
                 <title><?php echo ($blogName); ?> | Home</title>
-                <link type="text/css" rel="stylesheet" href="https://raw.githack.com/johnroper100/dropplets/master/reset.css" />
+                <link type="text/css" rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css" />
                 <link type="text/css" rel="stylesheet" href="<?php echo ($blogStyleSheet); ?>" />
                 <?php echo ($headerInject); ?>
             </head>
@@ -451,12 +400,14 @@ permissions and that the folder it is in has write permissions.");
                         if ($dh = opendir('posts')) {
                             $posts = array();
                             while (($file = readdir($dh)) !== false) {
-                                if ($file != '.' or '..') {
-                                    include 'posts/'.$file;
+                                if ($file != '.' and $file != '..' and $file != '...') {
+                                    include 'posts/' . $file;
                                     $posts[$postDate] = array('title' => $postTitle, 'date' => $postDate, 'content' => $postContent);
                                 }
                             }
-                            arsort($posts);
+                            usort($posts, function ($item1, $item2) {
+                                return $item2['date'] <=> $item1['date'];
+                            });
                             foreach ($posts as $post) {
                                 echo ("<div class=\"post\"><h2 id=\"postTitle\"><a href=\"posts/" . str_replace('.php', '', create_slug($post[title])) . "\">$post[title]</a></h2><span id=\"postSubtitle\">" . date('F j, Y, g:i a', $post[date]) . "</span><div id=\"postContent\">" . $Parsedown->text(substr($post[content], 0, 250) . "...") . "</div></div>");
                             }
@@ -464,9 +415,11 @@ permissions and that the folder it is in has write permissions.");
                         }
                         ?>
                     </div>
-                    <div id="footer">
-                        <p class="footerText"><?php echo ($blogCopyright); ?></p>
-                    </div>
+                    <?php if (!empty($blogFooter)) { ?>
+                        <div id="footer">
+                            <p class="footerText"><?php echo ($blogFooter); ?></p>
+                        </div>
+                    <?php } ?>
                     <?php echo ($footerInject); ?>
                 </main>
             </body>
@@ -486,7 +439,7 @@ function test_input($data)
 }
 function create_slug($string)
 {
-    $slug=strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $string));
+    $slug = strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $string));
     return $slug;
 }
 class Parsedown
