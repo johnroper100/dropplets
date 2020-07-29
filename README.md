@@ -34,7 +34,6 @@ Make sure `index.php` has execution permission and can write to the folder conta
 - Simple post publishing form
 - Quick password-only access
 - Database-less platform
-- Works even when the user has disabled JavaScript
 
 ## Resources:
 
