@@ -16,7 +16,7 @@ a:visited{color:#7ad38a;}
 ol{list-style:upper-roman;}
 ul{list-style:disc;}
 li{margin-left:20px;}
-code{background:#F2F5F7;padding:20px;margin:20px;color:#657783;font-family:'Courier';font-size:14px;display:block;}
+code{background:#F2F5F7;padding:20px;margin:20px;color:#657783;font-family:'Courier';font-size:14px;display:block;overflow-x: auto;}
 img{width:100%;margin: 20px 0;}
 q, blockquote, quote{position:relative;display:block;padding-left:20px;}
 q::before, blockquote::before, quote::before{content:'';position:absolute;height:100%;left:0;border-left:2px solid #AAB8C2;}
