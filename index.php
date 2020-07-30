@@ -261,7 +261,7 @@ permissions and that the folder it is in has write permissions. This is usually 
                     <form method="post" action="post">
                         <fieldset>
                             <input type="text" name="blogPostTitle" class="blogPostTitle" placeholder="The post title" required />
-                            <textarea name="blogPostContent" id="blogPostContent" placeholder="Write your post here, you can use Markdown" required></textarea>
+                            <textarea name="blogPostContent" id="blogPostContent" placeholder="Write your post here, you can use Markdown"></textarea>
                             <input type="password" name="blogPassword" placeholder="Management password" required />
                         </fieldset>
                         <input type="hidden" name="form" value="post" required />
