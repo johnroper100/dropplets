@@ -82,16 +82,9 @@ dist
 
 # Service worker
 sw.*
-src/static/firebase-auth-sw.js
 
-# Mac OSX
+# macOS
 .DS_Store
 
 # Vim swap files
 *.swp
-
-.firebase
-
-public
-
-.yarn
