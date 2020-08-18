@@ -1,43 +1,21 @@
-// Firebase settings
-const firebaseConfig = {
-  apiKey: 'AIzaSyC3qpcRaVJVT63YMfIMgNJKRsmtPmEB6VM',
-  authDomain: 'bento-vince.firebaseapp.com',
-  databaseURL: 'https://bento-vince.firebaseio.com',
-  projectId: 'bento-vince',
-  storageBucket: 'bento-vince.appspot.com',
-  messagingSenderId: '419042376123',
-  appId: '1:419042376123:web:f2a4223fcbff6f078b6c9e',
-  measurementId: 'G-VL64YPQL57'
-}
+import colors from 'vuetify/es5/util/colors'
 
 export default {
+  /*
+   ** Nuxt rendering mode
+   ** See https://nuxtjs.org/api/configuration-mode
+   */
   mode: 'universal',
-  srcDir: 'src',
-  buildDir: 'functions/.nuxt',
 
   /*
-   ** Permet de définir l'adresse du serveur en local
+   ** Nuxt target
+   ** See https://nuxtjs.org/api/configuration-target
    */
-  server: {
-    // port: 8000, // par défaut: 3000
-    // host: '0.0.0.0' // par défaut: localhost
-  },
-
-  /**
-   * Permet de configurer la librairie PWA
-   * Workbox crée automatiquement un service worker (sw.js)
-   * Pour ajouter le service worker du plugin nuxt-fire, il faut l'ajouter ici
-   */
-  pwa: {
-    workbox: {
-      /* workbox options */
-      dev: true,
-      importScripts: ['/firebase-auth-sw.js']
-    }
-  },
+  target: 'server',
 
   /*
    ** Headers of the page
+   ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
@@ -48,10 +26,10 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+        content: process.env.npm_package_description || '',
+      },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
   /*
@@ -65,23 +43,21 @@ export default {
   css: ['~/assets/main.css'],
 
   /*
-   ** Transitions par défaut entre les pages
-   */
-  layoutTransition: 'layout',
-
-  /*
    ** Plugins to load before mounting the App
+   ** https://nuxtjs.org/guide/plugins
    */
   plugins: [],
 
   /*
+   ** Auto import components
+   ** See https://nuxtjs.org/api/configuration-components
+   */
+  components: true,
+
+  /*
    ** Nuxt.js dev-modules
    */
-  buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify'
-  ],
+  buildModules: ['@nuxt/typescript-build', '@nuxtjs/vuetify'],
 
   /*
    ** Nuxt.js modules
@@ -90,7 +66,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/firebase'
+    '@nuxtjs/firebase',
   ],
 
   /*
@@ -99,6 +75,19 @@ export default {
    */
   axios: {},
 
+  /**
+   * Permet de configurer la librairie PWA
+   * Workbox crée automatiquement un service worker (sw.js)
+   * Pour ajouter le service worker du plugin nuxt-fire, il faut l'ajouter ici
+   */
+  pwa: {
+    workbox: {
+      /* workbox options */
+      dev: true,
+      importScripts: ['/firebase-auth-sw.js'],
+    },
+  },
+
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -106,7 +95,7 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      /* dark: true,
+      dark: true,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -115,10 +104,10 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
-        }
-      } */
-    }
+          success: colors.green.accent3,
+        },
+      },
+    },
   },
 
   /*
@@ -127,41 +116,30 @@ export default {
    */
   firebase: {
     config: {
-      apiKey: firebaseConfig.apiKey,
-      authDomain: firebaseConfig.authDomain,
-      databaseURL: firebaseConfig.databaseURL,
-      projectId: firebaseConfig.projectId,
-      storageBucket: firebaseConfig.storageBucket,
-      messagingSenderId: firebaseConfig.messagingSenderId,
-      appId: firebaseConfig.appId,
-      measurementId: firebaseConfig.measurementId
+      apiKey: 'AIzaSyC3qpcRaVJVT63YMfIMgNJKRsmtPmEB6VM',
+      authDomain: 'bento-vince.firebaseapp.com',
+      databaseURL: 'https://bento-vince.firebaseio.com',
+      projectId: 'bento-vince',
+      storageBucket: 'bento-vince.appspot.com',
+      messagingSenderId: '419042376123',
+      appId: '1:419042376123:web:f2a4223fcbff6f078b6c9e',
+      measurementId: 'G-VL64YPQL57',
     },
     services: {
       auth: {
         // Experimental Feature, use with caution.
         initialize: {
-          onAuthStateChangedAction: 'onAuthStateChangedMutation'
+          onAuthStateChangedAction: 'onAuthStateChangedMutation',
         },
-        ssr: true
+        ssr: true,
       },
-      firestore: true
-    }
+      firestore: true,
+    },
   },
-
-  /**
-   * Permet de faire tourner du code avant que la page soit rendue
-   * ATTENTION : Avec Firebase Hosting ce code n'est pas exécuté !!!
-   */
-  serverMiddleware: [],
 
   /*
    ** Build configuration
+   ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extractCSS: true,
-    extend(config, ctx) {}
-  }
+  build: {},
 }
