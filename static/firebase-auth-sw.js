@@ -1,10 +1,10 @@
 const ignorePaths = ["\u002F__webpack_hmr","\u002F_loading","\u002F_nuxt\u002F"]
 
 importScripts(
-  'https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js'
+  'https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js'
 )
 importScripts(
-  'https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js'
+  'https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js'
 )
 firebase.initializeApp({"apiKey":"AIzaSyC3qpcRaVJVT63YMfIMgNJKRsmtPmEB6VM","authDomain":"bento-vince.firebaseapp.com","databaseURL":"https:\u002F\u002Fbento-vince.firebaseio.com","projectId":"bento-vince","storageBucket":"bento-vince.appspot.com","messagingSenderId":"419042376123","appId":"1:419042376123:web:f2a4223fcbff6f078b6c9e","measurementId":"G-VL64YPQL57"})
 
