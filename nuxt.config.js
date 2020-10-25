@@ -1,5 +1,15 @@
 import colors from 'vuetify/es5/util/colors'
 
+// ajouter seulement `router.base = '/Spaceship/'` si `DEPLOY_ENV` est `GH_PAGES`
+const routerBase =
+  process.env.DEPLOY_ENV === 'GH_PAGES'
+    ? {
+        router: {
+          base: '/Spaceship/',
+        },
+      }
+    : {}
+
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -39,6 +49,8 @@ export default {
     // https://firebase.nuxtjs.org
     '@nuxtjs/firebase',
   ],
+
+  ...routerBase,
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
@@ -86,7 +98,7 @@ export default {
         initialize: {
           onAuthStateChangedAction: 'onAuthStateChangedMutation',
         },
-        ssr: true,
+        ssr: false,
       },
       firestore: true,
     },

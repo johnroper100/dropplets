@@ -1,9 +1,9 @@
-export default function ({ store, error }) {
+export default function ({ store, redirect }) {
   if (!store.getters['auth/isLoggedIn']) {
-    // redirect('/login')
-    error({
+    redirect('/login')
+    /* error({
       message: 'You are not connected',
       statusCode: 403,
-    })
+    }) */
   }
 }
