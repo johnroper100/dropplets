@@ -25,9 +25,7 @@
     },
     "types": [
       "@types/node",
-      "@types/jest",
-      "@nuxt/types",
-      "@nuxt/vue-app",
+      "@nuxt/types"
     ]
   },
   "exclude": [

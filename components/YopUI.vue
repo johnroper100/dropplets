@@ -12,7 +12,6 @@
 <script>
 import { mapState } from 'vuex'
 import { desktop as isDesktop } from 'is_js'
-
 export default {
   props: {
     inscription: {
@@ -20,17 +19,14 @@ export default {
       default: false,
     },
   },
-
   data() {
     return {
       loading: true,
     }
   },
-
   computed: mapState({
     authUser: (state) => state.auth.authUser,
   }),
-
   watch: {
     authUser(slt) {
       console.log('ok', slt)
@@ -39,25 +35,20 @@ export default {
       }
     },
   },
-
   mounted() {
     if (process.browser) {
       const firebaseui = require('firebaseui')
       const firebase = require('firebase/app')
-
       const ui =
         firebaseui.auth.AuthUI.getInstance() ||
         new firebaseui.auth.AuthUI(this.$fireAuth)
-
       const authProviders = {
         Google: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         Email: firebase.auth.EmailAuthProvider.PROVIDER_ID,
       }
-
       // Firebase signin with popup is faster than redirect
       // but we can't use it on mobile because it's not well supported
       const method = isDesktop() ? 'popup' : 'redirect'
-
       const config = {
         credentialHelper: firebaseui.auth.CredentialHelper.NONE,
         signInOptions: [authProviders.Google, authProviders.Email],
@@ -72,7 +63,6 @@ export default {
         },
       }
       ui.disableAutoSignIn()
-
       if (this.authUser) {
         this.openAppPage()
       } else {
@@ -87,16 +77,13 @@ export default {
       console.log('signInResult')
       return false
     },
-
     signInError(e) {
       // TODO
     },
-
     uiShown() {
       this.loading = false
       console.log('uiShown')
     },
-
     openAppPage() {
       this.$router.push({
         path: '/app',

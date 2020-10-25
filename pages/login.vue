@@ -14,7 +14,6 @@ li {
 
 <script>
 import YopUI from '~/components/YopUI'
-
 export default {
   name: 'Login',
   components: {

@@ -1,6 +1,6 @@
 {
   "name": "spaceship",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "nuxt-ts",
@@ -12,37 +12,34 @@
     "test": "jest"
   },
   "dependencies": {
-    "@nuxt/typescript-runtime": "^1.0.0",
-    "@nuxtjs/axios": "^5.12.0",
+    "@nuxt/typescript-runtime": "^2.0.0",
+    "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/firebase": "^6.1.1",
-    "@nuxtjs/pwa": "^3.0.0-beta.20",
-    "firebase": "^7.18.0",
-    "firebaseui": "^4.6.1",
+    "@nuxtjs/pwa": "^3.0.2",
+    "core-js": "^3.6.5",
+    "firebase": "^7.24.0",
+    "firebaseui": "^4.7.0",
     "is_js": "^0.9.0",
-    "nuxt": "^2.14.0"
+    "nuxt": "^2.14.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.1",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-typescript": "^7.10.4",
-    "@nuxt/types": "^2.14.0",
-    "@nuxt/typescript-build": "^2.0.2",
+    "@nuxt/types": "^2.14.6",
+    "@nuxt/typescript-build": "^2.0.3",
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-config-typescript": "^3.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
-    "@types/jest": "^26.0.10",
-    "@vue/test-utils": "^1.0.4",
-    "babel-core": "^7.0.0-bridge.0",
+    "@vue/test-utils": "^1.1.0",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
-    "babel-jest": "^26.3.0",
-    "eslint": "^7.5.0",
-    "eslint-config-prettier": "^6.11.0",
+    "babel-jest": "^26.5.0",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.4.0",
-    "prettier": "^2.0.5",
-    "ts-jest": "^26.2.0",
-    "vue-jest": "^3.0.6"
+    "jest": "^26.5.0",
+    "prettier": "^2.1.2",
+    "ts-jest": "^26.4.1",
+    "vue-jest": "^3.0.4"
   }
 }

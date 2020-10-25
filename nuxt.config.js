@@ -1,97 +1,49 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  /*
-   ** Nuxt rendering mode
-   ** See https://nuxtjs.org/api/configuration-mode
-   */
-  mode: 'universal',
-
-  /*
-   ** Nuxt target
-   ** See https://nuxtjs.org/api/configuration-target
-   */
-  target: 'server',
-
-  /*
-   ** Headers of the page
-   ** See https://nuxtjs.org/api/configuration-head
-   */
+  // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s - Spaceship',
+    title: 'Spaceship',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'description',
-        name: 'description',
-        content: process.env.npm_package_description || '',
-      },
+      { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
-  /*
-   ** Customize the progress-bar color
-   */
-  loading: { color: '#fff' },
-
-  /*
-   ** Global CSS
-   */
+  // Global CSS (https://go.nuxtjs.dev/config-css)
   css: ['~/assets/main.css'],
 
-  /*
-   ** Plugins to load before mounting the App
-   ** https://nuxtjs.org/guide/plugins
-   */
+  // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [],
 
-  /*
-   ** Auto import components
-   ** See https://nuxtjs.org/api/configuration-components
-   */
+  // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
 
-  /*
-   ** Nuxt.js dev-modules
-   */
-  buildModules: ['@nuxt/typescript-build', '@nuxtjs/vuetify'],
+  // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
+  buildModules: [
+    // https://go.nuxtjs.dev/typescript
+    '@nuxt/typescript-build',
+    // https://go.nuxtjs.dev/vuetify
+    '@nuxtjs/vuetify',
+  ],
 
-  /*
-   ** Nuxt.js modules
-   */
+  // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
+    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    // https://firebase.nuxtjs.org
     '@nuxtjs/firebase',
   ],
 
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
+  // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 
-  /**
-   * Permet de configurer la librairie PWA
-   * Workbox crée automatiquement un service worker (sw.js)
-   * Pour ajouter le service worker du plugin nuxt-fire, il faut l'ajouter ici
-   */
-  pwa: {
-    workbox: {
-      /* workbox options */
-      dev: true,
-      importScripts: ['/firebase-auth-sw.js'],
-    },
-  },
-
-  /*
-   ** vuetify module configuration
-   ** https://github.com/nuxt-community/vuetify-module
-   */
+  // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -110,9 +62,12 @@ export default {
     },
   },
 
+  // Build Configuration (https://go.nuxtjs.dev/config-build)
+  build: {},
+
   /*
-   ** Nuxt Fire configuration
-   ** https://github.com/lupas/nuxt-fire
+   ** Nuxt Firebase configuration
+   ** https://firebase.nuxtjs.org/
    */
   firebase: {
     config: {
@@ -137,9 +92,21 @@ export default {
     },
   },
 
-  /*
-   ** Build configuration
-   ** See https://nuxtjs.org/api/configuration-build/
-   */
-  build: {},
+  pwa: {
+    // disable the modules you don't need
+    // meta: false,
+    // icon: false,
+    // if you omit a module key form configuration sensible defaults will be applied
+    // manifest: false,
+
+    workbox: {
+      importScripts: [
+        // ...
+        '/firebase-auth-sw.js',
+      ],
+      // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
+      // only set this true for testing and remember to always clear your browser cache in development
+      dev: true,
+    },
+  },
 }
