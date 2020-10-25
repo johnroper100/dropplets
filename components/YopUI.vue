@@ -71,14 +71,16 @@ export default {
     }
   },
   methods: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     signInResult(authResult, redirectUrl) {
       // this.openAppPage()
       this.loading = true
       console.log('signInResult')
       return false
     },
-    signInError(e) {
+    signInError(error) {
       // TODO
+      console.error(error)
     },
     uiShown() {
       this.loading = false

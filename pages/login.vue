@@ -17,7 +17,7 @@ import YopUI from '~/components/YopUI'
 export default {
   name: 'Login',
   components: {
-    YopUI,
+    'yop-ui': YopUI,
   },
 }
 </script>

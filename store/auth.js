@@ -45,6 +45,7 @@ export const getters = {
 }
 
 export const actions = {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   signIn({ commit, dispatch }, { authUser, claims }) {
     commit('setAuthUser', authUser)
     // await dispatch('user/loadUser', null, { root: true })
