@@ -73,6 +73,10 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
+          <v-btn v-if="!isLoggedIn" color="secondary" nuxt to="/login">
+            Login
+          </v-btn>
+          <v-btn v-else color="secondary" @click="logout"> Logout </v-btn>
           <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
         </v-card-actions>
       </v-card>
@@ -81,6 +85,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
@@ -88,6 +93,18 @@ export default {
   components: {
     Logo,
     VuetifyLogo,
+  },
+  computed: {
+    ...mapGetters({
+      isLoggedIn: 'auth/isLoggedIn',
+    }),
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('auth/signOut').then(() => {
+        console.log('logged out 📴')
+      })
+    },
   },
 }
 </script>
