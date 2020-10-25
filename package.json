@@ -1,6 +1,6 @@
 {
-  "name": "Spaceship",
-  "version": "1.0.0",
+  "name": "spaceship",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "nuxt-ts",
