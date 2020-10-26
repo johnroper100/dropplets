@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Hello {{ authUser.displayName }}</p>
+    <p>Hello {{ authUser.displayName }} 🎈</p>
     <ul>
       <li v-for="message in messages" :key="message.id">
         {{ message.data().name }}

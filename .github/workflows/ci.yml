@@ -49,3 +49,9 @@ jobs:
 
       - name: Run tests 🧪
         run: yarn test
+
+      - name: Generate app 🎁
+        run: yarn generate:gh-pages
+
+      - name: Deploy app 🚀
+        run: yarn deploy
