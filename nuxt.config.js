@@ -11,6 +11,10 @@ const routerBase =
     : {}
 
 export default {
+  // ssr:true
+  ssr: false,
+  target: 'static',
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     titleTemplate: '%s - Spaceship',
@@ -98,7 +102,7 @@ export default {
         initialize: {
           onAuthStateChangedAction: 'onAuthStateChangedMutation',
         },
-        ssr: false,
+        ssr: true,
       },
       firestore: true,
     },
@@ -114,7 +118,7 @@ export default {
     workbox: {
       importScripts: [
         // ...
-        '/firebase-auth-sw.js',
+        // ssr:true '/firebase-auth-sw.js',
       ],
       // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
       // only set this true for testing and remember to always clear your browser cache in development
