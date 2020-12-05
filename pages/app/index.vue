@@ -11,6 +11,7 @@
 
 <script>
 export default {
+  middleware: 'securePage',
   data() {
     return {
       messages: [],
@@ -34,6 +35,5 @@ export default {
         })
       }) */
   },
-  middleware: 'securePage',
 }
 </script>

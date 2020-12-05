@@ -6,12 +6,6 @@
   </v-container>
 </template>
 
-<style>
-li {
-  list-style-type: none;
-}
-</style>
-
 <script>
 import YopUI from '~/components/YopUI'
 export default {
@@ -21,3 +15,9 @@ export default {
   },
 }
 </script>
+
+<style>
+li {
+  list-style-type: none;
+}
+</style>
