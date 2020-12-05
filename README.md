@@ -10,6 +10,8 @@
 
 > Template repository for quickly creating new universal web app (SSR) with VueJs, Nuxt, and Firebase, and deploying it on Firebase Hosting within seconds 🚀
 
+Try here : <https://ebfvince.github.io/Spaceship/>
+
 ## ❤ This is made for you
 
 These libraries and tools are already setup:
