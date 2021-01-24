@@ -55,7 +55,7 @@ export const actions = {
    * Permet de déconnecter l'utilisateur et remettre le state à l'initial
    */
   signOut({ commit }) {
-    this.$fireAuth
+    this.$fire.auth
       .signOut()
       .then(() => {
         commit('resetStore')

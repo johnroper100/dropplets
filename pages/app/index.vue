@@ -23,7 +23,7 @@ export default {
     },
   },
   mounted() {
-    /* this.$fireStore
+    /* this.$fire.firestore
       .collection('users')
       .doc(this.authUser.id)
       .collection('products')

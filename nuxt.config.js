@@ -100,9 +100,9 @@ export default {
       auth: {
         // Experimental Feature, use with caution.
         initialize: {
-          onAuthStateChangedAction: 'onAuthStateChangedMutation',
+          onAuthStateChangedAction: 'onAuthStateChangedAction',
         },
-        ssr: true,
+        ssr: false,
       },
       firestore: true,
     },

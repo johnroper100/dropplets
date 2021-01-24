@@ -18,7 +18,7 @@ export const actions = {
    * On va récupérer le userClaims pour avoir les claims
    * https://firebase.google.com/docs/auth/admin/custom-claims#propagate_custom_claims_to_the_client
    */
-  onAuthStateChangedMutation({ dispatch }, { authUser, claims }) {
+  onAuthStateChangedAction({ dispatch }, { authUser, claims }) {
     if (authUser && claims) {
       dispatch('auth/signIn', { authUser, claims })
     } else {

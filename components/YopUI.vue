@@ -38,13 +38,12 @@ export default {
   mounted() {
     if (process.browser) {
       const firebaseui = require('firebaseui')
-      const firebase = require('firebase/app')
       const ui =
         firebaseui.auth.AuthUI.getInstance() ||
-        new firebaseui.auth.AuthUI(this.$fireAuth)
+        new firebaseui.auth.AuthUI(this.$fire.auth)
       const authProviders = {
-        Google: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        Email: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        Google: this.$fireModule.auth.GoogleAuthProvider.PROVIDER_ID,
+        Email: this.$fireModule.auth.EmailAuthProvider.PROVIDER_ID,
       }
       // Firebase signin with popup is faster than redirect
       // but we can't use it on mobile because it's not well supported
