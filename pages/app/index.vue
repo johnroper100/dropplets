@@ -9,20 +9,25 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   middleware: 'securePage',
+
   data() {
     return {
       messages: [],
     }
   },
+
   computed: {
-    authUser() {
+    authUser(): string {
       return this.$store.state.auth.authUser
     },
   },
-  mounted() {
+
+  mounted(): void {
     /* this.$fire.firestore
       .collection('users')
       .doc(this.authUser.id)
@@ -35,5 +40,5 @@ export default {
         })
       }) */
   },
-}
+})
 </script>
