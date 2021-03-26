@@ -1,4 +1,4 @@
-Dropplets v3
+Dropplets v2.2
 ======================================
 
 ## Project Goals:
