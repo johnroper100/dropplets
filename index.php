@@ -9,7 +9,7 @@ use SleekDB\Store;
 
 $siteConfig = [
     "name" => "My Blog",
-    "footer" => "Copyright 2021, My Company",
+    "footer" => "Copyright 2021 My Company",
     "basePath" => "/dropplets",
     "timezone" => "America/New_York",
 ];
@@ -42,10 +42,16 @@ $router->map('GET', '/', function () {
     global $blogStore;
     global $Extra;
     global $router;
+
+    $page = 1;
+    $limit = 3;
+    $skip = ($page - 1) * $limit;
+
     $allPosts = $blogStore->findAll();
     usort($allPosts, function ($item1, $item2) {
         return $item2['date'] <=> $item1['date'];
     });
+    $allPosts = array_slice($allPosts, $skip, $limit);
     $pageTitle = "Home";
     require __DIR__ . '/views/home.php';
 });
