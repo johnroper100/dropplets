@@ -44,17 +44,37 @@ $router->map('GET', '/', function () {
     global $router;
 
     $page = 1;
-    $limit = 3;
+    $limit = 5;
     $skip = ($page - 1) * $limit;
 
     $allPosts = $blogStore->findAll();
+    $postCount = count($allPosts);
     usort($allPosts, function ($item1, $item2) {
         return $item2['date'] <=> $item1['date'];
     });
     $allPosts = array_slice($allPosts, $skip, $limit);
     $pageTitle = "Home";
     require __DIR__ . '/views/home.php';
-});
+}, 'home');
+
+$router->map('GET', '/posts/[i:page]', function ($page) {
+    global $siteConfig;
+    global $blogStore;
+    global $Extra;
+    global $router;
+
+    $limit = 5;
+    $skip = ($page - 1) * $limit;
+
+    $allPosts = $blogStore->findAll();
+    $postCount = count($allPosts);
+    usort($allPosts, function ($item1, $item2) {
+        return $item2['date'] <=> $item1['date'];
+    });
+    $allPosts = array_slice($allPosts, $skip, $limit);
+    $pageTitle = "Posts";
+    require __DIR__ . '/views/home.php';
+}, 'posts');
 
 $router->map('GET', '/setup', function () {
     global $siteConfig;
@@ -63,7 +83,7 @@ $router->map('GET', '/setup', function () {
     require __DIR__ . '/views/setup.php';
 });
 
-$router->map('GET', '/posts/[i:id]', function ($id) {
+$router->map('GET', '/post/[i:id]', function ($id) {
     global $siteConfig;
     global $blogStore;
     global $Extra;

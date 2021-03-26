@@ -178,7 +178,7 @@ header {
 /* ========== Index ========== */
 div#index h1#siteTitle {
     margin-top: 100px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 div#index div.posts {
@@ -403,6 +403,30 @@ input:valid {
     border: none;
     outline: none;
     border-left: solid 2px #40c057;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: solid 1px #40c057;
+    width: 200px;
+    margin: 0 auto;
+    color: #40c057;
+    border-radius: 4px;
+    cursor: pointer;
+    background: white;
+}
+
+.btn:hover {
+    background: #40c057;
+    color: white;
+    box-shadow: 0 0 5px 2px rgba(102, 102, 102, .2);
+    transition: all .3s ease-in-out;
+}
+
+.clearfix::after {
+    content: '';
+    display: table;
+    clear: both;
 }
 
 input.btn {
