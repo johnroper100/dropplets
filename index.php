@@ -11,7 +11,10 @@ $siteConfig = [
     "name" => "My Blog",
     "footer" => "Copyright 2021, My Company",
     "basePath" => "/dropplets",
+    "timezone" => "America/New_York",
 ];
+
+date_default_timezone_set($siteConfig['timezone']);
 
 $Extra = new ParsedownExtra();
 
@@ -26,7 +29,7 @@ $blogStore = new Store("blog", $databaseDirectory);
 
 /*$post = [
     "title" => "Test Blog Post",
-    "date" => 1595977116,
+    "date" => time(),
     "draft" => false,
     "content" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
 ];
@@ -40,6 +43,9 @@ $router->map('GET', '/', function () {
     global $Extra;
     global $router;
     $allPosts = $blogStore->findAll();
+    usort($allPosts, function ($item1, $item2) {
+        return $item2['date'] <=> $item1['date'];
+    });
     $pageTitle = "Home";
     require __DIR__ . '/views/home.php';
 });
@@ -72,5 +78,3 @@ if (is_array($match) && is_callable($match['target'])) {
 } else {
     echo ("404 Not Found");
 }
-
-?>

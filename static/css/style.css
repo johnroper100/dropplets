@@ -140,7 +140,9 @@ hr {
 p {
     margin-bottom: 10px;
     color: #777;
-}span.headerLogo {
+}
+
+span.headerLogo {
     background: url('https://raw.githack.com/johnroper100/dropplets/master/logo.svg') center center;
     background-size: cover;
     color: grey;
