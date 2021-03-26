@@ -29,6 +29,14 @@ h1 {
     text-align: center;
 }
 
+#siteInfo {
+    text-align: center;
+    max-width: 45vw;
+    margin: 0 auto;
+    line-height: 1.5rem;
+    color: hsl(210, 10%, 55%);
+}
+
 h2 {
     font-size: 24px;
 }
@@ -178,7 +186,7 @@ header {
 /* ========== Index ========== */
 div#index h1#siteTitle {
     margin-top: 100px;
-    margin-bottom: 25px;
+    margin-bottom: 50px;
 }
 
 div#index div.posts {

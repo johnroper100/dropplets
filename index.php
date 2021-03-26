@@ -9,6 +9,7 @@ use SleekDB\Store;
 
 $siteConfig = [
     "name" => "My Blog",
+    "info" => "Sharing information about life, health, and everything that makes us happy.",
     "footer" => "Copyright 2021 My Company",
     "basePath" => "/dropplets",
     "timezone" => "America/New_York",
@@ -57,7 +58,7 @@ $router->map('GET', '/', function () {
     require __DIR__ . '/views/home.php';
 }, 'home');
 
-$router->map('GET', '/posts/[i:page]', function ($page) {
+$router->map('GET', '/[i:page]', function ($page) {
     global $siteConfig;
     global $blogStore;
     global $Extra;

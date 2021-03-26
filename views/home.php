@@ -3,7 +3,10 @@ require "header.php";
 ?>
 <div id="index">
     <header>
-        <h1 id="siteTitle"><?php echo $siteConfig['name']; ?></h1>
+        <a href="<?php echo $router->generate('home'); ?>">
+            <h1 id="siteTitle"><?php echo $siteConfig['name']; ?></h1>
+        </a>
+        <?php if ($page == 1) { ?><div id="siteInfo"><?php echo $siteConfig['info']; ?></div><?php } ?>
     </header>
     <div class="posts">
         <?php
