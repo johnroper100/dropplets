@@ -7,13 +7,19 @@ require_once "./parsedown-extra/ParsedownExtra.php";
 
 use SleekDB\Store;
 
-$siteConfig = [
-    "name" => "My Blog",
-    "info" => "Sharing information about life, health, and everything that makes us happy.",
-    "footer" => "Copyright 2021 My Company",
-    "basePath" => "/dropplets",
-    "timezone" => "America/New_York",
-];
+if (file_exists("config.php")) {
+    require_once 'config.php';
+} else {
+    $URI = parse_url($_SERVER['REQUEST_URI']);
+    $siteConfig = [
+        "name" => "",
+        "info" => "",
+        "footer" => "",
+        "password" => "",
+        "basePath" => "/" . explode('/', $URI['path'])[1],
+        "timezone" => "America/New_York",
+    ];
+}
 
 date_default_timezone_set($siteConfig['timezone']);
 
@@ -39,62 +45,101 @@ $results = $blogStore->insert($post);*/
 /*$blogStore->deleteStore();*/
 
 $router->map('GET', '/', function () {
-    global $siteConfig;
-    global $blogStore;
-    global $Extra;
     global $router;
+    if (file_exists("config.php")) {
+        global $siteConfig;
+        global $blogStore;
+        global $Extra;
+        $page = 1;
+        $limit = 5;
+        $skip = ($page - 1) * $limit;
 
-    $page = 1;
-    $limit = 5;
-    $skip = ($page - 1) * $limit;
-
-    $allPosts = $blogStore->findAll();
-    $postCount = count($allPosts);
-    usort($allPosts, function ($item1, $item2) {
-        return $item2['date'] <=> $item1['date'];
-    });
-    $allPosts = array_slice($allPosts, $skip, $limit);
-    $pageTitle = "Home";
-    require __DIR__ . '/views/home.php';
+        $allPosts = $blogStore->findAll();
+        $postCount = count($allPosts);
+        usort($allPosts, function ($item1, $item2) {
+            return $item2['date'] <=> $item1['date'];
+        });
+        $allPosts = array_slice($allPosts, $skip, $limit);
+        $pageTitle = "Home";
+        require __DIR__ . '/views/home.php';
+    } else {
+        header("Location: " . $router->generate('setup'));
+    }
 }, 'home');
 
 $router->map('GET', '/[i:page]', function ($page) {
-    global $siteConfig;
-    global $blogStore;
-    global $Extra;
     global $router;
+    if (file_exists("config.php")) {
+        global $siteConfig;
+        global $blogStore;
+        global $Extra;
 
-    $limit = 5;
-    $skip = ($page - 1) * $limit;
+        $limit = 5;
+        $skip = ($page - 1) * $limit;
 
-    $allPosts = $blogStore->findAll();
-    $postCount = count($allPosts);
-    usort($allPosts, function ($item1, $item2) {
-        return $item2['date'] <=> $item1['date'];
-    });
-    $allPosts = array_slice($allPosts, $skip, $limit);
-    $pageTitle = "Posts";
-    require __DIR__ . '/views/home.php';
+        $allPosts = $blogStore->findAll();
+        $postCount = count($allPosts);
+        usort($allPosts, function ($item1, $item2) {
+            return $item2['date'] <=> $item1['date'];
+        });
+        $allPosts = array_slice($allPosts, $skip, $limit);
+        $pageTitle = "Posts";
+        require __DIR__ . '/views/home.php';
+    } else {
+        header("Location: " . $router->generate('setup'));
+    }
 }, 'posts');
 
-$router->map('GET', '/setup', function () {
+$router->map('GET|POST', '/setup', function () {
     global $siteConfig;
     global $router;
-    $pageTitle = "Setup";
-    require __DIR__ . '/views/setup.php';
-});
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST["blogName"]) && isset($_POST["blogPassword"])) {
+            $password_hashed = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
+
+            $siteConfig['name'] = test_input($_POST["blogName"]);
+            $siteConfig['password'] = $password_hashed;
+            $config_content = '
+            <?php
+            $siteConfig = [
+                "name" => "' . $siteConfig['name'] . '",
+                "info" => "' . $siteConfig['info'] . '",
+                "footer" => "' . $siteConfig['footer'] . '",
+                "password" => "' . $siteConfig['password'] . '",
+                "basePath" => "' . $siteConfig['basePath'] . '",
+                "timezone" => "' . $siteConfig['timezone'] . '",
+            ];
+            ?>
+            ';
+            $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usally 755.");
+            fwrite($config, $config_content);
+            fclose($config);
+            header("Location: " . $router->generate('home'));
+        } else {
+            header("Location: " . $router->generate('setup'));
+        }
+    } else {
+        $pageTitle = "Setup";
+        require __DIR__ . '/views/setup.php';
+    }
+}, 'setup');
 
 $router->map('GET', '/post/[i:id]', function ($id) {
-    global $siteConfig;
-    global $blogStore;
-    global $Extra;
     global $router;
-    $post = $blogStore->findById($id);
-    if ($post == null) {
-        echo ("404 Not Found");
+    if (file_exists("config.php")) {
+        global $siteConfig;
+        global $blogStore;
+        global $Extra;
+
+        $post = $blogStore->findById($id);
+        if ($post == null) {
+            echo ("404 Not Found");
+        } else {
+            $pageTitle = $post['title'];
+            require __DIR__ . '/views/post.php';
+        }
     } else {
-        $pageTitle = $post['title'];
-        require __DIR__ . '/views/post.php';
+        header("Location: " . $router->generate('setup'));
     }
 }, 'post');
 
@@ -104,4 +149,12 @@ if (is_array($match) && is_callable($match['target'])) {
     call_user_func_array($match['target'], $match['params']);
 } else {
     echo ("404 Not Found");
+}
+
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlentities($data, ENT_QUOTES);
+    return $data;
 }
