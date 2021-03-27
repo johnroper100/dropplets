@@ -5,7 +5,7 @@ Dropplets v2.2
 
 - Add a new post at `https://(your url)/write`
 
-- Change settings at `https://(your url)/setup`=
+- Change settings at `https://(your url)/setup`
 
 ## Project Goals:
 
