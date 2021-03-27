@@ -144,7 +144,23 @@ $router->map('GET|POST', '/setup', function () {
 $router->map('GET|POST', '/write', function () {
     global $siteConfig;
     global $router;
+    global $blogStore;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST["blogPostTitle"]) && isset($_POST["blogPostContent"]) && isset($_POST["blogPassword"])) {
+            if (password_verify($_POST["blogPassword"], $siteConfig['password'])) {
+                $post = [
+                    "title" => test_input($_POST["blogPostTitle"]),
+                    "date" => time(),
+                    "content" => test_input($_POST["blogPostContent"]),
+                ];
+                $results = $blogStore->insert($post);
+                header("Location: " . $router->generate('home'));
+            } else {
+                header("Location: " . $router->generate('write'));
+            }
+        } else {
+            header("Location: " . $router->generate('write'));
+        }
     } else {
         $pageTitle = "Write";
         require __DIR__ . '/views/write.php';
