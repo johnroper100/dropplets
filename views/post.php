@@ -7,9 +7,12 @@ require "header.php";
     </header>
     <div id="postTitleDate">
         <h1 id="postTitle"><?php echo $post['title']; ?></h1>
-        <span id="postSubtitle"><?php echo date('F j, Y, g:i a', $post['date']); ?></span>
+        <span id="postSubtitle"><?php echo $post['author']; ?> - <?php echo date('F j, Y, g:i a', $post['date']); ?></span>
     </div>
-    <div id="postContent"><?php echo $Extra->text($post['content']); ?></div>
+    <div id="postContent">
+        <?php if ($post['image'] != "") { ?><img src="<?php echo $post['image']; ?>"><?php } ?>
+        <?php echo $Extra->text($post['content']); ?>
+    </div>
 </div>
 <div id="footer">
     <p class="footerText"><?php echo $siteConfig['footer']; ?></p>

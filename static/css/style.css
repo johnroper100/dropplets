@@ -35,6 +35,9 @@ h1 {
     margin: 0 auto;
     line-height: 1.5rem;
     color: hsl(210, 10%, 55%);
+    font-weight: 500;
+    font-size: 15px;
+    color: #AAB8C2;
 }
 
 h2 {
@@ -186,7 +189,7 @@ header {
 /* ========== Index ========== */
 div#index h1#siteTitle {
     margin-top: 100px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 div#index div.posts {
@@ -195,9 +198,23 @@ div#index div.posts {
 }
 
 div#index div.post {
-    position: relative;
     margin: 40px 0;
-    padding: 5px 20px;
+    position: relative;
+    background-color: #dee2e6;
+}
+
+div#index div.post img {
+    margin: 0px;
+    padding: 0px;
+}
+
+div#index div.post .postText {
+    margin: 40px 0;
+    position: relative;
+    padding: 20px 20px;
+    margin-top: 0px;
+    padding-bottom: 10px;
+    background-color: #dee2e6;
 }
 
 div#index div.post::after {
@@ -414,6 +431,7 @@ input:valid {
 }
 
 .btn {
+    font-weight: 400;
     padding: 10px 15px;
     border: solid 1px #40c057;
     width: 200px;

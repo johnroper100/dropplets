@@ -6,16 +6,19 @@ require "header.php";
         <a href="<?php echo $router->generate('home'); ?>">
             <h1 id="siteTitle"><?php echo $siteConfig['name']; ?></h1>
         </a>
-        <?php if ($page == 1) { ?><div id="siteInfo"><?php echo $siteConfig['info']; ?></div><?php } ?>
+        <div id="siteInfo"><?php echo $siteConfig['info']; ?></div>
     </header>
     <div class="posts">
         <?php
         foreach ($allPosts as $post) {
         ?>
             <div class="post">
-                <h2 id="postTitle"><a href="<?php echo $router->generate('post', ['id' => $post['_id']]); ?>"><?php echo $post['title']; ?></a></h2>
-                <span id="postSubtitle"><?php echo date('F j, Y, g:i a', $post['date']); ?></span>
-                <!--<div id="postContent"><?php echo $Extra->text(substr($post['content'], 0, 350) . "..."); ?></div>-->
+                <?php if ($post['image'] != "") { ?><img src="<?php echo $post['image']; ?>"><?php } ?>
+                <div class="postText">
+                    <h2 id="postTitle"><a href="<?php echo $router->generate('post', ['id' => $post['_id']]); ?>"><?php echo $post['title']; ?></a></h2>
+                    <span id="postSubtitle">Posted by <?php echo $post['author']; ?></span>
+                    <span id="postSubtitle"><?php echo date('F j, Y, g:i a', $post['date']); ?></span>
+                </div>
             </div>
         <?php
         }
