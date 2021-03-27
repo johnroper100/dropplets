@@ -90,6 +90,25 @@ $router->map('GET', '/[i:page]', function ($page) {
     }
 }, 'posts');
 
+$router->map('GET', '/post/[i:id]', function ($id) {
+    global $router;
+    if (file_exists("config.php")) {
+        global $siteConfig;
+        global $blogStore;
+        global $Extra;
+
+        $post = $blogStore->findById($id);
+        if ($post == null) {
+            echo ("404 Not Found");
+        } else {
+            $pageTitle = $post['title'];
+            require __DIR__ . '/views/post.php';
+        }
+    } else {
+        header("Location: " . $router->generate('setup'));
+    }
+}, 'post');
+
 $router->map('GET|POST', '/setup', function () {
     global $siteConfig;
     global $router;
@@ -122,24 +141,15 @@ $router->map('GET|POST', '/setup', function () {
     }
 }, 'setup');
 
-$router->map('GET', '/post/[i:id]', function ($id) {
+$router->map('GET|POST', '/write', function () {
+    global $siteConfig;
     global $router;
-    if (file_exists("config.php")) {
-        global $siteConfig;
-        global $blogStore;
-        global $Extra;
-
-        $post = $blogStore->findById($id);
-        if ($post == null) {
-            echo ("404 Not Found");
-        } else {
-            $pageTitle = $post['title'];
-            require __DIR__ . '/views/post.php';
-        }
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
-        header("Location: " . $router->generate('setup'));
+        $pageTitle = "Write";
+        require __DIR__ . '/views/write.php';
     }
-}, 'post');
+}, 'write');
 
 $match = $router->match();
 
