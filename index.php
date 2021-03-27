@@ -54,7 +54,7 @@ $router->map('GET', '/', function () {
         });
         $allPosts = array_slice($allPosts, $skip, $limit);
         $pageTitle = "Home";
-        require __DIR__ . '/views/templates/' . $siteConfig['template'] . '/home.php';
+        require __DIR__ . '/templates/' . $siteConfig['template'] . '/home.php';
     } else {
         header("Location: " . $router->generate('setup'));
     }
@@ -77,7 +77,7 @@ $router->map('GET', '/[i:page]', function ($page) {
         });
         $allPosts = array_slice($allPosts, $skip, $limit);
         $pageTitle = "Posts";
-        require __DIR__ . '/views/templates/' . $siteConfig['template'] . '/home.php';
+        require __DIR__ . '/templates/' . $siteConfig['template'] . '/home.php';
     } else {
         header("Location: " . $router->generate('setup'));
     }
@@ -95,7 +95,7 @@ $router->map('GET', '/post/[i:id]', function ($id) {
             echo ("404 Not Found");
         } else {
             $pageTitle = $post['title'];
-            require __DIR__ . '/views/templates/' . $siteConfig['template'] . '/post.php';
+            require __DIR__ . '/templates/' . $siteConfig['template'] . '/post.php';
         }
     } else {
         header("Location: " . $router->generate('setup'));
@@ -130,7 +130,7 @@ $router->map('GET|POST', '/setup', function () {
         }
     } else {
         $pageTitle = "Setup";
-        require __DIR__ . '/views/internal/setup.php';
+        require __DIR__ . '/internal/setup.php';
     }
 }, 'setup');
 
@@ -158,7 +158,7 @@ $router->map('GET|POST', '/write', function () {
         }
     } else {
         $pageTitle = "Write";
-        require __DIR__ . '/views/internal/write.php';
+        require __DIR__ . '/internal/write.php';
     }
 }, 'write');
 
