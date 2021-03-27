@@ -16,7 +16,7 @@ if (file_exists("config.php")) {
         "info" => "",
         "footer" => "",
         "password" => "",
-        "template" => "default",
+        "template" => "liquid",
         "basePath" => "/" . explode('/', $URI['path'])[1],
         "timezone" => "America/New_York",
     ];
@@ -109,14 +109,14 @@ $router->map('GET|POST', '/setup', function () {
         if (isset($_POST["blogName"]) && isset($_POST["blogPassword"])) {
             if (!file_exists("config.php")) {
                 $password_hashed = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
-                $config_content = "<?php\n\$siteConfig = ['name'=>'" . test_input($_POST["blogName"]) . "',\n'info' => '" . test_input($_POST["blogInfo"]) . "',\n'footer' => '" . test_input($_POST["blogFooter"]) . "',\n'password' => '" . $password_hashed . "',\n'template' => " . test_input($_POST["blogTemplate"]) . "',\n'basePath' => '" . test_input($_POST["blogBase"]) . "',\n'timezone' => '" . test_input($_POST["blogTimezone"]) . "',\n]\n?>";
+                $config_content = "<?php\n\$siteConfig = ['name'=>'" . test_input($_POST["blogName"]) . "',\n'info' => '" . test_input($_POST["blogInfo"]) . "',\n'footer' => '" . test_input($_POST["blogFooter"]) . "',\n'password' => '" . $password_hashed . "',\n'template' => '" . test_input($_POST["blogTemplate"]) . "',\n'basePath' => '" . test_input($_POST["blogBase"]) . "',\n'timezone' => '" . test_input($_POST["blogTimezone"]) . "',\n]\n?>";
                 $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usally 755.");
                 fwrite($config, $config_content);
                 fclose($config);
                 header("Location: " . $router->generate('home'));
             } else {
                 if (password_verify($_POST["blogPassword"], $siteConfig['password'])) {
-                    $config_content = "<?php\n\$siteConfig = ['name'=>'" . test_input($_POST["blogName"]) . "',\n'info' => '" . test_input($_POST["blogInfo"]) . "',\n'footer' => '" . test_input($_POST["blogFooter"]) . "',\n'password' => '" . $siteConfig['password'] . "',\n'template' => " . test_input($_POST["blogTemplate"]) . "',\n'basePath' => '" . test_input($_POST["blogPath"]) . "',\n'timezone' => '" . test_input($_POST["blogTimezone"]) . "',\n]\n?>";
+                    $config_content = "<?php\n\$siteConfig = ['name'=>'" . test_input($_POST["blogName"]) . "',\n'info' => '" . test_input($_POST["blogInfo"]) . "',\n'footer' => '" . test_input($_POST["blogFooter"]) . "',\n'password' => '" . $siteConfig['password'] . "',\n'template' => '" . test_input($_POST["blogTemplate"]) . "',\n'basePath' => '" . test_input($_POST["blogPath"]) . "',\n'timezone' => '" . test_input($_POST["blogTimezone"]) . "',\n]\n?>";
                     $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usally 755.");
                     fwrite($config, $config_content);
                     fclose($config);
