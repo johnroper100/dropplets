@@ -17,7 +17,7 @@ require "header.php";
                 <div class="postText">
                     <h2 id="postTitle"><a href="<?php echo $router->generate('post', ['id' => $post['_id']]); ?>"><?php echo $post['title']; ?></a></h2>
                     <span id="postSubtitle">Posted by <?php echo $post['author']; ?></span>
-                    <span id="postSubtitle"><?php echo date('F j, Y, g:i a', $post['date']); ?></span>
+                    <span id="postSubtitle"><?php echo date('F j, Y, g:i A', $post['date']); ?></span>
                 </div>
             </div>
         <?php

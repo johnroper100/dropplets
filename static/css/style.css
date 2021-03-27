@@ -40,6 +40,11 @@ h1 {
     color: #AAB8C2;
 }
 
+label {
+    font-weight: 500;
+    color: #AAB8C2;
+}
+
 h2 {
     font-size: 24px;
 }
