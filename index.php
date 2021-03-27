@@ -8,7 +8,7 @@ require_once "./parsedown-extra/ParsedownExtra.php";
 use SleekDB\Store;
 
 if (file_exists("config.php")) {
-    require_once 'config.php';
+    require 'config.php';
 } else {
     $URI = parse_url($_SERVER['REQUEST_URI']);
     $siteConfig = [
@@ -95,26 +95,24 @@ $router->map('GET|POST', '/setup', function () {
     global $router;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["blogName"]) && isset($_POST["blogPassword"])) {
-            $password_hashed = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
-
-            $siteConfig['name'] = test_input($_POST["blogName"]);
-            $siteConfig['password'] = $password_hashed;
-            $config_content = '
-            <?php
-            $siteConfig = [
-                "name" => "' . $siteConfig['name'] . '",
-                "info" => "' . $siteConfig['info'] . '",
-                "footer" => "' . $siteConfig['footer'] . '",
-                "password" => "' . $siteConfig['password'] . '",
-                "basePath" => "' . $siteConfig['basePath'] . '",
-                "timezone" => "' . $siteConfig['timezone'] . '",
-            ];
-            ?>
-            ';
-            $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usally 755.");
-            fwrite($config, $config_content);
-            fclose($config);
-            header("Location: " . $router->generate('home'));
+            if (!file_exists("config.php")) {
+                $password_hashed = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
+                $config_content = "<?php\n\$siteConfig = ['name'=>'" . test_input($_POST["blogName"]) . "',\n'info' => '" . test_input($_POST["blogInfo"]) . "',\n'footer' => '" . test_input($_POST["blogFooter"]) . "',\n'password' => '" . $password_hashed . "',\n'basePath' => '" . $siteConfig['basePath'] . "',\n'timezone' => '" . $siteConfig['timezone'] . "',\n]\n?>";
+                $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usally 755.");
+                fwrite($config, $config_content);
+                fclose($config);
+                header("Location: " . $router->generate('home'));
+            } else {
+                if (password_verify($_POST["blogPassword"], $siteConfig['password'])) {
+                    $config_content = "<?php\n\$siteConfig = ['name'=>'" . test_input($_POST["blogName"]) . "',\n'info' => '" . test_input($_POST["blogInfo"]) . "',\n'footer' => '" . test_input($_POST["blogFooter"]) . "',\n'password' => '" . $siteConfig['password'] . "',\n'basePath' => '" . $siteConfig['basePath'] . "',\n'timezone' => '" . $siteConfig['timezone'] . "',\n]\n?>";
+                    $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usally 755.");
+                    fwrite($config, $config_content);
+                    fclose($config);
+                    header("Location: " . $router->generate('home'));
+                } else {
+                    header("Location: " . $router->generate('setup'));
+                }
+            }
         } else {
             header("Location: " . $router->generate('setup'));
         }
