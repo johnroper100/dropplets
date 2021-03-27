@@ -15,7 +15,7 @@ require "header.php";
             <div class="post">
                 <h2 id="postTitle"><a href="<?php echo $router->generate('post', ['id' => $post['_id']]); ?>"><?php echo $post['title']; ?></a></h2>
                 <span id="postSubtitle"><?php echo date('F j, Y, g:i a', $post['date']); ?></span>
-                <div id="postContent"><?php echo $Extra->text(substr($post['content'], 0, 350) . "..."); ?></div>
+                <!--<div id="postContent"><?php echo $Extra->text(substr($post['content'], 0, 350) . "..."); ?></div>-->
             </div>
         <?php
         }
