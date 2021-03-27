@@ -1,0 +1,483 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,500,700');
+
+/* ========== General ========== */
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    color: #343a40;
+    background: #fff;
+    font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #303549;
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: 28px;
+}
+
+#siteTitle {
+    text-align: center;
+}
+
+#siteInfo {
+    text-align: center;
+    max-width: 45vw;
+    margin: 0 auto;
+    line-height: 1.5rem;
+    color: hsl(210, 10%, 55%);
+    font-weight: 500;
+    font-size: 15px;
+    color: #AAB8C2;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+h4 {
+    font-size: 18px;
+}
+
+h5 {
+    font-size: 16px;
+}
+
+h6 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+a {
+    text-decoration: none;
+    color: #40c057;
+    border-bottom: 1px solid #fff;
+    transition: all .3s ease-in-out;
+}
+
+a:hover {
+    color: #777;
+    border-bottom: 1px solid #40c057;
+}
+
+a:active {
+    border-bottom: 1px solid #777;
+}
+
+a:visited {
+    color: #7ad38a;
+}
+
+ol {
+    list-style: upper-roman;
+}
+
+ul {
+    list-style: disc;
+}
+
+li {
+    margin-left: 20px;
+}
+
+code {
+    background: #F2F5F7;
+    padding: 20px;
+    margin: 20px;
+    color: #657783;
+    font-family: 'Courier';
+    font-size: 14px;
+    display: block;
+    overflow-x: auto;
+}
+
+img {
+    width: 100%;
+    margin: 20px 0;
+}
+
+q,
+blockquote,
+quote {
+    position: relative;
+    display: block;
+    padding-left: 20px;
+}
+
+q::before,
+blockquote::before,
+quote::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    left: 0;
+    border-left: 2px solid #AAB8C2;
+}
+
+b,
+strong {
+    font-weight: bold;
+}
+
+i,
+em {
+    font-style: italic;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+hr {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+p {
+    margin-bottom: 10px;
+    color: #777;
+}
+
+span.headerLogo {
+    background: url('https://raw.githack.com/johnroper100/dropplets/master/logo.svg') center center;
+    background-size: cover;
+    color: grey;
+    display: inline-block;
+    width: 25px;
+    height: 35px;
+    vertical-align: sub;
+}
+
+span.droppletsName {
+    padding-left: 20px;
+}
+
+header {
+    border-top: 5px solid #40c057;
+}
+
+#postSubtitle {
+    display: block;
+    font-weight: 500;
+    font-size: 15px;
+    color: #AAB8C2;
+    margin: 20px 0;
+}
+
+#footer {
+    text-align: center;
+    font-size: 14px;
+    color: #AAB8C2;
+    margin: 40px 0;
+}
+
+/* ========== Index ========== */
+div#index h1#siteTitle {
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+div#index div.posts {
+    width: 65vw;
+    margin: 65px auto;
+}
+
+div#index div.post {
+    margin: 40px 0;
+    position: relative;
+    background-color: #dee2e6;
+}
+
+div#index div.post img {
+    margin: 0px;
+    padding: 0px;
+}
+
+div#index div.post .postText {
+    margin: 40px 0;
+    position: relative;
+    padding: 20px 20px;
+    margin-top: 0px;
+    padding-bottom: 10px;
+    background-color: #dee2e6;
+}
+
+div#index div.post::after {
+    content: '';
+    border-left: 2px solid #40c057;
+    position: absolute;
+    height: 0;
+    left: 0;
+    top: 0;
+}
+
+div#index div.post:hover::after {
+    content: '';
+    height: 100%;
+    transition: all .5s ease-in-out;
+}
+
+div#index div.post:hover {
+    border-color: #40c057;
+}
+
+div#index div.post h2 {
+    margin: 0;
+}
+
+div#index div.post h2 a {
+    text-decoration: none;
+    color: #303549;
+    border: none;
+}
+
+div#index div.post h2 a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+div#index #postContent {
+    margin-top: 30px;
+    line-height: 150%;
+}
+
+/* ========== Post Page ========== */
+div#postPage #siteTitleLink::before {
+    content: '➜';
+    position: absolute;
+    display: block;
+    font-size: 18px;
+    transform: rotate(180deg);
+    visibility: visible;
+}
+
+div#postPage #siteTitleLink {
+    position: fixed;
+    visibility: hidden;
+    margin-left: 50px;
+    margin-top: 30px;
+    color: #303549;
+}
+
+div#postPage #siteTitleLink:hover {
+    color: #40c057;
+}
+
+div#postPage #postTitle {
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+div#postPage #postTitleDate {
+    display: block;
+    text-align: center;
+    color: #AAB8C2;
+}
+
+div#postPage #postContent {
+    margin-top: 70px;
+    width: 65vw;
+    margin: 60px auto;
+    line-height: 150%;
+}
+
+/* ========== Setup Page ========== */
+div.setup {
+    width: 50vw;
+    margin: 50px auto;
+    box-shadow: 0 0 5px 2px rgba(102, 102, 102, .2);
+    border-radius: 4px;
+    padding: 50px;
+}
+
+div.setupHeader {
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+}
+
+div.setupHeader a {
+    font-size: 25px;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 35px;
+    color: #40c057;
+}
+
+div.setupHeader a:hover {
+    text-decoration: none !important;
+}
+
+span.headerLogo {
+    background: url('https://raw.githack.com/johnroper100/dropplets/master/logo.svg') center center;
+    background-size: cover;
+    color: grey;
+    display: inline-block;
+    width: 25px;
+    height: 35px;
+    vertical-align: sub;
+}
+
+span.droppletsName {
+    padding-left: 20px;
+}
+
+h1.setup,
+h2.setup,
+h3.setup {
+    color: #212529;
+    font-weight: 700;
+    text-align: center;
+    margin: 30px 0;
+}
+
+h1.setupH1 {
+    text-transform: uppercase;
+    font-size: 28px;
+    margin: 30px 0 50px 0;
+}
+
+fieldset {
+    padding: 20px;
+    border: none;
+    font-weight: 200;
+}
+
+legend {
+    font-size: 20px;
+}
+
+input,
+textarea,
+select {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: #343a40;
+    font-weight: 200;
+    display: block;
+    width: 100%;
+    padding: 7px 15px;
+    border: none;
+    border-left: solid 2px;
+    margin: 20px 0;
+    transition: all .3s ease-in-out;
+    outline: none;
+}
+
+select {
+    background: white;
+    height: 40px;
+    border: solid 1px;
+}
+
+textarea {
+    height: 500px;
+}
+
+::-webkit-input-placeholder {
+    color: #495057;
+    font-size: 16px;
+}
+
+::-moz-placeholder {
+    color: #495057;
+    font-size: 16px;
+}
+
+:-ms-input-placeholder {
+    color: #495057;
+    font-size: 16px;
+}
+
+:-moz-placeholder {
+    color: #495057;
+    font-size: 16px;
+}
+
+::placeholder {
+    color: #495057;
+    font-size: 16px;
+}
+
+input:focus:required:invalid {
+    border: none;
+    outline: none;
+    border-left: solid 2px #fa5252;
+}
+
+input:valid {
+    border: none;
+    outline: none;
+    border-left: solid 2px #40c057;
+}
+
+.btn {
+    font-weight: 400;
+    padding: 10px 15px;
+    border: solid 1px #40c057;
+    width: 200px;
+    margin: 0 auto;
+    color: #40c057;
+    border-radius: 4px;
+    cursor: pointer;
+    background: white;
+}
+
+.btn:hover {
+    background: #40c057;
+    color: white;
+    box-shadow: 0 0 5px 2px rgba(102, 102, 102, .2);
+    transition: all .3s ease-in-out;
+}
+
+.clearfix::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+input.btn {
+    padding: 10px 15px;
+    border: solid 1px #40c057;
+    width: 200px;
+    margin: 0 auto;
+    color: #40c057;
+    border-radius: 4px;
+    cursor: pointer;
+    background: white;
+}
+
+input.btn:hover {
+    background: #40c057;
+    color: white;
+    box-shadow: 0 0 5px 2px rgba(102, 102, 102, .2);
+    transition: all .3s ease-in-out;
+}
+
+input.blogPostTitle {
+    font-weight: 200;
+    font-size: 18px;
+}
+
+p.details {
+    color: #495057;
+}
