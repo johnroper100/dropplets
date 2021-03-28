@@ -97,6 +97,50 @@ $router->map('GET', '/post/[i:id]', function ($id) {
     }
 }, 'post');
 
+$router->map('GET', '/post/[i:id]/publish', function ($id) {
+    global $router;
+    if (file_exists("config.php")) {
+        if (isset($_SESSION['isAuthenticated'])) {
+            global $siteConfig;
+            global $blogStore;
+
+            $post = $blogStore->findById($id);
+            if ($post == null) {
+                echo ("404 Not Found");
+            } else {
+                $blogStore->updateById($id, ["draft" => false]);
+                header("Location: " . $router->generate('dashboard'));
+            }
+        } else {
+            header("Location: " . $router->generate('login'));
+        }
+    } else {
+        header("Location: " . $router->generate('settings'));
+    }
+}, 'publish');
+
+$router->map('GET', '/post/[i:id]/hide', function ($id) {
+    global $router;
+    if (file_exists("config.php")) {
+        if (isset($_SESSION['isAuthenticated'])) {
+            global $siteConfig;
+            global $blogStore;
+
+            $post = $blogStore->findById($id);
+            if ($post == null) {
+                echo ("404 Not Found");
+            } else {
+                $blogStore->updateById($id, ["draft" => true]);
+                header("Location: " . $router->generate('dashboard'));
+            }
+        } else {
+            header("Location: " . $router->generate('login'));
+        }
+    } else {
+        header("Location: " . $router->generate('settings'));
+    }
+}, 'hide');
+
 $router->map('GET|POST', '/settings', function () {
     global $siteConfig;
     global $router;
@@ -196,8 +240,10 @@ $router->map('GET|POST', '/login', function () {
 $router->map('GET', '/dashboard', function () {
     global $router;
     global $siteConfig;
+    global $blogStore;
     if (file_exists("config.php")) {
         if (isset($_SESSION['isAuthenticated'])) {
+            $allPosts = $blogStore->findAll();
             $pageTitle = "Dashboard";
             require __DIR__ . '/internal/dashboard.php';
         } else {

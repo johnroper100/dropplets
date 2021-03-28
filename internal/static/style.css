@@ -224,3 +224,17 @@ input.blogPostTitle {
 p.details {
     color: #495057;
 }
+
+h2 {
+    margin: 1rem 0;
+}
+
+.postText .btn {
+    margin-top: 0.5rem;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.btn-sm {
+    font-size: 0.75rem;
+}
