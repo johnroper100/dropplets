@@ -185,11 +185,29 @@ input:valid {
     background: white;
 }
 
+.btn-danger {
+    border-color: #fa5252;
+    color: #fa5252;
+}
+
+.btn-secondary {
+    border-color: #228be6;
+    color: #228be6;
+}
+
 .btn:hover {
     background: #40c057;
     color: white;
     box-shadow: 0 0 5px 2px rgba(102, 102, 102, .2);
     transition: all .3s ease-in-out;
+}
+
+.btn-danger:hover {
+    background: #fa5252;
+}
+
+.btn-secondary:hover {
+    background: #228be6;
 }
 
 .clearfix::after {

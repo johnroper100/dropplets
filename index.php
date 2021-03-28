@@ -175,6 +175,28 @@ $router->map('GET|POST', '/post/[i:id]/edit', function ($id) {
     }
 }, 'editPost');
 
+$router->map('GET', '/post/[i:id]/delete', function ($id) {
+    global $router;
+    if (file_exists("config.php")) {
+        if (isset($_SESSION['isAuthenticated'])) {
+            global $siteConfig;
+            global $blogStore;
+
+            $post = $blogStore->findById($id);
+            if ($post == null) {
+                echo ("404 Not Found");
+            } else {
+                $blogStore->deleteById($id);
+                header("Location: " . $router->generate('dashboard'));
+            }
+        } else {
+            header("Location: " . $router->generate('login'));
+        }
+    } else {
+        header("Location: " . $router->generate('settings'));
+    }
+}, 'deletePost');
+
 $router->map('GET|POST', '/settings', function () {
     global $siteConfig;
     global $router;

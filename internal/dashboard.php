@@ -4,8 +4,8 @@ require "header.php";
 <h1 class="setupH1 setup">Your Blog Dashboard</h1>
 <div style="text-align: center;">
     <a href="<?php echo $router->generate('write'); ?>" class="btn">Write A Blog Post</a>
-    <a href="<?php echo $router->generate('settings'); ?>" class="btn">Edit The Site Settings</a>
-    <a href="<?php echo $router->generate('logout'); ?>" class="btn">Log Out</a>
+    <a href="<?php echo $router->generate('settings'); ?>" class="btn btn-secondary">Edit The Site Settings</a>
+    <a href="<?php echo $router->generate('logout'); ?>" class="btn btn-danger">Log Out</a>
 </div>
 <div style="margin-top: 35px;">
     <h1>All Posts:</h1>
@@ -23,7 +23,8 @@ require "header.php";
                 <?php } else { ?>
                     <a href="<?php echo $router->generate('hide', ['id' => $post['_id']]); ?>" class="btn btn-sm">Make Draft</a>
                 <?php } ?>
-                <a href="<?php echo $router->generate('editPost', ['id' => $post['_id']]); ?>" class="btn btn-sm">Edit</a>
+                <a href="<?php echo $router->generate('editPost', ['id' => $post['_id']]); ?>" class="btn btn-sm btn-secondary">Edit</a>
+                <a href="<?php echo $router->generate('deletePost', ['id' => $post['_id']]); ?>" class="btn btn-sm btn-danger">Delete</a>
             </div>
         </div>
     <?php

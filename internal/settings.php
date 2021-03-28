@@ -40,7 +40,7 @@ require "header.php";
     <?php } ?>
 </form>
 <div style="text-align: center; padding-top: 25px;">
-    <a href="<?php echo $router->generate('dashboard'); ?>" class="btn btn-sm">Return To Dashboard</a>
+    <a href="<?php echo $router->generate('dashboard'); ?>" class="btn btn-sm btn-secondary">Return To Dashboard</a>
 </div>
 <?php
 require "footer.php";
