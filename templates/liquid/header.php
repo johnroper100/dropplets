@@ -4,7 +4,7 @@
 <head>
     <?php
     if ($siteConfig['headerInject'] != "") {
-        echo html_entity_decode($siteConfig['headerInject']);
+        echo base64_decode($siteConfig['headerInject']);
     }
     ?>
 
