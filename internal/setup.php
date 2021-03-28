@@ -26,16 +26,18 @@ require "header.php";
             <label>Site Base Path:</label>
             <input type="text" name="blogBase" placeholder="Enter the base path" value="<?php echo $siteConfig['basePath']; ?>" />
         </fieldset>
-        <fieldset>
-            <?php if ($siteConfig['name'] == "") { ?>
-                <legend>Last but not least, the password:</legend>
-                <input type="password" name="blogPassword" placeholder="Choose a good password" required />
-            <?php } else { ?>
-                <legend>Type your password to update your blog:</legend>
-                <input type="password" name="blogPassword" placeholder="Management password" required />
-            <?php } ?>
-        </fieldset>
-        <?php if ($siteConfig['name'] == "") { ?>
+        <?php if (!isset($_SESSION['isAuthenticated'])) { ?>
+            <fieldset>
+                <?php if ($siteConfig['name'] == "") { ?>
+                    <legend>Last but not least, the password:</legend>
+                    <input type="password" name="blogPassword" placeholder="Choose a good password" required />
+                <?php } else { ?>
+                    <legend>Type your password to update your blog:</legend>
+                    <input type="password" name="blogPassword" placeholder="Management password" required />
+                <?php } ?>
+            </fieldset>
+        <?php }
+        if ($siteConfig['name'] == "") { ?>
             <input class="btn" type="submit" value="Create Your Blog" />
         <?php } else { ?>
             <input class="btn" type="submit" value="Update Your Blog" />

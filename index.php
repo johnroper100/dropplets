@@ -108,32 +108,32 @@ $router->map('GET', '/post/[i:id]', function ($id) {
 $router->map('GET|POST', '/setup', function () {
     global $siteConfig;
     global $router;
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST["blogName"]) && isset($_POST["blogPassword"])) {
-            if (!file_exists("config.php")) {
-                $password_hashed = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
-                $config_content = "<?php\n\$siteConfig = ['name'=>'" . test_input($_POST["blogName"]) . "',\n'info' => '" . test_input($_POST["blogInfo"]) . "',\n'footer' => '" . test_input($_POST["blogFooter"]) . "',\n'password' => '" . $password_hashed . "',\n'template' => '" . test_input($_POST["blogTemplate"]) . "',\n'basePath' => '" . test_input($_POST["blogBase"]) . "',\n'timezone' => '" . test_input($_POST["blogTimezone"]) . "',\n]\n?>";
-                $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usally 755.");
-                fwrite($config, $config_content);
-                fclose($config);
-                header("Location: " . $router->generate('home'));
-            } else {
-                if (password_verify($_POST["blogPassword"], $siteConfig['password'])) {
-                    $config_content = "<?php\n\$siteConfig = ['name'=>'" . test_input($_POST["blogName"]) . "',\n'info' => '" . test_input($_POST["blogInfo"]) . "',\n'footer' => '" . test_input($_POST["blogFooter"]) . "',\n'password' => '" . $siteConfig['password'] . "',\n'template' => '" . test_input($_POST["blogTemplate"]) . "',\n'basePath' => '" . test_input($_POST["blogPath"]) . "',\n'timezone' => '" . test_input($_POST["blogTimezone"]) . "',\n]\n?>";
+    if (isset($_SESSION['isAuthenticated']) || !file_exists("config.php")) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_POST["blogName"]) && isset($_POST["blogPassword"])) {
+                if (!file_exists("config.php")) {
+                    $password_hashed = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
+                    $config_content = "<?php\n\$siteConfig = ['name'=>'" . test_input($_POST["blogName"]) . "',\n'info' => '" . test_input($_POST["blogInfo"]) . "',\n'footer' => '" . test_input($_POST["blogFooter"]) . "',\n'password' => '" . $password_hashed . "',\n'template' => '" . test_input($_POST["blogTemplate"]) . "',\n'basePath' => '" . test_input($_POST["blogBase"]) . "',\n'timezone' => '" . test_input($_POST["blogTimezone"]) . "',\n]\n?>";
                     $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usally 755.");
                     fwrite($config, $config_content);
                     fclose($config);
                     header("Location: " . $router->generate('home'));
                 } else {
-                    header("Location: " . $router->generate('setup'));
+                    $config_content = "<?php\n\$siteConfig = ['name'=>'" . test_input($_POST["blogName"]) . "',\n'info' => '" . test_input($_POST["blogInfo"]) . "',\n'footer' => '" . test_input($_POST["blogFooter"]) . "',\n'password' => '" . $siteConfig['password'] . "',\n'template' => '" . test_input($_POST["blogTemplate"]) . "',\n'basePath' => '" . test_input($_POST["blogPath"]) . "',\n'timezone' => '" . test_input($_POST["blogTimezone"]) . "',\n]\n?>";
+                    $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usally 755.");
+                    fwrite($config, $config_content);
+                    fclose($config);
+                    header("Location: " . $router->generate('home'));
                 }
+            } else {
+                header("Location: " . $router->generate('setup'));
             }
         } else {
-            header("Location: " . $router->generate('setup'));
+            $pageTitle = "Setup";
+            require __DIR__ . '/internal/setup.php';
         }
     } else {
-        $pageTitle = "Setup";
-        require __DIR__ . '/internal/setup.php';
+        header("Location: " . $router->generate('login'));
     }
 }, 'setup');
 
@@ -141,9 +141,9 @@ $router->map('GET|POST', '/write', function () {
     global $siteConfig;
     global $router;
     global $blogStore;
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST["blogPostTitle"]) && isset($_POST["blogPostContent"]) && isset($_POST["blogPostAuthor"]) && isset($_POST["blogPassword"])) {
-            if (password_verify($_POST["blogPassword"], $siteConfig['password'])) {
+    if (isset($_SESSION['isAuthenticated'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_POST["blogPostTitle"]) && isset($_POST["blogPostContent"]) && isset($_POST["blogPostAuthor"])) {
                 $post = [
                     "title" => test_input($_POST["blogPostTitle"]),
                     "date" => time(),
@@ -157,15 +157,52 @@ $router->map('GET|POST', '/write', function () {
                 header("Location: " . $router->generate('write'));
             }
         } else {
-            header("Location: " . $router->generate('write'));
+            $pageTitle = "Write";
+            require __DIR__ . '/internal/write.php';
         }
     } else {
-        $pageTitle = "Write";
-        require __DIR__ . '/internal/write.php';
+        header("Location: " . $router->generate('login'));
     }
 }, 'write');
 
+$router->map('GET', '/logout', function () {
+    global $router;
+    if (file_exists("config.php")) {
+        session_destroy();
+        header("Location: " . $router->generate('home'));
+    } else {
+        header("Location: " . $router->generate('setup'));
+    }
+}, 'logout');
+
+$router->map('GET|POST', '/login', function () {
+    global $router;
+    global $siteConfig;
+    if (file_exists("config.php")) {
+        if (isset($_SESSION['isAuthenticated'])) {
+            //header("Location: " . $router->generate('dashboard'));
+        } else {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                if (isset($_POST["blogPassword"])) {
+                    if (password_verify($_POST["blogPassword"], $siteConfig['password'])) {
+                        $_SESSION['isAuthenticated'] = true;
+                        //header("Location: " . $router->generate('dashboard'));
+                    }
+                }
+                header("Location: " . $router->generate('login'));
+            } else {
+                $pageTitle = "Log In";
+                require __DIR__ . '/internal/login.php';
+            }
+        }
+    } else {
+        header("Location: " . $router->generate('setup'));
+    }
+}, 'login');
+
 $match = $router->match();
+
+session_start();
 
 if (is_array($match) && is_callable($match['target'])) {
     call_user_func_array($match['target'], $match['params']);

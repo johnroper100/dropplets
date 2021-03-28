@@ -12,7 +12,6 @@ require "header.php";
             <input type="text" name="blogPostAuthor" class="blogPostAuthor" placeholder="The post author" required />
             <input type="url" name="blogPostImage" class="blogPostImage" placeholder="A featured image for this post" />
             <textarea name="blogPostContent" id="blogPostContent" placeholder="Write your post here, you can use Markdown"></textarea>
-            <input type="password" name="blogPassword" placeholder="Management password" required />
         </fieldset>
         <input class="btn" type="submit" value="Publish New Post" />
     </form>
