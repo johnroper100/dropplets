@@ -59,7 +59,7 @@ $router->map('GET', '/', function () {
         $pageTitle = "Home";
         require __DIR__ . '/templates/' . $siteConfig['template'] . '/home.php';
     } else {
-        header("Location: " . $router->generate('setup'));
+        header("Location: " . $router->generate('settings'));
     }
 }, 'home');
 
@@ -82,7 +82,7 @@ $router->map('GET', '/[i:page]', function ($page) {
         $pageTitle = "Posts";
         require __DIR__ . '/templates/' . $siteConfig['template'] . '/home.php';
     } else {
-        header("Location: " . $router->generate('setup'));
+        header("Location: " . $router->generate('settings'));
     }
 }, 'posts');
 
@@ -101,11 +101,11 @@ $router->map('GET', '/post/[i:id]', function ($id) {
             require __DIR__ . '/templates/' . $siteConfig['template'] . '/post.php';
         }
     } else {
-        header("Location: " . $router->generate('setup'));
+        header("Location: " . $router->generate('settings'));
     }
 }, 'post');
 
-$router->map('GET|POST', '/setup', function () {
+$router->map('GET|POST', '/settings', function () {
     global $siteConfig;
     global $router;
     if (isset($_SESSION['isAuthenticated']) || !file_exists("config.php")) {
@@ -126,16 +126,16 @@ $router->map('GET|POST', '/setup', function () {
                     header("Location: " . $router->generate('home'));
                 }
             } else {
-                header("Location: " . $router->generate('setup'));
+                header("Location: " . $router->generate('settings'));
             }
         } else {
-            $pageTitle = "Setup";
-            require __DIR__ . '/internal/setup.php';
+            $pageTitle = "Settings";
+            require __DIR__ . '/internal/settings.php';
         }
     } else {
         header("Location: " . $router->generate('login'));
     }
-}, 'setup');
+}, 'settings');
 
 $router->map('GET|POST', '/write', function () {
     global $siteConfig;
@@ -171,7 +171,7 @@ $router->map('GET', '/logout', function () {
         session_destroy();
         header("Location: " . $router->generate('home'));
     } else {
-        header("Location: " . $router->generate('setup'));
+        header("Location: " . $router->generate('settings'));
     }
 }, 'logout');
 
@@ -180,13 +180,13 @@ $router->map('GET|POST', '/login', function () {
     global $siteConfig;
     if (file_exists("config.php")) {
         if (isset($_SESSION['isAuthenticated'])) {
-            //header("Location: " . $router->generate('dashboard'));
+            header("Location: " . $router->generate('dashboard'));
         } else {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (isset($_POST["blogPassword"])) {
                     if (password_verify($_POST["blogPassword"], $siteConfig['password'])) {
                         $_SESSION['isAuthenticated'] = true;
-                        //header("Location: " . $router->generate('dashboard'));
+                        header("Location: " . $router->generate('dashboard'));
                     }
                 }
                 header("Location: " . $router->generate('login'));
@@ -196,9 +196,24 @@ $router->map('GET|POST', '/login', function () {
             }
         }
     } else {
-        header("Location: " . $router->generate('setup'));
+        header("Location: " . $router->generate('settings'));
     }
 }, 'login');
+
+$router->map('GET', '/dashboard', function () {
+    global $router;
+    global $siteConfig;
+    if (file_exists("config.php")) {
+        if (isset($_SESSION['isAuthenticated'])) {
+            $pageTitle = "Dashboard";
+            require __DIR__ . '/internal/dashboard.php';
+        } else {
+            header("Location: " . $router->generate('login'));
+        }
+    } else {
+        header("Location: " . $router->generate('settings'));
+    }
+}, 'dashboard');
 
 $match = $router->match();
 

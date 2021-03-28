@@ -3,9 +3,7 @@ Dropplets v2.2
 
 ## Manage Your Blog:
 
-- Add a new post at `https://(your url)/write`
-
-- Change settings at `https://(your url)/setup`
+Go to `https://(your url)/dashboard` and all of the site options will be available.
 
 ## Project Goals:
 

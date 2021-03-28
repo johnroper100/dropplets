@@ -10,3 +10,7 @@
 </head>
 
 <body>
+    <div class="setup">
+        <div class="setupHeader">
+            <a href="https://github.com/johnroper100/dropplets"><span class="headerLogo"></span><span class="droppletsName">Dropplets</span></a>
+        </div>
