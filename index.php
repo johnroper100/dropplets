@@ -141,6 +141,40 @@ $router->map('GET', '/post/[i:id]/hide', function ($id) {
     }
 }, 'hide');
 
+$router->map('GET|POST', '/post/[i:id]/edit', function ($id) {
+    global $router;
+    if (file_exists("config.php")) {
+        if (isset($_SESSION['isAuthenticated'])) {
+            global $siteConfig;
+            global $blogStore;
+
+            $post = $blogStore->findById($id);
+            if ($post == null) {
+                echo ("404 Not Found");
+            } else {
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    if (isset($_POST["blogPostTitle"]) && isset($_POST["blogPostContent"]) && isset($_POST["blogPostAuthor"])) {
+                        $post['title'] = test_input($_POST["blogPostTitle"]);
+                        $post['author'] = test_input($_POST["blogPostAuthor"]);
+                        $post['image'] = test_input($_POST["blogPostImage"]);
+                        $post['content'] = test_input($_POST["blogPostContent"]);
+                        header("Location: " . $router->generate('dashboard'));
+                    } else {
+                        header("Location: " . $router->generate('editPost', ['id' => $id]));
+                    }
+                } else {
+                    $pageTitle = "Edit Post";
+                    require __DIR__ . '/internal/write.php';
+                }
+            }
+        } else {
+            header("Location: " . $router->generate('login'));
+        }
+    } else {
+        header("Location: " . $router->generate('settings'));
+    }
+}, 'editPost');
+
 $router->map('GET|POST', '/settings', function () {
     global $siteConfig;
     global $router;
