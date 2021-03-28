@@ -2,7 +2,11 @@
 require "header.php";
 ?>
 <h1 class="setupH1 setup">Time to write your prose</h1>
-<form method="post" action="<?php echo $router->generate('write'); ?>">
+<form method="post" action="<?php if (isset($post['title'])) {
+                                echo $router->generate('editPost', ['id' => $post['_id']]);
+                            } else {
+                                echo $router->generate('write');
+                            } ?>">
     <fieldset>
         <input type="text" name="blogPostTitle" class="blogPostTitle" placeholder="The post title" required value="<?php echo $post['title']; ?>" />
         <input type="text" name="blogPostAuthor" class="blogPostAuthor" placeholder="The post author" required value="<?php echo $post['author']; ?>" />
@@ -10,9 +14,9 @@ require "header.php";
         <textarea name="blogPostContent" id="blogPostContent" placeholder="Write your post here, you can use Markdown"><?php echo $post['content']; ?></textarea>
     </fieldset>
     <?php if (isset($post['title'])) { ?>
-        <input class="btn" type="submit" value="Edit Post" />
+        <input class="btn" type="submit" value="Save Edits" />
     <?php } else { ?>
-        <input class="btn" type="submit" value="Publish New Post" />
+        <input class="btn" type="submit" value="Save Post" />
     <?php } ?>
 </form>
 <div style="text-align: center; padding-top: 25px;">
