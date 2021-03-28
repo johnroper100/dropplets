@@ -15,7 +15,6 @@ require "header.php";
     foreach ($allPosts as $post) {
     ?>
         <div class="post">
-            <?php if ($post['image'] != "") { ?><img src="<?php echo $post['image']; ?>"><?php } ?>
             <div class="postText">
                 <h2 id="postTitle"><a href="<?php echo $router->generate('post', ['id' => $post['_id']]); ?>"><?php echo $post['title']; ?></a></h2>
                 Posted by <?php echo $post['author']; ?> <?php echo date('F j, Y, g:i A', $post['date']); ?>

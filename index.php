@@ -246,7 +246,7 @@ $router->map('GET|POST', '/write', function () {
                     "content" => test_input($_POST["blogPostContent"]),
                 ];
                 $results = $blogStore->insert($post);
-                header("Location: " . $router->generate('home'));
+                header("Location: " . $router->generate('dashboard'));
             } else {
                 header("Location: " . $router->generate('write'));
             }
