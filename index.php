@@ -10,14 +10,17 @@ use SleekDB\Store;
 if (file_exists("config.php")) {
     require 'config.php';
 } else {
-    $URI = parse_url($_SERVER['REQUEST_URI']);
+    $URI = str_replace("index.php", "", $_SERVER['PHP_SELF']);
+    if ($URI == "/") {
+        $URI = null;
+    }
     $siteConfig = [
         "name" => "",
         "info" => "",
         "footer" => "",
         "password" => "",
         "template" => "liquid",
-        "basePath" => "/" . explode('/', $URI['path'])[1],
+        "basePath" => $URI,
         "timezone" => "America/New_York",
     ];
 }
@@ -167,7 +170,7 @@ $match = $router->match();
 if (is_array($match) && is_callable($match['target'])) {
     call_user_func_array($match['target'], $match['params']);
 } else {
-    echo ("404 Not Found");
+    echo ("404 - Page Not Found");
 }
 
 function test_input($data)
