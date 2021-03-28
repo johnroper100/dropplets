@@ -300,6 +300,7 @@ $router->map('GET', '/dashboard', function () {
     if (file_exists("config.php")) {
         if (isset($_SESSION['isAuthenticated'])) {
             $allPosts = $blogStore->findAll();
+            $postCount = $blogStore->count();
             $pageTitle = "Dashboard";
             require __DIR__ . '/internal/dashboard.php';
         } else {

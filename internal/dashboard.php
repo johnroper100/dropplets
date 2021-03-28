@@ -8,8 +8,10 @@ require "header.php";
     <a href="<?php echo $router->generate('logout'); ?>" class="btn btn-danger">Log Out</a>
 </div>
 <div style="margin-top: 35px;">
-    <h1>All Posts:</h1>
+    <?php if ($postCount > 0) { ?>
+        <h1>All Posts:</h1>
     <?php
+    }
     foreach ($allPosts as $post) {
     ?>
         <div class="post">
