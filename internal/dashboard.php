@@ -17,12 +17,12 @@ require "header.php";
                 <h2 id="postTitle"><a href="<?php echo $router->generate('post', ['id' => $post['_id']]); ?>"><?php echo $post['title']; ?></a></h2>
                 Posted by <?php echo $post['author']; ?> <?php echo date('F j, Y, g:i A', $post['date']); ?>
                 <br>
-                <a href="#" class="btn btn-sm">Edit</a>
                 <?php if ($post['draft'] == true) { ?>
                     <a href="<?php echo $router->generate('publish', ['id' => $post['_id']]); ?>" class="btn btn-sm">Publish</a>
                 <?php } else { ?>
                     <a href="<?php echo $router->generate('hide', ['id' => $post['_id']]); ?>" class="btn btn-sm">Make Draft</a>
                 <?php } ?>
+                <a href="#" class="btn btn-sm">Edit</a>
             </div>
         </div>
     <?php
