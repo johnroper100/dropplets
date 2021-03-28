@@ -50,12 +50,8 @@ $router->map('GET', '/', function () {
         $limit = 5;
         $skip = ($page - 1) * $limit;
 
-        $allPosts = $blogStore->findAll();
-        $postCount = count($allPosts);
-        usort($allPosts, function ($item1, $item2) {
-            return $item2['date'] <=> $item1['date'];
-        });
-        $allPosts = array_slice($allPosts, $skip, $limit);
+        $allPosts = $blogStore->findBy(["draft", "=", false], ["date" => "desc"], $limit, $skip);
+        $postCount = count($blogStore->findBy(["draft", "=", false], ["date" => "desc"]));
         $pageTitle = "Home";
         require __DIR__ . '/templates/' . $siteConfig['template'] . '/home.php';
     } else {
@@ -73,12 +69,8 @@ $router->map('GET', '/[i:page]', function ($page) {
         $limit = 5;
         $skip = ($page - 1) * $limit;
 
-        $allPosts = $blogStore->findAll();
-        $postCount = count($allPosts);
-        usort($allPosts, function ($item1, $item2) {
-            return $item2['date'] <=> $item1['date'];
-        });
-        $allPosts = array_slice($allPosts, $skip, $limit);
+        $allPosts = $blogStore->findBy(["draft", "=", false], ["date" => "desc"], $limit, $skip);
+        $postCount = count($blogStore->findBy(["draft", "=", false], ["date" => "desc"]));
         $pageTitle = "Posts";
         require __DIR__ . '/templates/' . $siteConfig['template'] . '/home.php';
     } else {
@@ -147,6 +139,7 @@ $router->map('GET|POST', '/write', function () {
                 $post = [
                     "title" => test_input($_POST["blogPostTitle"]),
                     "date" => time(),
+                    "draft" => true,
                     "author" => test_input($_POST["blogPostAuthor"]),
                     "image" => test_input($_POST["blogPostImage"]),
                     "content" => test_input($_POST["blogPostContent"]),
