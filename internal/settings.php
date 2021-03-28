@@ -15,6 +15,8 @@ require "header.php";
         <input type="text" name="blogInfo" placeholder="Enter an optional info message" value="<?php echo $siteConfig['info']; ?>" />
         <label>Footer Message:</label>
         <input type="text" name="blogFooter" placeholder="Enter an optional footer message" value="<?php echo $siteConfig['footer']; ?>" />
+        <label>Header Injection Code:</label>
+        <input type="text" name="blogHeaderInject" placeholder="Enter an optional header injection, ie. analytics" value="<?php echo $siteConfig['headerInject']; ?>" />
         <label>Site Template Name:</label>
         <input type="text" name="blogTemplate" placeholder="Enter the name of a template" required value="<?php echo $siteConfig['template']; ?>" />
         <label>Post Timezone:</label>

@@ -2,6 +2,12 @@
 <html>
 
 <head>
+    <?php
+    if ($siteConfig['headerInject'] != "") {
+        echo html_entity_decode($siteConfig['headerInject']);
+    }
+    ?>
+
     <title><?php if ($siteConfig['name'] != "") {
                 echo $siteConfig['name'];
             } else {
