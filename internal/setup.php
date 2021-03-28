@@ -24,7 +24,7 @@ require "header.php";
             <label>Post Timezone:</label>
             <input type="text" name="blogTimezone" placeholder="Enter a timezone" required value="<?php echo $siteConfig['timezone']; ?>" />
             <label>Site Base Path:</label>
-            <input type="text" name="blogBase" placeholder="Enter the base path" required value="<?php echo $siteConfig['basePath']; ?>" />
+            <input type="text" name="blogBase" placeholder="Enter the base path" value="<?php echo $siteConfig['basePath']; ?>" />
         </fieldset>
         <fieldset>
             <?php if ($siteConfig['name'] == "") { ?>
