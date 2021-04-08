@@ -159,6 +159,7 @@ $router->map('GET|POST', '/post/[i:id]/edit', function ($id) {
                         $post['author'] = test_input($_POST["blogPostAuthor"]);
                         $post['image'] = test_input($_POST["blogPostImage"]);
                         $post['content'] = test_input($_POST["blogPostContent"]);
+                        $blogStore->update($post);
                         header("Location: " . $router->generate('dashboard'));
                     } else {
                         header("Location: " . $router->generate('editPost', ['id' => $id]));

@@ -3,7 +3,7 @@ require "header.php";
 ?>
 <div id="postPage">
     <header>
-        <a id="siteTitleLink" href="<?php echo $siteConfig['basePath']; ?>">➜</a>
+        <a id="siteTitleLink" href="<?php if ($siteConfig['basePath'] != "") {echo $siteConfig['basePath'];}else { echo "/";} ?>">➜</a>
     </header>
     <div id="postTitleDate">
         <h1 id="postTitle"><?php echo $post['title']; ?></h1>
