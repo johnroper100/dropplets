@@ -90,8 +90,14 @@ $router->map('GET', '/post/[i:id]', function ($id) {
         if ($post == null) {
             echo ("404 Not Found");
         } else {
-            $pageTitle = $post['title'];
-            require __DIR__ . '/templates/' . $siteConfig['template'] . '/post.php';
+            if( empty($post["password"]) || $_REQUEST['password'] === $post["password"]){
+                $pageTitle = $post['title'];
+                require __DIR__ . '/templates/' . $siteConfig['template'] . '/post.php';
+            }
+            else{
+                $pageTitle = "Private post";
+                require __DIR__ . '/internal/private.php';
+            }
         }
     } else {
         header("Location: " . $router->generate('settings'));
@@ -158,6 +164,7 @@ $router->map('GET|POST', '/post/[i:id]/edit', function ($id) {
                         $post['title'] = test_input($_POST["blogPostTitle"]);
                         $post['author'] = test_input($_POST["blogPostAuthor"]);
                         $post['image'] = test_input($_POST["blogPostImage"]);
+                        $post['password'] = test_input($_POST["blogPostPassword"]);
                         $post['content'] = test_input($_POST["blogPostContent"]);
                         $blogStore->update($post);
                         header("Location: " . $router->generate('dashboard'));
@@ -245,6 +252,7 @@ $router->map('GET|POST', '/write', function () {
                     "author" => test_input($_POST["blogPostAuthor"]),
                     "image" => test_input($_POST["blogPostImage"]),
                     "content" => test_input($_POST["blogPostContent"]),
+                    "password" => test_input($_POST["blogPostPassword"]),
                 ];
                 $results = $blogStore->insert($post);
                 header("Location: " . $router->generate('dashboard'));
