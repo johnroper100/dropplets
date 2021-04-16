@@ -11,6 +11,7 @@ require "header.php";
         <input type="text" name="blogPostTitle" class="blogPostTitle" placeholder="The post title" required value="<?php echo $post['title']; ?>" />
         <input type="text" name="blogPostAuthor" class="blogPostAuthor" placeholder="The post author" required value="<?php echo $post['author']; ?>" />
         <input type="url" name="blogPostImage" class="blogPostImage" placeholder="A featured image for this post" value="<?php echo $post['image']; ?>" />
+        <input type="text" name="blogPostPassword" class="blogPostTitle" placeholder="Password if you want to hide the post" value="<?php echo $post['password']; ?>" />
         <textarea name="blogPostContent" id="blogPostContent" placeholder="Write your post here, you can use Markdown"><?php echo $post['content']; ?></textarea>
     </fieldset>
     <?php if (isset($post['title'])) { ?>
