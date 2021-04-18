@@ -1,0 +1,10 @@
+version: '3'
+services:
+   php:
+     container_name: dropplets
+     build: .
+     volumes:
+     - .:/var/www/html
+     ports:
+       - "3000:80"
+     restart: unless-stopped
