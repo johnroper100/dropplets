@@ -115,10 +115,10 @@ $language = [
         "write_post_password_placeholder" => "Mot de passe, pour rendre l'article privée",
         "write_post_markdown_placeholder" => "Ecrivez votre article ici en markdown",
         "liquid_home_postedby" => "Publié par",
-        "liquid_home_date" => "%d %B %G",
+        "liquid_home_date" => "%A %d %B %G",
         "liquid_home_newer" => "Articles récents",
         "liquid_home_older" => "Articles anciens",
-        "liquid_post_date" => "%d %B %G",
+        "liquid_post_date" => "%A %d %B %G",
     ]
 ];
 
