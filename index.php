@@ -23,8 +23,11 @@ if (file_exists("config.php")) {
         "template" => "liquid",
         "basePath" => $URI,
         "timezone" => "America/New_York",
+        "I18N" => "us_EN",
     ];
 }
+
+require_once "./internal/i18n.php";
 
 date_default_timezone_set($siteConfig['timezone']);
 
@@ -79,7 +82,7 @@ $router->map('GET', '/[i:page]', function ($page) {
     }
 }, 'posts');
 
-$router->map('GET', '/post/[i:id]', function ($id) {
+$router->map('GET|POST', '/post/[i:id]', function ($id) {
     global $router;
     if (file_exists("config.php")) {
         global $siteConfig;
@@ -211,21 +214,28 @@ $router->map('GET|POST', '/settings', function () {
     global $router;
     if (isset($_SESSION['isAuthenticated']) || !file_exists("config.php")) {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST["blogName"]) && isset($_POST["blogTimezone"]) && isset($_POST["blogTemplate"])) {
+            if (isset($_POST["blogName"]) && isset($_POST["blogTimezone"]) && isset($_POST["blogTemplate"])&& isset($_POST["blogI18N"])) {
                 if (!file_exists("config.php")) {
                     $password_hashed = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
-                    $config_content = "<?php\n\$siteConfig = ['name'=>'" . test_input($_POST["blogName"]) . "',\n'info' => '" . test_input($_POST["blogInfo"]) . "',\n'footer' => '" . test_input($_POST["blogFooter"]) . "',\n'headerInject' => '" . base64_encode($_POST["blogHeaderInject"]) . "',\n'password' => '" . $password_hashed . "',\n'template' => '" . test_input($_POST["blogTemplate"]) . "',\n'basePath' => '" . test_input($_POST["blogBase"]) . "',\n'timezone' => '" . test_input($_POST["blogTimezone"]) . "',\n]\n?>";
-                    $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usally 755.");
-                    fwrite($config, $config_content);
-                    fclose($config);
-                    header("Location: " . $router->generate('home'));
-                } else {
-                    $config_content = "<?php\n\$siteConfig = ['name'=>'" . test_input($_POST["blogName"]) . "',\n'info' => '" . test_input($_POST["blogInfo"]) . "',\n'footer' => '" . test_input($_POST["blogFooter"]) . "',\n'headerInject' => '" . base64_encode($_POST["blogHeaderInject"]) . "',\n'password' => '" . $siteConfig['password'] . "',\n'template' => '" . test_input($_POST["blogTemplate"]) . "',\n'basePath' => '" . test_input($_POST["blogBase"]) . "',\n'timezone' => '" . test_input($_POST["blogTimezone"]) . "',\n]\n?>";
-                    $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usally 755.");
-                    fwrite($config, $config_content);
-                    fclose($config);
-                    header("Location: " . $router->generate('home'));
                 }
+                else{
+                    $password_hashed = $siteConfig['password'];
+                }
+                $config_content = "<?php\n\$siteConfig = [ \n"
+                ."'name'=>'" . test_input($_POST["blogName"]) . "',\n"
+                ."'info' => '" . test_input($_POST["blogInfo"]) . "',\n"
+                ."'footer' => '" . test_input($_POST["blogFooter"]) . "',\n"
+                ."'headerInject' => '" . base64_encode($_POST["blogHeaderInject"]) . "',\n"
+                ."'password' => '" . $password_hashed . "',\n"
+                ."'template' => '" . test_input($_POST["blogTemplate"]) . "',\n"
+                ."'basePath' => '" . test_input($_POST["blogBase"]) . "',\n"
+                ."'timezone' => '" . test_input($_POST["blogTimezone"]) . "',\n"
+                ."'I18N' => '" . test_input($_POST["blogI18N"]) . "',\n"
+                ."]\n?>";
+                $config = fopen("config.php", 'w') or die("Unable to set up needed files! Please make sure index.php has write permissions and that the folder it is in has write permissions. This is usally 755.");
+                fwrite($config, $config_content);
+                fclose($config);
+                header("Location: " . $router->generate('home'));
             } else {
                 header("Location: " . $router->generate('settings'));
             }
