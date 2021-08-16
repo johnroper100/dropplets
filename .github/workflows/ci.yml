@@ -1,60 +1,78 @@
-name: ci
+name: 🧪 App build, lint and tests
 
-on:
-  push:
-    branches:
-      - main
-      - master
-  pull_request:
-    branches:
-      - main
-      - master
+on: [push, pull_request]
 
 jobs:
-  ci:
-    runs-on: ${{ matrix.os }}
-
+  build-app:
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        node: [14]
+          os: [ubuntu-latest]
+          node: [16]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout 🛎
-        uses: actions/checkout@master
+      - name: 🛎 Checkout
+        uses: actions/checkout@v2
 
-      - name: Setup node env 🏗
-        uses: actions/setup-node@v2.4.0
+      - name: 🏗 Setup node env & 🎑 Yarn install cache 
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
+          cache: 'yarn'
 
-      - name: Get yarn cache directory path 🛠
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Cache node_modules 📦
-        uses: actions/cache@v2.1.6
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: Install dependencies 👨🏻‍💻
+      - name: 👨🏻‍💻 Install dependencies
         run: yarn
 
-      - name: Run linter 👀
-        run: yarn lint
+      - name: 🥻 Build l'API
+        run: yarn build
 
-      - name: Run tests 🧪
+
+  tests:
+    strategy:
+      matrix:
+          os: [ubuntu-latest]
+          node: [16]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: 🛎 Checkout
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup node env & 🎑 Yarn install cache 
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+
+      - name: 👨🏻‍💻 Install dependencies
+        run: yarn
+
+      - name: 🧪 Run tests
         run: yarn test
 
-      - name: Generate app 🎁
-        run: yarn generate:gh-pages
 
-      - name: Deploy app 🚀
-        uses: peaceiris/actions-gh-pages@v3
+  lint:
+    strategy:
+      matrix:
+          os: [ubuntu-latest]
+          node: [16]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: 🛎 Checkout
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup node env & 🎑 Yarn install cache 
+        uses: actions/setup-node@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+
+      - name: 👨🏻‍💻 Install dependencies
+        run: yarn
+
+      - name: 👀 Run linter
+        run: yarn lint
