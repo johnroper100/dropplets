@@ -1958,14 +1958,14 @@
     consola "^2.15.0"
     eslint-webpack-plugin "^2.4.1"
 
-"@nuxtjs/firebase@7.5.0":
-  version "7.5.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/firebase/-/firebase-7.5.0.tgz#af5df20d2b2eae61ca938ea47ff03a0237b2fdf3"
-  integrity sha512-esWOBN6caKL4a/rMq52XVZpeitagIvZeTQP3lFMFD/BTaXtTKSvf4e6n5+4vB0xpYHTYfIOghvAXEFTuxd36Ig==
+"@nuxtjs/firebase@7.6.1":
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/firebase/-/firebase-7.6.1.tgz#ae4e546957cc3d9c7884046faae78a31f91917ff"
+  integrity sha512-aDQzH+3xdIvrwz61xVxbpG9xtxjcQskqifJKYLTamnj6ZdKhweR9BtNjm39k2RMl/p7xY/sJA/5KjvpwGLEWGg==
   dependencies:
     consola "^2.15.3"
   optionalDependencies:
-    firebase-admin "^9.5.0"
+    firebase-admin "^9.9.0"
 
 "@nuxtjs/proxy@^2.1.0":
   version "2.1.0"
@@ -5874,10 +5874,10 @@ find-up@^4.0.0, find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
-firebase-admin@^9.5.0:
-  version "9.8.0"
-  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-9.8.0.tgz#d54d1acdd2e1117e59b7d74cb467ef3d18f3aa7a"
-  integrity sha512-v8B1qU8McZZT2hlLZ018TKz2FoKlfFkZq9mOIyzN7wJUOlAywqQX0JyqNpVGyPeU+B+77ojlvmkGTNXt2OFkgw==
+firebase-admin@^9.9.0:
+  version "9.11.0"
+  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-9.11.0.tgz#c0c72e4480b836fb4cd15e6d834ddfbfb9cc54ba"
+  integrity sha512-68fXdwcKF99LkWBE33M5hnLwjvGpbCRznIOtZVsiBqZdM9iwxlTfNEpAckh++o3GdJcSLRUWmIN+MKqPUsxoCA==
   dependencies:
     "@firebase/database" "^0.10.0"
     "@firebase/database-types" "^0.7.2"
