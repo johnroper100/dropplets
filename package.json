@@ -32,7 +32,7 @@
     "@nuxtjs/eslint-config-typescript": "6.0.1",
     "@nuxtjs/eslint-module": "3.0.2",
     "@nuxtjs/vuetify": "1.11.3",
-    "@vue/test-utils": "1.2.0",
+    "@vue/test-utils": "1.2.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
     "babel-jest": "27.0.1",
