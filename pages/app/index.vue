@@ -1,6 +1,7 @@
 <template>
   <div>
     <p>Hello {{ authUser.displayName }} 🎈</p>
+    <p>Authorization: Bearer {{ idToken }}</p>
     <ul>
       <li v-for="message in messages" :key="message.id">
         {{ message.data().name }}
@@ -11,6 +12,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import firebase from 'firebase/app'
 
 export default Vue.extend({
   middleware: 'securePage',
@@ -18,7 +20,12 @@ export default Vue.extend({
   data() {
     return {
       messages: [],
+      idToken: '',
     }
+  },
+
+  async fetch() {
+    this.idToken = (await firebase.auth().currentUser?.getIdToken()) || ''
   },
 
   computed: {
