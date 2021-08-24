@@ -19,7 +19,7 @@
     "@nuxtjs/axios": "5.13.6",
     "@nuxtjs/firebase": "7.6.1",
     "@nuxtjs/pwa": "3.3.5",
-    "core-js": "3.16.2",
+    "core-js": "3.16.3",
     "firebase": "8.10.0",
     "firebaseui": "5.0.0",
     "is_js": "0.9.0",
