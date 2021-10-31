@@ -37,37 +37,35 @@ export default {
     },
   },
   mounted() {
-    if (process.browser) {
-      const firebaseui = require('firebaseui')
-      const ui =
-        firebaseui.auth.AuthUI.getInstance() ||
-        new firebaseui.auth.AuthUI(this.$fire.auth)
-      const authProviders = {
-        Google: this.$fireModule.auth.GoogleAuthProvider.PROVIDER_ID,
-        Email: this.$fireModule.auth.EmailAuthProvider.PROVIDER_ID,
-      }
-      // Firebase signin with popup is faster than redirect
-      // but we can't use it on mobile because it's not well supported
-      const method = isDesktop() ? 'popup' : 'redirect'
-      const config = {
-        credentialHelper: firebaseui.auth.CredentialHelper.NONE,
-        signInOptions: [authProviders.Google, authProviders.Email],
-        signInFlow: method,
-        tosUrl: this.inscription === true ? '/tos' : undefined,
-        privacyPolicyUrl:
-          this.inscription === true ? '/privacy-policy' : undefined,
-        callbacks: {
-          signInSuccessWithAuthResult: this.signInResult,
-          signInFailure: this.signInError,
-          uiShown: this.uiShown,
-        },
-      }
-      ui.disableAutoSignIn()
-      if (this.authUser) {
-        this.openAppPage()
-      } else {
-        ui.start('#firebaseui-auth-container', config)
-      }
+    const firebaseui = require('firebaseui')
+    const ui =
+      firebaseui.auth.AuthUI.getInstance() ||
+      new firebaseui.auth.AuthUI(this.$fire.auth)
+    const authProviders = {
+      Google: this.$fireModule.auth.GoogleAuthProvider.PROVIDER_ID,
+      Email: this.$fireModule.auth.EmailAuthProvider.PROVIDER_ID,
+    }
+    // Firebase signin with popup is faster than redirect
+    // but we can't use it on mobile because it's not well supported
+    const method = isDesktop() ? 'popup' : 'redirect'
+    const config = {
+      credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+      signInOptions: [authProviders.Google, authProviders.Email],
+      signInFlow: method,
+      tosUrl: this.inscription === true ? '/tos' : undefined,
+      privacyPolicyUrl:
+        this.inscription === true ? '/privacy-policy' : undefined,
+      callbacks: {
+        signInSuccessWithAuthResult: this.signInResult,
+        signInFailure: this.signInError,
+        uiShown: this.uiShown,
+      },
+    }
+    ui.disableAutoSignIn()
+    if (this.authUser) {
+      this.openAppPage()
+    } else {
+      ui.start('#firebaseui-auth-container', config)
     }
   },
   methods: {
