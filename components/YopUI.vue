@@ -12,6 +12,7 @@
 <script>
 import { mapState } from 'vuex'
 import { desktop as isDesktop } from 'is_js'
+
 export default {
   props: {
     inscription: {

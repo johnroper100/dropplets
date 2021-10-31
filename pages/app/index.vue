@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import firebase from 'firebase/app'
+import { getAuth } from 'firebase/auth'
 
 export default Vue.extend({
   middleware: 'securePage',
@@ -25,7 +25,7 @@ export default Vue.extend({
   },
 
   async fetch() {
-    this.idToken = (await firebase.auth().currentUser?.getIdToken()) || ''
+    this.idToken = (await getAuth().currentUser?.getIdToken()) || ''
   },
 
   computed: {
