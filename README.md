@@ -1,6 +1,14 @@
 Dropplets v2.2
 ======================================
 
+## Get Going:
+1. Clone this repo
+2. Open a shell and navigate to the cloned repo
+3. Run the following command `git submodule update --init --recursive`
+4. Upload folder to hosting server or run locally with [XAMPP](https://www.apachefriends.org/index.html)
+5. Navigate to the URL of your host `https://(your url)/settings`
+6. Configure settings and click `Create Your Blog`
+
 ## Manage Your Blog:
 
 Go to `https://(your url)/dashboard` and all of the site options will be available.
