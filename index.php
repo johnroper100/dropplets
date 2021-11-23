@@ -93,7 +93,11 @@ $router->map('GET|POST', '/post/[i:id]', function ($id) {
         if ($post == null) {
             echo ("404 Not Found");
         } else {
-            if( empty($post["password"]) || $_REQUEST['password'] === $post["password"]){
+            $passAttempt = "";
+            if(isset($_REQUEST['password'])){
+                $passAttempt = $_REQUEST['password'];
+            }
+            if(empty($post["password"]) || $passAttempt === $post["password"]){
                 $pageTitle = $post['title'];
                 require __DIR__ . '/templates/' . $siteConfig['template'] . '/post.php';
             }

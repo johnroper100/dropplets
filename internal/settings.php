@@ -11,8 +11,8 @@ require "header.php";
         <legend><?php i18n("settings_legend"); ?></legend>
         <label><?php i18n("settings_i18n"); ?></label>
         <select name="blogI18N" id="blogI18N" value="<?php echo $siteConfig['I18N']; ?>">
-            <option value="en_US" selected="<?php echo ($siteConfig['I18N'] ===  'en_US' || empty($siteConfig['I18N']))?"selected":""; ?>">ENGLISH en_US</option>
-            <option value="fr_FR" selected="<?php echo ($siteConfig['I18N'] ===  'fr_FR')?"selected":""; ?>">FRANCAIS fr_FR</option>
+            <option value="en_US" selected="<?php echo ($siteConfig['I18N'] ===  'en_US' || empty($siteConfig['I18N']))?"selected":""; ?>">English</option>
+            <option value="fr_FR" selected="<?php echo ($siteConfig['I18N'] ===  'fr_FR')?"selected":""; ?>">Francais</option>
         </select>
         <label><?php i18n("settings_blog_name"); ?></label>
         <input type="text" name="blogName" placeholder="<?php i18n("settings_blog_name_placeholder"); ?>" required value="<?php echo $siteConfig['name']; ?>" />
