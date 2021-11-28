@@ -5341,14 +5341,14 @@ eslint-plugin-node@^11.1.0:
     resolve "^1.10.1"
     semver "^6.1.0"
 
-eslint-plugin-nuxt@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-nuxt/-/eslint-plugin-nuxt-3.0.0.tgz#12baeb916ad69d8c270bf140eb399bf22b0351b5"
-  integrity sha512-imtSTazhE1RVmdOk22Ee7RJrMZchXDj7IQrOnMWvYpgHyJ2p4F03IJ+hj7bgvKwmnGVgX+/l2CrV3HxOYrksFQ==
+eslint-plugin-nuxt@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-nuxt/-/eslint-plugin-nuxt-3.1.0.tgz#b8d70dc321e2f2f345039980eb28a2f52b3dc492"
+  integrity sha512-vW+XbbMhncihLs+GYP+f6rqyBq33O3dNUqoFckbLGlWUsAyTzTp/2KYQC7MGpRg8Rq8JPj5Or2ypuSn7gOveHw==
   dependencies:
-    eslint-plugin-vue "^7.20.0"
+    eslint-plugin-vue "^8.1.1"
     semver "^7.3.5"
-    vue-eslint-parser "^8.0.0"
+    vue-eslint-parser "^8.0.1"
 
 eslint-plugin-promise@^5.1.1:
   version "5.1.1"
@@ -5381,7 +5381,7 @@ eslint-plugin-unicorn@^37.0.1:
     semver "^7.3.5"
     strip-indent "^3.0.0"
 
-eslint-plugin-vue@8.1.1:
+eslint-plugin-vue@8.1.1, eslint-plugin-vue@^8.1.1:
   version "8.1.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-8.1.1.tgz#8bb0a40520880cdd076b4a6faf8bc29110997a8c"
   integrity sha512-rx64IrlhdfPya6u2V5ukOGiLCTgaCBdMSpczLVqyo8A0l+Vbo+lzvIfEUfAQ2auj+MF6y0TwxLorzdCIzHunnw==
@@ -11874,7 +11874,7 @@ vue-eslint-parser@^7.10.0:
     lodash "^4.17.21"
     semver "^6.3.0"
 
-vue-eslint-parser@^8.0.0, vue-eslint-parser@^8.0.1:
+vue-eslint-parser@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-8.0.1.tgz#25e08b20a414551531f3e19f999902e1ecf45f13"
   integrity sha512-lhWjDXJhe3UZw2uu3ztX51SJAPGPey1Tff2RK3TyZURwbuI4vximQLzz4nQfCv8CZq4xx7uIiogHMMoSJPr33A==
