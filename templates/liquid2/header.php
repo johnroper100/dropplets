@@ -8,7 +8,9 @@
     }
     ?>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="index, follow">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title><?php if ($siteConfig['name'] != "") {
@@ -45,6 +47,10 @@
                                     } else {
                                         echo "Dropplets";
                                     } ?> | <?php echo $pageTitle; ?>">
+    <?php if ($siteConfig['info'] != "") { ?>
+        <meta name="og:description" content="<?php echo $siteConfig['info']; ?>">
+        <meta name="description" content="<?php echo $siteConfig['info']; ?>">
+    <?php } ?>
     <?php if ($siteConfig['ogImage'] != "") { ?>
         <meta name="og:image" content="<?php echo $siteConfig['ogImage']; ?>">
     <?php } ?>
@@ -54,6 +60,7 @@
                                             echo "Dropplets";
                                         } ?>">
     <meta name="og:type" content="website">
+    <meta name="og:url" content="<?php echo "https://" . $_SERVER['SERVER_NAME']; ?>">
 </head>
 
 <body>
