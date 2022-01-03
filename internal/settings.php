@@ -18,8 +18,8 @@ require "header.php";
         <input type="text" name="blogName" placeholder="<?php i18n("settings_blog_name_placeholder"); ?>" required value="<?php echo $siteConfig['name']; ?>" />
         <label><?php i18n("settings_blog_info"); ?></label>
         <input type="text" name="blogInfo" placeholder="<?php i18n("settings_blog_info_placeholder"); ?>" value="<?php echo $siteConfig['info']; ?>" />
-        <label><?php i18n("settings_og_image"); ?></label>
-        <input type="text" name="ogImage" placeholder="<?php i18n("settings_og_image_placeholder"); ?>" required value="<?php echo $siteConfig['ogImage']; ?>" />
+        <label><?php i18n("settings_blog_image"); ?></label>
+        <input type="text" name="blogImage" placeholder="<?php i18n("settings_blog_image_placeholder"); ?>" required value="<?php echo $siteConfig['image']; ?>" />
         <label><?php i18n("settings_footer_message"); ?></label>
         <input type="text" name="blogFooter" placeholder="<?php i18n("settings_footer_message_placeholder"); ?>" value="<?php echo $siteConfig['footer']; ?>" />
         <label><?php i18n("settings_header_inject"); ?></label>

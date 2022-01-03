@@ -19,8 +19,8 @@
                 echo "Dropplets";
             } ?> | <?php echo $pageTitle; ?></title>
     <!-- Search Engine -->
-    <?php if ($siteConfig['ogImage'] != "") { ?>
-        <meta name="image" content="<?php echo $siteConfig['ogImage']; ?>">
+    <?php if ($siteConfig['image'] != "") { ?>
+        <meta name="image" content="<?php echo $siteConfig['image']; ?>">
     <?php } ?>
     <!-- Schema.org for Google -->
     <meta itemprop="name" content="<?php if ($siteConfig['name'] != "") {
@@ -28,8 +28,8 @@
                                     } else {
                                         echo "Dropplets";
                                     } ?> | <?php echo $pageTitle; ?>">
-    <?php if ($siteConfig['ogImage'] != "") { ?>
-        <meta itemprop="image" content="<?php echo $siteConfig['ogImage']; ?>">
+    <?php if ($siteConfig['image'] != "") { ?>
+        <meta itemprop="image" content="<?php echo $siteConfig['image']; ?>">
     <?php } ?>
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
@@ -38,8 +38,8 @@
                                         } else {
                                             echo "Dropplets";
                                         } ?> | <?php echo $pageTitle; ?>">
-    <?php if ($siteConfig['ogImage'] != "") { ?>
-        <meta name="twitter:image:src" content="<?php echo $siteConfig['ogImage']; ?>">
+    <?php if ($siteConfig['image'] != "") { ?>
+        <meta name="twitter:image:src" content="<?php echo $siteConfig['image']; ?>">
     <?php } ?>
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
     <meta name="og:title" content="<?php if ($siteConfig['name'] != "") {
@@ -51,8 +51,8 @@
         <meta name="og:description" content="<?php echo $siteConfig['info']; ?>">
         <meta name="description" content="<?php echo $siteConfig['info']; ?>">
     <?php } ?>
-    <?php if ($siteConfig['ogImage'] != "") { ?>
-        <meta name="og:image" content="<?php echo $siteConfig['ogImage']; ?>">
+    <?php if ($siteConfig['image'] != "") { ?>
+        <meta name="og:image" content="<?php echo $siteConfig['image']; ?>">
     <?php } ?>
     <meta name="og:site_name" content="<?php if ($siteConfig['name'] != "") {
                                             echo $siteConfig['name'];

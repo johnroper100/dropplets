@@ -18,10 +18,11 @@ if (file_exists("config.php")) {
     $siteConfig = [
         "name" => "",
         "info" => "",
+        "image" => "",
         "footer" => "",
         "headerInject" => "",
         "password" => "",
-        "template" => "liquid",
+        "template" => "liquid-new",
         "basePath" => $URI,
         "timezone" => "America/New_York",
         "I18N" => "us_EN",
@@ -235,6 +236,7 @@ $router->map('GET|POST', '/settings', function () {
                 $config_content = "<?php\n\$siteConfig = [ \n"
                     . "'name'=>'" . test_input($_POST["blogName"]) . "',\n"
                     . "'info' => '" . test_input($_POST["blogInfo"]) . "',\n"
+                    . "'image' => '" . test_input($_POST["blogImage"]) . "',\n"
                     . "'footer' => '" . test_input($_POST["blogFooter"]) . "',\n"
                     . "'headerInject' => '" . base64_encode($_POST["blogHeaderInject"]) . "',\n"
                     . "'password' => '" . $password_hashed . "',\n"
