@@ -9,14 +9,51 @@
     ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title><?php if ($siteConfig['name'] != "") {
                 echo $siteConfig['name'];
             } else {
                 echo "Dropplets";
             } ?> | <?php echo $pageTitle; ?></title>
+    <!-- Search Engine -->
+    <?php if ($siteConfig['ogImage'] != "") { ?>
+        <meta name="image" content="<?php echo $siteConfig['ogImage']; ?>">
+    <?php } ?>
+    <!-- Schema.org for Google -->
+    <meta itemprop="name" content="<?php if ($siteConfig['name'] != "") {
+                                        echo $siteConfig['name'];
+                                    } else {
+                                        echo "Dropplets";
+                                    } ?> | <?php echo $pageTitle; ?>">
+    <?php if ($siteConfig['ogImage'] != "") { ?>
+        <meta itemprop="image" content="<?php echo $siteConfig['ogImage']; ?>">
+    <?php } ?>
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="<?php if ($siteConfig['name'] != "") {
+                                            echo $siteConfig['name'];
+                                        } else {
+                                            echo "Dropplets";
+                                        } ?> | <?php echo $pageTitle; ?>">
+    <?php if ($siteConfig['ogImage'] != "") { ?>
+        <meta name="twitter:image:src" content="<?php echo $siteConfig['ogImage']; ?>">
+    <?php } ?>
+    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+    <meta name="og:title" content="<?php if ($siteConfig['name'] != "") {
+                                        echo $siteConfig['name'];
+                                    } else {
+                                        echo "Dropplets";
+                                    } ?> | <?php echo $pageTitle; ?>">
+    <?php if ($siteConfig['ogImage'] != "") { ?>
+        <meta name="og:image" content="<?php echo $siteConfig['ogImage']; ?>">
+    <?php } ?>
+    <meta name="og:site_name" content="<?php if ($siteConfig['name'] != "") {
+                                            echo $siteConfig['name'];
+                                        } else {
+                                            echo "Dropplets";
+                                        } ?>">
+    <meta name="og:type" content="website">
 </head>
 
 <body>

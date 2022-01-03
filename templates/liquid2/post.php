@@ -1,13 +1,25 @@
 <?php
 require "header.php";
+require_once "./SleekDB/src/Store.php";
+
+use SleekDB\Store;
 ?>
-<?php if ($post['image'] != "") { ?>
-    <div class="row mb-4">
-        <div class="col-12">
-            <img src="<?php echo $post['image']; ?>" class="img-fluid">
-        </div>
+<div class="row mb-4">
+    <div class="col-12">
+        <?php
+        if ($post['image'] != "") {
+            if (is_numeric($post['image']) == TRUE) {
+                $databaseDirectory = "./siteDatabase";
+                $imageStore = new Store("images", $databaseDirectory);
+                $imageRecord = $imageStore->findById($post['image']);
+                echo '<img src="data:image/' . $imageRecord["type"] . ';base64,' . $imageRecord["base64"] . '" class="img-fluid">';
+            } else {
+                echo '<img src="' . $post['image'] . '" class="img-fluid">';
+            }
+        }
+            ?>
     </div>
-<?php } ?>
+</div>
 <div class="row mt-5 mb-4">
     <div class="col-12">
         <h1 class="display-6"><?php echo $post['title']; ?></h1>
