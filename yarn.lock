@@ -2317,10 +2317,10 @@
     consola "^2.15.0"
     eslint-webpack-plugin "^2.4.1"
 
-"@nuxtjs/firebase@8.1.1":
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/firebase/-/firebase-8.1.1.tgz#af910b34bb1e76808ce5ade3fde4c6d3ab5b6663"
-  integrity sha512-Q8axxfS2YlwHdDdb7ZNZ+WtBwPM7lOhB7NBugmHjr9+RsKyluxVMfB5M2Egs3clguhZj9p6s4Yb8WU8odXXKGQ==
+"@nuxtjs/firebase@8.2.0":
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/firebase/-/firebase-8.2.0.tgz#aaa8785c8c2bfc84b3ceb74ca2a46484e09b7125"
+  integrity sha512-B++wJOk2WSwDeZXXJrsfa830FiCfJLuKKEGgmgU6iLk4/BuhCaD//yHuEF2H4Evu1favIgdyNE6mF6UaDMM21Q==
   dependencies:
     consola "^2.15.3"
   optionalDependencies:

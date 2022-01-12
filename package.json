@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "5.13.6",
-    "@nuxtjs/firebase": "8.1.1",
+    "@nuxtjs/firebase": "8.2.0",
     "@nuxtjs/pwa": "3.3.5",
     "core-js": "3.20.2",
     "firebase": "9.6.2",
