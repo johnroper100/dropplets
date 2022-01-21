@@ -7,7 +7,7 @@ use SleekDB\Store;
 <div class="row mb-4">
     <div class="col-12">
         <?php
-        if ($post['image'] != "") {
+        if (isset($post['image'])) {
             if (is_numeric($post['image']) == TRUE) {
                 $databaseDirectory = "./siteDatabase";
                 $imageStore = new Store("images", $databaseDirectory);
