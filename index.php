@@ -41,9 +41,12 @@ if ($siteConfig['basePath'] != null) {
     $router->setBasePath($siteConfig['basePath']);
 }
 
+$dbconfiguration = [
+    "timeout" => false
+];
 $databaseDirectory = __DIR__ . "/siteDatabase";
-$blogStore = new Store("blog", $databaseDirectory);
-$imageStore = new Store("images", $databaseDirectory);
+$blogStore = new Store("blog", $databaseDirectory, $dbconfiguration);
+$imageStore = new Store("images", $databaseDirectory, $dbconfiguration);
 
 //$blogStore->deleteStore();
 
