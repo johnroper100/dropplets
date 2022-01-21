@@ -11,7 +11,7 @@ use SleekDB\Store;
         ?>
             <div class="card">
                 <?php
-                if ($post['image'] != "") {
+                if (isset($post['image'])) {
                     if (is_numeric($post['image']) == TRUE) {
                         $databaseDirectory = "./siteDatabase";
                         $imageStore = new Store("images", $databaseDirectory);
