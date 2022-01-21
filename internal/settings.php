@@ -11,13 +11,15 @@ require "header.php";
         <legend><?php i18n("settings_legend"); ?></legend>
         <label><?php i18n("settings_i18n"); ?></label>
         <select name="blogI18N" id="blogI18N" value="<?php echo $siteConfig['I18N']; ?>">
-            <option value="en_US" selected="<?php echo ($siteConfig['I18N'] ===  'en_US' || empty($siteConfig['I18N']))?"selected":""; ?>">English</option>
-            <option value="fr_FR" selected="<?php echo ($siteConfig['I18N'] ===  'fr_FR')?"selected":""; ?>">Francais</option>
+            <option value="en_US" <?php echo ($siteConfig['I18N'] === 'en_US' || empty($siteConfig['I18N']))?"selected":""; ?>>English</option>
+            <option value="fr_FR" <?php echo ($siteConfig['I18N'] === 'fr_FR')?"selected":""; ?>>Francais</option>
         </select>
         <label><?php i18n("settings_blog_name"); ?></label>
         <input type="text" name="blogName" placeholder="<?php i18n("settings_blog_name_placeholder"); ?>" required value="<?php echo $siteConfig['name']; ?>" />
         <label><?php i18n("settings_blog_info"); ?></label>
         <input type="text" name="blogInfo" placeholder="<?php i18n("settings_blog_info_placeholder"); ?>" value="<?php echo $siteConfig['info']; ?>" />
+        <label><?php i18n("settings_blog_image"); ?></label>
+        <input type="text" name="blogImage" placeholder="<?php i18n("settings_blog_image_placeholder"); ?>" required value="<?php echo $siteConfig['image']; ?>" />
         <label><?php i18n("settings_footer_message"); ?></label>
         <input type="text" name="blogFooter" placeholder="<?php i18n("settings_footer_message_placeholder"); ?>" value="<?php echo $siteConfig['footer']; ?>" />
         <label><?php i18n("settings_header_inject"); ?></label>
