@@ -1,24 +1,24 @@
 import colors from 'vuetify/es5/util/colors'
 
-// ajouter seulement `router.base = '/Spaceship/'` si `DEPLOY_ENV` est `GH_PAGES`
+// ajouter seulement `router.base = '/OrganBuilder/'` si `DEPLOY_ENV` est `GH_PAGES`
 const routerBase =
   process.env.DEPLOY_ENV === 'GH_PAGES'
     ? {
         router: {
-          base: '/Spaceship/',
+          base: '/OrganBuilder/',
         },
       }
     : {}
 
 export default {
   // ssr:true
-  ssr: false,
+  ssr: true,
   target: 'static',
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: '%s - Spaceship',
-    title: 'Spaceship',
+    titleTemplate: '%s - Organ Builder',
+    title: 'Home',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -63,7 +63,7 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -87,14 +87,14 @@ export default {
    */
   firebase: {
     config: {
-      apiKey: 'AIzaSyC3qpcRaVJVT63YMfIMgNJKRsmtPmEB6VM',
-      authDomain: 'bento-vince.firebaseapp.com',
-      databaseURL: 'https://bento-vince.firebaseio.com',
-      projectId: 'bento-vince',
-      storageBucket: 'bento-vince.appspot.com',
-      messagingSenderId: '419042376123',
-      appId: '1:419042376123:web:f2a4223fcbff6f078b6c9e',
-      measurementId: 'G-VL64YPQL57',
+      apiKey: 'AIzaSyDp999RoGMSc_LHQZSucNkpgzpi-G81Ito',
+      authDomain: 'builderapp-d662f.firebaseapp.com',
+      databaseURL: 'https://builderapp-d662f-default-rtdb.firebaseio.com/',
+      projectId: 'builderapp-d662f',
+      storageBucket: 'builderapp-d662f.appspot.com',
+      messagingSenderId: '506946588540',
+      appId: '1:506946588540:web:9d3ed5ee14cc801653def9',
+      measurementId: 'G-VGFRZ3RYP4',
     },
     services: {
       auth: {
@@ -102,7 +102,7 @@ export default {
         initialize: {
           onAuthStateChangedAction: 'onAuthStateChangedAction',
         },
-        ssr: false,
+        ssr: true,
       },
       firestore: true,
     },
