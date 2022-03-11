@@ -16,9 +16,7 @@ use SleekDB\Store;
                         $databaseDirectory = "./siteDatabase";
                         $imageStore = new Store("images", $databaseDirectory);
                         $imageRecord = $imageStore->findById($post['image']);
-                        echo '<img src="data:image/' . $imageRecord["type"] . ';base64,' . $imageRecord["base64"] . '" class="card-img-top">';
-                    } else {
-                        echo '<img src="' . $post['image'] . '" class="card-img-top">';
+                        echo '<img src="' . $imageRecord["url"] . '" class="card-img-top">';
                     }
                 }
                 ?>

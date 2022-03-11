@@ -1,9 +1,8 @@
 <?php
-
 $language = [
     "en_US" => [
         "locale" => "us_EN",
-        "dateformat" => "%B %d, %Y",
+        "dateformat" => "F d, Y",
         "settings_i18n" => "Internationalization:",
         "settings_blog_creation" => "Let's create your blog",
         "settings_blog_edition" => "Edit your blog's settings",
@@ -35,9 +34,10 @@ $language = [
         "dashboard_write_post" => "Write A Blog Post",
         "dashboard_settings" => "Edit The Site Settings",
         "dashboard_logout" => "Log Out",
-        "dashboard_all_post" => "All Posts:",
+        "dashboard_draft_post" => "Draft Posts:",
+        "dashboard_published_post" => "Published Posts:",
         "dashboard_posted_by" => "Posted by",
-        "dashboard_post_fulldate" => "%B %d, %Y, %I:%M %p",
+        "dashboard_post_fulldate" => "F d, Y @ g:i A",
         "dashboard_publish" => "Publish",
         "dashboard_draft" => "Make Draft",
         "dashboard_edit" => "Edit",
@@ -56,16 +56,11 @@ $language = [
         "write_post_image_placeholder" => "A featured image for this post",
         "write_post_password_placeholder" => "Password if you want to hide the post",
         "write_post_markdown_placeholder" => "Write your post here, you can use Markdown",
-        "liquid_home_postedby" => "Posted by",
-        "liquid_home_date" => "%B %d, %Y",
-        "liquid_home_newer" => "Newer Posts",
-        "liquid_home_older" => "Older Posts",
-        "liquid_post_date" => "%B %d, %Y",
 
     ],
     "fr_FR" => [
         "locale" => "fr_FR",
-        "dateformat" => "%A %d %B %G",
+        "dateformat" => "l d F o",
         "settings_i18n" => "Internationalisation:",
         "settings_blog_creation" => "Création du blog",
         "settings_blog_edition" => "Edition des paramétres",
@@ -97,9 +92,10 @@ $language = [
         "dashboard_write_post" => "Ecrire un article",
         "dashboard_settings" => "Paramètres du site",
         "dashboard_logout" => "Déconnexion",
-        "dashboard_all_post" => "Tous les articles:",
+        "dashboard_draft_post" => "Projets d'articles:",
+        "dashboard_published_post" => "Articles publiés:",
         "dashboard_posted_by" => "Publié par",
-        "dashboard_post_fulldate" => "%A %d %B %G à %H:%M",
+        "dashboard_post_fulldate" => "l d F o à H:i",
         "dashboard_publish" => "Publier",
         "dashboard_draft" => "Passer en Brouillon",
         "dashboard_edit" => "Editer",
@@ -118,11 +114,6 @@ $language = [
         "write_post_image_placeholder" => "Image de description",
         "write_post_password_placeholder" => "Mot de passe, pour rendre l'article privée",
         "write_post_markdown_placeholder" => "Ecrivez votre article ici en markdown",
-        "liquid_home_postedby" => "Publié par",
-        "liquid_home_date" => "%A %d %B %G",
-        "liquid_home_newer" => "Articles récents",
-        "liquid_home_older" => "Articles anciens",
-        "liquid_post_date" => "%A %d %B %G",
     ]
 ];
 

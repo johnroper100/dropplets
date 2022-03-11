@@ -1,5 +1,6 @@
 <?php
 require "header.php";
+// Need to add SleekDB parsing of the URL in record with ID == $post['image']; Reference post.php
 ?>
 <h1 class="setupH1 setup"><?php i18n("write_title"); ?></h1>
 <form method="post" enctype="multipart/form-data" action="<?php if (isset($post['title'])) {
@@ -18,6 +19,9 @@ require "header.php";
                                                                                                                                                     echo $post['image'];
                                                                                                                                                 } ?>" />
         <input type="file" name="imageUpload" class="blogPostImage" id="imageUpload" />
+        <?php if (isset($post['title'])) { ?>
+            <label for="imageUpload">If you upload a file, it WILL OVERWRITE any existing image!</label>
+        <?php } ?>
         <input type="text" name="blogPostPassword" class="blogPostTitle" placeholder="<?php i18n("write_post_password_placeholder"); ?>" value="<?php if (isset($post['password'])) {
                                                                                                                                                     echo $post['password'];
                                                                                                                                                 } ?>" />

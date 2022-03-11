@@ -12,9 +12,7 @@ use SleekDB\Store;
                 $databaseDirectory = "./siteDatabase";
                 $imageStore = new Store("images", $databaseDirectory);
                 $imageRecord = $imageStore->findById($post['image']);
-                echo '<img src="data:image/' . $imageRecord["type"] . ';base64,' . $imageRecord["base64"] . '" class="img-fluid">';
-            } else {
-                echo '<img src="' . $post['image'] . '" class="img-fluid">';
+                echo '<img src="' . $imageRecord["url"] . '" class="img-fluid">';
             }
         }
             ?>

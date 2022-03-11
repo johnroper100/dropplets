@@ -1,6 +1,44 @@
 <?php
+require_once '../ImageCache/ImageCache.php';
+
+$imagecache = new ImageCache\ImageCache();
+$uploadLocation = '../uploads/cache';
+$imagecache->cached_image_directory = $uploadLocation;
+
+function organizeUpload($uploadObject){
+    global $uploadLocation;
+    $cachedFileRelativePath = $uploadLocation . substr($uploadObject[1], strrpos($uploadObject[1], '/'));
+    $cachedFileExt = substr($uploadObject[0], strrpos($uploadObject[0], '.'));
+
+    // Organize the uploads directory
+    $year_folder = $uploadLocation . '/' . date("Y");
+    $month_folder = $year_folder . '/' . date("m");
+
+    !file_exists($year_folder) && mkdir($year_folder , 0755);
+    !file_exists($month_folder) && mkdir($month_folder, 0755);
+
+    $new_file_name = date("Y-m-d-Hi") . '.' . $cachedFileExt;
+    $new_file_path = $month_folder . '/' . $new_file_name;
+    $new_URL = str_replace($cachedFileRelativePath, $new_file_path, $uploadObject[0]);
+    rename($cachedFileRelativePath, $new_file_path);
+    
+    // Return object of [Image URL, Filesystem Path]
+    return [$new_URL, $new_file_path];
+}
+
+function downloadImage($imageURL){
+    global $imagecache;
+    $img = $imagecache->cache($imageURL);
+    if (!empty($img)){
+        return organizeUpload([$img, $imagecache->cached_filename]);
+    }
+    else {
+        return "ERR";
+    }
+}
 
 function verifyImage($uploadedFile){
+    global $imagecache;
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo(basename($uploadedFile['name']),PATHINFO_EXTENSION));
 
@@ -30,12 +68,12 @@ function verifyImage($uploadedFile){
     if ($uploadOk == 0) {
     	//echo "Sorry, your file was not uploaded.";
     	return "ERR";
-    // if everything is ok, try to upload file
+
+    // If everything is ok, try to upload file
     } else {
-        $img = file_get_contents($uploadedFile["tmp_name"]);
+        $img = $imagecache->cache($uploadedFile["tmp_name"]);
         if (!empty($img)){
-        	$imgEncoded = base64_encode($img);
-            return [$imgEncoded, $imageFileType];
+            return organizeUpload([$img, $imagecache->cached_filename]);
         }
         else {
             return "ERR";

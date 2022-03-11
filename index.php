@@ -34,7 +34,6 @@ require_once "./internal/i18n.php";
 date_default_timezone_set($siteConfig['timezone']);
 
 $Extra = new ParsedownExtra();
-
 $router = new AltoRouter();
 
 if ($siteConfig['basePath'] != null) {
@@ -42,12 +41,12 @@ if ($siteConfig['basePath'] != null) {
 }
 
 $dbconfiguration = [
-    "timeout" => false
+    "timeout" => 60
 ];
+
 $databaseDirectory = __DIR__ . "/siteDatabase";
 $blogStore = new Store("blog", $databaseDirectory, $dbconfiguration);
 $imageStore = new Store("images", $databaseDirectory, $dbconfiguration);
-
 //$blogStore->deleteStore();
 
 $router->map('GET', '/', function () {
@@ -282,26 +281,27 @@ $router->map('GET|POST', '/write', function () {
                     "content" => test_input($_POST["blogPostContent"]),
                     "password" => test_input($_POST["blogPostPassword"])
                 ];
-
+                $verified = '';
+                // Uploaded image file always takes precedence over specified URL
                 if ($_FILES["imageUpload"] != "") {
                     $uploadedFile = $_FILES["imageUpload"];
                     $verified = verifyImage($uploadedFile);
-
-                    if ($verified != "ERR") {
-                        $record = [
-                            "base64" => $verified[0],
-                            "type" => $verified[1]
-                        ];
-                        $imageWriteResult = $imageStore->insert($record);
-                        $post["image"] = $imageWriteResult["_id"];
-                    } else {
-                        echo "Unable to upload image";
-                    }
+                // Image specified via URL will be downloaded and stored to server
                 } elseif (isset($_POST["blogPostImageURL"])) {
-                    $post["image"] = test_input($_POST["blogPostImageURL"]);
+                    $verified = downloadImage(test_input($_POST["blogPostImageURL"]));
                 }
-                $results = $blogStore->insert($post);
-                header("Location: " . $router->generate('dashboard'));
+                if ($verified != "ERR") {
+                    $record = [
+                        "url" => $verified[0],
+                        "path" => $verified[1]
+                    ];
+                    $imageWriteResult = $imageStore->insert($record);
+                    $post["image"] = $imageWriteResult["_id"];
+                    $results = $blogStore->insert($post);
+                    header("Location: " . $router->generate('dashboard'));
+                } else {
+                    echo "!!! Error uploading or downloading image !!!";
+                }
             } else {
                 header("Location: " . $router->generate('write'));
             }
@@ -356,8 +356,10 @@ $router->map('GET', '/dashboard', function () {
     global $imageStore;
     if (file_exists("config.php")) {
         if (isset($_SESSION['isAuthenticated'])) {
-            $allPosts = $blogStore->findAll();
-            $postCount = $blogStore->count();
+            $draftPosts = $blogStore->findBy(["draft", "=", true], ["date" => "desc"]);
+            $draftPostCount = count($blogStore->findBy(["draft", "=", true], ["date" => "desc"]));
+            $publishedPosts = $blogStore->findBy(["draft", "=", false], ["date" => "desc"]);
+            $publishedPostCount = count($blogStore->findBy(["draft", "=", false], ["date" => "desc"]));
             $pageTitle = "Dashboard";
             require __DIR__ . '/internal/dashboard.php';
         } else {
