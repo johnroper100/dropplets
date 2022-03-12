@@ -1,14 +1,16 @@
 <?php
-require_once '../ImageCache/ImageCache.php';
+require_once './ImageCache/ImageCache.php';
 
 $imagecache = new ImageCache\ImageCache();
-$uploadLocation = '../uploads/cache';
+// Add to siteConfig?
+$uploadLocation = './uploads';
 $imagecache->cached_image_directory = $uploadLocation;
 
+// Change $uploadObject to be an actual object instead of simple array
 function organizeUpload($uploadObject){
     global $uploadLocation;
     $cachedFileRelativePath = $uploadLocation . substr($uploadObject[1], strrpos($uploadObject[1], '/'));
-    $cachedFileExt = substr($uploadObject[0], strrpos($uploadObject[0], '.'));
+    $cachedFileExt = substr($uploadObject[0], strrpos($uploadObject[0], '.') + 1);
 
     // Organize the uploads directory
     $year_folder = $uploadLocation . '/' . date("Y");
@@ -17,27 +19,27 @@ function organizeUpload($uploadObject){
     !file_exists($year_folder) && mkdir($year_folder , 0755);
     !file_exists($month_folder) && mkdir($month_folder, 0755);
 
-    $new_file_name = date("Y-m-d-Hi") . '.' . $cachedFileExt;
+    $new_file_name = date("Y-m-d-H:i") . '.' . $cachedFileExt;
     $new_file_path = $month_folder . '/' . $new_file_name;
-    $new_URL = str_replace($cachedFileRelativePath, $new_file_path, $uploadObject[0]);
+    $new_URL = $uploadObject[2] . substr($new_file_path, 1);
     rename($cachedFileRelativePath, $new_file_path);
     
     // Return object of [Image URL, Filesystem Path]
     return [$new_URL, $new_file_path];
 }
 
-function downloadImage($imageURL){
+function downloadImage($imageURL, $blogDomain){
     global $imagecache;
     $img = $imagecache->cache($imageURL);
     if (!empty($img)){
-        return organizeUpload([$img, $imagecache->cached_filename]);
+        return organizeUpload([$img, $imagecache->cached_filename, $blogDomain]);
     }
     else {
         return "ERR";
     }
 }
 
-function verifyImage($uploadedFile){
+function verifyImage($uploadedFile, $blogDomain){
     global $imagecache;
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo(basename($uploadedFile['name']),PATHINFO_EXTENSION));
@@ -73,7 +75,7 @@ function verifyImage($uploadedFile){
     } else {
         $img = $imagecache->cache($uploadedFile["tmp_name"]);
         if (!empty($img)){
-            return organizeUpload([$img, $imagecache->cached_filename]);
+            return organizeUpload([$img, $imagecache->cached_filename, $blogDomain]);
         }
         else {
             return "ERR";

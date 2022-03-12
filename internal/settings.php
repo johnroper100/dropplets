@@ -10,7 +10,7 @@ require "header.php";
     <fieldset>
         <legend><?php i18n("settings_legend"); ?></legend>
         <label><?php i18n("settings_i18n"); ?></label>
-        <select name="blogI18N" id="blogI18N" value="<?php echo $siteConfig['I18N']; ?>">
+        <select name="blogI18N" id="blogI18N" required value="<?php echo $siteConfig['I18N']; ?>">
             <option value="en_US" <?php echo ($siteConfig['I18N'] === 'en_US' || empty($siteConfig['I18N']))?"selected":""; ?>>English</option>
             <option value="fr_FR" <?php echo ($siteConfig['I18N'] === 'fr_FR')?"selected":""; ?>>Francais</option>
         </select>
@@ -18,8 +18,10 @@ require "header.php";
         <input type="text" name="blogName" placeholder="<?php i18n("settings_blog_name_placeholder"); ?>" required value="<?php echo $siteConfig['name']; ?>" />
         <label><?php i18n("settings_blog_info"); ?></label>
         <input type="text" name="blogInfo" placeholder="<?php i18n("settings_blog_info_placeholder"); ?>" value="<?php echo $siteConfig['info']; ?>" />
-        <label><?php i18n("settings_blog_image"); ?></label>
-        <input type="text" name="blogImage" placeholder="<?php i18n("settings_blog_image_placeholder"); ?>" required value="<?php echo $siteConfig['image']; ?>" />
+        <label><?php i18n("settings_blog_domain"); ?></label>
+        <input type="url" name="blogDomain" placeholder="<?php i18n("settings_blog_domain_placeholder"); ?>" required value="<?php echo $siteConfig['domain']; ?>" />
+        <label><?php i18n("settings_blog_OGImage"); ?></label>
+        <input type="text" name="blogOGImage" placeholder="<?php i18n("settings_blog_OGImage_placeholder"); ?>" value="<?php echo $siteConfig['OGImage']; ?>" />
         <label><?php i18n("settings_footer_message"); ?></label>
         <input type="text" name="blogFooter" placeholder="<?php i18n("settings_footer_message_placeholder"); ?>" value="<?php echo $siteConfig['footer']; ?>" />
         <label><?php i18n("settings_header_inject"); ?></label>

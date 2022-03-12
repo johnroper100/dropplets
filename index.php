@@ -18,7 +18,8 @@ if (file_exists("config.php")) {
     $siteConfig = [
         "name" => "",
         "info" => "",
-        "image" => "",
+        "domain" => "",
+        "OGImage" => "",
         "footer" => "",
         "headerInject" => "",
         "password" => "",
@@ -47,14 +48,13 @@ $dbconfiguration = [
 $databaseDirectory = __DIR__ . "/siteDatabase";
 $blogStore = new Store("blog", $databaseDirectory, $dbconfiguration);
 $imageStore = new Store("images", $databaseDirectory, $dbconfiguration);
-//$blogStore->deleteStore();
 
+// Get Site Homepage - Config file must exist, User does not need to be authenticated
 $router->map('GET', '/', function () {
     global $router;
     if (file_exists("config.php")) {
         global $siteConfig;
         global $blogStore;
-        global $imageStore;
         global $Extra;
         $page = 1;
         $limit = 5;
@@ -69,12 +69,12 @@ $router->map('GET', '/', function () {
     }
 }, 'home');
 
+// Get Other Site Pages - Config file must exist, User does not need to be authenticated
 $router->map('GET', '/[i:page]', function ($page) {
     global $router;
     if (file_exists("config.php")) {
         global $siteConfig;
         global $blogStore;
-        global $imageStore;
         global $Extra;
 
         $limit = 5;
@@ -89,16 +89,17 @@ $router->map('GET', '/[i:page]', function ($page) {
     }
 }, 'posts');
 
+// Get Specific Post - Config file must exist, User does not need to be authenticated
 $router->map('GET|POST', '/post/[i:id]', function ($id) {
     global $router;
     if (file_exists("config.php")) {
         global $siteConfig;
         global $blogStore;
-        global $imageStore;
         global $Extra;
 
         $post = $blogStore->findById($id);
         if ($post == null) {
+            // Build out nice 404 page and header to it
             echo ("404 Not Found");
         } else {
             $passAttempt = "";
@@ -118,16 +119,17 @@ $router->map('GET|POST', '/post/[i:id]', function ($id) {
     }
 }, 'post');
 
+// Publish a draft post - Config file must exist, User needs to be authenticated
 $router->map('GET', '/post/[i:id]/publish', function ($id) {
     global $router;
     if (file_exists("config.php")) {
         if (isset($_SESSION['isAuthenticated'])) {
             global $siteConfig;
             global $blogStore;
-            global $imageStore;
 
             $post = $blogStore->findById($id);
             if ($post == null) {
+                // Build out nice 404 page and header to it
                 echo ("404 Not Found");
             } else {
                 $blogStore->updateById($id, ["draft" => false]);
@@ -141,16 +143,17 @@ $router->map('GET', '/post/[i:id]/publish', function ($id) {
     }
 }, 'publish');
 
+// Unpublish a post - Config file must exist, User needs to be authenticated
 $router->map('GET', '/post/[i:id]/hide', function ($id) {
     global $router;
     if (file_exists("config.php")) {
         if (isset($_SESSION['isAuthenticated'])) {
             global $siteConfig;
             global $blogStore;
-            global $imageStore;
 
             $post = $blogStore->findById($id);
             if ($post == null) {
+                // Build out nice 404 page and header to it
                 echo ("404 Not Found");
             } else {
                 $blogStore->updateById($id, ["draft" => true]);
@@ -164,6 +167,8 @@ $router->map('GET', '/post/[i:id]/hide', function ($id) {
     }
 }, 'hide');
 
+// Need to do a check to see if the URL of blogPostImageURL was changed or not, don't reupload if its the same
+// Edit a post - Config file must exist, User needs to be authenticated
 $router->map('GET|POST', '/post/[i:id]/edit', function ($id) {
     global $router;
     if (file_exists("config.php")) {
@@ -174,6 +179,7 @@ $router->map('GET|POST', '/post/[i:id]/edit', function ($id) {
 
             $post = $blogStore->findById($id);
             if ($post == null) {
+                // Build out nice 404 page and header to it
                 echo ("404 Not Found");
             } else {
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -201,6 +207,8 @@ $router->map('GET|POST', '/post/[i:id]/edit', function ($id) {
     }
 }, 'editPost');
 
+// Needs to delete blogStore record, linked imageStore record, and delete the imageStore record's image path
+// Delete a post - Config file must exist, User needs to be authenticated
 $router->map('GET', '/post/[i:id]/delete', function ($id) {
     global $router;
     if (file_exists("config.php")) {
@@ -211,6 +219,7 @@ $router->map('GET', '/post/[i:id]/delete', function ($id) {
 
             $post = $blogStore->findById($id);
             if ($post == null) {
+                // Build out nice 404 page and header to it
                 echo ("404 Not Found");
             } else {
                 $blogStore->deleteById($id);
@@ -224,12 +233,16 @@ $router->map('GET', '/post/[i:id]/delete', function ($id) {
     }
 }, 'deletePost');
 
+// Setup Blog - Config doesn't exist and needs to be created, User cannot be authenticated
+// OR
+// Configure Blog Settings - Config file must exist, User needs to be authenticated
 $router->map('GET|POST', '/settings', function () {
-    global $siteConfig;
     global $router;
     if (isset($_SESSION['isAuthenticated']) || !file_exists("config.php")) {
+        global $siteConfig;
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST["blogName"]) && isset($_POST["blogTimezone"]) && isset($_POST["blogTemplate"]) && isset($_POST["blogI18N"])) {
+            // Should always correspond to required front-end values in ./internal/settings.php
+            if (isset($_POST["blogName"]) && isset($_POST["blogDomain"]) && isset($_POST["blogTemplate"]) && isset($_POST["blogTimezone"]) && isset($_POST["blogI18N"])) {
                 if (!file_exists("config.php")) {
                     $password_hashed = password_hash(test_input($_POST["blogPassword"]), PASSWORD_BCRYPT);
                 } else {
@@ -238,7 +251,8 @@ $router->map('GET|POST', '/settings', function () {
                 $config_content = "<?php\n\$siteConfig = [ \n"
                     . "'name'=>'" . test_input($_POST["blogName"]) . "',\n"
                     . "'info' => '" . test_input($_POST["blogInfo"]) . "',\n"
-                    . "'image' => '" . test_input($_POST["blogImage"]) . "',\n"
+                    . "'domain' => '" . test_input($_POST["blogDomain"]) . "',\n"
+                    . "'OGImage' => '" . test_input($_POST["blogOGImage"]) . "',\n"
                     . "'footer' => '" . test_input($_POST["blogFooter"]) . "',\n"
                     . "'headerInject' => '" . base64_encode($_POST["blogHeaderInject"]) . "',\n"
                     . "'password' => '" . $password_hashed . "',\n"
@@ -251,7 +265,7 @@ $router->map('GET|POST', '/settings', function () {
 permissions and that the folder it is in has write permissions. This is usally 755.");
                 fwrite($config, $config_content);
                 fclose($config);
-                header("Location: " . $router->generate('home'));
+                header("Location: " . $router->generate('dashboard'));
             } else {
                 header("Location: " . $router->generate('settings'));
             }
@@ -264,71 +278,81 @@ permissions and that the folder it is in has write permissions. This is usally 7
     }
 }, 'settings');
 
+// Write a post - Config file must exist, User needs to be authenticated
 $router->map('GET|POST', '/write', function () {
-    global $siteConfig;
     global $router;
-    global $blogStore;
-    global $imageStore;
-
-    if (isset($_SESSION['isAuthenticated'])) {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST["blogPostTitle"]) && isset($_POST["blogPostContent"]) && isset($_POST["blogPostAuthor"])) {
-                $post = [
-                    "title" => test_input($_POST["blogPostTitle"]),
-                    "date" => time(),
-                    "draft" => true,
-                    "author" => test_input($_POST["blogPostAuthor"]),
-                    "content" => test_input($_POST["blogPostContent"]),
-                    "password" => test_input($_POST["blogPostPassword"])
-                ];
-                $verified = '';
-                // Uploaded image file always takes precedence over specified URL
-                if ($_FILES["imageUpload"] != "") {
-                    $uploadedFile = $_FILES["imageUpload"];
-                    $verified = verifyImage($uploadedFile);
-                // Image specified via URL will be downloaded and stored to server
-                } elseif (isset($_POST["blogPostImageURL"])) {
-                    $verified = downloadImage(test_input($_POST["blogPostImageURL"]));
-                }
-                if ($verified != "ERR") {
-                    $record = [
-                        "url" => $verified[0],
-                        "path" => $verified[1]
+    if (file_exists("config.php")) {
+        if (isset($_SESSION['isAuthenticated'])) {
+            global $siteConfig;
+            global $blogStore;
+            global $imageStore;
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                if (isset($_POST["blogPostTitle"]) && isset($_POST["blogPostContent"]) && isset($_POST["blogPostAuthor"])) {
+                    $post = [
+                        "title" => test_input($_POST["blogPostTitle"]),
+                        "date" => time(),
+                        "draft" => true,
+                        "author" => test_input($_POST["blogPostAuthor"]),
+                        "content" => test_input($_POST["blogPostContent"]),
+                        "password" => test_input($_POST["blogPostPassword"])
                     ];
-                    $imageWriteResult = $imageStore->insert($record);
-                    $post["image"] = $imageWriteResult["_id"];
-                    $results = $blogStore->insert($post);
-                    header("Location: " . $router->generate('dashboard'));
+                    $verified = '';
+                    // Uploaded image file always takes precedence over specified URL
+                    if (is_uploaded_file($_FILES["imageUpload"])) {
+                        $uploadedFile = $_FILES["imageUpload"];
+                        $verified = verifyImage($uploadedFile, $siteConfig['domain']);
+                    // Image specified via URL will be downloaded and stored to server
+                    } elseif (isset($_POST["blogPostImageURL"])) {
+                        $verified = downloadImage(test_input($_POST["blogPostImageURL"]), $siteConfig['domain']);
+                    }
+                    if ($verified != "ERR") {
+                        $record = [
+                            "url" => $verified[0],
+                            "path" => $verified[1]
+                        ];
+                        $imageWriteResult = $imageStore->insert($record);
+                        $post["image"] = $imageWriteResult["_id"];
+                        $results = $blogStore->insert($post);
+                        header("Location: " . $router->generate('dashboard'));
+                    } else {
+                        echo "!!! Error uploading or downloading image !!!";
+                    }
                 } else {
-                    echo "!!! Error uploading or downloading image !!!";
+                    header("Location: " . $router->generate('write'));
                 }
             } else {
-                header("Location: " . $router->generate('write'));
+                $pageTitle = "Write";
+                require __DIR__ . '/internal/write.php';
             }
         } else {
-            $pageTitle = "Write";
-            require __DIR__ . '/internal/write.php';
+            header("Location: " . $router->generate('login'));
         }
     } else {
-        header("Location: " . $router->generate('login'));
+        header("Location: " . $router->generate('settings'));
     }
 }, 'write');
 
+// Logout - Config file must exist, User needs to be authenticated
 $router->map('GET', '/logout', function () {
     global $router;
     if (file_exists("config.php")) {
-        session_destroy();
-        header("Location: " . $router->generate('home'));
+        if (isset($_SESSION['isAuthenticated'])) {
+            session_destroy();
+            header("Location: " . $router->generate('home'));
+        } else {
+            header("Location: " . $router->generate('login'));
+        }
     } else {
         header("Location: " . $router->generate('settings'));
     }
 }, 'logout');
 
+// Login - Config file must exist, User is authenticating so N/A
 $router->map('GET|POST', '/login', function () {
     global $router;
-    global $siteConfig;
     if (file_exists("config.php")) {
         if (isset($_SESSION['isAuthenticated'])) {
+            global $siteConfig;
             header("Location: " . $router->generate('dashboard'));
         } else {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -349,13 +373,13 @@ $router->map('GET|POST', '/login', function () {
     }
 }, 'login');
 
+// Go to Dashboard - Config file must exist, User needs to be authenticated
 $router->map('GET', '/dashboard', function () {
     global $router;
-    global $siteConfig;
-    global $blogStore;
-    global $imageStore;
     if (file_exists("config.php")) {
         if (isset($_SESSION['isAuthenticated'])) {
+            global $siteConfig;
+            global $blogStore;
             $draftPosts = $blogStore->findBy(["draft", "=", true], ["date" => "desc"]);
             $draftPostCount = count($blogStore->findBy(["draft", "=", true], ["date" => "desc"]));
             $publishedPosts = $blogStore->findBy(["draft", "=", false], ["date" => "desc"]);

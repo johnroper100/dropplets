@@ -1,7 +1,5 @@
 <?php
 require "header.php";
-
-
 setlocale(LC_ALL, i18n('locale',false));
 ?>
 <h1 class="setupH1 setup"><?php i18n("dashboard_title"); ?></h1>

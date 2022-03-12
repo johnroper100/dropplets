@@ -1,6 +1,7 @@
 <?php
 require "header.php";
-// Need to add SleekDB parsing of the URL in record with ID == $post['image']; Reference post.php
+require_once "./SleekDB/src/Store.php";
+use SleekDB\Store;
 ?>
 <h1 class="setupH1 setup"><?php i18n("write_title"); ?></h1>
 <form method="post" enctype="multipart/form-data" action="<?php if (isset($post['title'])) {
@@ -16,7 +17,12 @@ require "header.php";
                                                                                                                                                             echo $post['author'];
                                                                                                                                                         } ?>" />
         <input type="url" name="blogPostImageURL" class="blogPostImageURL" placeholder="<?php i18n("write_post_image_placeholder"); ?>" value="<?php if (isset($post['image'])) {
-                                                                                                                                                    echo $post['image'];
+                                                                                                                                                    if (is_numeric($post['image']) == TRUE) {
+                                                                                                                                                        $databaseDirectory = "./siteDatabase";
+                                                                                                                                                        $imageStore = new Store("images", $databaseDirectory);
+                                                                                                                                                        $imageRecord = $imageStore->findById($post['image']);
+                                                                                                                                                        echo $imageRecord["url"];
+                                                                                                                                                    }
                                                                                                                                                 } ?>" />
         <input type="file" name="imageUpload" class="blogPostImage" id="imageUpload" />
         <?php if (isset($post['title'])) { ?>
