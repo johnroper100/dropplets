@@ -59,7 +59,6 @@ $router->map('GET', '/', function () {
         $page = 1;
         $limit = 5;
         $skip = ($page - 1) * $limit;
-
         $allPosts = $blogStore->findBy(["draft", "=", false], ["date" => "desc"], $limit, $skip);
         $postCount = count($blogStore->findBy(["draft", "=", false], ["date" => "desc"]));
         $pageTitle = "Home";
@@ -298,11 +297,12 @@ $router->map('GET|POST', '/write', function () {
                     ];
                     $verified = '';
                     // Uploaded image file always takes precedence over specified URL
-                    if (is_uploaded_file($_FILES["imageUpload"])) {
+                    if ($_FILES["imageUpload"]["name"] != "") {
                         $uploadedFile = $_FILES["imageUpload"];
                         $verified = verifyImage($uploadedFile, $siteConfig['domain']);
+                    }
                     // Image specified via URL will be downloaded and stored to server
-                    } elseif (isset($_POST["blogPostImageURL"])) {
+                    elseif ($_POST["blogPostImageURL"] != "") {
                         $verified = downloadImage(test_input($_POST["blogPostImageURL"]), $siteConfig['domain']);
                     }
                     if ($verified != "ERR") {
@@ -351,8 +351,8 @@ $router->map('GET', '/logout', function () {
 $router->map('GET|POST', '/login', function () {
     global $router;
     if (file_exists("config.php")) {
+        global $siteConfig;
         if (isset($_SESSION['isAuthenticated'])) {
-            global $siteConfig;
             header("Location: " . $router->generate('dashboard'));
         } else {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {

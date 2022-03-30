@@ -165,7 +165,7 @@ class ImageCache {
      * @return string The source file to be referenced after compressing an image
      */
     public function cache($image, $version = "") {
-ob_start();
+		ob_start();
         if ( ! is_writable($this->cached_image_directory))
             $this->error( $this->cached_image_directory . ' must writable!');
 
@@ -176,7 +176,7 @@ ob_start();
         $this->image_src_version = $version;
         $this->pre_set_class_vars();
 
-        // If the image hasn't been server up at this point, fetch, compress, cache, and return
+        // If the image hasn't been served up at this point, fetch, compress, cache, and return
         if ($this->cached_file_exists()) {
             $this->src_filesize = filesize($this->image_src);
             $this->cached_filesize = filesize($this->cached_filename);
@@ -193,6 +193,8 @@ ob_start();
         if (!$this->fetch_image())
             $this->error('Could not copy image resource.');
         $this->src_filesize = filesize($this->image_src);
+        // Delete the temporary source picture because imagedestroy() is no longer capable in PHP 8.0+
+        unlink($this->image_src);
         $this->cached_filesize = filesize($this->cached_filename);
         if ($this->src_filesize < $this->cached_filesize) {
             ob_end_clean();
@@ -207,7 +209,7 @@ ob_start();
      */
     private function download_image() {
         $image_resource = file_get_contents($this->image_src);
-        $basename = basename($this->image_src);
+		$basename = basename($this->image_src);
         if (!stripos($basename, '.' . $this->file_extension)) {
             $basename .= '.' . $this->file_extension;
         }
@@ -287,8 +289,8 @@ ob_start();
                 return false;
                 break;
         }
-        imagedestroy($image_src);
-        imagedestroy($image_dest);
+        unset($image_src);
+        unset($image_dest);
         $this->reset_memory_limit();
         return $created;
     }
