@@ -84,31 +84,6 @@ span.droppletsName {
     padding-left: 20px;
 }
 
-h1.setup,
-h2.setup,
-h3.setup {
-    color: #212529;
-    font-weight: 700;
-    text-align: center;
-    margin: 30px 0;
-}
-
-h1.setupH1 {
-    text-transform: uppercase;
-    font-size: 28px;
-    margin: 30px 0 50px 0;
-}
-
-fieldset {
-    padding: 20px;
-    border: none;
-    font-weight: 200;
-}
-
-legend {
-    font-size: 20px;
-}
-
 input,
 textarea,
 select {
@@ -117,7 +92,6 @@ select {
     color: #343a40;
     font-weight: 200;
     display: block;
-    width: 100%;
     padding: 7px 15px;
     border: none;
     border-left: solid 2px;
@@ -172,66 +146,10 @@ input:valid {
     outline: none;
     border-left: solid 2px #40c057;
 }
-
-.btn {
-    font-weight: 400;
-    padding: 10px 15px;
-    border: solid 1px #40c057;
-    width: 200px;
-    margin: 0 auto;
-    color: #40c057;
-    border-radius: 4px;
-    cursor: pointer;
-    background: white;
-}
-
-.btn-danger {
-    border-color: #fa5252;
-    color: #fa5252;
-}
-
-.btn-secondary {
-    border-color: #228be6;
-    color: #228be6;
-}
-
-.btn:hover {
-    background: #40c057;
-    color: white;
-    box-shadow: 0 0 5px 2px rgba(102, 102, 102, .2);
-    transition: all .3s ease-in-out;
-}
-
-.btn-danger:hover {
-    background: #fa5252;
-}
-
-.btn-secondary:hover {
-    background: #228be6;
-}
-
 .clearfix::after {
     content: '';
     display: table;
     clear: both;
-}
-
-input.btn {
-    padding: 10px 15px;
-    border: solid 1px #40c057;
-    width: 200px;
-    margin: 0 auto;
-    color: #40c057;
-    border-radius: 4px;
-    cursor: pointer;
-    background: white;
-}
-
-input.btn:hover {
-    background: #40c057;
-    color: white;
-    box-shadow: 0 0 5px 2px rgba(102, 102, 102, .2);
-    transition: all .3s ease-in-out;
 }
 
 input.blogPostTitle {
@@ -247,12 +165,8 @@ h2 {
     margin: 1rem 0;
 }
 
-.postText .btn {
+.postText {
     margin-top: 0.5rem;
     display: inline-block;
     margin-bottom: 0.5rem;
-}
-
-.btn-sm {
-    font-size: 0.75rem;
 }

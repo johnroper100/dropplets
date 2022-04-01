@@ -5,19 +5,28 @@
     <?php
     if ($siteConfig['headerInject'] != "") {
         echo base64_decode($siteConfig['headerInject']);
-    }
-    ?>
+    }?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="robots" content="index, follow">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
     <title><?php if ($siteConfig['name'] != "") {
                 echo $siteConfig['name'];
             } else {
                 echo "Dropplets";
             } ?> | <?php echo $pageTitle; ?></title>
+
+    <!-- Bring in the styles and scripts... -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 15vw;
+            object-fit: cover;
+        }
+    </style>
+
+    <!-- Starting up the OpenGraph Tags... -->
     <!-- Search Engine -->
     <?php if ($siteConfig['OGImage'] != "") { ?>
         <meta name="image" content="<?php echo $siteConfig['OGImage']; ?>">
@@ -83,7 +92,7 @@
         }
     </style>
     <div class="container">
-        <div class="row mt-5 mb-5">
+        <div class="row my-5">
             <div class="col-12 text-center">
                 <h3><?php echo $siteConfig['name']; ?></h3>
                 <small class="text-muted"><?php echo $siteConfig['info']; ?></small>

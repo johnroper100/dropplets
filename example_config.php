@@ -8,6 +8,7 @@ $siteConfig = [
 'headerInject' => '',
 'password' => 'Password Hash - Created at setup',
 'template' => 'liquid-new',
+'postsPerPage' => 6,
 'basePath' => 'Server filesystem path',
 'timezone' => 'America/New_York',
 'I18N' => 'en_US',

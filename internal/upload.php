@@ -6,7 +6,6 @@ $imagecache = new ImageCache\ImageCache();
 $uploadLocation = './uploads';
 $imagecache->cached_image_directory = $uploadLocation;
 
-// Change $uploadObject to be an actual object instead of simple array
 function organizeUpload($uploadObject){
     global $uploadLocation;
     $cachedFileRelativePath = $uploadLocation . substr($uploadObject["CachedFileName"], strrpos($uploadObject["CachedFileName"], '/'));

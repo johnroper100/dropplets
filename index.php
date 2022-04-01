@@ -24,6 +24,7 @@ if (file_exists("config.php")) {
         "headerInject" => "",
         "password" => "",
         "template" => "liquid-new",
+        "postsPerPage" => 1,
         "basePath" => $URI,
         "timezone" => "America/New_York",
         "I18N" => "us_EN",
@@ -49,18 +50,30 @@ $databaseDirectory = __DIR__ . "/siteDatabase";
 $blogStore = new Store("blog", $databaseDirectory, $dbconfiguration);
 $imageStore = new Store("images", $databaseDirectory, $dbconfiguration);
 
+// Setup pagination
+$numPages = 1;
+if ($siteConfig['postsPerPage'] > 0) {
+	// Get total number of posts
+	$postCount = count($blogStore->findBy(["draft", "=", false], ["date" => "desc"]));
+	if ($postCount > $siteConfig['postsPerPage']){
+		$numPages = ceil($postCount/$siteConfig['postsPerPage']);
+	}
+} else {
+	$siteConfig['postsPerPage'] = 1;
+}
+
 // Get Site Homepage - Config file must exist, User does not need to be authenticated
 $router->map('GET', '/', function () {
     global $router;
     if (file_exists("config.php")) {
         global $siteConfig;
         global $blogStore;
+        global $numPages;
         global $Extra;
-        $page = 1;
-        $limit = 5;
-        $skip = ($page - 1) * $limit;
-        $allPosts = $blogStore->findBy(["draft", "=", false], ["date" => "desc"], $limit, $skip);
-        $postCount = count($blogStore->findBy(["draft", "=", false], ["date" => "desc"]));
+        // Pull [postsPerPage] latest posts
+        $allPosts = $blogStore->findBy(["draft", "=", false], ["date" => "desc"], $siteConfig['postsPerPage']);
+        // Add grid size capability in the future, right now its 3xNumPosts
+        // $postsGridRowCount = ceil(count($allPosts)/3);
         $pageTitle = "Home";
         require __DIR__ . '/templates/' . $siteConfig['template'] . '/home.php';
     } else {
@@ -74,14 +87,12 @@ $router->map('GET', '/[i:page]', function ($page) {
     if (file_exists("config.php")) {
         global $siteConfig;
         global $blogStore;
+        global $numPages;
         global $Extra;
-
-        $limit = 5;
-        $skip = ($page - 1) * $limit;
-
-        $allPosts = $blogStore->findBy(["draft", "=", false], ["date" => "desc"], $limit, $skip);
-        $postCount = count($blogStore->findBy(["draft", "=", false], ["date" => "desc"]));
-        $pageTitle = "Posts";
+        // Pull posts for the current page ONLY
+        $skip = ($page - 1) * $siteConfig['postsPerPage'];
+        $allPosts = $blogStore->findBy(["draft", "=", false], ["date" => "desc"], $siteConfig['postsPerPage'], $skip);
+        $pageTitle = "Posts | Page " . $page;
         require __DIR__ . '/templates/' . $siteConfig['template'] . '/home.php';
     } else {
         header("Location: " . $router->generate('settings'));
@@ -247,6 +258,10 @@ $router->map('GET|POST', '/settings', function () {
                 } else {
                     $password_hashed = $siteConfig['password'];
                 }
+                // Sanitize blogPostsPerPage and ensure server-side that it is greater than 0
+                if (!is_numeric(test_input($_POST["blogPostsPerPage"])) || test_input($_POST["blogPostsPerPage"]) <= 0){
+                	$_POST["blogPostsPerPage"] = 1;
+                }
                 $config_content = "<?php\n\$siteConfig = [ \n"
                     . "'name'=>'" . test_input($_POST["blogName"]) . "',\n"
                     . "'info' => '" . test_input($_POST["blogInfo"]) . "',\n"
@@ -256,6 +271,7 @@ $router->map('GET|POST', '/settings', function () {
                     . "'headerInject' => '" . base64_encode($_POST["blogHeaderInject"]) . "',\n"
                     . "'password' => '" . $password_hashed . "',\n"
                     . "'template' => '" . test_input($_POST["blogTemplate"]) . "',\n"
+                    . "'postsPerPage' => '" . test_input($_POST["blogPostsPerPage"]) . "',\n"
                     . "'basePath' => '" . test_input($_POST["blogBase"]) . "',\n"
                     . "'timezone' => '" . test_input($_POST["blogTimezone"]) . "',\n"
                     . "'I18N' => '" . test_input($_POST["blogI18N"]) . "',\n"
