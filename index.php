@@ -410,7 +410,7 @@ $router->map('GET', '/dashboard', function () {
     }
 }, 'dashboard');
 
-$match = $router->match();
+$match = $router->matcher();
 
 session_start();
 
