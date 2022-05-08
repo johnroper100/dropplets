@@ -1,6 +1,5 @@
 <?php
 require "header.php";
-require_once "./SleekDB/src/Store.php";
 
 use SleekDB\Store;
 ?>

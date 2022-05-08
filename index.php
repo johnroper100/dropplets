@@ -1,9 +1,7 @@
 <?php
 
-require_once "./SleekDB/src/Store.php";
-require_once "./AltoRouter/AltoRouter.php";
-require_once "./parsedown/Parsedown.php";
-require_once "./parsedown-extra/ParsedownExtra.php";
+
+require_once './vendor/autoload.php';
 require_once "./internal/upload.php";
 
 use SleekDB\Store;
@@ -283,7 +281,8 @@ $router->map('GET|POST', '/write', function () {
                     "password" => test_input($_POST["blogPostPassword"])
                 ];
 
-                if ($_FILES["imageUpload"] != "") {
+                if ($_FILES["imageUpload"] != "" && $_FILES["imageUpload"]['name'] != "") {
+                    var_dump($_FILES);die();
                     $uploadedFile = $_FILES["imageUpload"];
                     $verified = verifyImage($uploadedFile);
 
@@ -368,13 +367,15 @@ $router->map('GET', '/dashboard', function () {
     }
 }, 'dashboard');
 
-$match = $router->match();
+
+$match = $router->match($_SERVER['QUERY_STRING']);
 
 session_start();
 
 if (is_array($match) && is_callable($match['target'])) {
     call_user_func_array($match['target'], $match['params']);
 } else {
+    var_dump($match);
     echo ("404 - Page Not Found");
 }
 

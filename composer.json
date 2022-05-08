@@ -1,0 +1,8 @@
+{
+    "require": {
+        "rakibtg/sleekdb": "^2.13",
+        "altorouter/altorouter": "^2.0",
+        "erusev/parsedown": "^1.7",
+        "erusev/parsedown-extra": "^0.8.1"
+    }
+}
