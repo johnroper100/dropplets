@@ -1,6 +1,9 @@
 <?php
 require "header.php";
+require_once "./SleekDB/src/Store.php";
+use SleekDB\Store;
 ?>
+
 <h1 class="setupH1 setup"><?php i18n("write_title"); ?></h1>
 <form method="post" enctype="multipart/form-data" action="<?php if (isset($post['title'])) {
                                                                 echo $router->generate('editPost', ['id' => $post['_id']]);
@@ -15,9 +18,20 @@ require "header.php";
                                                                                                                                                             echo $post['author'];
                                                                                                                                                         } ?>" />
         <input type="url" name="blogPostImageURL" class="blogPostImageURL" placeholder="<?php i18n("write_post_image_placeholder"); ?>" value="<?php if (isset($post['image'])) {
-                                                                                                                                                    echo $post['image'];
-                                                                                                                                                } ?>" />
-        <input type="file" name="imageUpload" class="blogPostImage" id="imageUpload" />
+                                                                                                                                                        if (is_numeric($post['image']) == TRUE) {
+                                                                                                                                                            $databaseDirectory = "./siteDatabase";
+                                                                                                                                                            $imageStore = new Store("images", $databaseDirectory);
+                                                                                                                                                            $imageRecord = $imageStore->findById($post['image']);
+                                                                                                                                                            echo $imageRecord["url"];
+                                                                                                                                                        }
+                                                                                                                                                     } ?>" />
+        <input type="file" name="imageUpload" class="blogPostImage form-control form-control-sm" id="imageUpload" />
+        <?php if (isset($post['title'])) { ?>
+        	<!-- Implement i18n functions for the text -->
+            <label for="imageUpload">If you upload a file the existing image will be deleted! (10 MB Max)</label>
+        <?php } else { ?>
+            <label for="imageUpload">Choose a file to upload (10 MB Max)</label>
+        <?php } ?>
         <input type="text" name="blogPostPassword" class="blogPostTitle" placeholder="<?php i18n("write_post_password_placeholder"); ?>" value="<?php if (isset($post['password'])) {
                                                                                                                                                     echo $post['password'];
                                                                                                                                                 } ?>" />
@@ -38,6 +52,15 @@ require "header.php";
     var simplemde = new SimpleMDE({
         element: document.getElementById("blogPostContent")
     });
+    
+	var uploadCheck = document.getElementById("imageUpload");
+	uploadField.onchange = function (){
+		if(this.files[0].size > 10485760){
+			// Implement i18n functions for the text
+			alert("Uploaded file exceeds max size of 10 MB");
+			this.value = "";
+		}
+	}
 </script>
 <?php
 require "footer.php";
