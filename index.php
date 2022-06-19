@@ -282,7 +282,6 @@ $router->map('GET|POST', '/write', function () {
                 ];
 
                 if ($_FILES["imageUpload"] != "" && $_FILES["imageUpload"]['name'] != "") {
-                    var_dump($_FILES);die();
                     $uploadedFile = $_FILES["imageUpload"];
                     $verified = verifyImage($uploadedFile);
 
@@ -367,7 +366,6 @@ $router->map('GET', '/dashboard', function () {
     }
 }, 'dashboard');
 
-
 $match = $router->match($_SERVER['QUERY_STRING']);
 
 session_start();
@@ -375,7 +373,6 @@ session_start();
 if (is_array($match) && is_callable($match['target'])) {
     call_user_func_array($match['target'], $match['params']);
 } else {
-    var_dump($match);
     echo ("404 - Page Not Found");
 }
 
