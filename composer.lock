@@ -1,40 +1,40 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "b2db92f0aac7ffef3e6e7ca16b74dfad",
-    "packages": [
-        {
-            "name": "altorouter/altorouter",
-            "version": "2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dannyvankooten/AltoRouter.git",
-                "reference": "f6fede4f94ced7c22ba63a9b8af0bf2dc38e3cb2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dannyvankooten/AltoRouter/zipball/f6fede4f94ced7c22ba63a9b8af0bf2dc38e3cb2",
-                "reference": "f6fede4f94ced7c22ba63a9b8af0bf2dc38e3cb2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6.0"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "dev-master",
-                "phpunit/phpunit": "5.7.*",
-                "squizlabs/php_codesniffer": "3.4.2"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "AltoRouter.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
+  "_readme": [
+    "This file locks the dependencies of your project to a known state",
+    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+    "This file is @generated automatically"
+  ],
+  "content-hash": "61b61f844acbcbfd81bcb4b2274e86d8",
+  "packages": [
+    {
+      "name": "altorouter/altorouter",
+      "version": "2.0.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/dannyvankooten/AltoRouter.git",
+        "reference": "f6fede4f94ced7c22ba63a9b8af0bf2dc38e3cb2"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/dannyvankooten/AltoRouter/zipball/f6fede4f94ced7c22ba63a9b8af0bf2dc38e3cb2",
+        "reference": "f6fede4f94ced7c22ba63a9b8af0bf2dc38e3cb2",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=5.6.0"
+      },
+      "require-dev": {
+        "codeclimate/php-test-reporter": "dev-master",
+        "phpunit/phpunit": "5.7.*",
+        "squizlabs/php_codesniffer": "3.4.2"
+      },
+      "type": "library",
+      "autoload": {
+        "classmap": [
+          "AltoRouter.php"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],

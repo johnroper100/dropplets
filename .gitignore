@@ -1,4 +1,3 @@
 vendor
 .idea
 siteDatabase/*
-config.php
