@@ -23,6 +23,7 @@ require "header.php";
                 <select class="form-select" name="blogI18N" id="blogI18N" required value="<?php echo $siteConfig['I18N']; ?>">
                     <option value="en_US" <?php echo ($siteConfig['I18N'] === 'en_US' || empty($siteConfig['I18N']))?"selected":""; ?>>English</option>
                     <option value="fr_FR" <?php echo ($siteConfig['I18N'] === 'fr_FR')?"selected":""; ?>>Francais</option>
+                    <option value="uk_UA" <?php echo ($siteConfig['I18N'] === 'uk_UA')?"selected":""; ?>>Українська</option>
                 </select>
                 <label><?php i18n("settings_blog_name"); ?></label>
                 <input class="form-control" type="text" name="blogName" placeholder="<?php i18n("settings_blog_name_placeholder"); ?>" required value="<?php echo $siteConfig['name']; ?>" />
