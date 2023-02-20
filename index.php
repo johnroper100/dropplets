@@ -195,6 +195,7 @@ $router->map('GET|POST', '/post/[i:id]/edit', function ($id) {
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (isset($_POST["blogPostTitle"]) && isset($_POST["blogPostContent"]) && isset($_POST["blogPostAuthor"])) {
                         $post['title'] = test_input($_POST["blogPostTitle"]);
+                        $post['SEF_URL'] = preg_replace('/\s+/', '+', test_input($_POST["blogPostLink"]));
                         $post['author'] = test_input($_POST["blogPostAuthor"]);
                         $post['image'] = test_input($_POST["blogPostImageURL"]);
                         $post['password'] = test_input($_POST["blogPostPassword"]);
@@ -307,6 +308,7 @@ $router->map('GET|POST', '/write', function () {
                         "title" => test_input($_POST["blogPostTitle"]),
                         "date" => time(),
                         "draft" => true,
+                        "SEF_URL"=>preg_replace('/\s+/', '+', test_input($_POST["blogPostLink"])),
                         "author" => test_input($_POST["blogPostAuthor"]),
                         "content" => test_input($_POST["blogPostContent"]),
                         "password" => test_input($_POST["blogPostPassword"])
@@ -409,6 +411,37 @@ $router->map('GET', '/dashboard', function () {
         header("Location: " . $router->generate('settings'));
     }
 }, 'dashboard');
+
+// Get Specific Post - Config file must exist, User does not need to be authenticated
+$router->map('GET', '/[:SEF_URL]', function ($SEF_URL) {
+    global $router;
+    if (file_exists("config.php")) {
+        global $siteConfig;
+        global $blogStore;
+        global $Extra;
+
+        $post = $blogStore->findOneBy(["SEF_URL", "=", urldecode($SEF_URL)]);
+        
+        if ($post == null) {
+            // Build out nice 404 page and header to it
+            echo ("404 Not Found");
+        } else {
+            $passAttempt = "";
+            if (isset($_REQUEST['password'])) {
+                $passAttempt = $_REQUEST['password'];
+            }
+            if (empty($post["password"]) || $passAttempt === $post["password"]) {
+                $pageTitle = $post['title'];
+                require __DIR__ . '/templates/' . $siteConfig['template'] . '/post.php';
+            } else {
+                $pageTitle = "Private post";
+                require __DIR__ . '/internal/private.php';
+            }
+        }
+    } else {
+        header("Location: " . $router->generate('settings'));
+    }
+}, "SEF_URL");
 
 $match = $router->matcher();
 

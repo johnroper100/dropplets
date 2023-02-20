@@ -18,7 +18,7 @@ setlocale(LC_ALL, i18n('locale',false));
         <div class="post">
             <div class="postText">
                 <h2 id="postTitle">
-                    <a href="<?php echo $router->generate('post', ['id' => $dPost['_id']]); ?>"><?php echo $dPost['title']; ?></a>
+                    <a href="<?= empty($dPost['SEF_URL']) ? $router->generate('post', ['id' => $dPost['_id']]) : $router->generate('SEF_URL', ['SEF_URL' => $dPost['SEF_URL']]) ?>"><?php echo $dPost['title']; ?></a>
                 </h2>
                 <?php i18n("dashboard_posted_by"); ?> <?php echo $dPost['author']; ?> - <?php echo date(i18n('dashboard_post_fulldate',false), $dPost['date']); ?>
                 <br>
@@ -41,7 +41,7 @@ setlocale(LC_ALL, i18n('locale',false));
         <div class="post">
             <div class="postText">
                 <h2 id="postTitle">
-                    <a href="<?php echo $router->generate('post', ['id' => $pPost['_id']]); ?>"><?php echo $pPost['title']; ?></a>
+                    <a href="<?= empty($pPost['SEF_URL']) ? $router->generate('post', ['id' => $pPost['_id']]) : $router->generate('SEF_URL', ['SEF_URL' => $pPost['SEF_URL']]) ?>"><?php echo $pPost['title']; ?></a>
                 </h2>
                 <?php i18n("dashboard_posted_by"); ?> <?php echo $pPost['author']; ?> - <?php echo date(i18n('dashboard_post_fulldate',false), $pPost['date']); ?>
                 <br>
