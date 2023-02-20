@@ -17,6 +17,9 @@ use SleekDB\Store;
         <input type="text" name="blogPostAuthor" class="blogPostAuthor" placeholder="<?php i18n("write_post_author_placeholder"); ?>" required value="<?php if (isset($post['author'])) {
                                                                                                                                                             echo $post['author'];
                                                                                                                                                         } ?>" />
+        <input type="text" name="blogPostLink" class="blogPostLink" placeholder="<?php i18n("write_post_link_placeholder"); ?>" value="<?php if (isset($post['SEF_URL'])) {
+                                                                                                                                                            echo $post['SEF_URL'];
+                                                                                                                                                        } ?>" />
         <input type="url" name="blogPostImageURL" class="blogPostImageURL" placeholder="<?php i18n("write_post_image_placeholder"); ?>" value="<?php if (isset($post['image'])) {
                                                                                                                                                         if (is_numeric($post['image']) == TRUE) {
                                                                                                                                                             $databaseDirectory = "./siteDatabase";

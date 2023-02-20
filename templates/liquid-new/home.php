@@ -25,8 +25,8 @@ foreach ($allPosts as $post) {
 				echo '<img class="card-img-top" src="' . $siteConfig["OGImage"] . '">';
 			}?>
 			<div class="card-body">
-				<a href="<?php echo $router->generate('post', ['id' => $post['_id']]); ?>" class="text-decoration-none text-dark">
-					<h3 class="card-title"><?php echo $post['title']; ?></h3>
+				<a href="<?= empty($post['SEF_URL']) ? $router->generate('post', ['id' => $post['_id']]) : $router->generate('SEF_URL', ['SEF_URL' => $post['SEF_URL']]) ?>" class="text-decoration-none text-dark">
+					<h3 class="card-title"><?= $post['title']; ?></h3>
 				</a>
 				<?php
 				if ($post['password'] != '') { ?>
